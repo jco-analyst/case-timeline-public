@@ -1,0 +1,506 @@
+{
+  "metadata": {
+    "generated": "2025-11-10",
+    "purpose": "Timeline events extracted from case files for timeline application",
+    "structure": "Events grouped by claim type with evidence links"
+  },
+  "claims": {
+    "wrongful-dismissal": [
+      {
+        "date": "2024-10-01",
+        "event": "Write-up #1: Hydraulic troubleshooting incident (pretextual OHS retaliation). Employee provided technical input, boss issued warning for headphones. Verbal: 'You shouldn't have spoken to the VP like that.'",
+        "file": "PROGRESSIVE-DISCIPLINE-ANALYSIS.md",
+        "significance": "HIGH - OHS retaliation; if invalid, entire chain collapses"
+      },
+      {
+        "date": "2024-01-01",
+        "event": "Pattern of 10+ termination threats throughout employment. Boss constantly threatens: 'You're lucky someone likes you or you'd be fired,' 'Any other time you'd be fired for insubordination'",
+        "file": "PROGRESSIVE-DISCIPLINE-ANALYSIS.md, TIMECARD-SYSTEM-ANALYSIS.md",
+        "significance": "HIGH - Coercive environment, duress defense"
+      },
+      {
+        "date": "2025-07-01",
+        "event": "'Last chance' warning for timecards during 18-day overtime marathon. Boss and Michelle present. Verbally stated but unclear if written in documents. Boss promised reminders but didn't follow through.",
+        "file": "TIMECARD-SYSTEM-ANALYSIS.md",
+        "significance": "MEDIUM - One of 10+ threats; unclear if documented in writing"
+      },
+      {
+        "date": "2025-09-03",
+        "event": "Employee forgot timecard submission (last day before parental leave)",
+        "file": "TERMINATION-INCIDENT.md",
+        "significance": "LOW - triggers later events"
+      },
+      {
+        "date": "2025-09-04",
+        "event": "Parental leave begins (5-week protected activity, Sept 4 - Oct 9)",
+        "file": "TERMINATION-INCIDENT.md",
+        "significance": "HIGH - Protected activity"
+      },
+      {
+        "date": "2025-09-07",
+        "event": "HR Michelle Sherman emails at 12:33 PM: 'I do not see a timecard for September 3, 2025' WHILE EMPLOYEE ON PARENTAL LEAVE",
+        "file": "TERMINATION-INCIDENT.md",
+        "significance": "CRITICAL - Employer waited 33 days from this email until employee returned to issue write-up"
+      },
+      {
+        "date": "2025-10-10",
+        "event": "SMOKING GUN - Write-up #4 issued SAME DAY as return from parental leave, for Sept 3 pre-leave conduct (33 days after Sept 7 email). Textbook parental leave retaliation.",
+        "file": "TERMINATION-INCIDENT.md, Wrongful-Dismissal-Claim-Summary.md",
+        "significance": "CRITICAL - Prima facie parental leave retaliation"
+      },
+      {
+        "date": "2025-10-14",
+        "event": "4:19 AM - Employee texts boss: 'Can get sick note if you want later.' Boss: 'Yes please.' Anticipatory compliance showing learned helplessness.",
+        "file": "SICK-NOTE-DISCRIMINATION.md",
+        "significance": "MEDIUM - Learned helplessness; differential treatment begins"
+      },
+      {
+        "date": "2025-10-16",
+        "event": "6:39 AM - Boss escalates to demand: 'I need a doctors notes from the previous day and today.' Same week: Employee witnessed Jessica told 'Go home if you're sick' with NO sick note requirement - multiple witnesses.",
+        "file": "SICK-NOTE-DISCRIMINATION.md",
+        "significance": "HIGH - Differential treatment proven; timing shows building paper trail (6-8 days before termination)"
+      },
+      {
+        "date": "2025-10-20",
+        "event": "Employee requests schedule accommodation for mandatory overtime. Boss visibly upset, almost aggressive. Employee backs down. Shows retaliation trigger: dared to ask for accommodation.",
+        "file": "TERMINATION-INCIDENT.md, family-status/DENIED-SCHEDULE-ACCOMMODATION.md",
+        "significance": "HIGH - 1-2 days before termination; retaliation for asserting protected right"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "8:00 AM - TERMINATION INCIDENT. Employee late ~1.5 hours (phone died overnight). Immediately texted boss: 'Sorry, my phone died during the middle of the night, on my way now.' Technical failure, not childcare-related.",
+        "file": "TERMINATION-INCIDENT.md, Wrongful-Dismissal-Claim-Summary.md",
+        "significance": "CRITICAL - Different circumstances from prior lateness; immediate notification; technical failure"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "~12:00 PM - AMBUSH TERMINATION. Called in with no notice. Meeting UNDER 2 MINUTES. John + Michelle present. Handed letter immediately. 'You know what this is.' Employee in shock reading 'just cause' + 'no severance.' No discussion, no opportunity to explain.",
+        "file": "TERMINATION-INCIDENT.md, Wrongful-Dismissal-Claim-Summary.md",
+        "significance": "CRITICAL - Same-day termination; no investigation; no procedural fairness; predetermined outcome"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "After termination - Work email access cut off couple hours later while employee reviewing documents. Spoliation of portal unlock emails and pre-termination planning communications.",
+        "file": "TERMINATION-INCIDENT.md, TIMECARD-SYSTEM-ANALYSIS.md",
+        "significance": "HIGH - Evidence spoliation; adverse inference for destroyed evidence"
+      }
+    ],
+    "parental-leave-retaliation": [
+      {
+        "date": "2025-09-04",
+        "event": "Parental leave begins (5-week protected activity)",
+        "file": "TERMINATION-INCIDENT.md",
+        "significance": "HIGH - Protected activity under Alberta Human Rights Act"
+      },
+      {
+        "date": "2025-10-10",
+        "event": "SMOKING GUN - Write-up #4 issued SAME DAY as return from parental leave, for pre-leave conduct. Prima facie parental leave retaliation.",
+        "file": "TERMINATION-INCIDENT.md",
+        "significance": "CRITICAL - Creates legal presumption of discrimination"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "Termination 12 days after parental leave return. Pattern: Oct 10 write-up + Oct 22 termination = employer targeted employee for taking parental leave",
+        "file": "TERMINATION-INCIDENT.md, Wrongful-Dismissal-Claim-Summary.md",
+        "significance": "CRITICAL - Strong inference of family status discrimination"
+      }
+    ],
+    "bad-faith": [
+      {
+        "date": "2024-10-01",
+        "event": "Write-up #1: First write-up. Signed under duress: 'I just didn't want to lose my job'. No objections added. Beginning of coercive environment.",
+        "file": "PROGRESSIVE-DISCIPLINE-ANALYSIS.md",
+        "significance": "HIGH - All subsequent write-ups signed under pattern of threats"
+      },
+      {
+        "date": "2024-10-01",
+        "event": "Boss tells field hand story (wage theft): Field hand forced to choose between getting fired or working without pay. Boss bragged about illegal conduct to intimidate employee.",
+        "file": "TIMECARD-SYSTEM-ANALYSIS.md",
+        "significance": "HIGH - Admits to illegal wage theft; shows pattern of coercion"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "Ambush termination: No notice, meeting under 2 minutes, decision pre-made, employee in shock, no opportunity to respond, no investigation, same-day firing for technical failure with no progressive discipline",
+        "file": "TERMINATION-INCIDENT.md, Wrongful-Dismissal-Claim-Summary.md",
+        "significance": "CRITICAL - Multiple procedural failures supporting Wallace damages"
+      }
+    ],
+    "family-status": [
+      {
+        "date": "2025-04-30",
+        "event": "First documented lateness notification (after phone loss before April 30). Couple minutes late, proactively communicated to boss.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "LOW - Beginning of documented pattern"
+      },
+      {
+        "date": "2025-05-23",
+        "event": "Documented lateness notification - couple of minutes late",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "LOW - Pattern evidence"
+      },
+      {
+        "date": "2025-05-29",
+        "event": "Documented lateness notification - couple of minutes late",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "LOW - Pattern evidence"
+      },
+      {
+        "date": "2025-06-04",
+        "event": "Child's medical appointment. Employee takes extra 30 minutes at lunch, proactively texts boss, makes up time. Family status obligation with good faith accommodation.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "MEDIUM - Family status obligation, proactive communication, demonstrates good faith conduct"
+      },
+      {
+        "date": "2025-06-09",
+        "event": "Heavy overtime period begins. June 9 - July 31 (53 days total) of intensive overtime demands with minimal advance notice. Sets context for family status conflicts.",
+        "file": "JUNE-JULY-OVERTIME-PERIOD.md",
+        "significance": "MEDIUM - Employer-caused exhaustion that leads to family status discrimination incidents"
+      },
+      {
+        "date": "2025-06-13",
+        "event": "APPROVED sick child leave (SMOKING GUN precedent). Employee texts: 'Hey John, Kinza wasn't feeling too well last night. Can I take the morning off?' Boss APPROVES: 'Yes you're good. Thanks for letting me know.' Protected family status accommodation. Later used as pattern evidence against employee.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md, ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "CRITICAL - Proves employer CAN accommodate family needs; shows June 13 was accommodated but Aug 28 denied (accommodation withdrawal pattern)"
+      },
+      {
+        "date": "2025-06-18",
+        "event": "Missed alarm due to sleep deprivation from caring for 8-month-old infant. Less than 1 hour late (longest single lateness documented). Proactively texted boss.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "MEDIUM - Family status nexus (infant care sleep disruption); demonstrates causal connection between childcare and lateness"
+      },
+      {
+        "date": "2025-06-19",
+        "event": "Brake parts needed for vehicle safety maintenance. Couple minutes late returning from lunch. Proactively texted boss.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "LOW - Vehicle safety maintenance; not family-status related"
+      },
+      {
+        "date": "2025-06-25",
+        "event": "Traffic delay. Couple minutes late. Proactively texted boss.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "LOW - External factor; not family-status related"
+      },
+      {
+        "date": "2025-07-06",
+        "event": "Bereavement leave requested for 2 days (Monday and Tuesday) for celebration of life/memorial service. Protected family status obligation.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "MEDIUM - Protected family status obligation (bereavement and elderly family memorial)"
+      },
+      {
+        "date": "2025-07-14",
+        "event": "Peak overtime marathon begins. July 14-31: 18 consecutive days of work with ZERO days off, including weekends. Daily hours 8-11.5 hours. Total: 140.5 hours in 15 days (average 9.37 hrs/day).",
+        "file": "JUNE-JULY-OVERTIME-PERIOD.md",
+        "significance": "HIGH - Unreasonable work demands, employer-caused exhaustion, context for July 20-21 family status discrimination incidents"
+      },
+      {
+        "date": "2025-07-20",
+        "event": "SMOKING GUN #1 - Sunday incident. Employee at work on SUNDAY, texts boss at 6:00 PM: 'Sorry John, I don't think I can make it back tonight. I hope you guys finished the primer by 6pm.' Boss demands return to work for 5+ more hours (until ~11 PM/midnight). Employee already worked 7 consecutive days. Needs to care for 9-month-old baby and wife at home. Employee texts 8:52 PM: 'Oh wow, still? Should I come in now?' Boss threatens: 'We are going to have a major talk tomorrow.'",
+        "file": "SMOKING-GUNS.md, ACCOMMODATION-WITHDRAWAL.md, JUNE-JULY-OVERTIME-PERIOD.md",
+        "significance": "CRITICAL - Smoking Gun #1: Boss threatened employee for prioritizing family obligations (caring for 9-month-old and wife). Creates temporal connection to all subsequent retaliation."
+      },
+      {
+        "date": "2025-07-21",
+        "event": "SMOKING GUN #1 (continued) - 'Major talk' meeting. Employee explained: 'Already working so much overtime, need time to go home and take care of household duties and chores.' Boss's smoking gun statement: 'When we're in crunch time, I need you in the shop.' Explicit rejection of family/household obligations as legitimate during employer-determined 'crunch time.'",
+        "file": "SMOKING-GUNS.md, ACCOMMODATION-WITHDRAWAL.md, JUNE-JULY-OVERTIME-PERIOD.md",
+        "significance": "CRITICAL - Smoking Gun #1 (continued): Explicit family status discrimination statement by supervisor. Sets turning point for accommodation withdrawal."
+      },
+      {
+        "date": "2025-07-24",
+        "event": "Day 11 of 18-day consecutive work marathon. Employee needs car maintenance (20 min extended lunch). Proactively texted boss, made up time same day. Time compensated.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "MEDIUM - Employer-caused exhaustion (during marathon work period); vehicle maintenance necessity; good faith accommodation"
+      },
+      {
+        "date": "2025-07-31",
+        "event": "Day 18 of 18-day consecutive work marathon without rest. Employee 15 minutes late due to physical exhaustion from employer's overtime demands. Proactively texted boss. Shows employer caused lateness through unreasonable work demands.",
+        "file": "LATENESS-PATTERN-ANALYSIS.md, JUNE-JULY-OVERTIME-PERIOD.md",
+        "significance": "HIGH - Employer-caused exhaustion; demonstrates pretextual discipline (employer created problem, then punished employee for result)"
+      },
+      {
+        "date": "2025-08-26",
+        "event": "Sleep deprivation from infant care. Employee woke up late caring for 10-month-old. Few minutes late. Proactively texted boss: 'Woke up late this morning, will be a few minutes late.'",
+        "file": "LATENESS-PATTERN-ANALYSIS.md",
+        "significance": "MEDIUM - Family status nexus (infant care sleep disruption); 54% of lateness pattern is family-related"
+      },
+      {
+        "date": "2025-08-28",
+        "event": "SMOKING GUN #3 - Sick baby accommodation denial. Employee requests day off: 'Hey John, my daughter and wife are still pretty sick and need my help tomorrow, is it okay if I take the day off tomorrow? I'll be back Friday.' Boss EXPLICITLY REFUSES: 'I'm sorry they are sick, but you still need to come to work.' Boss demands doctor's note: 'U will need to bring a doctors note.'",
+        "file": "SMOKING-GUNS.md, AUGUST-28-SICK-BABY-DENIAL.md, ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "CRITICAL - Smoking Gun #3: Explicit denial of childcare accommodation for sick infant. Boss acknowledged baby was sick but REFUSED accommodation. Third explicit family status discrimination incident in 6 weeks (July 21, Aug 4, Aug 28)."
+      },
+      {
+        "date": "2025-09-02",
+        "event": "Doctor's note obtained for August 28 sick baby incident. Medical documentation confirms infant daughter required care on August 28 (viral cough diagnosis).",
+        "file": "AUGUST-28-SICK-BABY-DENIAL.md",
+        "significance": "MEDIUM - Confirms medical necessity and legitimacy of Aug 28 accommodation request"
+      },
+      {
+        "date": "2025-09-03",
+        "event": "Boss follows up demanding doctor's note: 'Where is ur doctors note.' Employee provides note from Sept 2 same day. Shows escalating documentation demands after denying accommodation.",
+        "file": "AUGUST-28-SICK-BABY-DENIAL.md, ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "MEDIUM - Escalating enforcement patterns; anticipatory discipline building"
+      },
+      {
+        "date": "2025-09-04",
+        "event": "Employee begins parental leave (5-week protected activity, Sept 4 - Oct 9). Protected family status activity under Alberta Human Rights Act.",
+        "file": "Multiple files",
+        "significance": "HIGH - Protected family status activity begins"
+      },
+      {
+        "date": "2025-10-09",
+        "event": "Employee returns from parental leave. End of 5-week protected activity period.",
+        "file": "Multiple files",
+        "significance": "MEDIUM - End of protected activity; context for Oct 10 retaliation"
+      },
+      {
+        "date": "2025-10-10",
+        "event": "SMOKING GUN #4 - Same-day retaliation upon return from parental leave. Write-up #4 issued SAME DAY employee returns for September 3 pre-leave conduct. Michelle Sherman emailed Sept 7 (WHILE employee on parental leave) but employer WAITED 33 DAYS until Oct 10 to discipline. Proves pretext: if issue was urgent (Sept 7 deadline), why wait until employee returned from leave to discipline?",
+        "file": "SMOKING-GUNS.md, ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "CRITICAL - Smoking Gun #4: Parental leave retaliation. Prima facie evidence of family status discrimination. 33-day delay proves pretextual discipline and retaliatory timing."
+      },
+      {
+        "date": "2025-10-14",
+        "event": "Employee sick (cold/flu). Takes sick days Oct 14 & 16. At 4:19 AM, employee proactively texts boss with anticipatory compliance: 'Can get sick note if you want later.' Boss responds: 'Yes please.' Shows learned helplessness and anticipatory accommodation requests.",
+        "file": "ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "MEDIUM - Shows employee learned to anticipate demands; beginning of differential treatment pattern"
+      },
+      {
+        "date": "2025-10-16",
+        "event": "Boss escalates sick note demand: 'I need a doctors notes from the previous day and today.' DIFFERENTIAL TREATMENT: Same week, co-worker Jessica sick, sent home, NO sick note required. Multiple witnesses to differential enforcement.",
+        "file": "ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "HIGH - Differential treatment proven by witness testimony; timing shows building paper trail 6-8 days before termination"
+      },
+      {
+        "date": "2025-10-20",
+        "event": "SMOKING GUN #7 - Boss announces mandatory 12-hour shifts + weekends (Oct 20-31, 12 consecutive days). Employee requests reasonable accommodation: take Thu Oct 23 (half day) + Fri Oct 24 (full day) off, work weekends + 12-hour shifts rest of period (same total hours). Reasonable request: willing to work same/more hours, just different days.",
+        "file": "DENIED-SCHEDULE-ACCOMMODATION.md, ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "HIGH - Accommodation request begins; sets up retaliation trigger"
+      },
+      {
+        "date": "2025-10-21",
+        "event": "SMOKING GUN #7 (continued) - Boss becomes VISIBLY UPSET, ALMOST AGGRESSIVE when responding to accommodation request. Refuses with coercive language: 'You are required to work. It's in your contract. No ifs ands or buts.' Employee backs down completely ('I just left it at that') and was going to work those days anyway. Employee felt intimidated: 'I knew there was nothing I could say that would have changed his mind' and 'I knew I had to just leave and accept what he said.'",
+        "file": "DENIED-SCHEDULE-ACCOMMODATION.md, ACCOMMODATION-WITHDRAWAL.md",
+        "significance": "CRITICAL - Smoking Gun #7 (continued): Hostile, aggressive reaction to protected accommodation request. Boss's discriminatory animus evident. CRITICAL: Employee backed down and was going to comply - proves termination 1-2 days later was retaliation for DARING TO ASK (not for refusing)."
+      },
+      {
+        "date": "2025-10-22",
+        "event": "SMOKING GUN #5 - TERMINATION 12 DAYS AFTER PARENTAL LEAVE RETURN, 1-2 DAYS AFTER ACCOMMODATION REQUEST. Employee late ~1.5 hours (phone died overnight - technical failure, not family-related). Immediately texted boss: 'Sorry, my phone died during the middle of the night, on my way now.' Ambush termination under 2 minutes. No investigation. Same-day termination with letter already prepared. No opportunity to explain.",
+        "file": "SMOKING-GUNS.md, ACCOMMODATION-WITHDRAWAL.md, DENIED-SCHEDULE-ACCOMMODATION.md",
+        "significance": "CRITICAL - Smoking Gun #5: Termination timing proves retaliation. 12 days after parental leave return + 1-2 days after accommodation request = retaliatory timing. Different circumstances from prior lateness (phone technical failure, not childcare). Same-day termination without investigation proves pretext."
+      }
+    ],
+    "disability": [
+      {
+        "date": "2024-01-01",
+        "event": "ADHD diagnosed (approximately, before hiring). Diagnosis date was prior to January 2024 employment. Employer learned of diagnosis through pre-employment drug test showing ADHD medication (amphetamines) and written doctor's note provided at hiring.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "CRITICAL - Employer had actual knowledge of ADHD from day one of employment"
+      },
+      {
+        "date": "2024-01-01",
+        "event": "ADHD disclosed to employer at hiring: Pre-employment drug test showed amphetamine medication. Employee provided written doctor's note explaining ADHD diagnosis and medication. Documentation on file with employer from hiring process.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "CRITICAL - Documented employer knowledge of ADHD; employer received written medical documentation at hire"
+      },
+      {
+        "date": "2024-10-01",
+        "event": "ADHD-Related Discipline Begins: Fall 2024 onwards - 4-6 timecard write-ups issued for ADHD-related executive function challenges (forgetting routine administrative tasks, time management issues). Employer knew about ADHD but offered no accommodations.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "HIGH - Disciplined for disability-related behavior without accommodation; employer knew about ADHD but failed to accommodate"
+      },
+      {
+        "date": "2024-10-01",
+        "event": "October 2024: Headphones write-up issued. ADHD often requires sensory accommodations (fidget tools, audio stimulation, movement breaks). Using headphones could be self-accommodation strategy for ADHD executive function support.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM-HIGH - Possible ADHD accommodation need; employer may have disciplined accommodation strategy without recognizing disability connection"
+      },
+      {
+        "date": "2025-02-18",
+        "event": "Sleep Apnea Diagnosed: Doctor's letter dated February 18, 2025 confirms MODERATE severity sleep apnea diagnosis based on sleep study. Employee received CPAP prescription.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "CRITICAL - Employer's knowledge date for second disability; moderate severity confirmed"
+      },
+      {
+        "date": "2025-02-18",
+        "event": "Sleep Apnea Disclosed: Employee told boss about sleep apnea diagnosis and provided doctor's letter dated February 18, 2025. Boss (John) also has sleep apnea - they discussed the condition together.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "CRITICAL - Employer had actual knowledge of sleep apnea; boss's own experience with same condition demonstrates employer understanding of impact"
+      },
+      {
+        "date": "2025-04-11",
+        "event": "Lateness Incident #1: Employee late (first incident after sleep apnea diagnosis). Sleep apnea causes difficulty waking to alarms and chronic fatigue.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "HIGH - Lateness began 2 months AFTER employer knew about sleep apnea; pattern of discipline for disability-related behavior"
+      },
+      {
+        "date": "2025-04-15",
+        "event": "Lateness Incident #2: Employee late (after sleep apnea diagnosis). Demonstrates pattern of sleep apnea-related lateness.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Continuing pattern of lateness after disability disclosure"
+      },
+      {
+        "date": "2025-04-23",
+        "event": "Lateness Incident #3: Employee late (after sleep apnea diagnosis). Sleep apnea-related difficulty waking to alarm.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Continuing pattern of sleep apnea-related lateness"
+      },
+      {
+        "date": "2025-05-23",
+        "event": "Lateness Incident #4: Employee late (after sleep apnea diagnosis). Pattern continues despite employer knowledge.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Pattern continues; no accommodations offered by employer"
+      },
+      {
+        "date": "2025-05-29",
+        "event": "Lateness Incident #5: Employee late (after sleep apnea diagnosis). Continuing sleep apnea-related lateness pattern.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Pattern continues; employer aware but takes no accommodation action"
+      },
+      {
+        "date": "2025-06-04",
+        "event": "Lateness Incident #6: Employee late (after sleep apnea diagnosis). Sleep apnea-related sleep disruption continues.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Ongoing pattern of lateness related to known disability"
+      },
+      {
+        "date": "2025-06-13",
+        "event": "Lateness Incident #7: Employee late (after sleep apnea diagnosis). Sleep apnea-related difficulty waking.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Continuing pattern despite employer knowledge of disability"
+      },
+      {
+        "date": "2025-06-18",
+        "event": "Lateness Incident #8: Employee late, attributed to 'missed alarm' (longest single lateness, under 1 hour). CLASSIC SLEEP APNEA SYMPTOM - difficulty waking to alarms. Combined with sleep deprivation from caring for 8-month-old baby.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "HIGH - Textbook sleep apnea symptom; demonstrates causation; occurred after known disability; combined family/disability causes"
+      },
+      {
+        "date": "2025-06-20",
+        "event": "Lateness Incident #9: Employee late (after sleep apnea diagnosis). Sleep apnea-related lateness continues.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Pattern continues with no accommodation offered"
+      },
+      {
+        "date": "2025-07-06",
+        "event": "Bereavement leave. Followed by exhausting work period compounding sleep apnea effects.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Mark of shift to extreme exhaustion period"
+      },
+      {
+        "date": "2025-07-07",
+        "event": "July 7-31 Overtime Marathon Begins: Employee works 18 CONSECUTIVE DAYS (July 7-31) with ZERO days off, totaling 140.5 hours. Sleep apnea would compound exhaustion. Pattern shows employer awareness of physical limitations during this period.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "HIGH - Sleep apnea disability compounded by extreme work conditions; employer subjected employee with known disability to intense schedule; discipline during this period is especially problematic"
+      },
+      {
+        "date": "2025-07-31",
+        "event": "July/August 2025: Employee disciplined for being late during 18-day exhaustion marathon. Sleep apnea effects would be maximized during this extreme fatigue period.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "CRITICAL - Discipline during maximum sleep apnea impact (extreme exhaustion); employer knew about sleep apnea and subjected employee to intense schedule; then disciplined for disability-caused lateness"
+      },
+      {
+        "date": "2025-07-31",
+        "event": "'Last chance' warning for timecards during 18-day overtime marathon. Boss promised reminders to help with ADHD-related executive function challenges but failed to follow through consistently. Michelle refused to fix broken timecard system.",
+        "file": "TIMECARD-SYSTEM-ANALYSIS.md, DISABILITY-DISCRIMINATION-CLAIM-SUMMARY.md",
+        "significance": "HIGH - Employer offered accommodation for ADHD (reminders) but failed to implement; refused system improvements; then disciplined for continued issues"
+      },
+      {
+        "date": "2025-10-10",
+        "event": "Lateness Incident #10: Employee late (after sleep apnea diagnosis). Continuing pattern of sleep apnea-related lateness.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md",
+        "significance": "MEDIUM - Late incidents continue through October; demonstrates ongoing pattern despite known disability"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "TERMINATION: Employee terminated for lateness pattern (13 incidents) that occurred ENTIRELY after employer knew about sleep apnea (Feb 18 - Oct 22). ALL discipline and termination decisions made with knowledge of disability and without any accommodations offered.",
+        "file": "TERMINATION-INCIDENT.md, DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "CRITICAL - Textbook disability discrimination: employer knew about sleep apnea (Feb 18), did not accommodate, disciplined for sleep apnea-related behavior, and terminated for behaviors caused by known disability without offering any accommodations"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "BOSS'S SAME DISABILITIES: Boss (John) has BOTH ADHD and sleep apnea. Boss stated 'I understand the struggles' regarding employee's conditions. Yet boss disciplined employee for behaviors caused by disabilities he personally experiences. Shows malice/knowing discrimination, not ignorance.",
+        "file": "DISABILITY-DISCRIMINATION-NOTES.md, Disability-Discrimination-Claim-Summary.md",
+        "significance": "CRITICAL - Demonstrates employer intimately understood disability impacts; undermines 'undue hardship' defense; shows deliberate choice to discipline rather than accommodate; could support aggravated/punitive damages"
+      }
+    ],
+    "ohs-retaliation": [
+      {
+        "date": "2024-06-01",
+        "event": "Summer 2024 - Hydraulic Troubleshooting (Incident A): Employee researched for multiple hours and provided technical input during project failures. Identified root cause: wrong fittings for application, overstressed from incorrect lengths/overtightening. Employee suggested Loctite solution based on technical research. Boss initially dismissed concerns and blamed workers for installation technique failures.",
+        "file": "HYDRAULIC-WRITEUP-INCIDENT.md",
+        "significance": "HIGH - Protected activity (safety troubleshooting); establishes pattern of employee expertise, boss dismissal, and later vindication (boss eventually bought correct fittings)"
+      },
+      {
+        "date": "2024-10-01",
+        "event": "Confined Space Safety Meeting (Incident B, exact date unknown, estimated fall 2024 before hydraulic writeup Oct 2024): Employee raised legitimate safety concerns about inadequate PPE for tank work (debris flying into eyes despite safety glasses, tanks not 100% clean). Employee requested full face mask. Employer REFUSED based on flawed MSDS reasoning (MSDS covers chemical hazards, not physical debris). Employee challenged: 'Regardless of MSDS, there is debris flying into our eyes' + 'You don't really care about us' (to safety manager). Safety manager escalated, sent employee HOME FROM MEETING. NEXT DAY: Manager threatened termination: 'I would have fired you if you were talking to me like that.' SMOKING GUN: Weeks to months after incident, employer implemented confined space entry procedures, proving employee's assessment was correct.",
+        "file": "CONFINED-SPACE-INCIDENT.md",
+        "significance": "CRITICAL - OHS Retaliation (Alberta OHS Act Section 35): (1) Protected activity - legitimate safety advocacy, PPE request, challenging flawed employer logic; (2) Adverse action - removed from safety meeting, termination threat; (3) Causal connection - manager's retaliation threat; (4) VINDICATION - employer later implemented confined space procedures proving employee right; (5) Shows retaliation pattern: Request denied → Employee threatened → Proven right → Later termination"
+      },
+      {
+        "date": "2024-10-01",
+        "event": "Write-Up #1: Hydraulic Lines & Headphones (Incident C, October 2024 exact date unknown): Employee provided technical input during VP troubleshooting meeting about hydraulic project failures. Presented analysis: 'We're using the WRONG FITTINGS.' Explained overstressed fittings permanently damaged. Suggested Loctite solution. Received written warning claiming 'headphones during safety training' + verbal warning: 'Shouldn't have spoken to the VP like that.' No HR present. Signed under duress (first write-up ever, established intimidation pattern, 'I just didn't want to lose my job').",
+        "file": "HYDRAULIC-WRITEUP-INCIDENT.md",
+        "significance": "CRITICAL - OHS Retaliation (pretextual discipline): (1) Protected activity - safety troubleshooting, technical expertise during invited discussion; (2) Adverse action - formal written warning (first ever), damaged relationship; (3) Causal connection - boss's own words reveal true motive ('speaking to VP'), not headphones; (4) Pretextual - written violation (headphones) contradicts verbal warning (VP comments); (5) Coercive environment - all write-ups signed under duress"
+      },
+      {
+        "date": "2025-07-19",
+        "event": "Epoxy Tank Chemical Exposure Incident (July 19 or 21, 2025): Three workers (Jon/employee, Ramon/team lead, RJ) injured spray painting BOS tank interior with Hempel Acrylithane Enamel + curing agent (new to crew for tank work) + accelerator in confined space. Workers experienced intense eye pain and respiratory irritation within 5-10 minutes of exposure. Work stoppage required after 30-60 minutes of attempting worker rotations. Pain unbearable, eyes watering continuously. Respiratory irritation when mask shifted.",
+        "file": "EPOXY-TANK-INJURY-INCIDENT.md",
+        "significance": "CRITICAL - Multiple OHS violations: (1) Failure to conduct hazard assessment (Alberta OHS Code s. 7) - no assessment for new chemical (accelerator) in confined tank spray work; (2) Failure to consult MSDS - manufacturer guidance specifies air-fed respirators for 'continuous and prolonged' spray work, employer never consulted MSDS before exposing workers; (3) Inadequate PPE - proven by injury outcome (all 3 workers injured); (4) No worker training - workers didn't know about MSDS air-fed respirator requirement; (5) Rushed project - employer consciously cut safety corners to meet deadline (willful conduct, not negligent)"
+      },
+      {
+        "date": "2025-07-22",
+        "event": "Better Masks Provided (July 22, 2025, 1-2 days after injury, text message evidence): Employer provided full face masks with better respiratory protection. Work completed successfully with new masks - eyes did NOT hurt, NO FURTHER INJURIES. Complete vindication of employee's original ~2024 PPE request (Incident B - confined space meeting) that was denied.",
+        "file": "EPOXY-TANK-INJURY-INCIDENT.md",
+        "significance": "CRITICAL VINDICATION: (1) Proves initial PPE was inadequate (injury outcome proves it); (2) Proves better PPE was necessary and available (July 22 success with new masks proves it); (3) Vindicates employee's ~2024 confined space PPE request (Incident B); (4) Shows employer CAN provide adequate PPE quickly (1-2 days when forced); (5) Year-long pattern: Request PPE ~2024 → DENIED → Sent home from meeting + threatened → Workers injured July 2025 → Better PPE provided July 22 → Termination Oct 22 (3 months later)"
+      },
+      {
+        "date": "2025-10-22",
+        "event": "Termination - 3 months after epoxy incident vindication (October 22, 2025): Employee terminated ~3 months after epoxy injury incident vindication, ~1 month after return from parental leave, ~3 months after July 22 PPE vindication when work was completed successfully.",
+        "file": "EPOXY-TANK-INJURY-INCIDENT.md, OHS-Retaliation-Claim-Summary.md",
+        "significance": "HIGH - Suspicious timing pattern demonstrates retaliation: (1) Employee's safety advocacy vindicated (July 22 masks success); (2) Employer proved wrong and forced to provide adequate PPE; (3) Termination shortly after vindication (classic retaliation pattern); (4) Timeline: July 19 injury → July 22 masks → Oct 22 termination; (5) Supports wrongful dismissal bad faith claim (Wallace damages)"
+      }
+    ]
+  },
+  "phase4_audit_dates": [
+    {
+      "date": "2025-11-07",
+      "phase": "Phase 4",
+      "activities": [
+        "REMAINING-DIRECTORIES-AUDIT.md completed",
+        "PHASE4-FILE-TRIAGE-PLAN.md created",
+        "DOCS-FOLDER-COMPLETE-AUDIT.md completed"
+      ],
+      "status": "Audit complete, awaiting user decisions",
+      "deliverables": [
+        "Comprehensive project structure inventory",
+        "Detailed file triage plan (2-3 hour execution estimate)",
+        "docs/ folder audit (68 files, lawyer-ready)",
+        "User decision checklist (6 decisions needed)"
+      ],
+      "files_created": [
+        "REMAINING-DIRECTORIES-AUDIT.md",
+        "PHASE4-FILE-TRIAGE-PLAN.md",
+        "DOCS-FOLDER-COMPLETE-AUDIT.md"
+      ]
+    }
+  ],
+  "consolidation_checkpoints": [
+    {
+      "date": "2025-11-10",
+      "milestone": "Phase 4 Audit Consolidation",
+      "activities": [
+        "All 3 Phase 4 files consolidated to CONSOLIDATION-MASTER.md",
+        "TIMELINE-DATA.json updated with Phase 4 events",
+        "REDUNDANCY-REPORT.md updated with Phase 4 recommendations"
+      ],
+      "user_decisions_pending": 6,
+      "archival_candidates": 2,
+      "files_to_archive": [
+        "CORRECTIONS-NEEDED.md (Status: RESOLVED Nov 6)",
+        "LAWYER-PITCH.md (If superseded by LAWYER-PITCH-FINAL-NOV5.md)"
+      ],
+      "next_phase": "Execute Phase 4 cleanup after user decisions"
+    }
+  ]
+}

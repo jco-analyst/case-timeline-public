@@ -1,0 +1,2682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wrongful Dismissal Timeline - Case Evidence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* CSS Variables for Theming */
+    :root {
+      /* Light mode colors (default) */
+      --bg-primary: #f4f6f8;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #333;
+      --text-secondary: #666;
+      --text-tertiary: #999;
+      --border-color: #ddd;
+      --border-hover: #999;
+      --timeline-line: #ccc;
+      --header-text: #1a1a1a;
+      --btn-hover-bg: #f5f5f5;
+      --panel-overlay: rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --month-label-bg: #ffffff;
+      --month-label-text: #333;
+      --month-tick-color: #666;
+    }
+
+    [data-theme="dark"] {
+      /* Dark mode colors */
+      --bg-primary: #1e1e1e;
+      --bg-secondary: #2b2b2b;
+      --bg-card: #3a3a3a;
+      --text-primary: #e0e0e0;
+      --text-secondary: #b0b0b0;
+      --text-tertiary: #808080;
+      --border-color: #404040;
+      --border-hover: #606060;
+      --timeline-line: #555;
+      --header-text: #f0f0f0;
+      --btn-hover-bg: #3a3a3a;
+      --panel-overlay: rgba(0, 0, 0, 0.7);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+      --month-label-bg: transparent;
+      --month-label-text: #ffffff;
+      --month-tick-color: #999;
+    }
+
+    body {
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      font-size: 14px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      padding: 40px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .header h1 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--header-text);
+    }
+
+    .header .subtitle {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .view-btn {
+      padding: 10px 20px;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .view-btn:hover {
+      border-color: var(--border-hover);
+      background: var(--btn-hover-bg);
+    }
+
+    .view-btn.active {
+      background: #3498db;
+      border-color: #3498db;
+      color: white;
+    }
+
+    /* Lateness Sub-Filters */
+    .lateness-subfilters {
+      display: none; /* Hidden by default */
+      gap: 8px;
+      margin-top: 12px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lateness-subfilters.visible {
+      display: flex;
+    }
+
+    .lateness-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-right: 4px;
+    }
+
+    .lateness-btn {
+      padding: 8px 14px;
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .lateness-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Employee button - Blue */
+    .lateness-btn[data-person="employee"] {
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    }
+
+    /* Boss/Coworker button - Orange/Red */
+    .lateness-btn[data-person="boss-coworker"] {
+      background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    }
+
+    /* Active state - brighter border and slight glow */
+    .lateness-btn.active {
+      border-color: #fff;
+      box-shadow: 0 0 12px currentColor, 0 4px 8px rgba(0, 0, 0, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .lateness-btn[data-person="employee"].active {
+      box-shadow: 0 0 12px #3498db, 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .lateness-btn[data-person="boss-coworker"].active {
+      box-shadow: 0 0 12px #e67e22, 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Inactive state - grayed out */
+    .lateness-btn:not(.active) {
+      opacity: 0.5;
+      filter: grayscale(50%);
+    }
+
+    /* Dark mode adjustments */
+    [data-theme="dark"] .lateness-subfilters {
+      background: var(--bg-secondary);
+    }
+
+    [data-theme="dark"] .lateness-btn {
+      border-color: var(--border-color);
+    }
+
+    [data-theme="dark"] .lateness-btn.active {
+      border-color: #fff;
+    }
+
+    /* Timeline Container */
+    .timeline-wrapper {
+      position: relative;
+      padding: 100px 20px;
+      min-height: 800px;
+      overflow-y: auto;
+    }
+
+    /* Timeline Line */
+    .timeline-line {
+      stroke: var(--timeline-line);
+      stroke-width: 2;
+      stroke-dasharray: 5, 5;
+    }
+
+    /* Timeline Circles */
+    .timeline-dot {
+      cursor: pointer;
+      transition: all 0.2s;
+      stroke-width: 2;
+      stroke: white;
+    }
+
+    /* Priority-based borders - Light Mode */
+    .timeline-dot.priority-nuclear {
+      stroke-width: 2;
+      stroke: #fff;
+      filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.6));
+      animation: nuclear-pulse 3.5s ease-in-out infinite;
+      transform-origin: center;
+      transform-box: fill-box;
+    }
+
+    @keyframes nuclear-pulse {
+      0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.6));
+      }
+      50% {
+        filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8));
+      }
+    }
+
+    .timeline-dot.priority-critical {
+      stroke-width: 2;
+      stroke: #000;
+    }
+
+    /* Priority-based borders - Dark Mode (reversed for better visibility) */
+    [data-theme="dark"] .timeline-dot {
+      stroke: #000;  /* Default: black border for medium priority */
+    }
+
+    [data-theme="dark"] .timeline-dot.priority-nuclear {
+      stroke: #fff;  /* White border for nuclear (most important) */
+      animation: nuclear-pulse-dark 3.5s ease-in-out infinite;
+    }
+
+    @keyframes nuclear-pulse-dark {
+      0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 140, 0, 0.9));  /* Orange */
+      }
+      50% {
+        filter: drop-shadow(0 0 6px rgba(255, 165, 0, 1));  /* Brighter orange at peak */
+      }
+    }
+
+    [data-theme="dark"] .timeline-dot.priority-critical {
+      stroke: #fff;  /* White border for critical (important) */
+    }
+
+    .timeline-dot:hover {
+      r: 12;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    }
+
+    [data-theme="dark"] .timeline-dot:hover {
+      filter: drop-shadow(0 2px 8px rgba(255,255,255,0.4));
+    }
+
+    .timeline-dot.highlighted {
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+
+    [data-theme="dark"] .timeline-dot.highlighted {
+      filter: drop-shadow(0 0 6px currentColor);
+    }
+
+    /* Range Event Bars */
+    .range-bar {
+      cursor: pointer;
+      transition: all 0.2s;
+      opacity: 0.8;
+      stroke-width: 2;
+    }
+
+    .range-bar:hover {
+      opacity: 1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    }
+
+    /* Event Cards Container */
+    .cards-container {
+      position: absolute;
+      top: 0;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Event Cards */
+    .event-card {
+      position: absolute;
+      width: 280px;
+      background: var(--bg-card);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      pointer-events: all;
+      z-index: 10;
+    }
+
+    .event-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      z-index: 100;
+    }
+
+    .event-card.highlight {
+      background: #fff8dc;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+      transition: all 0.1s ease-out;
+    }
+
+    [data-theme="dark"] .event-card.highlight {
+      background: #4a4a4a;
+    }
+
+    /* Connecting Line from Card to Dot */
+    .connector-line {
+      stroke: #666;
+      stroke-width: 2.5;
+      transition: stroke 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease;
+    }
+
+    .connector-line.highlighted {
+      stroke-width: 3.5;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+    }
+
+    /* Card Content */
+    .card-date {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+      min-height: 20px;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-critical { background: #dc2626; }
+    .tag-smoking-gun { background: #991b1b; }
+    .tag-family { background: #db2777; }
+    .tag-ohs { background: #ea580c; }
+    .tag-disability { background: #eab308; color: #1f2937; }
+    .tag-wrongful-dismissal { background: #2563eb; }
+    .tag-correspondence { background: #059669; }
+    .tag-lateness-employee { background: #6b7280; }
+    .tag-lateness-boss { background: #4b5563; }
+    .tag-lateness-coworker { background: #9ca3af; color: #1f2937; }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .card-description {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Priority indicators */
+    .priority-nuclear .timeline-dot,
+    .priority-critical .timeline-dot {
+      filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    /* Category Colors */
+    .category-family { color: #e74c3c; }
+    .category-ohs { color: #e67e22; }
+    .category-disability { color: #f39c12; }
+    .category-termination { color: #3498db; }
+    .category-competence { color: #95a5a6; }
+
+    /* Correspondence Colors - Different color for each person */
+    .category-correspondence-danielle { color: #27ae60; }  /* Green for Danielle Schwartz */
+    .category-correspondence-carol { color: #9b59b6; }     /* Purple for Carol Burke */
+    .category-correspondence-michelle { color: #e91e63; }  /* Pink for Michelle Sherman */
+
+    /* Tooltip for range bars */
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      pointer-events: none;
+      z-index: 1000;
+      max-width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: none;
+    }
+
+    .tooltip-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .tooltip-date {
+      color: #aaa;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .tooltip-desc {
+      line-height: 1.4;
+    }
+
+    /* Side Panel (for full details on click) */
+    .side-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -52%) scale(0.95);
+      width: 820px;
+      max-height: 95vh;
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      z-index: 2000;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .side-panel.open {
+      opacity: 1;
+      transform: translate(-50%, -52%) scale(1);
+      pointer-events: all;
+    }
+
+    .panel-header {
+      position: sticky;
+      top: 0;
+      background: var(--bg-card);
+      border-bottom: 2px solid var(--border-color);
+      border-radius: 12px 12px 0 0;
+      padding: 20px 20px 12px 20px;
+      z-index: 10;
+    }
+
+    .panel-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .panel-date-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-date {
+      color: #4a6fa5;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .panel-category {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .panel-content {
+      padding: 10px 20px 20px 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out 0.15s;
+    }
+
+    .side-panel.open .panel-content {
+      opacity: 1;
+    }
+
+    .panel-section {
+      margin-bottom: 14px;
+    }
+
+    .panel-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2c3e50;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      background: #f0f7ff;
+      padding: 5px 12px;
+      border-radius: 4px;
+    }
+
+    .panel-section p {
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    .panel-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .panel-section li {
+      padding: 1px 0;
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.4;
+    }
+
+    .panel-section li:before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      color: var(--text-secondary);
+    }
+
+    .legal-significance {
+      background: #fff3cd;
+      border-left: 4px solid #f39c12;
+      padding: 16px;
+      border-radius: 4px;
+    }
+
+    .legal-significance h3 {
+      color: #856404 !important;
+      background: transparent;
+      padding: 0;
+    }
+
+    [data-theme="dark"] .legal-significance p,
+    [data-theme="dark"] .legal-significance li {
+      color: #2c2c2c;
+    }
+
+    /* Evidence Images */
+    .evidence-images {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .evidence-image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .evidence-image {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .evidence-image.clickable {
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .evidence-image.clickable:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .evidence-caption {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-style: italic;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Image Modal (side-by-side) */
+    .image-modal {
+      position: fixed;
+      top: 50%;
+      left: calc(50% + 128px);
+      transform: translateY(-50%);
+      width: 875px;
+      max-height: 95vh;
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      z-index: 2100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .image-modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .image-modal-header {
+      padding: 16px;
+      background: var(--bg-card);
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .image-modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-primary);
+      padding: 4px 8px;
+      line-height: 1;
+    }
+
+    .image-modal-close:hover {
+      opacity: 0.7;
+    }
+
+    .image-modal-content {
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .image-modal-content img {
+      max-width: 100%;
+      max-height: calc(95vh - 80px);
+      width: auto;
+      height: auto;
+      border-radius: 4px;
+      object-fit: contain;
+    }
+
+    /* Shift main panel when image modal is open */
+    .side-panel.shifted {
+      transform: translate(-85%, -52%) scale(1);
+    }
+
+    .panel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--panel-overlay);
+      z-index: 1999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .panel-overlay.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Hide navigation elements when panel is open */
+    .panel-overlay.visible ~ .container .nav-arrow,
+    .panel-overlay.visible ~ .container .mini-map-container {
+      display: none;
+    }
+
+    /* Date labels at ends */
+    .date-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--month-label-text);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      z-index: 3000;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-md);
+    }
+
+    .theme-toggle:active {
+      transform: scale(0.95);
+    }
+
+    /* Timecard Viewer Button */
+    .timecard-toggle {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      z-index: 3000;
+    }
+
+    .timecard-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-md);
+    }
+
+    .timecard-toggle:active {
+      transform: scale(0.95);
+    }
+
+    /* Timecard Viewer Modal */
+    .timecard-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 4000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .timecard-modal.open {
+      display: flex;
+    }
+
+    .timecard-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+    }
+
+    .timecard-close:hover {
+      transform: scale(1.1);
+    }
+
+    .timecard-content {
+      max-width: 95%;
+      max-height: 90vh;
+      overflow: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .timecard-image {
+      max-width: calc(50% - 10px);
+      height: auto;
+      border: 2px solid white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Navigation Arrows */
+    .nav-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 35px;
+      height: 70px;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      z-index: 2500;
+      opacity: 1;
+    }
+
+    .nav-arrow:hover {
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: var(--shadow-lg);
+      background: var(--hover-bg);
+    }
+
+    .nav-arrow:active {
+      transform: translateY(-50%) scale(0.98);
+    }
+
+    .nav-arrow.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .nav-arrow-left {
+      left: 8px;
+    }
+
+    .nav-arrow-right {
+      right: 8px;
+    }
+
+    /* Mini-map */
+    .mini-map-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 900px;
+      height: 60px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 15px;
+      box-shadow: var(--shadow-md);
+      z-index: 2500;
+    }
+
+    .mini-map-timeline {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mini-map-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--timeline-line);
+      transform: translateY(-50%);
+    }
+
+    .mini-map-event {
+      position: absolute;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mini-map-event:hover {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    .mini-map-viewport {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: rgba(52, 152, 219, 0.2);
+      border: 2px solid #3498db;
+      border-radius: 4px;
+      cursor: grab;
+      transition: left 0.5s ease, width 0.5s ease;
+    }
+
+    .mini-map-viewport:active {
+      cursor: grabbing;
+    }
+
+    .mini-map-label {
+      position: absolute;
+      bottom: -22px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .mini-map-label-start {
+      left: 0;
+    }
+
+    .mini-map-label-end {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+    <span id="theme-icon">☀️</span>
+  </button>
+
+  <!-- Timecard Viewer Button -->
+  <button class="timecard-toggle" id="timecard-toggle" aria-label="View timecards">
+    <span>📅</span>
+  </button>
+
+  <!-- Timecard Viewer Modal -->
+  <div class="timecard-modal" id="timecard-modal">
+    <button class="timecard-close" id="timecard-close" aria-label="Close timecards">×</button>
+    <div class="timecard-content" id="timecard-content">
+      <!-- Timecard images will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Navigation Arrows -->
+  <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Navigate left">
+    ←
+  </button>
+  <button class="nav-arrow nav-arrow-right" id="nav-arrow-right" aria-label="Navigate right">
+    →
+  </button>
+
+  <!-- Mini-map -->
+  <div class="mini-map-container" id="mini-map-container">
+    <div class="mini-map-timeline" id="mini-map-timeline">
+      <div class="mini-map-line"></div>
+      <div class="mini-map-viewport" id="mini-map-viewport"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Wrongful Dismissal Case Timeline</h1>
+      <div class="subtitle">Jan 2024 - Oct 2025 • <span id="event-count">35 events</span></div>
+
+      <div class="controls">
+        <button class="view-btn active" data-view="critical">Critical Only</button>
+        <button class="view-btn" data-view="family">Family Discrimination</button>
+        <button class="view-btn" data-view="ohs">OHS Retaliation</button>
+        <button class="view-btn" data-view="disability">Disability</button>
+        <button class="view-btn" data-view="wrongful-dismissal">Wrongful Dismissal</button>
+        <button class="view-btn" data-view="correspondence">Correspondence</button>
+        <button class="view-btn" data-view="smoking-gun">Smoking Gun</button>
+        <button class="view-btn" data-view="all">All Events</button>
+      </div>
+
+      <!-- Lateness Sub-Filters (shown when Family or Disability filter is active) -->
+      <div class="lateness-subfilters" id="lateness-subfilters">
+        <span class="lateness-label">Lateness:</span>
+        <button class="lateness-btn" data-person="employee" title="Employee Lateness">Employee</button>
+        <button class="lateness-btn" data-person="boss-coworker" title="Boss/Coworker Lateness">Boss/Coworker</button>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline-wrapper" id="timeline"></div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip">
+    <div class="tooltip-title"></div>
+    <div class="tooltip-date"></div>
+    <div class="tooltip-desc"></div>
+  </div>
+
+  <!-- Side Panel Overlay -->
+  <div class="panel-overlay" id="panel-overlay"></div>
+
+  <!-- Side Panel -->
+  <div class="side-panel" id="side-panel">
+    <div class="panel-header">
+      <div class="panel-title" id="panel-title"></div>
+      <div class="panel-date-row">
+        <div class="panel-date" id="panel-date"></div>
+        <div class="panel-category" id="panel-category"></div>
+      </div>
+    </div>
+    <div class="panel-content" id="panel-content"></div>
+  </div>
+
+  <!-- Image Modal (for enlarged view) -->
+  <div class="image-modal" id="image-modal">
+    <div class="image-modal-header">
+      <span id="image-modal-title">Evidence Image</span>
+      <button class="image-modal-close" id="image-modal-close">×</button>
+    </div>
+    <div class="image-modal-content" id="image-modal-content"></div>
+  </div>
+
+  <!-- Load Event Data -->
+  <script src="js/data.js"></script>
+
+  <!-- Timeline Implementation -->
+  <script>
+    // Theme Management
+    function initTheme() {
+      // Check localStorage first, then system preference
+      const savedTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+      applyTheme(theme);
+      updateThemeIcon(theme);
+
+      // Listen for theme toggle clicks
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+      // Listen for system theme changes (if no saved preference)
+      if (!savedTheme) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          const newTheme = e.matches ? 'dark' : 'light';
+          applyTheme(newTheme);
+          updateThemeIcon(newTheme);
+        });
+      }
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+      applyTheme(newTheme);
+      updateThemeIcon(newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    }
+
+    function updateThemeIcon(theme) {
+      const icon = document.getElementById('theme-icon');
+      icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+
+    // Initialize theme on page load
+    initTheme();
+
+    // Category colors
+    const categoryColors = {
+      family: '#e74c3c',
+      ohs: '#e67e22',
+      disability: '#f39c12',
+      termination: '#3498db',
+      competence: '#95a5a6',
+      'correspondence-danielle': '#27ae60',
+      'correspondence-carol': '#9b59b6',
+      'correspondence-michelle': '#e91e63'
+    };
+
+    const categoryLabels = {
+      family: 'Family Status',
+      ohs: 'OHS Retaliation',
+      disability: 'Disability',
+      termination: 'Termination Evidence',
+      competence: 'Technical Competence',
+      'correspondence-danielle': 'Danielle Schwartz (Payroll)',
+      'correspondence-carol': 'Carol Burke (Lawyer)',
+      'correspondence-michelle': 'Michelle Sherman (HR)'
+    };
+
+    // Range bar colors (cycle through these for visual variety)
+    const rangeBarColors = [
+      '#5DADE2',  // Sky Blue
+      '#48C9B0',  // Teal/Aqua
+      '#E67E22',  // Orange
+      '#9B59B6'   // Purple
+    ];
+
+    let currentView = 'critical';
+    let activeLatenessFilters = new Set(); // Track which lateness person filters are active
+
+    // Viewport state for virtual scrolling (event-based)
+    let currentViewportIndex = 0; // Current page index (0, 1, 2, ...)
+    let eventsPerViewport = 10; // Dynamically calculated
+    let viewportStartDate = null;
+    let viewportEndDate = null;
+    let allFilteredEvents = []; // Cache of all filtered events
+    let fullTimelineStart = null;
+    let fullTimelineEnd = null;
+    let miniMapDragInitialized = false; // Prevent duplicate drag listeners
+
+    // Calculate optimal events per viewport (target 10-12 events)
+    function calculateEventsPerViewport(totalEvents) {
+      if (totalEvents <= 12) return totalEvents; // Show all if 12 or fewer
+
+      // Try divisors to get close to 10-12 per screen
+      for (let divisor = 2; divisor <= totalEvents; divisor++) {
+        const eventsPerScreen = Math.ceil(totalEvents / divisor);
+        if (eventsPerScreen >= 10 && eventsPerScreen <= 12) {
+          return eventsPerScreen;
+        }
+      }
+
+      // Fallback: aim for ~11 per screen
+      return Math.max(10, Math.ceil(totalEvents / Math.ceil(totalEvents / 11)));
+    }
+
+    // Layer configuration
+    const CARD_WIDTH = 280;
+    const MIN_GAP = 30;
+    const LAYERS = {
+      above3: 460,  // Farthest above (maintains 180px gap from Tier 2)
+      above2: 280,  // Far above (maintains 180px gap from Tier 1)
+      above1: 100,  // Near above (60px closer to timeline)
+      below1: 100,  // Near below (60px closer to timeline)
+      below2: 280,  // Far below (maintains 180px gap from Tier 1)
+      below3: 460   // Farthest below (maintains 180px gap from Tier 2)
+    };
+
+    // Initialize
+    function init() {
+      // DEBUG: Check if data loaded
+      console.log('🔍 DEBUG: Initializing timeline...');
+      console.log('🔍 DEBUG: timelineEvents exists?', typeof timelineEvents !== 'undefined');
+      console.log('🔍 DEBUG: Total events loaded:', timelineEvents ? timelineEvents.length : 0);
+
+      // Parse all dates once at startup (performance optimization)
+      const parseDate = d3.timeParse('%Y-%m-%d');
+      timelineEvents.forEach(e => {
+        // Remove question marks from uncertain dates before parsing
+        const cleanTimestamp = e.timestamp.replace('?', '');
+        e.parsedDate = parseDate(cleanTimestamp);
+        if (e.endDate) {
+          const cleanEndDate = e.endDate.replace('?', '');
+          e.parsedEndDate = parseDate(cleanEndDate);
+        }
+      });
+
+      setupViewButtons();
+      setupLatenessButtons();
+      setupNavigationButtons();
+      setupTimecardViewer();
+
+      // Initialize with filtered events
+      console.log('🔍 DEBUG: Current view:', currentView);
+      allFilteredEvents = getFilteredEvents();
+      console.log('🔍 DEBUG: Filtered events:', allFilteredEvents.length);
+      initializeViewport(allFilteredEvents);
+      renderTimeline(allFilteredEvents);
+      updateEventCount();
+      setupPanelListeners();
+      renderMiniMap();
+    }
+
+    // Initialize viewport based on filtered events (event-based pagination)
+    function initializeViewport(events) {
+      if (events.length === 0) {
+        viewportStartDate = null;
+        viewportEndDate = null;
+        fullTimelineStart = null;
+        fullTimelineEnd = null;
+        currentViewportIndex = 0;
+        eventsPerViewport = 10;
+        return;
+      }
+
+      // Calculate full timeline range (dates already parsed in init())
+      const allDates = [];
+      events.forEach(e => {
+        allDates.push(e.parsedDate);
+        if (e.parsedEndDate) allDates.push(e.parsedEndDate);
+      });
+      fullTimelineStart = d3.min(allDates);
+      fullTimelineEnd = d3.max(allDates);
+
+      // Calculate optimal events per viewport
+      eventsPerViewport = calculateEventsPerViewport(events.length);
+
+      // Reset to first page
+      currentViewportIndex = 0;
+
+      // Update viewport dates based on first page of events
+      updateViewportDates(events);
+      updateNavigationButtons(events);
+    }
+
+    // Update viewport date range based on current page index
+    function updateViewportDates(events) {
+      if (events.length === 0) return;
+
+      // Sort events by date
+      const sortedEvents = [...events].sort((a, b) => a.parsedDate - b.parsedDate);
+
+      // Get events for current viewport
+      const startIdx = currentViewportIndex * eventsPerViewport;
+      const endIdx = Math.min(startIdx + eventsPerViewport, sortedEvents.length);
+      const viewportEvents = sortedEvents.slice(startIdx, endIdx);
+
+      if (viewportEvents.length === 0) return;
+
+      // Calculate date range from these events
+      const viewportDates = [];
+      viewportEvents.forEach(e => {
+        viewportDates.push(e.parsedDate);
+        if (e.parsedEndDate) viewportDates.push(e.parsedEndDate);
+      });
+
+      viewportStartDate = d3.min(viewportDates);
+      viewportEndDate = d3.max(viewportDates);
+
+      // Add small padding (1 day on each side) for visual breathing room
+      viewportStartDate = d3.timeDay.offset(viewportStartDate, -1);
+      viewportEndDate = d3.timeDay.offset(viewportEndDate, 1);
+    }
+
+    // Get events within current viewport
+    function getViewportEvents(events) {
+      if (!viewportStartDate || !viewportEndDate) {
+        return events;
+      }
+
+      return events.filter(e => {
+        // Use pre-parsed dates (already parsed in init())
+        const eventDate = e.parsedDate;
+        const eventEndDate = e.parsedEndDate || eventDate;
+
+        // Include event if it overlaps with viewport
+        return (eventDate <= viewportEndDate && eventEndDate >= viewportStartDate);
+      });
+    }
+
+    // Move viewport left (earlier dates / previous page)
+    function moveViewportLeft() {
+      if (currentViewportIndex <= 0) return;
+
+      currentViewportIndex--;
+      updateViewportDates(allFilteredEvents);
+      updateNavigationButtons(allFilteredEvents);
+      renderTimeline(allFilteredEvents);
+      renderMiniMap();
+    }
+
+    // Move viewport right (later dates / next page)
+    function moveViewportRight() {
+      const totalPages = Math.ceil(allFilteredEvents.length / eventsPerViewport);
+      if (currentViewportIndex >= totalPages - 1) return;
+
+      currentViewportIndex++;
+      updateViewportDates(allFilteredEvents);
+      updateNavigationButtons(allFilteredEvents);
+      renderTimeline(allFilteredEvents);
+      renderMiniMap();
+    }
+
+    // Update navigation button states
+    function updateNavigationButtons(events) {
+      const leftBtn = document.getElementById('nav-arrow-left');
+      const rightBtn = document.getElementById('nav-arrow-right');
+
+      if (!events || events.length === 0) {
+        leftBtn.classList.add('disabled');
+        rightBtn.classList.add('disabled');
+        return;
+      }
+
+      const totalPages = Math.ceil(events.length / eventsPerViewport);
+
+      // Disable left if on first page
+      if (currentViewportIndex <= 0) {
+        leftBtn.classList.add('disabled');
+      } else {
+        leftBtn.classList.remove('disabled');
+      }
+
+      // Disable right if on last page
+      if (currentViewportIndex >= totalPages - 1) {
+        rightBtn.classList.add('disabled');
+      } else {
+        rightBtn.classList.remove('disabled');
+      }
+    }
+
+    // Setup navigation button listeners
+    function setupNavigationButtons() {
+      document.getElementById('nav-arrow-left').addEventListener('click', moveViewportLeft);
+      document.getElementById('nav-arrow-right').addEventListener('click', moveViewportRight);
+    }
+
+    // Get filtered events based on view (tag-based)
+    function getFilteredEvents() {
+      console.log('🔍 DEBUG: getFilteredEvents() called, currentView =', currentView);
+      let events = [...timelineEvents];
+      console.log('🔍 DEBUG: Starting with', events.length, 'total events');
+
+      if (currentView === 'critical') {
+        events = events.filter(e => e.tags && e.tags.includes('critical'));
+        console.log('🔍 DEBUG: After critical filter:', events.length, 'events');
+      } else if (currentView === 'family') {
+        events = events.filter(e => e.tags && e.tags.includes('family'));
+        console.log('🔍 DEBUG: After family filter:', events.length, 'events');
+      } else if (currentView === 'ohs') {
+        events = events.filter(e => e.tags && e.tags.includes('ohs'));
+        console.log('🔍 DEBUG: After ohs filter:', events.length, 'events');
+      } else if (currentView === 'disability') {
+        events = events.filter(e => e.tags && e.tags.includes('disability'));
+        console.log('🔍 DEBUG: After disability filter:', events.length, 'events');
+      } else if (currentView === 'wrongful-dismissal') {
+        events = events.filter(e => e.tags && e.tags.includes('wrongful-dismissal'));
+        console.log('🔍 DEBUG: After wrongful-dismissal filter:', events.length, 'events');
+      } else if (currentView === 'correspondence') {
+        events = events.filter(e => e.tags && e.tags.includes('correspondence'));
+        console.log('🔍 DEBUG: After correspondence filter:', events.length, 'events');
+      } else if (currentView === 'smoking-gun') {
+        events = events.filter(e => e.tags && e.tags.includes('smoking-gun'));
+        console.log('🔍 DEBUG: After smoking-gun filter:', events.length, 'events');
+      }
+      // 'all' view shows everything - no filter applied
+
+      // Apply lateness person filter for Family and Disability views
+      if ((currentView === 'family' || currentView === 'disability') && activeLatenessFilters.size > 0) {
+        console.log('🔍 DEBUG: Applying lateness filters, active filters:', Array.from(activeLatenessFilters));
+        // Get events that match the base category OR the lateness filters
+        events = events.filter(e => {
+          // Include base category events (family/disability)
+          if (currentView === 'family' && e.tags && e.tags.includes('family')) return true;
+          if (currentView === 'disability' && e.tags && e.tags.includes('disability')) return true;
+
+          // Include lateness events that match the active filters
+          if (e.tags) {
+            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
+            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
+          }
+
+          return false;
+        });
+        console.log('🔍 DEBUG: After lateness filter:', events.length, 'events');
+      }
+
+      console.log('🔍 DEBUG: Returning', events.length, 'events');
+      return events;
+    }
+
+    // Setup view buttons
+    function setupViewButtons() {
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentView = btn.dataset.view;
+
+          // Show lateness subfilters for Family and Disability views
+          const latenessSubfilters = document.getElementById('lateness-subfilters');
+          if (currentView === 'family' || currentView === 'disability') {
+            latenessSubfilters.classList.add('visible');
+          } else {
+            latenessSubfilters.classList.remove('visible');
+            // Reset lateness filters when leaving Family/Disability view
+            activeLatenessFilters.clear();
+            document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
+          }
+
+          // Get filtered events and initialize viewport
+          allFilteredEvents = getFilteredEvents();
+          initializeViewport(allFilteredEvents);
+          renderTimeline(allFilteredEvents);
+          updateEventCount();
+          renderMiniMap();
+        });
+      });
+    }
+
+    // Setup lateness person filter buttons
+    function setupLatenessButtons() {
+      document.querySelectorAll('.lateness-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const personType = btn.dataset.person;
+
+          // Toggle the filter
+          if (activeLatenessFilters.has(personType)) {
+            activeLatenessFilters.delete(personType);
+            btn.classList.remove('active');
+          } else {
+            activeLatenessFilters.add(personType);
+            btn.classList.add('active');
+          }
+
+          // Get filtered events and initialize viewport
+          allFilteredEvents = getFilteredEvents();
+          initializeViewport(allFilteredEvents);
+          renderTimeline(allFilteredEvents);
+          updateEventCount();
+          renderMiniMap();
+        });
+      });
+    }
+
+    // Update event count
+    function updateEventCount() {
+      const count = allFilteredEvents.length;
+      document.getElementById('event-count').textContent =
+        `${count} event${count !== 1 ? 's' : ''}`;
+    }
+
+    // Check if two cards overlap (with tolerance)
+    function cardsOverlap(card1, card2, tolerance = 30) {
+      const overlap = Math.min(card1.right, card2.right) - Math.max(card1.left, card2.left);
+      return overlap > tolerance;
+    }
+
+    // Check if card position is within container bounds
+    function isWithinBounds(eventX, offset, containerWidth) {
+      const cardCenterX = eventX + offset;
+      const cardLeft = cardCenterX - CARD_WIDTH / 2;
+      const cardRight = cardCenterX + CARD_WIDTH / 2;
+      const margin = 20; // Keep cards 20px from edge (reduced to allow more placement room)
+
+      return cardLeft >= margin && cardRight <= containerWidth - margin;
+    }
+
+    // Check if connector line stays within card bounds (5px buffer from edges)
+    function connectorWithinCardBounds(eventX, offset) {
+      const cardCenterX = eventX + offset;
+      const cardLeft = cardCenterX - CARD_WIDTH / 2;
+      const cardRight = cardCenterX + CARD_WIDTH / 2;
+      const minDistanceFromEdge = 5;
+
+      return (eventX >= cardLeft + minDistanceFromEdge && eventX <= cardRight - minDistanceFromEdge);
+    }
+
+    // Find minimum shift to clear overlaps with existing cards on a tier
+    function findMinimumShiftToClearOverlap(eventX, layer, occupiedLayers, containerWidth, maxShift = 100) {
+      const existingCards = occupiedLayers[layer] || [];
+      if (existingCards.length === 0) return 0; // No cards, no shift needed
+
+      // Try progressively larger shifts in both directions
+      const shiftIncrements = [0, 10, -10, 20, -20, 30, -30, 40, -40, 50, -50, 60, -60, 70, -70, 80, -80, 90, -90, 100, -100, 120, -120, 140, -140, 160, -160, 180, -180, 200, -200];
+
+      for (const shift of shiftIncrements) {
+        if (Math.abs(shift) > maxShift) continue;
+
+        const cardCenterX = eventX + shift;
+        const cardLeft = cardCenterX - CARD_WIDTH / 2;
+        const cardRight = cardCenterX + CARD_WIDTH / 2;
+        const proposedCard = { left: cardLeft, right: cardRight };
+
+        // Check if this shift clears all overlaps
+        let hasOverlap = false;
+        for (const card of existingCards) {
+          if (cardsOverlap(proposedCard, card, MIN_GAP)) {
+            hasOverlap = true;
+            break;
+          }
+        }
+
+        // Check bounds and connector position
+        if (!hasOverlap &&
+            isWithinBounds(eventX, shift, containerWidth) &&
+            connectorWithinCardBounds(eventX, shift)) {
+          return shift;
+        }
+      }
+
+      return null; // No valid small shift found
+    }
+
+    // Find gaps between existing cards on a layer
+    function findGaps(existingCards, eventX, cardWidth) {
+      if (existingCards.length === 0) {
+        return []; // No cards = no gaps to compute
+      }
+
+      // Sort cards by centerX position
+      const sorted = [...existingCards].sort((a, b) => a.centerX - b.centerX);
+      const gaps = [];
+      const halfWidth = cardWidth / 2;
+
+      // Gap to the left of leftmost card
+      const leftmostCard = sorted[0];
+      gaps.push({
+        type: 'left-edge',
+        end: leftmostCard.left,
+        distanceFromEvent: Math.abs(eventX - (leftmostCard.left - MIN_GAP - halfWidth))
+      });
+
+      // Gaps between consecutive cards
+      for (let i = 0; i < sorted.length - 1; i++) {
+        const gapStart = sorted[i].right;
+        const gapEnd = sorted[i + 1].left;
+        const gapWidth = gapEnd - gapStart;
+
+        if (gapWidth >= cardWidth + MIN_GAP * 2) {
+          const gapCenter = (gapStart + gapEnd) / 2;
+          gaps.push({
+            type: 'between',
+            start: gapStart,
+            end: gapEnd,
+            width: gapWidth,
+            center: gapCenter,
+            distanceFromEvent: Math.abs(eventX - gapCenter)
+          });
+        }
+      }
+
+      // Gap to the right of rightmost card
+      const rightmostCard = sorted[sorted.length - 1];
+      gaps.push({
+        type: 'right-edge',
+        start: rightmostCard.right,
+        distanceFromEvent: Math.abs(eventX - (rightmostCard.right + MIN_GAP + halfWidth))
+      });
+
+      // Sort gaps by distance from eventX (prefer closer = smaller offset)
+      return gaps.sort((a, b) => a.distanceFromEvent - b.distanceFromEvent);
+    }
+
+    // Compute offset needed to place card in a gap
+    function computeOffsetForGap(gap, eventX, cardWidth) {
+      const halfWidth = cardWidth / 2;
+
+      if (gap.type === 'between') {
+        // Center the card in the gap
+        return gap.center - eventX;
+      }
+
+      if (gap.type === 'left-edge') {
+        // Place card with right edge at gap.end - MIN_GAP
+        const cardCenterX = gap.end - MIN_GAP - halfWidth;
+        return cardCenterX - eventX;
+      }
+
+      if (gap.type === 'right-edge') {
+        // Place card with left edge at gap.start + MIN_GAP
+        const cardCenterX = gap.start + MIN_GAP + halfWidth;
+        return cardCenterX - eventX;
+      }
+
+      return 0;
+    }
+
+    // Find smallest valid offset for a card on a specific layer
+    function findSmallestValidOffset(eventX, layer, occupiedLayers, containerWidth) {
+      const existingCards = occupiedLayers[layer] || [];
+
+      // STEP 1: Try offset = 0 first (preferred - straight line)
+      const proposedLeft = eventX - CARD_WIDTH / 2;
+      const proposedRight = eventX + CARD_WIDTH / 2;
+      const proposedCard = { left: proposedLeft, right: proposedRight };
+
+      // Check if offset=0 works
+      let hasOverlap = false;
+      for (const card of existingCards) {
+        if (cardsOverlap(proposedCard, card)) {
+          hasOverlap = true;
+          break;
+        }
+      }
+
+      if (!hasOverlap && isWithinBounds(eventX, 0, containerWidth)) {
+        return 0;
+      }
+
+      // STEP 2: Find gaps and try placing card in each gap
+      const gaps = findGaps(existingCards, eventX, CARD_WIDTH);
+
+      for (const gap of gaps) {
+        const offset = computeOffsetForGap(gap, eventX, CARD_WIDTH);
+
+        // Verify this offset doesn't overlap with any existing cards
+        const testLeft = (eventX + offset) - CARD_WIDTH / 2;
+        const testRight = (eventX + offset) + CARD_WIDTH / 2;
+        const testCard = { left: testLeft, right: testRight };
+
+        let testOverlap = false;
+        for (const card of existingCards) {
+          if (cardsOverlap(testCard, card)) {
+            testOverlap = true;
+            break;
+          }
+        }
+
+        if (!testOverlap && isWithinBounds(eventX, offset, containerWidth)) {
+          return offset;
+        }
+      }
+
+      // STEP 3: No valid position found
+      return null;
+    }
+
+    // Simple overlap check: Try to place card at natural position (offset=0)
+    // Returns { success: true, offset: 0 } if no overlap, or { success: false } if overlap detected
+    function tryAddCardToTier(newCardX, layer, occupiedLayers, containerWidth) {
+      const existingCards = occupiedLayers[layer] || [];
+      const margin = 20;
+
+      // Calculate new card bounds at natural position (offset=0)
+      const newCardLeft = newCardX - CARD_WIDTH / 2;
+      const newCardRight = newCardX + CARD_WIDTH / 2;
+
+      // Check if new card fits within container bounds
+      if (newCardLeft < margin || newCardRight > containerWidth - margin) {
+        console.log(`[${layer}] Card at X=${newCardX.toFixed(0)} out of bounds, trying next tier`);
+        return { success: false };
+      }
+
+      // Check for overlap with any existing card on this tier
+      for (const existingCard of existingCards) {
+        const gap = Math.min(newCardRight, existingCard.right) - Math.max(newCardLeft, existingCard.left);
+
+        if (gap > -MIN_GAP) {
+          // Cards overlap or are too close
+          console.log(`[${layer}] Overlap detected: new card X=${newCardX.toFixed(0)} overlaps with existing card at X=${existingCard.centerX.toFixed(0)}, trying next tier`);
+          return { success: false };
+        }
+      }
+
+      // No overlaps - card fits!
+      console.log(`[${layer}] Card placed successfully at X=${newCardX.toFixed(0)}, offset=0`);
+      return { success: true, offset: 0 };
+    }
+
+    // Find best position (layer + offset) for card
+    function findBestPosition(eventX, preferAbove, occupiedLayers, containerWidth, useTier3 = false) {
+      // Include Tier 3 only for "all" view (when useTier3 is true)
+      const tryOrder = preferAbove
+        ? (useTier3 ? ['above1', 'above2', 'above3', 'below1', 'below2', 'below3'] : ['above1', 'above2', 'below1', 'below2'])
+        : (useTier3 ? ['below1', 'below2', 'below3', 'above1', 'above2', 'above3'] : ['below1', 'below2', 'above1', 'above2']);
+
+      // Try each tier - use batch redistribution to validate
+      for (const layer of tryOrder) {
+        const result = tryAddCardToTier(eventX, layer, occupiedLayers, containerWidth);
+        if (result.success) {
+          return { layer, offset: result.offset };
+        }
+      }
+
+      // Fallback: use preferred layer with offset=0 (should rarely happen)
+      console.warn(`⚠️ FALLBACK TRIGGERED! No tier could fit card at X=${eventX.toFixed(0)}, forcing to ${tryOrder[0]} with offset=0`);
+      return {
+        layer: tryOrder[0],
+        offset: 0
+      };
+    }
+
+    // Tooltip functions
+    function showTooltip(event, data, mouseEvent) {
+      const tooltip = d3.select('#tooltip');
+
+      tooltip.select('.tooltip-title').text(data.text);
+
+      const dateStr = `${d3.timeFormat('%B %d, %Y')(data.parsedDate)} - ${d3.timeFormat('%B %d, %Y')(data.parsedEndDate)}`;
+      tooltip.select('.tooltip-date').text(dateStr);
+
+      const desc = data.description.length > 150
+        ? data.description.substring(0, 150) + '...'
+        : data.description;
+      tooltip.select('.tooltip-desc').text(desc);
+
+      tooltip.style('display', 'block');
+      moveTooltip(mouseEvent);
+    }
+
+    function moveTooltip(event) {
+      const tooltip = d3.select('#tooltip');
+      tooltip
+        .style('left', (event.pageX + 15) + 'px')
+        .style('top', (event.pageY - 15) + 'px');
+    }
+
+    function hideTooltip() {
+      d3.select('#tooltip').style('display', 'none');
+    }
+
+    // Render timeline
+    function renderTimeline(events) {
+      console.log('🔍 DEBUG: renderTimeline() called with', events.length, 'events');
+      console.log('🔍 DEBUG: currentViewportIndex =', currentViewportIndex, 'eventsPerViewport =', eventsPerViewport);
+      const container = d3.select('#timeline');
+      container.html(''); // Clear
+
+      // For event-based pagination, get the events for current page directly
+      // (don't use date-range filtering which would include wrong events)
+      const sortedEvents = [...events].sort((a, b) => a.parsedDate - b.parsedDate);
+      const startIdx = currentViewportIndex * eventsPerViewport;
+      const endIdx = Math.min(startIdx + eventsPerViewport, sortedEvents.length);
+      const viewportEvents = sortedEvents.slice(startIdx, endIdx);
+      console.log('🔍 DEBUG: viewportEvents (after pagination):', viewportEvents.length, 'events');
+      console.log('🔍 DEBUG: Pagination - startIdx:', startIdx, 'endIdx:', endIdx);
+
+      if (viewportEvents.length === 0) {
+        console.log('⚠️ DEBUG: No events in viewport! Showing empty message.');
+        container.append('div')
+          .style('text-align', 'center')
+          .style('color', '#999')
+          .style('padding', '60px')
+          .text('No events in this viewport section');
+        return;
+      }
+
+      // Sort events by date (for initial processing)
+      viewportEvents.sort((a, b) => a.parsedDate - b.parsedDate);
+
+      // Assign alternating preference based on chronological order
+      // This ensures visual left-to-right alternating pattern
+      let chronologicalIndex = 0;
+      viewportEvents.forEach(e => {
+        if (e.type !== 'range') {
+          e.preferAbove = chronologicalIndex % 2 === 0;
+          chronologicalIndex++;
+        }
+      });
+
+      // Use viewport date range for timeline display
+      let minDate, maxDate;
+      if (!viewportStartDate || !viewportEndDate) {
+        // Fallback to calculating from events if viewport not initialized
+        const allDates = [];
+        viewportEvents.forEach(e => {
+          allDates.push(e.parsedDate);
+          if (e.parsedEndDate) allDates.push(e.parsedEndDate);
+        });
+        minDate = d3.min(allDates);
+        maxDate = d3.max(allDates);
+      } else {
+        // Use viewport boundaries (already includes appropriate range)
+        minDate = viewportStartDate;
+        maxDate = viewportEndDate;
+      }
+
+      // Dimensions - use 95% of container width
+      // Use taller height for "all" view to accommodate Tier 3
+      const containerWidth = container.node().clientWidth;
+      const width = Math.max(containerWidth * 0.95, 1000);
+      const height = currentView === 'all' ? 1400 : 800;
+      const minMargin = CARD_WIDTH / 2 + 20; // 140 + 20 = 160px (prevents card cutoff)
+      const margin = {
+        top: 80,
+        right: Math.max(containerWidth * 0.025, minMargin),
+        left: Math.max(containerWidth * 0.025, minMargin),
+        bottom: 80
+      };
+      const timelineY = height / 2;
+
+      // Create SVG
+      const svg = container.append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+      // Create scale with dynamic domain
+      const xScale = d3.scaleTime()
+        .domain([minDate, maxDate])
+        .range([margin.left, width - margin.right]);
+
+      // Calculate spatial center of timeline
+      const timelineCenter = (margin.left + (width - margin.right)) / 2;
+
+      // Calculate X position and distance from center for each event
+      // This enables "ends-inward" processing: edge events first, middle events last
+      viewportEvents.forEach(e => {
+        e.x = xScale(e.parsedDate);
+        // Validate that x position is a valid number
+        if (!e.x || isNaN(e.x)) {
+          console.error('⚠️ Invalid X position for event:', e.timestamp, 'parsedDate:', e.parsedDate);
+          // Use a default position at the start of timeline if date parsing failed
+          e.x = margin.left + 100;
+        }
+        e.distanceFromCenter = Math.abs(e.x - timelineCenter);
+      });
+
+      // Sort by distance from center (descending - edges first, middle last)
+      // Far-left and far-right events get priority positioning
+      // Middle events adjust around them
+      viewportEvents.sort((a, b) => b.distanceFromCenter - a.distanceFromCenter);
+
+      // Draw timeline line
+      svg.append('line')
+        .attr('class', 'timeline-line')
+        .attr('x1', margin.left)
+        .attr('y1', timelineY)
+        .attr('x2', width - margin.right)
+        .attr('y2', timelineY);
+
+      // Generate dynamic month markers based on date range
+      const monthMarkers = [];
+      const rangeMonths = d3.timeMonth.count(minDate, maxDate);
+
+      if (currentView === 'all') {
+        // For full view, show start of each year + last event month
+        monthMarkers.push({ date: parseDate('2024-01-01'), label: "Jan '24" });
+        monthMarkers.push({ date: parseDate('2025-01-01'), label: "Jan '25" });
+        monthMarkers.push({ date: parseDate('2025-10-01'), label: "Oct '25" });
+      } else if (rangeMonths <= 6) {
+        // For short ranges (6 months or less), show every month
+        let currentMonth = d3.timeMonth.floor(minDate);
+        while (currentMonth <= maxDate) {
+          monthMarkers.push({
+            date: currentMonth,
+            label: d3.timeFormat("%b '%y")(currentMonth)
+          });
+          currentMonth = d3.timeMonth.offset(currentMonth, 1);
+        }
+      } else {
+        // For medium ranges (6-18 months), show every 2-3 months
+        let currentMonth = d3.timeMonth.floor(minDate);
+        const interval = rangeMonths > 12 ? 3 : 2;
+        while (currentMonth <= maxDate) {
+          monthMarkers.push({
+            date: currentMonth,
+            label: d3.timeFormat("%b '%y")(currentMonth)
+          });
+          currentMonth = d3.timeMonth.offset(currentMonth, interval);
+        }
+      }
+
+      // Create cards container
+      const cardsContainer = container.append('div')
+        .attr('class', 'cards-container');
+
+      // Track occupied layers and offset counts for staggering L-connectors
+      const occupiedLayers = {
+        above1: [],
+        above2: [],
+        above3: [],
+        below1: [],
+        below2: [],
+        below3: []
+      };
+
+      // Track number of offset cards per tier (for staggered L-connectors)
+      const offsetCounts = {
+        above1: 0,
+        above2: 0,
+        above3: 0,
+        below1: 0,
+        below2: 0,
+        below3: 0
+      };
+
+      // Track placed range bars for stacking
+      const placedRangeBars = [];
+      const barHeight = 10;
+      const barSpacing = 3;
+      const firstBarOffset = 23;
+
+      // Positioning log for debugging
+      const positionLog = {
+        events: [],
+        tiers: { above1: [], above2: [], above3: [], below1: [], below2: [], below3: [] }
+      };
+
+      // Function to check if two range bars overlap horizontally
+      function rangeBarsOverlap(bar1, bar2) {
+        return !(bar1.x2 < bar2.x1 || bar2.x2 < bar1.x1);
+      }
+
+      // Function to find the stack level for a range bar
+      function findRangeBarStackLevel(x1, x2) {
+        let level = 0;
+        let hasOverlap = true;
+
+        while (hasOverlap) {
+          hasOverlap = false;
+          for (const placedBar of placedRangeBars) {
+            if (placedBar.level === level && rangeBarsOverlap({ x1, x2 }, placedBar)) {
+              hasOverlap = true;
+              break;
+            }
+          }
+          if (hasOverlap) {
+            level++;
+          }
+        }
+        return level;
+      }
+
+      // Draw events
+      viewportEvents.forEach((event, eventIndex) => {
+        // Create unique ID for this event
+        const eventId = `event-${eventIndex}`;
+        event.eventId = eventId;
+        if (event.type === 'range') {
+          // Draw range as horizontal bar - always above timeline
+          const x1 = event.x; // Use pre-calculated X position
+          const x2 = xScale(event.parsedEndDate);
+
+          // Find the appropriate stack level for this bar
+          const stackLevel = findRangeBarStackLevel(x1, x2);
+
+          // Calculate barY based on stack level
+          // First bar: 23px above, subsequent bars stack with 3px spacing
+          const barY = timelineY - (firstBarOffset + stackLevel * (barHeight + barSpacing));
+
+          // Cycle through range bar colors for visual variety
+          const barColorIndex = placedRangeBars.length % rangeBarColors.length;
+          const barColor = rangeBarColors[barColorIndex];
+
+          // Draw the bar
+          svg.append('rect')
+            .attr('class', `range-bar category-${event.category} priority-${event.priority || 'medium'}`)
+            .attr('x', x1)
+            .attr('y', barY - barHeight / 2)
+            .attr('width', x2 - x1)
+            .attr('height', barHeight)
+            .attr('rx', 6)
+            .attr('fill', barColor)
+            .attr('stroke', barColor)
+            .on('mouseover', (e) => showTooltip(e, event, e))
+            .on('mousemove', (e) => moveTooltip(e))
+            .on('mouseout', hideTooltip)
+            .on('click', () => showSidePanel(event));
+
+          // Track this bar for future overlap detection
+          placedRangeBars.push({
+            x1: x1,
+            x2: x2,
+            level: stackLevel
+          });
+
+        } else {
+          // Point event - draw card and dot with smart layering
+          // Use stored chronological preference for visual left-to-right alternating
+          const preferAbove = event.preferAbove !== undefined ? event.preferAbove : true;
+
+          const x = event.x; // Use pre-calculated X position
+
+          // Find best position (layer + offset) for this card
+          // Use Tier 3 only for "all" view
+          const useTier3 = currentView === 'all';
+          const position = findBestPosition(x, preferAbove, occupiedLayers, width, useTier3);
+          const layer = position.layer;
+          const offset = position.offset;
+
+          // Calculate card position with offset
+          const cardCenterX = x + offset;
+          const cardLeft = cardCenterX - CARD_WIDTH / 2;
+          const cardRight = cardCenterX + CARD_WIDTH / 2;
+
+          // Calculate flexible attachment point for connector line
+          // Allow connection within 10% of card edges from center (28px each side)
+          const FLEX_ZONE = CARD_WIDTH * 0.1; // 28px for 280px card
+          const flexZoneLeft = cardCenterX - FLEX_ZONE;
+          const flexZoneRight = cardCenterX + FLEX_ZONE;
+
+          // Determine connector attachment X position
+          let connectorAttachX;
+          if (x >= flexZoneLeft && x <= flexZoneRight) {
+            // Event dot is within flex zone - connect directly (no horizontal offset)
+            connectorAttachX = x;
+          } else if (x < flexZoneLeft) {
+            // Event dot is left of flex zone - connect at left edge of zone
+            connectorAttachX = flexZoneLeft;
+          } else {
+            // Event dot is right of flex zone - connect at right edge of zone
+            connectorAttachX = flexZoneRight;
+          }
+
+          // Store in occupied layers (including eventX for batch redistribution)
+          if (!occupiedLayers[layer]) occupiedLayers[layer] = [];
+          occupiedLayers[layer].push({
+            left: cardLeft,
+            right: cardRight,
+            centerX: cardCenterX,
+            eventX: x  // Store original event dot X position
+          });
+
+          // Log positioning decision
+          const logEntry = {
+            id: event.id,
+            text: event.text.substring(0, 40),
+            naturalX: Math.round(x),
+            layer: layer,
+            offset: Math.round(offset),
+            cardLeft: Math.round(cardLeft),
+            cardRight: Math.round(cardRight),
+            cardCenter: Math.round(cardCenterX),
+            connectorX: Math.round(connectorAttachX),
+            connectorOffset: Math.round(connectorAttachX - x),
+            decision: offset === 0 && connectorAttachX === x ? 'straight' : 'L-shaped'
+          };
+          positionLog.events.push(logEntry);
+          positionLog.tiers[layer].push(logEntry);
+
+          // Determine Y position based on layer
+          const isAbove = layer.startsWith('above');
+          const layerDistance = LAYERS[layer];
+
+          // Truncate description
+          const desc = event.description.length > 120
+            ? event.description.substring(0, 120) + '...'
+            : event.description;
+
+          // Create card at temporary position first
+          const card = cardsContainer.append('div')
+            .attr('class', `event-card category-${event.category}`)
+            .attr('data-event-id', eventId)
+            .style('left', cardLeft + 'px')
+            .style('top', '0px')
+            .on('click', function() {
+              // Add highlight effect
+              d3.select(this).classed('highlight', true);
+              // Remove highlight after animation
+              setTimeout(() => {
+                d3.select(this).classed('highlight', false);
+              }, 400);
+              showSidePanel(event);
+            })
+            .on('mouseenter', function() {
+              // Highlight card
+              d3.select(this).classed('highlight', true);
+
+              // Highlight connector lines
+              svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
+                .classed('highlighted', true)
+                .attr('stroke', categoryColors[event.category]);
+
+              // Highlight timeline dot
+              svg.select(`.timeline-dot[data-event-id="${eventId}"]`)
+                .classed('highlighted', true);
+            })
+            .on('mouseleave', function() {
+              // Remove card highlight
+              d3.select(this).classed('highlight', false);
+
+              // Remove highlight from connector lines
+              svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
+                .classed('highlighted', false)
+                .attr('stroke', '#666');
+
+              // Remove highlight from timeline dot
+              svg.select(`.timeline-dot[data-event-id="${eventId}"]`)
+                .classed('highlighted', false);
+            });
+
+          // Date heading (colored)
+          card.append('div')
+            .attr('class', 'card-date')
+            .style('color', categoryColors[event.category])
+            .text(d3.timeFormat('%b %d, %Y')(event.parsedDate));
+
+          // Event title
+          card.append('div')
+            .attr('class', 'card-title')
+            .text(event.text);
+
+          // Description
+          card.append('div')
+            .attr('class', 'card-description')
+            .text(desc);
+
+
+          // Measure actual card height
+          const cardElement = card.node();
+          const cardRect = cardElement.getBoundingClientRect();
+          const measuredHeight = cardRect.height;
+
+          // Calculate card position with mirror symmetry
+          // Use measured height if valid, otherwise fallback to estimate
+          const ESTIMATED_CARD_HEIGHT = 160;
+          const cardHeight = (measuredHeight > 0) ? measuredHeight : ESTIMATED_CARD_HEIGHT;
+
+          // Account for timeline-wrapper padding offset (100px)
+          // SVG starts at padding offset, but cards-container starts at 0
+          const PADDING_OFFSET = 100;
+
+          let cardTopY;
+          if (isAbove) {
+            // Position so card bottom is at line endpoint
+            cardTopY = timelineY - layerDistance - cardHeight + PADDING_OFFSET;
+          } else {
+            // Position so card top is at the line endpoint
+            cardTopY = timelineY + layerDistance + PADDING_OFFSET;
+          }
+
+          // Update card position
+          card.style('top', cardTopY + 'px');
+
+          // Draw connector line: straight if connector attaches directly at event dot, L-shaped otherwise
+          const cardEdgeY = isAbove ? (timelineY - layerDistance) : (timelineY + layerDistance);
+
+          // Check if connector can attach directly at event dot (no horizontal offset needed)
+          if (offset === 0 && connectorAttachX === x) {
+            // No offset AND connector attaches at event dot - draw straight vertical line
+            svg.append('line')
+              .attr('class', 'connector-line')
+              .attr('data-event-id', eventId)
+              .attr('x1', x)
+              .attr('y1', timelineY)
+              .attr('x2', x)
+              .attr('y2', cardEdgeY);
+          } else {
+            // Card has been offset OR needs horizontal connector to reach attachment point
+            // Increment offset count for this tier (only if actually offset)
+            if (offset !== 0) {
+              offsetCounts[layer]++;
+            }
+
+            // Calculate staggered transition point
+            // Base: 50% of distance, then stagger by 12px per offset card
+            const baseMidpoint = timelineY + (isAbove ? -layerDistance/2 : layerDistance/2);
+            const staggerAmount = 12; // pixels to stagger each L-connector
+            const staggerDirection = offset > 0 ? 1 : -1; // stagger up/down based on offset direction
+            const staggerCount = offset !== 0 ? offsetCounts[layer] : 0;
+            const transitionY = baseMidpoint + (staggerCount * staggerAmount * staggerDirection);
+
+            // Vertical segment: from timeline dot to transition point
+            svg.append('line')
+              .attr('class', 'connector-line')
+              .attr('data-event-id', eventId)
+              .attr('x1', x)
+              .attr('y1', timelineY)
+              .attr('x2', x)
+              .attr('y2', transitionY);
+
+            // Horizontal segment: from transition point to connector attachment X
+            svg.append('line')
+              .attr('class', 'connector-line')
+              .attr('data-event-id', eventId)
+              .attr('x1', x)
+              .attr('y1', transitionY)
+              .attr('x2', connectorAttachX)
+              .attr('y2', transitionY);
+
+            // Vertical segment: from horizontal line to card edge
+            svg.append('line')
+              .attr('class', 'connector-line')
+              .attr('data-event-id', eventId)
+              .attr('x1', connectorAttachX)
+              .attr('y1', transitionY)
+              .attr('x2', connectorAttachX)
+              .attr('y2', cardEdgeY);
+          }
+
+          // Draw dot on timeline (on top of line)
+          svg.append('circle')
+            .attr('class', `timeline-dot category-${event.category} priority-${event.priority || 'medium'}`)
+            .attr('data-event-id', eventId)
+            .attr('cx', x)
+            .attr('cy', timelineY)
+            .attr('r', 10)
+            .attr('fill', categoryColors[event.category])
+            .on('click', () => showSidePanel(event))
+            .on('mouseenter', function() {
+              // Highlight connector lines
+              svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
+                .classed('highlighted', true)
+                .attr('stroke', categoryColors[event.category]);
+
+              // Highlight timeline dot
+              d3.select(this).classed('highlighted', true);
+
+              // Highlight card
+              cardsContainer.selectAll(`.event-card[data-event-id="${eventId}"]`)
+                .classed('highlight', true);
+            })
+            .on('mouseleave', function() {
+              // Remove highlight from connector lines
+              svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
+                .classed('highlighted', false)
+                .attr('stroke', '#666');
+
+              // Remove highlight from timeline dot
+              d3.select(this).classed('highlighted', false);
+
+              // Remove highlight from card
+              cardsContainer.selectAll(`.event-card[data-event-id="${eventId}"]`)
+                .classed('highlight', false);
+            });
+        }
+      });
+
+      // Output positioning log to console
+      console.group('📍 Card Positioning Analysis');
+      console.log(`Filter: ${currentView} | Total events: ${viewportEvents.length}`);
+      console.table(positionLog.events);
+
+      Object.keys(positionLog.tiers).forEach(tier => {
+        if (positionLog.tiers[tier].length > 0) {
+          console.group(`Tier: ${tier} (${positionLog.tiers[tier].length} cards)`);
+
+          // Calculate gaps between adjacent cards
+          const tierCards = positionLog.tiers[tier].sort((a, b) => a.cardLeft - b.cardLeft);
+          const gaps = [];
+          for (let i = 0; i < tierCards.length - 1; i++) {
+            const gap = tierCards[i + 1].cardLeft - tierCards[i].cardRight;
+            gaps.push({
+              between: `${tierCards[i].id} → ${tierCards[i + 1].id}`,
+              gap: Math.round(gap),
+              minRequired: MIN_GAP,
+              status: gap >= MIN_GAP ? '✓ OK' : '✗ OVERLAP'
+            });
+          }
+
+          if (gaps.length > 0) {
+            console.log('Gaps between cards:');
+            console.table(gaps);
+          }
+
+          console.table(tierCards);
+          console.groupEnd();
+        }
+      });
+
+      console.groupEnd();
+
+      // Draw month markers AFTER all events (so labels appear on top of connector lines)
+      monthMarkers.forEach((marker) => {
+        const x = xScale(marker.date);
+
+        // Only draw if within bounds
+        if (x >= margin.left && x <= width - margin.right) {
+          // Draw tick mark on timeline (theme-aware color)
+          const tickColor = getComputedStyle(document.documentElement).getPropertyValue('--month-tick-color');
+          svg.append('line')
+            .attr('x1', x)
+            .attr('y1', timelineY - 15)
+            .attr('x2', x)
+            .attr('y2', timelineY + 15)
+            .attr('stroke', tickColor.trim())
+            .attr('stroke-width', 2);
+
+          // Add white background behind label
+          const labelText = svg.append('text')
+            .attr('class', 'date-label')
+            .attr('x', x)
+            .attr('y', timelineY + 40)
+            .attr('text-anchor', 'middle')
+            .text(marker.label);
+
+          // Get text dimensions for background
+          const textBBox = labelText.node().getBBox();
+
+          // Insert background rectangle before text (uses theme color)
+          const labelBg = getComputedStyle(document.documentElement).getPropertyValue('--month-label-bg');
+          const bgHeight = textBBox.height + 4;  // Increased vertical padding
+          const hPadding = 8;  // Horizontal padding (8px on each side)
+          svg.insert('rect', '.date-label')
+            .attr('x', textBBox.x - hPadding)
+            .attr('y', textBBox.y - 2)
+            .attr('width', textBBox.width + (hPadding * 2))
+            .attr('height', bgHeight)
+            .attr('rx', bgHeight / 2)  // Pill shape: border-radius = half height
+            .attr('fill', labelBg.trim());
+
+        }
+      });
+    }
+
+    // Render mini-map
+    function renderMiniMap() {
+      const miniMapTimeline = document.getElementById('mini-map-timeline');
+      const miniMapViewport = document.getElementById('mini-map-viewport');
+      const miniMapContainer = document.getElementById('mini-map-container');
+      const leftArrow = document.getElementById('nav-arrow-left');
+      const rightArrow = document.getElementById('nav-arrow-right');
+
+      // Only show mini-map and navigation for "critical" and "all" views
+      const showNavigation = (currentView === 'critical' || currentView === 'all');
+
+      if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
+        // Hide mini-map and navigation arrows
+        miniMapContainer.style.display = 'none';
+        leftArrow.style.display = 'none';
+        rightArrow.style.display = 'none';
+        return;
+      }
+
+      // Show mini-map and navigation arrows
+      miniMapContainer.style.display = 'block';
+      leftArrow.style.display = 'flex';
+      rightArrow.style.display = 'flex';
+
+      // Clear existing event dots
+      const existingDots = miniMapTimeline.querySelectorAll('.mini-map-event');
+      existingDots.forEach(dot => dot.remove());
+
+      // Create scale for mini-map
+      const miniMapWidth = miniMapTimeline.offsetWidth;
+      const miniMapScale = d3.scaleTime()
+        .domain([fullTimelineStart, fullTimelineEnd])
+        .range([0, miniMapWidth]);
+
+      // Draw all filtered events as dots
+      allFilteredEvents.forEach(event => {
+        const eventDate = event.parsedDate;
+        const xPos = miniMapScale(eventDate);
+
+        const dot = document.createElement('div');
+        dot.className = 'mini-map-event';
+        dot.style.left = xPos + 'px';
+        dot.style.background = categoryColors[event.category] || '#999';
+        dot.title = event.text;
+
+        // Click to jump to this event
+        dot.addEventListener('click', () => {
+          // Find which page this event is on
+          const sortedEvents = [...allFilteredEvents].sort((a, b) => a.parsedDate - b.parsedDate);
+          const eventIndex = sortedEvents.findIndex(e => e.id === event.id);
+
+          if (eventIndex >= 0) {
+            // Calculate which page this event is on
+            currentViewportIndex = Math.floor(eventIndex / eventsPerViewport);
+
+            // Update viewport dates for this page
+            updateViewportDates(allFilteredEvents);
+            updateNavigationButtons(allFilteredEvents);
+            renderTimeline(allFilteredEvents);
+            renderMiniMap();
+          }
+        });
+
+        miniMapTimeline.appendChild(dot);
+      });
+
+      // Update viewport indicator position and width
+      const viewportStartX = miniMapScale(viewportStartDate);
+      const viewportEndX = miniMapScale(viewportEndDate);
+      const viewportWidth = viewportEndX - viewportStartX;
+
+      miniMapViewport.style.left = viewportStartX + 'px';
+      miniMapViewport.style.width = viewportWidth + 'px';
+
+      // Set up draggable viewport (only once to prevent memory leak)
+      if (!miniMapDragInitialized) {
+        setupMiniMapDrag();
+        miniMapDragInitialized = true;
+      }
+    }
+
+    // Setup mini-map drag functionality (called once)
+    function setupMiniMapDrag() {
+      const miniMapViewport = document.getElementById('mini-map-viewport');
+      let isDragging = false;
+      let startX = 0;
+      let startLeft = 0;
+
+      miniMapViewport.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startLeft = parseInt(miniMapViewport.style.left) || 0;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        const deltaX = e.clientX - startX;
+        let newLeft = startLeft + deltaX;
+
+        // Get current minimap dimensions
+        const miniMapTimeline = document.getElementById('mini-map-timeline');
+        const miniMapWidth = miniMapTimeline.offsetWidth;
+        const viewportWidth = parseInt(miniMapViewport.style.width) || 0;
+
+        // Clamp to minimap bounds
+        if (newLeft < 0) newLeft = 0;
+        if (newLeft + viewportWidth > miniMapWidth) {
+          newLeft = miniMapWidth - viewportWidth;
+        }
+
+        // Calculate mini-map scale
+        const miniMapScale = d3.scaleTime()
+          .domain([fullTimelineStart, fullTimelineEnd])
+          .range([0, miniMapWidth]);
+
+        // Calculate new viewport dates from position
+        const newStartDate = miniMapScale.invert(newLeft);
+        const newEndDate = miniMapScale.invert(newLeft + viewportWidth);
+
+        // Update viewport
+        viewportStartDate = newStartDate;
+        viewportEndDate = newEndDate;
+
+        // Update visual immediately
+        miniMapViewport.style.left = newLeft + 'px';
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          // Re-render timeline with new viewport
+          updateNavigationButtons();
+          renderTimeline(allFilteredEvents);
+        }
+      });
+    }
+
+    // Show side panel
+    function showSidePanel(event) {
+      const panel = document.getElementById('side-panel');
+      const overlay = document.getElementById('panel-overlay');
+
+      // Set header
+      document.getElementById('panel-title').textContent = event.text;
+
+      const dateStr = event.type === 'range'
+        ? `${d3.timeFormat('%B %d, %Y')(event.parsedDate)} - ${d3.timeFormat('%B %d, %Y')(event.parsedEndDate)}`
+        : d3.timeFormat('%B %d, %Y')(event.parsedDate);
+      document.getElementById('panel-date').textContent = dateStr;
+
+      const categoryBadge = document.getElementById('panel-category');
+      categoryBadge.textContent = categoryLabels[event.category];
+      categoryBadge.style.backgroundColor = categoryColors[event.category];
+
+      // Set content
+      let content = '';
+
+      // Add tag badges section
+      if (event.tags && event.tags.length > 0) {
+        content += `
+          <div class="panel-section">
+            <div class="card-tags">
+              ${event.tags.map(tag => `<span class="tag-badge tag-${tag}">${tag.replace(/-/g, ' ')}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      content += `
+        <div class="panel-section">
+          <h3>Description</h3>
+          <p>${event.description}</p>
+        </div>
+      `;
+
+      if (event.evidence && event.evidence.length > 0) {
+        content += `
+          <div class="panel-section">
+            <h3>Evidence</h3>
+            <ul>
+              ${event.evidence.map(e => `<li>${e}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (event.witnesses && event.witnesses.length > 0) {
+        content += `
+          <div class="panel-section">
+            <h3>Witnesses</h3>
+            <ul>
+              ${event.witnesses.map(w => `<li>${w}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      // Evidence Images Section
+      if (event.evidenceImages && event.evidenceImages.length > 0) {
+        content += `<div class="panel-section evidence-images">`;
+
+        event.evidenceImages.forEach((img, index) => {
+          const isClickable = img.type === 'doc' || img.type === 'photo' || img.type === 'email';
+          const clickClass = isClickable ? 'clickable' : '';
+          const clickAttr = isClickable ? `data-img-index="${index}"` : '';
+
+          // Determine size based on type
+          let maxWidth = '300px'; // default for text/maps
+          let maxHeight = '600px'; // default
+          if (img.type === 'doc') {
+            maxWidth = '300px';
+            maxHeight = '600px';
+          }
+          if (img.type === 'photo') {
+            maxWidth = '400px';
+            maxHeight = '600px';
+          }
+          if (img.type === 'email') {
+            maxWidth = '650px'; // Almost full width of 720px panel
+            maxHeight = '1000px'; // Much taller for email readability
+          }
+
+          content += `
+            <div class="evidence-image-container">
+              <img
+                src="${img.file}"
+                alt="${img.caption || 'Evidence'}"
+                class="evidence-image ${clickClass}"
+                style="max-width: ${maxWidth}; max-height: ${maxHeight};"
+                ${clickAttr}
+              />
+              ${img.caption ? `<p class="evidence-caption">${img.caption}</p>` : ''}
+            </div>
+          `;
+        });
+
+        content += `</div>`;
+      }
+
+      if (event.legalSignificance) {
+        content += `
+          <div class="panel-section legal-significance">
+            <h3>Legal Significance</h3>
+            <p>${event.legalSignificance}</p>
+          </div>
+        `;
+      }
+
+      document.getElementById('panel-content').innerHTML = content;
+
+      // Add event listeners to clickable images
+      if (event.evidenceImages && event.evidenceImages.length > 0) {
+        setTimeout(() => {
+          const clickableImages = document.querySelectorAll('.evidence-image.clickable');
+          clickableImages.forEach(img => {
+            img.addEventListener('click', function() {
+              const index = parseInt(this.getAttribute('data-img-index'));
+              const imgData = event.evidenceImages[index];
+              showImageModal(imgData);
+            });
+          });
+        }, 0);
+      }
+
+      // Show panel
+      panel.classList.add('open');
+      overlay.classList.add('visible');
+    }
+
+    // Show image modal (side-by-side)
+    function showImageModal(imgData) {
+      const imageModal = document.getElementById('image-modal');
+      const imageModalContent = document.getElementById('image-modal-content');
+      const imageModalTitle = document.getElementById('image-modal-title');
+      const sidePanel = document.getElementById('side-panel');
+
+      // Set content
+      imageModalTitle.textContent = imgData.caption || 'Evidence Image';
+      imageModalContent.innerHTML = `
+        <img src="${imgData.file}" alt="${imgData.caption || 'Evidence'}" />
+        ${imgData.caption ? `<p class="evidence-caption">${imgData.caption}</p>` : ''}
+      `;
+
+      // Shift main panel to the left and show image modal
+      sidePanel.classList.add('shifted');
+      imageModal.classList.add('open');
+    }
+
+    // Hide image modal
+    function hideImageModal() {
+      const imageModal = document.getElementById('image-modal');
+      const sidePanel = document.getElementById('side-panel');
+
+      imageModal.classList.remove('open');
+      sidePanel.classList.remove('shifted');
+    }
+
+    // Hide side panel
+    function hideSidePanel() {
+      hideImageModal(); // Close image modal if open
+      document.getElementById('side-panel').classList.remove('open');
+      document.getElementById('panel-overlay').classList.remove('visible');
+    }
+
+    // Setup panel listeners
+    function setupPanelListeners() {
+      document.getElementById('panel-overlay').addEventListener('click', hideSidePanel);
+      document.getElementById('image-modal-close').addEventListener('click', hideImageModal);
+    }
+
+    // Setup timecard viewer
+    function setupTimecardViewer() {
+      const timecardToggle = document.getElementById('timecard-toggle');
+      const timecardModal = document.getElementById('timecard-modal');
+      const timecardClose = document.getElementById('timecard-close');
+      const timecardContent = document.getElementById('timecard-content');
+
+      // Timecard image filenames (Jan-Aug 2025)
+      const timecardFiles = [
+        'Timecard-Jan-2025.png',
+        'Timecard-Feb-2025.png',
+        'Timecard-Mar-2025.png',
+        'Timecard-Apr-2025.png',
+        'Timecard-May-2025.png',
+        'Timecard-Jun-2025.png',
+        'Timecard-July-2025.png',
+        'Timecard-Aug-2025.png'
+      ];
+
+      // Open timecard viewer
+      timecardToggle.addEventListener('click', () => {
+        // Populate with timecard images
+        timecardContent.innerHTML = timecardFiles.map(file =>
+          `<img src="images/evidence/timecards/${file}" alt="${file}" class="timecard-image" />`
+        ).join('');
+
+        timecardModal.classList.add('open');
+      });
+
+      // Close timecard viewer
+      timecardClose.addEventListener('click', () => {
+        timecardModal.classList.remove('open');
+      });
+
+      // Close on outside click
+      timecardModal.addEventListener('click', (e) => {
+        if (e.target === timecardModal) {
+          timecardModal.classList.remove('open');
+        }
+      });
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
