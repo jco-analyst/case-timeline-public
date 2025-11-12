@@ -18,13 +18,7 @@ const timelineEvents = [
       'Interview notes (if documented)',
       'Employee testimony about first interview conversation'
     ],
-    evidenceImages: [
-      {
-        type: 'doc',
-        file: 'images/evidence/documents/Employment-Agreement-Dear-Rollins-Error.pdf',
-        caption: 'SMOKING GUN: Employment contract with "Dear Rollins:" error - wrong employee name. Contract may be void, undermines employer credibility.'
-      }
-    ],
+    evidenceImages: [],
     witnesses: ['Boss (John)', 'HR'],
     legalSignificance: 'Employer had knowledge from day one that family was employee\'s top priority. Later disciplined and terminated employee for those same family obligations. Shows employer\'s knowledge of protected ground from beginning of employment. CRITICAL: Contract contains "Dear Rollins:" salutation (wrong employee) - may void contract, worth $10k-$20k if proven. PDF ANALYSIS CONCERN: Technical analysis reveals font subset inconsistencies (different prefixes for same font) suggesting text may have been copy-pasted or altered after original creation. Multiple subset prefixes indicate content from different sources, raising questions about document authenticity.',
     priority: 'medium'
@@ -185,11 +179,6 @@ const timelineEvents = [
       {
         type: 'doc',
         file: 'images/evidence/medical-records/2025-02-18_doc_cpap-letter-1.jpg',
-        caption: 'Doctor\'s letter regarding moderate sleep apnea diagnosis and CPAP treatment - visual evidence'
-      },
-      {
-        type: 'doc',
-        file: 'images/evidence/medical-records/Sleep-Apnea-Diagnosis-CPAP-Feb-18-2025.pdf',
         caption: 'CRITICAL: Doctor\'s letter diagnosing MODERATE sleep apnea. CPAP prescribed. Employer knew from Feb 2025 but never accommodated. Boss has same condition ("I understand the struggles") but disciplined employee for lateness related to sleep disorder.'
       }
     ],
