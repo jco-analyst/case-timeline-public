@@ -48,17 +48,7 @@ const timelineEvents = [
       {
         type: 'doc',
         file: 'images/evidence/medical-records/2024-01-15_doc_adhd-urine-test-1.jpg',
-        caption: 'ADHD urine drug test - Pre-employment disclosure showing amphetamine-based medication'
-      },
-      {
-        type: 'doc',
-        file: 'images/evidence/medical-records/2024-01-15_doc_adhd-urine-test-2.jpg',
-        caption: 'ADHD urine drug test results (page 2) - Employer had written documentation from day one'
-      },
-      {
-        type: 'doc',
-        file: 'images/evidence/medical-records/ADHD-Medication-Note-Jan-2024.pdf',
-        caption: 'Doctor\'s note explaining ADHD medication for pre-employment drug test. Employer received written medical documentation at hiring. Boss has ADHD too ("I understand the struggles") but no accommodations offered.'
+        caption: 'ADHD urine drug test - Pre-employment disclosure showing amphetamine-based medication. Employer received written medical documentation at hiring (including doctor\'s note). Boss has ADHD too ("I understand the struggles") but no accommodations offered.'
       }
     ],
     witnesses: ['Boss (John)', 'HR'],
@@ -152,24 +142,6 @@ const timelineEvents = [
     icon: '👶'
   },
 
-  {
-    id: 7,
-    timestamp: '2024-10-20',
-    text: '5 Weeks Paternity Leave',
-    category: 'family',
-    type: 'range',
-    endDate: '2024-11-25',
-    tags: ['family', 'wrongful-dismissal'],
-    description: 'Employee took 5 weeks paternity leave immediately after baby\'s birth (October/November 2024). Protected leave under Alberta law.',
-    evidence: [
-      'Leave request documentation',
-      'Payroll records showing leave period',
-      'ROE if issued for this period'
-    ],
-    witnesses: ['HR', 'Boss'],
-    legalSignificance: 'First of two protected parental leaves. Employee exercised legal right to parental leave. Pattern: Employee takes parental leave → Employer disciplines for family-related absences → Employee takes second parental leave → Terminated 12 days after return.',
-    priority: 'medium'
-  },
 
   {
     id: 8,
@@ -509,13 +481,7 @@ const timelineEvents = [
     tags: ['family', 'wrongful-dismissal'],
     description: 'Employee texted boss requesting time off for celebration of life (funeral/memorial service). Family obligation to attend memorial service for deceased person. Boss approved the request.',
     evidence: ['Text message to boss requesting bereavement leave'],
-    evidenceImages: [
-      {
-        type: 'text',
-        file: 'images/evidence/family-status/July-06-2025-Bereavement-Leave.jpg',
-        caption: 'Mon July 6. Employee requests bereavement leave for celebration of life (funeral/memorial service). Boss approved. Protected family obligation under employment standards.'
-      }
-    ],
+    evidenceImages: [],
     witnesses: ['Boss (John)', 'Family members', 'Memorial service attendees'],
     legalSignificance: 'Protected bereavement leave. Family obligation. Not lateness - authorized time off. Shows employee appropriately requests time off for family obligations and employer grants it.',
     priority: 'low'

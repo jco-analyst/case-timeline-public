@@ -2599,12 +2599,37 @@
       const imageModalTitle = document.getElementById('image-modal-title');
       const sidePanel = document.getElementById('side-panel');
 
-      // Set content
+      // Set title
       imageModalTitle.textContent = imgData.caption || 'Evidence Image';
-      imageModalContent.innerHTML = `
-        <img src="${imgData.file}" alt="${imgData.caption || 'Evidence'}" />
-        ${imgData.caption ? `<p class="evidence-caption">${imgData.caption}</p>` : ''}
-      `;
+
+      // Check if file is PDF
+      const isPDF = imgData.file.toLowerCase().endsWith('.pdf');
+
+      if (isPDF) {
+        // Render PDF with iframe for maximum compatibility
+        imageModalContent.innerHTML = `
+          <iframe
+            src="${imgData.file}#toolbar=0"
+            type="application/pdf"
+            width="100%"
+            height="800px"
+            style="border: none; margin-bottom: 10px;"
+            title="${imgData.caption || 'PDF Evidence Document'}"
+          ></iframe>
+          ${imgData.caption ? `<p class="evidence-caption">${imgData.caption}</p>` : ''}
+          <p style="font-size: 12px; color: #666; text-align: center;">
+            <a href="${imgData.file}" target="_blank" style="color: #007bff; text-decoration: none;">
+              📄 Open PDF in new tab
+            </a>
+          </p>
+        `;
+      } else {
+        // Render image normally
+        imageModalContent.innerHTML = `
+          <img src="${imgData.file}" alt="${imgData.caption || 'Evidence'}" />
+          ${imgData.caption ? `<p class="evidence-caption">${imgData.caption}</p>` : ''}
+        `;
+      }
 
       // Shift main panel to the left and show image modal
       sidePanel.classList.add('shifted');
