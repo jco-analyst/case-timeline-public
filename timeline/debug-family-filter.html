@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Family Events</title>
+</head>
+<body>
+    <h1>Family-Tagged Events Debug</h1>
+    <p>Open browser console (F12) to see detailed output</p>
+    <div id="results"></div>
+
+    <script src="js/data.js"></script>
+    <script>
+        console.log('Total events:', timelineEvents.length);
+
+        const familyEvents = timelineEvents.filter(e => e.tags && e.tags.includes('family'));
+        console.log('Family-tagged events:', familyEvents.length);
+
+        console.log('\n=== ALL FAMILY EVENTS ===');
+        familyEvents.forEach((e, i) => {
+            console.log((i+1) + '. [Event ' + e.id + '] ' + e.timestamp + ': ' + e.text);
+            console.log('   Tags: ' + e.tags.join(', '));
+        });
+
+        let html = '<h2>Found ' + familyEvents.length + ' family-tagged events:</h2><ol>';
+        familyEvents.forEach(e => {
+            html += '<li>[Event ' + e.id + '] ' + e.timestamp + ': ' + e.text + '</li>';
+        });
+        html += '</ol>';
+        document.getElementById('results').innerHTML = html;
+    </script>
+</body>
+</html>
