@@ -1185,6 +1185,7 @@
     // Layer configuration
     const CARD_WIDTH = 280;
     const MIN_GAP = 30;
+    const MAX_OFFSET = 150; // Maximum horizontal shift allowed (prevents wide gaps)
     const LAYERS = {
       above3: 460,  // Farthest above (maintains 180px gap from Tier 2)
       above2: 280,  // Far above (maintains 180px gap from Tier 1)
@@ -1624,25 +1625,46 @@
     // Compute offset needed to place card in a gap
     function computeOffsetForGap(gap, eventX, cardWidth) {
       const halfWidth = cardWidth / 2;
+      let targetOffset;
 
       if (gap.type === 'between') {
-        // Center the card in the gap
-        return gap.center - eventX;
-      }
+        // Place card as close as possible to eventX while staying in gap
+        // (prefer minimal offset over centering in gap)
+        const gapLeft = gap.start + MIN_GAP;
+        const gapRight = gap.end - MIN_GAP;
+        const idealCardLeft = eventX - halfWidth;
+        const idealCardRight = eventX + halfWidth;
 
-      if (gap.type === 'left-edge') {
+        if (idealCardLeft >= gapLeft && idealCardRight <= gapRight) {
+          // Card fits at natural position within gap
+          targetOffset = 0;
+        } else if (eventX < gap.center) {
+          // Event is left of gap center - place at left edge of gap
+          const cardCenterX = gapLeft + halfWidth;
+          targetOffset = cardCenterX - eventX;
+        } else {
+          // Event is right of gap center - place at right edge of gap
+          const cardCenterX = gapRight - halfWidth;
+          targetOffset = cardCenterX - eventX;
+        }
+      } else if (gap.type === 'left-edge') {
         // Place card with right edge at gap.end - MIN_GAP
         const cardCenterX = gap.end - MIN_GAP - halfWidth;
-        return cardCenterX - eventX;
-      }
-
-      if (gap.type === 'right-edge') {
+        targetOffset = cardCenterX - eventX;
+      } else if (gap.type === 'right-edge') {
         // Place card with left edge at gap.start + MIN_GAP
         const cardCenterX = gap.start + MIN_GAP + halfWidth;
-        return cardCenterX - eventX;
+        targetOffset = cardCenterX - eventX;
+      } else {
+        return 0;
       }
 
-      return 0;
+      // Constrain offset to MAX_OFFSET to prevent excessive shifting
+      if (Math.abs(targetOffset) > MAX_OFFSET) {
+        return null; // Gap requires too much offset, skip it
+      }
+
+      return targetOffset;
     }
 
     // Find smallest valid offset for a card on a specific layer
@@ -1672,6 +1694,9 @@
 
       for (const gap of gaps) {
         const offset = computeOffsetForGap(gap, eventX, CARD_WIDTH);
+
+        // Skip gap if offset exceeds MAX_OFFSET
+        if (offset === null) continue;
 
         // Verify this offset doesn't overlap with any existing cards
         const testLeft = (eventX + offset) - CARD_WIDTH / 2;
@@ -1875,8 +1900,7 @@
       // Calculate spatial center of timeline
       const timelineCenter = (margin.left + (width - margin.right)) / 2;
 
-      // Calculate X position and distance from center for each event
-      // This enables "ends-inward" processing: edge events first, middle events last
+      // Calculate X position for each event
       viewportEvents.forEach(e => {
         e.x = xScale(e.parsedDate);
         // Validate that x position is a valid number
@@ -1885,13 +1909,11 @@
           // Use a default position at the start of timeline if date parsing failed
           e.x = margin.left + 100;
         }
-        e.distanceFromCenter = Math.abs(e.x - timelineCenter);
       });
 
-      // Sort by distance from center (descending - edges first, middle last)
-      // Far-left and far-right events get priority positioning
-      // Middle events adjust around them
-      viewportEvents.sort((a, b) => b.distanceFromCenter - a.distanceFromCenter);
+      // Keep chronological order for processing (already sorted at line 1822)
+      // This ensures events are processed left-to-right, preserving chronological order
+      // Earlier events placed first will constrain later events (no later event can be left of earlier)
 
       // Draw timeline line
       svg.append('line')
