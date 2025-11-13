@@ -1026,12 +1026,12 @@
         <button class="view-btn" data-view="all">All Events</button>
       </div>
 
-      <!-- Lateness Sub-Filters (disabled - was causing filter bugs) -->
-      <!-- <div class="lateness-subfilters" id="lateness-subfilters">
+      <!-- Lateness Sub-Filters (shown when Family or Disability filter is active) -->
+      <div class="lateness-subfilters" id="lateness-subfilters">
         <span class="lateness-label">Lateness:</span>
         <button class="lateness-btn" data-person="employee" title="Employee Lateness">Employee</button>
         <button class="lateness-btn" data-person="boss-coworker" title="Boss/Coworker Lateness">Boss/Coworker</button>
-      </div> -->
+      </div>
     </div>
 
     <!-- Timeline -->
@@ -1370,19 +1370,59 @@
       let events = [...timelineEvents];
       console.log('🔍 DEBUG: Starting with', events.length, 'total events');
 
-      // Apply main tag filter first
+      // Apply main tag filter - with special handling for family/disability with lateness filters
       if (currentView === 'critical') {
         events = events.filter(e => e.tags && e.tags.includes('critical'));
         console.log('🔍 DEBUG: After critical filter:', events.length, 'events');
       } else if (currentView === 'family') {
-        events = events.filter(e => e.tags && e.tags.includes('family'));
-        console.log('🔍 DEBUG: After family filter:', events.length, 'events');
+        // Family view with optional lateness sub-filtering
+        if (activeLatenessFilters.size === 0) {
+          // No lateness filters: show ALL family events
+          events = events.filter(e => e.tags && e.tags.includes('family'));
+          console.log('🔍 DEBUG: After family filter (no lateness filters):', events.length, 'events');
+        } else {
+          // Lateness filters active: show family events + matching lateness events (ADDITIVE)
+          events = events.filter(e => {
+            if (!e.tags) return false;
+
+            // Include all family-tagged events
+            if (e.tags.includes('family')) return true;
+
+            // Also include lateness events that match active filters
+            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
+            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
+
+            return false;
+          });
+          console.log('🔍 DEBUG: After family filter (with lateness filters):', events.length, 'events');
+          console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
+        }
       } else if (currentView === 'ohs') {
         events = events.filter(e => e.tags && e.tags.includes('ohs'));
         console.log('🔍 DEBUG: After ohs filter:', events.length, 'events');
       } else if (currentView === 'disability') {
-        events = events.filter(e => e.tags && e.tags.includes('disability'));
-        console.log('🔍 DEBUG: After disability filter:', events.length, 'events');
+        // Disability view with optional lateness sub-filtering
+        if (activeLatenessFilters.size === 0) {
+          // No lateness filters: show ALL disability events
+          events = events.filter(e => e.tags && e.tags.includes('disability'));
+          console.log('🔍 DEBUG: After disability filter (no lateness filters):', events.length, 'events');
+        } else {
+          // Lateness filters active: show disability events + matching lateness events (ADDITIVE)
+          events = events.filter(e => {
+            if (!e.tags) return false;
+
+            // Include all disability-tagged events
+            if (e.tags.includes('disability')) return true;
+
+            // Also include lateness events that match active filters
+            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
+            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
+
+            return false;
+          });
+          console.log('🔍 DEBUG: After disability filter (with lateness filters):', events.length, 'events');
+          console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
+        }
       } else if (currentView === 'wrongful-dismissal') {
         events = events.filter(e => e.tags && e.tags.includes('wrongful-dismissal'));
         console.log('🔍 DEBUG: After wrongful-dismissal filter:', events.length, 'events');
@@ -1394,12 +1434,6 @@
         console.log('🔍 DEBUG: After smoking-gun filter:', events.length, 'events');
       }
       // 'all' view shows everything - no filter applied
-
-      // Note: Lateness sub-filters are optional refinements for Family and Disability views
-      // When NO lateness filters are active, show ALL events from the main filter
-      // When lateness filters ARE active, show only events matching those specific lateness types
-      // This is intentionally disabled - lateness filters were confusing and not working correctly
-      // All events with the main tag (family/disability) are shown regardless
 
       console.log('🔍 DEBUG: Returning', events.length, 'events');
       return events;
@@ -1413,7 +1447,16 @@
           btn.classList.add('active');
           currentView = btn.dataset.view;
 
-          // Lateness subfilters disabled - feature was buggy and confusing
+          // Show/hide lateness subfilters for Family and Disability views
+          const latenessSubfilters = document.getElementById('lateness-subfilters');
+          if (currentView === 'family' || currentView === 'disability') {
+            latenessSubfilters.classList.add('visible');
+          } else {
+            latenessSubfilters.classList.remove('visible');
+            // Reset lateness filters when leaving Family/Disability view
+            activeLatenessFilters.clear();
+            document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
+          }
 
           // Get filtered events and initialize viewport
           allFilteredEvents = getFilteredEvents();
