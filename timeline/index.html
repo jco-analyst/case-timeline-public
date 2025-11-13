@@ -1184,7 +1184,7 @@
 
     // Layer configuration
     const CARD_WIDTH = 280;
-    const MIN_GAP = 10; // Minimum spacing between cards (reduced for tighter packing)
+    const MIN_GAP = 30; // Minimum spacing between cards (matches cardsOverlap tolerance)
     const MAX_OFFSET = 300; // Maximum horizontal shift allowed (increased for flexibility)
     const LAYERS = {
       above3: 460,  // Farthest above (maintains 180px gap from Tier 2)
@@ -1510,10 +1510,13 @@
         `${count} event${count !== 1 ? 's' : ''}`;
     }
 
-    // Check if two cards overlap (with tolerance)
+    // Check if two cards overlap or are too close (with tolerance)
+    // Returns true if gap between cards is less than tolerance
     function cardsOverlap(card1, card2, tolerance = 30) {
       const overlap = Math.min(card1.right, card2.right) - Math.max(card1.left, card2.left);
-      return overlap > tolerance;
+      // Positive overlap = actual overlap, zero = touching, negative = gap
+      // Return true if overlapping OR gap < tolerance
+      return overlap > -tolerance;
     }
 
     // Check if card position is within container bounds
