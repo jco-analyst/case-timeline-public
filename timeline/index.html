@@ -1377,18 +1377,21 @@
       } else if (currentView === 'family') {
         // Family view with optional lateness sub-filtering
         if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show ALL family events
-          events = events.filter(e => e.tags && e.tags.includes('family'));
+          // No lateness filters: show ONLY non-lateness family events (pure family discrimination)
+          events = events.filter(e => {
+            if (!e.tags || !e.tags.includes('family')) return false;
+            // Exclude lateness events - only show pure family discrimination events
+            return !e.tags.includes('lateness-employee') &&
+                   !e.tags.includes('lateness-boss') &&
+                   !e.tags.includes('lateness-coworker');
+          });
           console.log('🔍 DEBUG: After family filter (no lateness filters):', events.length, 'events');
         } else {
-          // Lateness filters active: show family events + matching lateness events (ADDITIVE)
+          // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
           events = events.filter(e => {
             if (!e.tags) return false;
 
-            // Include all family-tagged events
-            if (e.tags.includes('family')) return true;
-
-            // Also include lateness events that match active filters
+            // Show ONLY lateness events that match active filters
             if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
             if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
 
@@ -1403,18 +1406,21 @@
       } else if (currentView === 'disability') {
         // Disability view with optional lateness sub-filtering
         if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show ALL disability events
-          events = events.filter(e => e.tags && e.tags.includes('disability'));
+          // No lateness filters: show ONLY non-lateness disability events (pure disability discrimination)
+          events = events.filter(e => {
+            if (!e.tags || !e.tags.includes('disability')) return false;
+            // Exclude lateness events - only show pure disability discrimination events
+            return !e.tags.includes('lateness-employee') &&
+                   !e.tags.includes('lateness-boss') &&
+                   !e.tags.includes('lateness-coworker');
+          });
           console.log('🔍 DEBUG: After disability filter (no lateness filters):', events.length, 'events');
         } else {
-          // Lateness filters active: show disability events + matching lateness events (ADDITIVE)
+          // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
           events = events.filter(e => {
             if (!e.tags) return false;
 
-            // Include all disability-tagged events
-            if (e.tags.includes('disability')) return true;
-
-            // Also include lateness events that match active filters
+            // Show ONLY lateness events that match active filters
             if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
             if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
 
@@ -1451,6 +1457,9 @@
           const latenessSubfilters = document.getElementById('lateness-subfilters');
           if (currentView === 'family' || currentView === 'disability') {
             latenessSubfilters.classList.add('visible');
+            // ALWAYS reset lateness filters when entering Family/Disability view
+            activeLatenessFilters.clear();
+            document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           } else {
             latenessSubfilters.classList.remove('visible');
             // Reset lateness filters when leaving Family/Disability view
