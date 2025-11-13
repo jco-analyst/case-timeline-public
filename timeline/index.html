@@ -1679,7 +1679,7 @@
       // Check if offset=0 works
       let hasOverlap = false;
       for (const card of existingCards) {
-        if (cardsOverlap(proposedCard, card)) {
+        if (cardsOverlap(proposedCard, card, MIN_GAP)) {
           hasOverlap = true;
           break;
         }
@@ -1705,7 +1705,7 @@
 
         let testOverlap = false;
         for (const card of existingCards) {
-          if (cardsOverlap(testCard, card)) {
+          if (cardsOverlap(testCard, card, MIN_GAP)) {
             testOverlap = true;
             break;
           }
