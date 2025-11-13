@@ -67,6 +67,7 @@
       color: var(--text-primary);
       padding: 40px 20px;
       transition: background-color 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
     }
 
     .container {
@@ -1803,10 +1804,10 @@
         maxDate = viewportEndDate;
       }
 
-      // Dimensions - use 95% of container width
+      // Dimensions - use 95% of container width (fully responsive)
       // Use taller height for "all" view to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
-      const width = Math.max(containerWidth * 0.95, 1000);
+      const width = containerWidth * 0.95;
       const height = currentView === 'all' ? 1400 : 800;
       const minMargin = CARD_WIDTH / 2 + 20; // 140 + 20 = 160px (prevents card cutoff)
       const margin = {
