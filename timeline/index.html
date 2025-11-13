@@ -1695,8 +1695,8 @@
       return null;
     }
 
-    // Simple overlap check: Try to place card at natural position (offset=0)
-    // Returns { success: true, offset: 0 } if no overlap, or { success: false } if overlap detected
+    // Try to place card on tier - first at offset=0, then search for gaps if needed
+    // Returns { success: true, offset: X } if placement found, or { success: false } if tier is full
     function tryAddCardToTier(newCardX, layer, occupiedLayers, containerWidth) {
       const existingCards = occupiedLayers[layer] || [];
       const margin = 20;
@@ -1705,9 +1705,16 @@
       const newCardLeft = newCardX - CARD_WIDTH / 2;
       const newCardRight = newCardX + CARD_WIDTH / 2;
 
-      // Check if new card fits within container bounds
+      // Check if new card fits within container bounds at offset=0
       if (newCardLeft < margin || newCardRight > containerWidth - margin) {
-        console.log(`[${layer}] Card at X=${newCardX.toFixed(0)} out of bounds, trying next tier`);
+        console.log(`[${layer}] Card at X=${newCardX.toFixed(0)} out of bounds at offset=0, searching for gaps...`);
+        // Try to find a valid gap instead of giving up
+        const validOffset = findSmallestValidOffset(newCardX, layer, occupiedLayers, containerWidth);
+        if (validOffset !== null) {
+          console.log(`[${layer}] Found valid gap at offset=${validOffset.toFixed(0)}`);
+          return { success: true, offset: validOffset };
+        }
+        console.log(`[${layer}] No valid gaps found, trying next tier`);
         return { success: false };
       }
 
@@ -1716,13 +1723,19 @@
         const gap = Math.min(newCardRight, existingCard.right) - Math.max(newCardLeft, existingCard.left);
 
         if (gap > -MIN_GAP) {
-          // Cards overlap or are too close
-          console.log(`[${layer}] Overlap detected: new card X=${newCardX.toFixed(0)} overlaps with existing card at X=${existingCard.centerX.toFixed(0)}, trying next tier`);
+          // Cards overlap or are too close - search for gaps instead of giving up
+          console.log(`[${layer}] Overlap detected at offset=0: new card X=${newCardX.toFixed(0)} overlaps with existing card at X=${existingCard.centerX.toFixed(0)}, searching for gaps...`);
+          const validOffset = findSmallestValidOffset(newCardX, layer, occupiedLayers, containerWidth);
+          if (validOffset !== null) {
+            console.log(`[${layer}] Found valid gap at offset=${validOffset.toFixed(0)}`);
+            return { success: true, offset: validOffset };
+          }
+          console.log(`[${layer}] No valid gaps found, trying next tier`);
           return { success: false };
         }
       }
 
-      // No overlaps - card fits!
+      // No overlaps - card fits at offset=0!
       console.log(`[${layer}] Card placed successfully at X=${newCardX.toFixed(0)}, offset=0`);
       return { success: true, offset: 0 };
     }
