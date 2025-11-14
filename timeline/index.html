@@ -1787,8 +1787,53 @@
         }
       }
 
-      // Strategy 2: Batch redistribution - SIMPLIFIED (skip for now, complex to implement)
-      // TODO: Add batch redistribution when we can handle updating already-placed cards
+      // Strategy 2: Batch redistribution - shift nearby existing cards to make room
+      if (!bestSolution && existingCards.length > 0) {
+        const BATCH_SHIFT_RANGE = 30; // Max shift per existing card
+        const BATCH_SHIFT_STEP = 10;  // Step size for shifts
+
+        // Find cards that might conflict (within potential placement zone)
+        const potentialConflictCards = existingCards.filter(c => {
+          const distance = Math.abs(c.centerX - newCardX);
+          return distance < (CARD_WIDTH + FLEX_ZONE_RADIUS);
+        });
+
+        // Only try batch redistribution if we have a small number of nearby cards (performance)
+        if (potentialConflictCards.length > 0 && potentialConflictCards.length <= 4) {
+          // Try shifting nearby cards left or right
+          for (let batchOffset = -BATCH_SHIFT_RANGE; batchOffset <= BATCH_SHIFT_RANGE; batchOffset += BATCH_SHIFT_STEP) {
+            if (batchOffset === 0) continue; // Skip no-shift case
+
+            // Try placing new card with minimal offset while shifting existing cards
+            for (let newOffset = -SMALL_SHIFT_MAX; newOffset <= SMALL_SHIFT_MAX; newOffset += 10) {
+              const placements = [
+                { naturalX: newCardX, offset: newOffset, finalX: newCardX + newOffset, isNew: true }
+              ];
+
+              // Apply batch shift to nearby cards, keep others fixed
+              for (const card of existingCards) {
+                const isNearby = potentialConflictCards.includes(card);
+                const cardOffset = isNearby ? batchOffset : 0;
+                placements.push({
+                  naturalX: card.eventX,
+                  offset: cardOffset,
+                  finalX: card.centerX + cardOffset,
+                  isNew: false,
+                  card: card
+                });
+              }
+
+              if (isValidPlacement(placements, containerWidth, margin)) {
+                const cost = calculatePlacementCost(placements);
+                if (cost < lowestCost) {
+                  lowestCost = cost;
+                  bestSolution = { placements, strategy: 'batch-redistribution' };
+                }
+              }
+            }
+          }
+        }
+      }
 
       // Strategy 3: New card only - large shifts (if small didn't work)
       if (!bestSolution) {
@@ -1858,7 +1903,7 @@
       for (const layer of tryOrder) {
         const result = tryAddCardToTier(eventX, layer, occupiedLayers, containerWidth);
         if (result.success) {
-          return { layer, offset: result.offset };
+          return { layer, offset: result.offset, adjustments: result.adjustments || [] };
         }
       }
 
@@ -1866,7 +1911,8 @@
       console.warn(`⚠️ FALLBACK TRIGGERED! No tier could fit card at X=${eventX.toFixed(0)}, forcing to ${tryOrder[0]} with offset=0`);
       return {
         layer: tryOrder[0],
-        offset: 0
+        offset: 0,
+        adjustments: []
       };
     }
 
@@ -2154,6 +2200,36 @@
           const position = findBestPosition(x, preferAbove, occupiedLayers, width, useTier3);
           const layer = position.layer;
           const offset = position.offset;
+          const adjustments = position.adjustments || [];
+
+          // Apply adjustments to existing cards (batch redistribution)
+          if (adjustments.length > 0) {
+            console.log(`📦 Applying ${adjustments.length} card adjustments for batch redistribution`);
+            adjustments.forEach(adj => {
+              const cardObj = adj.card;
+              const newCenterX = adj.newCenterX;
+
+              // Update occupiedLayers position
+              cardObj.centerX = newCenterX;
+              cardObj.left = newCenterX - CARD_WIDTH / 2;
+              cardObj.right = newCenterX + CARD_WIDTH / 2;
+
+              // Update DOM position (find card by eventId and move it)
+              const cardElement = cardsContainer.select(`[data-event-id="${cardObj.eventId}"]`);
+              if (!cardElement.empty()) {
+                const currentLeft = parseFloat(cardElement.style('left'));
+                const newLeft = newCenterX - CARD_WIDTH / 2;
+                const shift = newLeft - currentLeft;
+
+                cardElement
+                  .transition()
+                  .duration(300)
+                  .style('left', `${newLeft}px`);
+
+                console.log(`  ↔️  Shifted card ${cardObj.eventId} by ${shift.toFixed(0)}px to X=${newCenterX.toFixed(0)}`);
+              }
+            });
+          }
 
           // Calculate card position with offset
           const cardCenterX = x + offset;
@@ -2202,13 +2278,14 @@
             connectorAttachX = flexZoneRight;
           }
 
-          // Store in occupied layers (including eventX for batch redistribution)
+          // Store in occupied layers (including eventX for batch redistribution and eventId for DOM updates)
           if (!occupiedLayers[layer]) occupiedLayers[layer] = [];
           occupiedLayers[layer].push({
             left: cardLeft,
             right: cardRight,
             centerX: cardCenterX,
-            eventX: x  // Store original event dot X position
+            eventX: x,  // Store original event dot X position
+            eventId: eventId  // Store eventId for DOM updates when applying adjustments
           });
 
           // Log positioning decision
