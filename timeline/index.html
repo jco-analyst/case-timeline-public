@@ -1910,6 +1910,7 @@
           }));
 
         console.log(`[${layer}] Card placed using strategy '${solution.strategy}' at X=${newCardPlacement.finalX.toFixed(0)}, offset=${newCardPlacement.offset.toFixed(0)}${adjustments.length > 0 ? ` with ${adjustments.length} card adjustments` : ''}`);
+        console.log(`   📅 Event: naturalX=${newCardX.toFixed(0)}`);
 
         return {
           success: true,
@@ -2232,6 +2233,10 @@
           const layer = position.layer;
           const offset = position.offset;
           const adjustments = position.adjustments || [];
+
+          // Enhanced logging: show event title and date
+          const eventDate = d3.timeFormat('%b %d, %Y')(event.parsedDate);
+          console.log(`🎯 Placing "${event.text}" (${eventDate}) at naturalX=${x.toFixed(0)}, layer=${layer}, offset=${offset.toFixed(0)}`);
 
           // Apply adjustments to existing cards (batch redistribution)
           if (adjustments.length > 0) {
