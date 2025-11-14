@@ -2261,33 +2261,28 @@
           }
         }
 
-        // Flex zone constraints (for card CENTER)
-        // When a tier is empty (no neighbor cards), don't restrict to flex zone
-        // This allows cards to escalate to higher tiers even if container boundaries
-        // conflict with their natural flex zones
-        const hasNeighbors = cardsOnTier.length > 0;
-        const flexLeft = hasNeighbors ? card.x - FLEX_ZONE : leftCenterBoundary;
-        const flexRight = hasNeighbors ? card.x + FLEX_ZONE : rightCenterBoundary;
-
-        if (debugLog || !hasNeighbors) {
-          console.log(`    🔍 Neighbor boundaries: [${leftCenterBoundary.toFixed(0)}, ${rightCenterBoundary.toFixed(0)}]`);
-          console.log(`    🔍 Flex zone: [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}] ${hasNeighbors ? '(enforced)' : '(tier empty, using full width)'}`);
-        }
-
-        // Available space for CENTER = intersection of neighbor boundaries and flex zone
-        const availableCenterLeft = Math.max(leftCenterBoundary, flexLeft);
-        const availableCenterRight = Math.min(rightCenterBoundary, flexRight);
+        // Calculate available space based ONLY on neighbor cards (physical fit)
+        // Flex zone is checked SEPARATELY to determine L-connector status
+        const availableCenterLeft = leftCenterBoundary;
+        const availableCenterRight = rightCenterBoundary;
         const availableWidth = availableCenterRight - availableCenterLeft;
 
+        // Flex zone boundaries (for L-connector determination, NOT for canFit)
+        const flexLeft = card.x - FLEX_ZONE;
+        const flexRight = card.x + FLEX_ZONE;
+
         if (debugLog) {
-          console.log(`    🔍 Available: [${availableCenterLeft.toFixed(0)}, ${availableCenterRight.toFixed(0)}] width=${availableWidth.toFixed(0)}px`);
+          console.log(`    🔍 Neighbor boundaries: [${leftCenterBoundary.toFixed(0)}, ${rightCenterBoundary.toFixed(0)}] width=${availableWidth.toFixed(0)}px`);
+          console.log(`    🔍 Flex zone (for L-connector check): [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}]`);
         }
 
         return {
           left: availableCenterLeft,
           right: availableCenterRight,
           width: availableWidth,
-          canFit: availableWidth > 0, // Just needs space for the center point
+          canFit: availableWidth > 0, // Based on neighbor space only
+          flexLeft: flexLeft,          // Return flex zone separately
+          flexRight: flexRight,         // Return flex zone separately
           tier: tier
         };
       }
@@ -2301,15 +2296,19 @@
           return null;
         }
 
-        // Optimal position for CENTER: closest to natural X within constraints
+        // Optimal position for CENTER: closest to natural X within available space
         let optimalCenterX = card.x;
         if (optimalCenterX < constraints.left) optimalCenterX = constraints.left;
         if (optimalCenterX > constraints.right) optimalCenterX = constraints.right;
 
         const offset = optimalCenterX - card.x;
-        const usesLConnector = Math.abs(offset) > FLEX_ZONE;
 
-        console.log(`  ✅ Tier ${tier}: Fits at centerX=${optimalCenterX.toFixed(0)} (offset=${offset.toFixed(0)}px, L-connector=${usesLConnector})`);
+        // Check if final position is within flex zone (determines L-connector)
+        const withinFlexZone = (optimalCenterX >= constraints.flexLeft &&
+                                optimalCenterX <= constraints.flexRight);
+        const usesLConnector = !withinFlexZone;
+
+        console.log(`  ✅ Tier ${tier}: Fits at centerX=${optimalCenterX.toFixed(0)} (offset=${offset.toFixed(0)}px, withinFlexZone=${withinFlexZone}, L-connector=${usesLConnector})`);
 
         return {
           tier: tier,
