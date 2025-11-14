@@ -1723,13 +1723,42 @@
       return null;
     }
 
-    // Calculate cost of a placement solution (minimize total deviation from natural positions)
+    // Calculate cost of a placement solution
+    // Prefer batch redistribution (spreading load) over large single-card offsets
     function calculatePlacementCost(placements) {
-      return placements.reduce((cost, p) => {
+      let cost = 0;
+      let movedCards = 0;
+      let maxOffset = 0;
+
+      for (const p of placements) {
         const deviation = Math.abs(p.offset);
-        // Square the deviation to penalize larger shifts more heavily
-        return cost + deviation * deviation;
-      }, 0);
+        if (deviation > 0) {
+          movedCards++;
+          maxOffset = Math.max(maxOffset, deviation);
+        }
+        // Square the deviation to penalize larger shifts
+        cost += deviation * deviation;
+      }
+
+      // Bonus for batch redistribution: strongly prefer spreading small offsets across multiple cards
+      // This encourages cards to shift together rather than using L-shaped connectors
+      if (movedCards > 1) {
+        // Give 60% cost reduction for distributing load across multiple cards
+        cost *= 0.4;
+      }
+
+      // Penalty for very large single-card offsets (L-shaped connectors)
+      if (movedCards === 1 && maxOffset > 100) {
+        cost *= 2.0;  // Double cost for L-shaped connectors
+      }
+
+      // Strong penalty for zero movement (encourage spreading out when possible)
+      // This makes batch redistribution with small shifts preferred over no movement
+      if (movedCards === 0) {
+        cost += 500;  // Large fixed cost to make batch redistribution strongly preferred
+      }
+
+      return cost;
     }
 
     // Check if a placement solution is valid (no overlaps, within bounds, respects chronology)
