@@ -2343,9 +2343,11 @@
         }
 
         // No tier worked within flex zone, use L-connector as last resort
-        console.log(`  ⚠️  No tier fits within flex zone - using L-connector on above1`);
-        const fallbackResult = tryPlaceOnTier(card, 'above1', placedCards) || {
-          tier: 'above1',
+        // Use zigzag preference for fallback tier to avoid adjacent cards on same tier
+        const fallbackTier = preferAbove ? 'above1' : 'below1';
+        console.log(`  ⚠️  No tier fits within flex zone - using L-connector on ${fallbackTier}`);
+        const fallbackResult = tryPlaceOnTier(card, fallbackTier, placedCards) || {
+          tier: fallbackTier,
           finalX: card.x,
           offset: 0,
           usesLConnector: true
