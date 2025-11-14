@@ -1723,36 +1723,128 @@
       return null;
     }
 
-    // Try to place card on tier at offset=0 only (simple approach)
-    // Returns { success: true, offset: 0 } if no overlap, or { success: false } if overlap
-    function tryAddCardToTier(newCardX, layer, occupiedLayers, containerWidth) {
-      const existingCards = occupiedLayers[layer] || [];
-      const margin = 20;
+    // Calculate cost of a placement solution (minimize total deviation from natural positions)
+    function calculatePlacementCost(placements) {
+      return placements.reduce((cost, p) => {
+        const deviation = Math.abs(p.offset);
+        // Square the deviation to penalize larger shifts more heavily
+        return cost + deviation * deviation;
+      }, 0);
+    }
 
-      // Calculate new card bounds at natural position (offset=0)
-      const newCardLeft = newCardX - CARD_WIDTH / 2;
-      const newCardRight = newCardX + CARD_WIDTH / 2;
+    // Check if a placement solution is valid (no overlaps, within bounds, respects chronology)
+    function isValidPlacement(placements, containerWidth, margin) {
+      // Check each placement individually
+      for (const placement of placements) {
+        const cardLeft = placement.finalX - CARD_WIDTH / 2;
+        const cardRight = placement.finalX + CARD_WIDTH / 2;
 
-      // Check if new card fits within container bounds
-      if (newCardLeft < margin || newCardRight > containerWidth - margin) {
-        console.log(`[${layer}] Card at X=${newCardX.toFixed(0)} out of bounds, trying next tier`);
-        return { success: false };
-      }
-
-      // Check for overlap with any existing card on this tier
-      for (const existingCard of existingCards) {
-        const gap = Math.min(newCardRight, existingCard.right) - Math.max(newCardLeft, existingCard.left);
-
-        if (gap > -MIN_GAP) {
-          // Cards overlap or are too close - try next tier
-          console.log(`[${layer}] Overlap detected: new card X=${newCardX.toFixed(0)} overlaps with existing card at X=${existingCard.centerX.toFixed(0)}, trying next tier`);
-          return { success: false };
+        // Check container bounds
+        if (cardLeft < margin || cardRight > containerWidth - margin) {
+          return false;
         }
       }
 
-      // No overlaps - card fits!
-      console.log(`[${layer}] Card placed successfully at X=${newCardX.toFixed(0)}, offset=0`);
-      return { success: true, offset: 0 };
+      // Check for overlaps between all pairs
+      for (let i = 0; i < placements.length; i++) {
+        for (let j = i + 1; j < placements.length; j++) {
+          const p1 = placements[i];
+          const p2 = placements[j];
+          const card1 = { left: p1.finalX - CARD_WIDTH/2, right: p1.finalX + CARD_WIDTH/2 };
+          const card2 = { left: p2.finalX - CARD_WIDTH/2, right: p2.finalX + CARD_WIDTH/2 };
+
+          if (cardsOverlap(card1, card2, MIN_GAP)) {
+            return false;
+          }
+        }
+      }
+
+      return true;
+    }
+
+    // Find optimal batch redistribution using multiple strategies
+    function findOptimalRedistribution(newCardX, existingCards, containerWidth, flexZoneRadius) {
+      const margin = 20;
+      const SMALL_SHIFT_MAX = 60;  // Small shifts: 0-60px
+      const LARGE_SHIFT_MAX = flexZoneRadius; // Large shifts: up to flex zone radius
+
+      let bestSolution = null;
+      let lowestCost = Infinity;
+
+      // Strategy 1: New card only - try incremental offsets (small shifts)
+      for (let offset = 0; Math.abs(offset) <= SMALL_SHIFT_MAX; offset = offset <= 0 ? -offset + 10 : -offset) {
+        const placements = [
+          { naturalX: newCardX, offset: offset, finalX: newCardX + offset, isNew: true },
+          ...existingCards.map(c => ({ naturalX: c.eventX, offset: 0, finalX: c.centerX, isNew: false }))
+        ];
+
+        if (isValidPlacement(placements, containerWidth, margin)) {
+          const cost = calculatePlacementCost(placements);
+          if (cost < lowestCost) {
+            lowestCost = cost;
+            bestSolution = { placements, strategy: 'new-card-small' };
+          }
+        }
+      }
+
+      // Strategy 2: Batch redistribution - SIMPLIFIED (skip for now, complex to implement)
+      // TODO: Add batch redistribution when we can handle updating already-placed cards
+
+      // Strategy 3: New card only - large shifts (if small didn't work)
+      if (!bestSolution) {
+        for (let offset = SMALL_SHIFT_MAX + 10; Math.abs(offset) <= LARGE_SHIFT_MAX; offset = offset <= 0 ? -offset + 10 : -offset) {
+          const placements = [
+            { naturalX: newCardX, offset: offset, finalX: newCardX + offset, isNew: true },
+            ...existingCards.map(c => ({ naturalX: c.eventX, offset: 0, finalX: c.centerX, isNew: false }))
+          ];
+
+          if (isValidPlacement(placements, containerWidth, margin)) {
+            const cost = calculatePlacementCost(placements);
+            if (cost < lowestCost) {
+              lowestCost = cost;
+              bestSolution = { placements, strategy: 'new-card-large' };
+            }
+          }
+        }
+      }
+
+      return bestSolution;
+    }
+
+    // Try to place card on tier using batch redistribution strategies
+    // Returns { success: true, offset: X, adjustments: [...] } if placement found
+    function tryAddCardToTier(newCardX, layer, occupiedLayers, containerWidth) {
+      const existingCards = occupiedLayers[layer] || [];
+      const FLEX_ZONE_RADIUS = CARD_WIDTH * 0.4; // 112px for 280px card
+
+      // Try to find optimal placement using multiple strategies
+      const solution = findOptimalRedistribution(newCardX, existingCards, containerWidth, FLEX_ZONE_RADIUS);
+
+      if (solution) {
+        // Extract new card's placement
+        const newCardPlacement = solution.placements.find(p => p.isNew);
+
+        // Extract adjustments for existing cards (if any)
+        const adjustments = solution.placements
+          .filter(p => !p.isNew && p.offset !== 0)
+          .map(p => ({
+            card: p.card,
+            newCenterX: p.finalX,
+            offset: p.offset
+          }));
+
+        console.log(`[${layer}] Card placed using strategy '${solution.strategy}' at X=${newCardPlacement.finalX.toFixed(0)}, offset=${newCardPlacement.offset.toFixed(0)}${adjustments.length > 0 ? ` with ${adjustments.length} card adjustments` : ''}`);
+
+        return {
+          success: true,
+          offset: newCardPlacement.offset,
+          adjustments: adjustments
+        };
+      }
+
+      // No valid placement found on this tier
+      console.log(`[${layer}] No valid placement found for card at X=${newCardX.toFixed(0)}, trying next tier`);
+      return { success: false };
     }
 
     // Find best position (layer + offset) for card
