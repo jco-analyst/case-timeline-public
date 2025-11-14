@@ -1796,7 +1796,7 @@
         // Find cards that might conflict (within potential placement zone)
         const potentialConflictCards = existingCards.filter(c => {
           const distance = Math.abs(c.centerX - newCardX);
-          return distance < (CARD_WIDTH + FLEX_ZONE_RADIUS);
+          return distance < (CARD_WIDTH + flexZoneRadius);
         });
 
         // Only try batch redistribution if we have a small number of nearby cards (performance)
