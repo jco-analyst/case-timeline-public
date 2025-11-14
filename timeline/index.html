@@ -2233,9 +2233,10 @@
 
       // Calculate constraints for a card on a specific tier
       function calculateConstraints(card, tier, placedCards) {
-        // Start with container boundaries (for card CENTER positions)
-        let leftCenterBoundary = margin.left + CARD_WIDTH/2;
-        let rightCenterBoundary = width - margin.right - CARD_WIDTH/2;
+        // Start with canvas boundaries (just prevent card from going off screen)
+        // These are minimal - only prevent physical cutoff, not visual margin
+        let leftCenterBoundary = CARD_WIDTH/2;  // Left edge of card at 0px
+        let rightCenterBoundary = width - CARD_WIDTH/2;  // Right edge of card at width
 
         // Find constraints from already-placed cards on same tier
         const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
