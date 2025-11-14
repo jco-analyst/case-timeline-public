@@ -2231,36 +2231,37 @@
 
       // Calculate constraints for a card on a specific tier
       function calculateConstraints(card, tier, placedCards) {
-        let leftBoundary = margin.left;
-        let rightBoundary = width - margin.right;
+        // Start with container boundaries (for card CENTER positions)
+        let leftCenterBoundary = margin.left + CARD_WIDTH/2;
+        let rightCenterBoundary = width - margin.right - CARD_WIDTH/2;
 
         // Find constraints from already-placed cards on same tier
         const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
 
         for (const placedCard of cardsOnTier) {
           if (placedCard.finalX < card.x) {
-            // Card to the left
-            leftBoundary = Math.max(leftBoundary, placedCard.finalX + CARD_WIDTH/2 + MIN_GAP);
+            // Card to the left - new card center must be to the right of its right edge + gap
+            leftCenterBoundary = Math.max(leftCenterBoundary, placedCard.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2);
           } else {
-            // Card to the right
-            rightBoundary = Math.min(rightBoundary, placedCard.finalX - CARD_WIDTH/2 - MIN_GAP);
+            // Card to the right - new card center must be to the left of its left edge - gap
+            rightCenterBoundary = Math.min(rightCenterBoundary, placedCard.finalX - CARD_WIDTH/2 - MIN_GAP - CARD_WIDTH/2);
           }
         }
 
-        // Flex zone constraints
+        // Flex zone constraints (for card CENTER)
         const flexLeft = card.x - FLEX_ZONE;
         const flexRight = card.x + FLEX_ZONE;
 
-        // Available space = intersection
-        const availableLeft = Math.max(leftBoundary, flexLeft);
-        const availableRight = Math.min(rightBoundary, flexRight);
-        const availableWidth = availableRight - availableLeft;
+        // Available space for CENTER = intersection of boundaries and flex zone
+        const availableCenterLeft = Math.max(leftCenterBoundary, flexLeft);
+        const availableCenterRight = Math.min(rightCenterBoundary, flexRight);
+        const availableWidth = availableCenterRight - availableCenterLeft;
 
         return {
-          left: availableLeft,
-          right: availableRight,
+          left: availableCenterLeft,
+          right: availableCenterRight,
           width: availableWidth,
-          canFit: availableWidth >= CARD_WIDTH,
+          canFit: availableWidth > 0, // Just needs space for the center point
           tier: tier
         };
       }
@@ -2270,23 +2271,23 @@
         const constraints = calculateConstraints(card, tier, placedCards);
 
         if (!constraints.canFit) {
-          console.log(`  ❌ Tier ${tier}: Can't fit (need ${CARD_WIDTH}px, have ${constraints.width.toFixed(0)}px)`);
+          console.log(`  ❌ Tier ${tier}: Can't fit (center range: ${constraints.width.toFixed(0)}px)`);
           return null;
         }
 
-        // Optimal position: closest to natural X within constraints
-        let optimalX = card.x;
-        if (optimalX < constraints.left) optimalX = constraints.left + CARD_WIDTH/2;
-        if (optimalX > constraints.right) optimalX = constraints.right - CARD_WIDTH/2;
+        // Optimal position for CENTER: closest to natural X within constraints
+        let optimalCenterX = card.x;
+        if (optimalCenterX < constraints.left) optimalCenterX = constraints.left;
+        if (optimalCenterX > constraints.right) optimalCenterX = constraints.right;
 
-        const offset = optimalX - card.x;
+        const offset = optimalCenterX - card.x;
         const usesLConnector = Math.abs(offset) > FLEX_ZONE;
 
-        console.log(`  ✅ Tier ${tier}: Fits at X=${optimalX.toFixed(0)} (offset=${offset.toFixed(0)}px, L-connector=${usesLConnector})`);
+        console.log(`  ✅ Tier ${tier}: Fits at centerX=${optimalCenterX.toFixed(0)} (offset=${offset.toFixed(0)}px, L-connector=${usesLConnector})`);
 
         return {
           tier: tier,
-          finalX: optimalX,
+          finalX: optimalCenterX,
           offset: offset,
           usesLConnector: usesLConnector,
           constraints: constraints
