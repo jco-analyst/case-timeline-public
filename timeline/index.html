@@ -1184,7 +1184,7 @@
 
     // Layer configuration
     const CARD_WIDTH = 280;
-    const MIN_GAP = 10; // Minimum spacing between cards (tight packing allowed)
+    const MIN_GAP = 5; // Minimum spacing between cards (tight packing allowed)
     const MAX_OFFSET = 300; // Maximum horizontal shift allowed (increased for flexibility)
     const LAYERS = {
       above3: 460,  // Farthest above (maintains 180px gap from Tier 2)
@@ -1788,8 +1788,9 @@
       }
 
       // Strategy 2: Batch redistribution - shift nearby existing cards to make room
-      if (!bestSolution && existingCards.length > 0) {
-        const BATCH_SHIFT_RANGE = 30; // Max shift per existing card
+      // Always try this strategy (competes with Strategy 1) - cost function picks best solution
+      if (existingCards.length > 0) {
+        const BATCH_SHIFT_RANGE = 80; // Max shift per existing card (increased for aggressive redistribution)
         const BATCH_SHIFT_STEP = 10;  // Step size for shifts
 
         // Find cards that might conflict (within potential placement zone)
@@ -1799,7 +1800,7 @@
         });
 
         // Only try batch redistribution if we have a small number of nearby cards (performance)
-        if (potentialConflictCards.length > 0 && potentialConflictCards.length <= 4) {
+        if (potentialConflictCards.length > 0 && potentialConflictCards.length <= 8) {
           // Try shifting nearby cards left or right
           for (let batchOffset = -BATCH_SHIFT_RANGE; batchOffset <= BATCH_SHIFT_RANGE; batchOffset += BATCH_SHIFT_STEP) {
             if (batchOffset === 0) continue; // Skip no-shift case
@@ -1835,7 +1836,8 @@
         }
       }
 
-      // Strategy 3: New card only - large shifts (if small didn't work)
+      // Strategy 3: New card only - large shifts (competes with other strategies)
+      // Only use if batch redistribution didn't find a solution (large shifts are less desirable)
       if (!bestSolution) {
         for (let offset = SMALL_SHIFT_MAX + 10; Math.abs(offset) <= LARGE_SHIFT_MAX; offset = offset <= 0 ? -offset + 10 : -offset) {
           const placements = [
