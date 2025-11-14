@@ -1195,6 +1195,9 @@
       below3: 460   // Farthest below (maintains 180px gap from Tier 2)
     };
 
+    // Date parser (global scope for use across functions)
+    const parseDate = d3.timeParse('%Y-%m-%d');
+
     // Initialize
     function init() {
       // DEBUG: Check if data loaded
@@ -1203,7 +1206,6 @@
       console.log('🔍 DEBUG: Total events loaded:', timelineEvents ? timelineEvents.length : 0);
 
       // Parse all dates once at startup (performance optimization)
-      const parseDate = d3.timeParse('%Y-%m-%d');
       timelineEvents.forEach(e => {
         // Remove question marks from uncertain dates before parsing
         const cleanTimestamp = e.timestamp.replace('?', '');
