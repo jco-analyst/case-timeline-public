@@ -2176,6 +2176,231 @@
         return level;
       }
 
+      // ============================================================================
+      // CONSTRAINT-BASED RECURSIVE PLACEMENT ALGORITHM
+      // ============================================================================
+
+      console.log('\n🎯 Starting constraint-based placement algorithm...');
+
+      // Constants for placement
+      const FLEX_ZONE = CARD_WIDTH * 0.4; // 112px for 280px card
+
+      // Separate point events from range events
+      const pointEvents = viewportEvents.filter(e => e.type !== 'range');
+      const rangeEvents = viewportEvents.filter(e => e.type === 'range');
+
+      // Sort point events by natural X position
+      pointEvents.sort((a, b) => a.x - b.x);
+
+      console.log(`📊 Point events: ${pointEvents.length}, Range events: ${rangeEvents.length}`);
+
+      // Calculate density on left vs right to choose direction
+      function calculateDensity(events, direction, lookahead = 5) {
+        if (events.length < 2) return 0;
+
+        let startIdx = direction === 'left' ? 0 : events.length - 1;
+        let step = direction === 'left' ? 1 : -1;
+        let endIdx = Math.max(0, Math.min(events.length - 1, startIdx + (step * lookahead)));
+
+        let totalGap = 0;
+        let count = 0;
+        for (let i = startIdx; i !== endIdx; i += step) {
+          if (i + step < 0 || i + step >= events.length) break;
+          totalGap += Math.abs(events[i + step].x - events[i].x);
+          count++;
+        }
+
+        return count > 0 ? count / totalGap : 0; // cards per pixel
+      }
+
+      const leftDensity = calculateDensity(pointEvents, 'left');
+      const rightDensity = calculateDensity(pointEvents, 'right');
+      const direction = leftDensity > rightDensity ? 'right' : 'left'; // Start from sparse side
+
+      console.log(`📈 Density: left=${leftDensity.toFixed(6)}, right=${rightDensity.toFixed(6)} → Start from ${direction}`);
+
+      // Track placed cards per tier
+      const placedCardsByTier = {
+        above1: [],
+        above2: [],
+        above3: [],
+        below1: [],
+        below2: [],
+        below3: []
+      };
+
+      // Calculate constraints for a card on a specific tier
+      function calculateConstraints(card, tier, placedCards) {
+        let leftBoundary = margin.left;
+        let rightBoundary = width - margin.right;
+
+        // Find constraints from already-placed cards on same tier
+        const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
+
+        for (const placedCard of cardsOnTier) {
+          if (placedCard.finalX < card.x) {
+            // Card to the left
+            leftBoundary = Math.max(leftBoundary, placedCard.finalX + CARD_WIDTH/2 + MIN_GAP);
+          } else {
+            // Card to the right
+            rightBoundary = Math.min(rightBoundary, placedCard.finalX - CARD_WIDTH/2 - MIN_GAP);
+          }
+        }
+
+        // Flex zone constraints
+        const flexLeft = card.x - FLEX_ZONE;
+        const flexRight = card.x + FLEX_ZONE;
+
+        // Available space = intersection
+        const availableLeft = Math.max(leftBoundary, flexLeft);
+        const availableRight = Math.min(rightBoundary, flexRight);
+        const availableWidth = availableRight - availableLeft;
+
+        return {
+          left: availableLeft,
+          right: availableRight,
+          width: availableWidth,
+          canFit: availableWidth >= CARD_WIDTH,
+          tier: tier
+        };
+      }
+
+      // Try to place a card on a specific tier
+      function tryPlaceOnTier(card, tier, placedCards) {
+        const constraints = calculateConstraints(card, tier, placedCards);
+
+        if (!constraints.canFit) {
+          console.log(`  ❌ Tier ${tier}: Can't fit (need ${CARD_WIDTH}px, have ${constraints.width.toFixed(0)}px)`);
+          return null;
+        }
+
+        // Optimal position: closest to natural X within constraints
+        let optimalX = card.x;
+        if (optimalX < constraints.left) optimalX = constraints.left + CARD_WIDTH/2;
+        if (optimalX > constraints.right) optimalX = constraints.right - CARD_WIDTH/2;
+
+        const offset = optimalX - card.x;
+        const usesLConnector = Math.abs(offset) > FLEX_ZONE;
+
+        console.log(`  ✅ Tier ${tier}: Fits at X=${optimalX.toFixed(0)} (offset=${offset.toFixed(0)}px, L-connector=${usesLConnector})`);
+
+        return {
+          tier: tier,
+          finalX: optimalX,
+          offset: offset,
+          usesLConnector: usesLConnector,
+          constraints: constraints
+        };
+      }
+
+      // Recursive placement function
+      function placeCardRecursive(cardIdx, placedCards) {
+        if (cardIdx >= pointEvents.length) {
+          console.log('✅ All cards placed!');
+          return placedCards;
+        }
+
+        const card = pointEvents[cardIdx];
+        const eventDate = d3.timeFormat('%b %d, %Y')(card.parsedDate);
+
+        console.log(`\n🎯 Placing [${cardIdx}] "${card.text}" (${eventDate}) at naturalX=${card.x.toFixed(0)}`);
+
+        // Determine tier order (zigzag pattern: above1, below1, above1, below1...)
+        const preferAbove = cardIdx % 2 === 0;
+        const tierOrder = preferAbove
+          ? ['above1', 'below1', 'above2', 'below2', 'above3', 'below3']
+          : ['below1', 'above1', 'below2', 'above2', 'below3', 'above3'];
+
+        console.log(`  🔄 Zigzag preference: ${preferAbove ? 'above' : 'below'} (card ${cardIdx})`);
+
+        // Try each tier in order
+        for (const tier of tierOrder) {
+          const result = tryPlaceOnTier(card, tier, placedCards);
+
+          if (result && !result.usesLConnector) {
+            // Success! Card fits within flex zone
+            card.assignedTier = tier;
+            card.finalX = result.finalX;
+            card.offset = result.offset;
+            card.usesLConnector = false;
+
+            placedCards.push(card);
+            console.log(`  ✨ Placed on ${tier} within flex zone`);
+
+            // Recurse to next card
+            return placeCardRecursive(cardIdx + 1, placedCards);
+          } else if (result && result.usesLConnector) {
+            // Card fits but needs L-connector - save as backup
+            console.log(`  ⚠️  ${tier} would need L-connector`);
+          }
+        }
+
+        // No tier worked within flex zone, use L-connector as last resort
+        console.log(`  ⚠️  No tier fits within flex zone - using L-connector on above1`);
+        const fallbackResult = tryPlaceOnTier(card, 'above1', placedCards) || {
+          tier: 'above1',
+          finalX: card.x,
+          offset: 0,
+          usesLConnector: true
+        };
+
+        card.assignedTier = fallbackResult.tier;
+        card.finalX = fallbackResult.finalX;
+        card.offset = fallbackResult.offset;
+        card.usesLConnector = true;
+
+        placedCards.push(card);
+
+        // Recurse to next card
+        return placeCardRecursive(cardIdx + 1, placedCards);
+      }
+
+      // Anchor end cards first
+      if (pointEvents.length > 0) {
+        console.log('\n📍 Anchoring end cards...');
+
+        // Left anchor
+        const leftAnchor = pointEvents[0];
+        leftAnchor.assignedTier = 'above1';
+        leftAnchor.finalX = leftAnchor.x;
+        leftAnchor.offset = 0;
+        leftAnchor.usesLConnector = false;
+        console.log(`  📍 Left anchor: "${leftAnchor.text}" at X=${leftAnchor.x.toFixed(0)} on above1`);
+
+        // Right anchor
+        const rightAnchor = pointEvents[pointEvents.length - 1];
+        rightAnchor.assignedTier = 'below1';
+        rightAnchor.finalX = rightAnchor.x;
+        rightAnchor.offset = 0;
+        rightAnchor.usesLConnector = false;
+        console.log(`  📍 Right anchor: "${rightAnchor.text}" at X=${rightAnchor.x.toFixed(0)} on below1`);
+
+        // Place middle cards recursively
+        const anchoredCards = pointEvents.length > 2 ? [leftAnchor] : [leftAnchor, rightAnchor];
+        const startIdx = pointEvents.length > 2 ? 1 : 2;
+
+        if (pointEvents.length > 2) {
+          placeCardRecursive(startIdx, anchoredCards);
+          // Add right anchor at end
+          anchoredCards.push(rightAnchor);
+        }
+
+        console.log('\n📊 Placement Summary:');
+        const tierCounts = {};
+        const lConnectorCount = anchoredCards.filter(c => c.usesLConnector).length;
+
+        for (const card of anchoredCards) {
+          tierCounts[card.assignedTier] = (tierCounts[card.assignedTier] || 0) + 1;
+        }
+
+        console.log(`  Tier distribution: ${JSON.stringify(tierCounts)}`);
+        console.log(`  L-connectors used: ${lConnectorCount}`);
+      }
+
+      // ============================================================================
+      // END CONSTRAINT-BASED PLACEMENT
+      // ============================================================================
+
       // Draw events
       viewportEvents.forEach((event, eventIndex) => {
         // Create unique ID for this event
@@ -2220,55 +2445,12 @@
           });
 
         } else {
-          // Point event - draw card and dot with smart layering
-          // Use stored chronological preference for visual left-to-right alternating
-          const preferAbove = event.preferAbove !== undefined ? event.preferAbove : true;
+          // Point event - use pre-calculated position from constraint-based algorithm
+          const x = event.x; // Natural X position
+          const layer = event.assignedTier || 'above1'; // Use pre-calculated tier
+          const offset = event.offset || 0; // Use pre-calculated offset
+          const cardCenterX = event.finalX || (x + offset); // Use pre-calculated finalX
 
-          const x = event.x; // Use pre-calculated X position
-
-          // Find best position (layer + offset) for this card
-          // Use Tier 3 only for "all" view
-          const useTier3 = currentView === 'all';
-          const position = findBestPosition(x, preferAbove, occupiedLayers, width, useTier3);
-          const layer = position.layer;
-          const offset = position.offset;
-          const adjustments = position.adjustments || [];
-
-          // Enhanced logging: show event title and date
-          const eventDate = d3.timeFormat('%b %d, %Y')(event.parsedDate);
-          console.log(`🎯 Placing "${event.text}" (${eventDate}) at naturalX=${x.toFixed(0)}, layer=${layer}, offset=${offset.toFixed(0)}`);
-
-          // Apply adjustments to existing cards (batch redistribution)
-          if (adjustments.length > 0) {
-            console.log(`📦 Applying ${adjustments.length} card adjustments for batch redistribution`);
-            adjustments.forEach(adj => {
-              const cardObj = adj.card;
-              const newCenterX = adj.newCenterX;
-
-              // Update occupiedLayers position
-              cardObj.centerX = newCenterX;
-              cardObj.left = newCenterX - CARD_WIDTH / 2;
-              cardObj.right = newCenterX + CARD_WIDTH / 2;
-
-              // Update DOM position (find card by eventId and move it)
-              const cardElement = cardsContainer.select(`[data-event-id="${cardObj.eventId}"]`);
-              if (!cardElement.empty()) {
-                const currentLeft = parseFloat(cardElement.style('left'));
-                const newLeft = newCenterX - CARD_WIDTH / 2;
-                const shift = newLeft - currentLeft;
-
-                cardElement
-                  .transition()
-                  .duration(300)
-                  .style('left', `${newLeft}px`);
-
-                console.log(`  ↔️  Shifted card ${cardObj.eventId} by ${shift.toFixed(0)}px to X=${newCenterX.toFixed(0)}`);
-              }
-            });
-          }
-
-          // Calculate card position with offset
-          const cardCenterX = x + offset;
           const cardLeft = cardCenterX - CARD_WIDTH / 2;
           const cardRight = cardCenterX + CARD_WIDTH / 2;
 
