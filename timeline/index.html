@@ -2307,10 +2307,14 @@
         console.log(`\n🎯 Placing [${cardIdx}] "${card.text}" (${eventDate}) at naturalX=${card.x.toFixed(0)}`);
 
         // Determine tier order (zigzag pattern: above1, below1, above1, below1...)
+        // Tier 3 (above3/below3) only used for "all events" filter
         const preferAbove = cardIdx % 2 === 0;
+        const useTier3 = currentView === 'all';
         const tierOrder = preferAbove
-          ? ['above1', 'below1', 'above2', 'below2', 'above3', 'below3']
-          : ['below1', 'above1', 'below2', 'above2', 'below3', 'above3'];
+          ? (useTier3 ? ['above1', 'below1', 'above2', 'below2', 'above3', 'below3']
+                      : ['above1', 'below1', 'above2', 'below2'])
+          : (useTier3 ? ['below1', 'above1', 'below2', 'above2', 'below3', 'above3']
+                      : ['below1', 'above1', 'below2', 'above2']);
 
         console.log(`  🔄 Zigzag preference: ${preferAbove ? 'above' : 'below'} (card ${cardIdx})`);
 
