@@ -2240,24 +2240,48 @@
         // Find constraints from already-placed cards on same tier
         const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
 
+        // Enhanced logging for debugging
+        const debugLog = cardsOnTier.length > 0;
+        console.log(`    🔍 [${tier}] Cards on tier: ${cardsOnTier.length} (checking ${placedCards.length} total placed)`);
+        if (debugLog) {
+          cardsOnTier.forEach(c => console.log(`       - Card at ${c.finalX.toFixed(0)} on ${c.assignedTier}`));
+        }
+
         for (const placedCard of cardsOnTier) {
           if (placedCard.finalX < card.x) {
             // Card to the left - new card center must be to the right of its right edge + gap
-            leftCenterBoundary = Math.max(leftCenterBoundary, placedCard.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2);
+            const newLeft = placedCard.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2;
+            if (debugLog) console.log(`    🔍 Left neighbor at ${placedCard.finalX.toFixed(0)} → leftBoundary=${newLeft.toFixed(0)}`);
+            leftCenterBoundary = Math.max(leftCenterBoundary, newLeft);
           } else {
             // Card to the right - new card center must be to the left of its left edge - gap
-            rightCenterBoundary = Math.min(rightCenterBoundary, placedCard.finalX - CARD_WIDTH/2 - MIN_GAP - CARD_WIDTH/2);
+            const newRight = placedCard.finalX - CARD_WIDTH/2 - MIN_GAP - CARD_WIDTH/2;
+            if (debugLog) console.log(`    🔍 Right neighbor at ${placedCard.finalX.toFixed(0)} → rightBoundary=${newRight.toFixed(0)}`);
+            rightCenterBoundary = Math.min(rightCenterBoundary, newRight);
           }
         }
 
         // Flex zone constraints (for card CENTER)
-        const flexLeft = card.x - FLEX_ZONE;
-        const flexRight = card.x + FLEX_ZONE;
+        // When a tier is empty (no neighbor cards), don't restrict to flex zone
+        // This allows cards to escalate to higher tiers even if container boundaries
+        // conflict with their natural flex zones
+        const hasNeighbors = cardsOnTier.length > 0;
+        const flexLeft = hasNeighbors ? card.x - FLEX_ZONE : leftCenterBoundary;
+        const flexRight = hasNeighbors ? card.x + FLEX_ZONE : rightCenterBoundary;
 
-        // Available space for CENTER = intersection of boundaries and flex zone
+        if (debugLog || !hasNeighbors) {
+          console.log(`    🔍 Neighbor boundaries: [${leftCenterBoundary.toFixed(0)}, ${rightCenterBoundary.toFixed(0)}]`);
+          console.log(`    🔍 Flex zone: [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}] ${hasNeighbors ? '(enforced)' : '(tier empty, using full width)'}`);
+        }
+
+        // Available space for CENTER = intersection of neighbor boundaries and flex zone
         const availableCenterLeft = Math.max(leftCenterBoundary, flexLeft);
         const availableCenterRight = Math.min(rightCenterBoundary, flexRight);
         const availableWidth = availableCenterRight - availableCenterLeft;
+
+        if (debugLog) {
+          console.log(`    🔍 Available: [${availableCenterLeft.toFixed(0)}, ${availableCenterRight.toFixed(0)}] width=${availableWidth.toFixed(0)}px`);
+        }
 
         return {
           left: availableCenterLeft,
@@ -2320,7 +2344,8 @@
 
         console.log(`  🔄 Zigzag preference: ${preferAbove ? 'above' : 'below'} (card ${cardIdx})`);
 
-        // Try each tier in order
+        // Try each tier in order, collecting L-connector options as backups
+        let bestLConnector = null;
         for (const tier of tierOrder) {
           const result = tryPlaceOnTier(card, tier, placedCards);
 
@@ -2339,14 +2364,17 @@
           } else if (result && result.usesLConnector) {
             // Card fits but needs L-connector - save as backup
             console.log(`  ⚠️  ${tier} would need L-connector`);
+            if (!bestLConnector) {
+              bestLConnector = result; // Save first L-connector option
+            }
           }
         }
 
-        // No tier worked within flex zone, use L-connector as last resort
-        // Use zigzag preference for fallback tier to avoid adjacent cards on same tier
+        // No tier worked within flex zone, use best L-connector result
+        // This ensures we respect constraints and avoid collisions even with L-connector
         const fallbackTier = preferAbove ? 'above1' : 'below1';
-        console.log(`  ⚠️  No tier fits within flex zone - using L-connector on ${fallbackTier}`);
-        const fallbackResult = tryPlaceOnTier(card, fallbackTier, placedCards) || {
+        console.log(`  ⚠️  No tier fits within flex zone - using L-connector on ${bestLConnector ? bestLConnector.tier : fallbackTier}`);
+        const fallbackResult = bestLConnector || tryPlaceOnTier(card, fallbackTier, placedCards) || {
           tier: fallbackTier,
           finalX: card.x,
           offset: 0,
