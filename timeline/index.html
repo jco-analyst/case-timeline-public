@@ -2295,9 +2295,9 @@
       }
 
       // Recursive placement function
-      function placeCardRecursive(cardIdx, placedCards) {
-        if (cardIdx >= pointEvents.length) {
-          console.log('✅ All cards placed!');
+      function placeCardRecursive(cardIdx, placedCards, endIdx) {
+        if (cardIdx >= endIdx) {
+          console.log('✅ All middle cards placed!');
           return placedCards;
         }
 
@@ -2329,7 +2329,7 @@
             console.log(`  ✨ Placed on ${tier} within flex zone`);
 
             // Recurse to next card
-            return placeCardRecursive(cardIdx + 1, placedCards);
+            return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
           } else if (result && result.usesLConnector) {
             // Card fits but needs L-connector - save as backup
             console.log(`  ⚠️  ${tier} would need L-connector`);
@@ -2353,49 +2353,64 @@
         placedCards.push(card);
 
         // Recurse to next card
-        return placeCardRecursive(cardIdx + 1, placedCards);
+        return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
       }
 
       // Anchor end cards first
       if (pointEvents.length > 0) {
         console.log('\n📍 Anchoring end cards...');
 
-        // Left anchor
-        const leftAnchor = pointEvents[0];
-        leftAnchor.assignedTier = 'above1';
-        leftAnchor.finalX = leftAnchor.x;
-        leftAnchor.offset = 0;
-        leftAnchor.usesLConnector = false;
-        console.log(`  📍 Left anchor: "${leftAnchor.text}" at X=${leftAnchor.x.toFixed(0)} on above1`);
+        if (pointEvents.length === 1) {
+          // Only one card - anchor it
+          const singleCard = pointEvents[0];
+          singleCard.assignedTier = 'above1';
+          singleCard.finalX = singleCard.x;
+          singleCard.offset = 0;
+          singleCard.usesLConnector = false;
+          console.log(`  📍 Single card: "${singleCard.text}" at X=${singleCard.x.toFixed(0)} on above1`);
+        } else {
+          // Left anchor
+          const leftAnchor = pointEvents[0];
+          leftAnchor.assignedTier = 'above1';
+          leftAnchor.finalX = leftAnchor.x;
+          leftAnchor.offset = 0;
+          leftAnchor.usesLConnector = false;
+          console.log(`  📍 Left anchor: "${leftAnchor.text}" at X=${leftAnchor.x.toFixed(0)} on above1`);
 
-        // Right anchor
-        const rightAnchor = pointEvents[pointEvents.length - 1];
-        rightAnchor.assignedTier = 'below1';
-        rightAnchor.finalX = rightAnchor.x;
-        rightAnchor.offset = 0;
-        rightAnchor.usesLConnector = false;
-        console.log(`  📍 Right anchor: "${rightAnchor.text}" at X=${rightAnchor.x.toFixed(0)} on below1`);
+          // Right anchor
+          const rightAnchor = pointEvents[pointEvents.length - 1];
+          rightAnchor.assignedTier = 'below1';
+          rightAnchor.finalX = rightAnchor.x;
+          rightAnchor.offset = 0;
+          rightAnchor.usesLConnector = false;
+          console.log(`  📍 Right anchor: "${rightAnchor.text}" at X=${rightAnchor.x.toFixed(0)} on below1`);
 
-        // Place middle cards recursively
-        const anchoredCards = pointEvents.length > 2 ? [leftAnchor] : [leftAnchor, rightAnchor];
-        const startIdx = pointEvents.length > 2 ? 1 : 2;
+          // Place middle cards recursively (skip anchors: start at 1, end at length-2)
+          if (pointEvents.length > 2) {
+            const anchoredCards = [leftAnchor, rightAnchor];
+            const startIdx = 1;
+            const endIdx = pointEvents.length - 1; // Stop before right anchor
 
-        if (pointEvents.length > 2) {
-          placeCardRecursive(startIdx, anchoredCards);
-          // Add right anchor at end
-          anchoredCards.push(rightAnchor);
+            // Place middle cards with proper endIdx
+            placeCardRecursive(startIdx, anchoredCards, endIdx);
+
+            console.log('\n📊 Placement Summary:');
+            const tierCounts = {};
+            const lConnectorCount = pointEvents.filter(c => c.usesLConnector).length;
+
+            for (const card of pointEvents) {
+              tierCounts[card.assignedTier] = (tierCounts[card.assignedTier] || 0) + 1;
+            }
+
+            console.log(`  Tier distribution: ${JSON.stringify(tierCounts)}`);
+            console.log(`  L-connectors used: ${lConnectorCount}`);
+          } else {
+            // Only 2 cards (both anchors)
+            console.log('\n📊 Placement Summary:');
+            console.log(`  Tier distribution: {"above1":1,"below1":1}`);
+            console.log(`  L-connectors used: 0`);
+          }
         }
-
-        console.log('\n📊 Placement Summary:');
-        const tierCounts = {};
-        const lConnectorCount = anchoredCards.filter(c => c.usesLConnector).length;
-
-        for (const card of anchoredCards) {
-          tierCounts[card.assignedTier] = (tierCounts[card.assignedTier] || 0) + 1;
-        }
-
-        console.log(`  Tier distribution: ${JSON.stringify(tierCounts)}`);
-        console.log(`  L-connectors used: ${lConnectorCount}`);
       }
 
       // ============================================================================
