@@ -2368,11 +2368,13 @@
             return null;
           }
 
-          // CRITICAL: Place at LEFTMOST position to leave max space for cards to the right
-          // This is key to allowing subsequent cards to fit
-          const optimalPos = minPos;
+          // Try to place at natural X (centered), or as close as possible
+          // Only shift if natural position would violate constraints
+          let optimalPos = card.x;
+          if (optimalPos < minPos) optimalPos = minPos;
+          if (optimalPos > maxPos) optimalPos = maxPos;
 
-          console.log(`      → Placed at LEFTMOST: ${optimalPos.toFixed(0)} (natural was ${card.x.toFixed(0)}, shift=${(optimalPos - card.x).toFixed(0)}px)`);
+          console.log(`      → Placed at ${optimalPos.toFixed(0)} (natural=${card.x.toFixed(0)}, shift=${(optimalPos - card.x).toFixed(0)}px)`);
 
           const offset = Math.abs(optimalPos - card.x);
           totalOffset += offset;
