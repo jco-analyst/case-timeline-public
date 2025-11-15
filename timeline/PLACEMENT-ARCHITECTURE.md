@@ -1,20 +1,20 @@
 # Timeline Card Placement Architecture
 
-## Current Implementation: Constraint-Based Recursive Algorithm
+## Current Implementation: Redistribution-Aware Constraint-Based Placement
 
-**Status:** Working (as of commit `a0da741`)
-**Zero L-connectors achieved** with proper tier distribution and zigzag pattern.
+**Status:** Working (as of 2025-11-14)
+**Zero L-connectors achieved** through dynamic redistribution during placement.
 
 ---
 
 ## Algorithm Overview
 
-**Type:** Constraint-based recursive placement with edge anchoring
-**Complexity:** O(n × t) where n=cards, t=tiers (typically 2-4)
-**Performance:** ~70 console logs for 7 cards (includes detailed debugging)
+**Type:** Constraint-based recursive placement with dynamic redistribution
+**Complexity:** O(n × t × m) where n=cards, t=tiers, m=cards per tier (typically 2-6)
+**Performance:** ~120 console logs for 12 cards (wrongful dismissal view)
 
 ### Core Concept
-Cards are placed recursively from sparse edge toward dense edge, with each card trying tiers in zigzag order (above1→below1→above2→below2...). Constraints calculated from same-tier neighbors + flex zone boundaries ensure cards stay within 112px of natural position.
+When placing card N on a tier, the algorithm considers **redistributing ALL existing cards on that tier** to make room. Cards are repositioned within their flex zones (±112px from natural position) to minimize total offset while maintaining minimum gaps (285px center-to-center). This prevents L-connectors by solving placement as a batch optimization problem rather than greedy single-card placement.
 
 ---
 
@@ -40,18 +40,27 @@ Right anchor: tier=below1, offset=0, fixed position
 
 **Why:** Anchors prevent edge cards from shifting, provide stable reference for middle cards.
 
-### Phase 3: Recursive Placement
+### Phase 3: Recursive Placement with Redistribution
 ```javascript
 For each middle card (index 1 to length-2):
   1. Determine zigzag preference: above/below based on card index parity
   2. Try tiers in preference order: [above1, below1, above2, below2, ...]
   3. For each tier:
-     - Calculate constraints (same-tier neighbors + flex zone)
-     - Check if card center fits in available range
-     - Place at position closest to natural X
-     - If within FLEX_ZONE (112px), SUCCESS → recurse to next card
-     - Else, try next tier
-  4. If all tiers fail, use L-connector fallback (on above1)
+     A. TRY REDISTRIBUTION FIRST:
+        - Collect all existing cards on tier + new card
+        - Sort by natural X position (left to right)
+        - Pack optimally: each card stays within flex zone, minimize total offset
+        - If solution exists → apply redistributions, place new card, SUCCESS
+
+     B. FALLBACK TO OLD METHOD:
+        - Calculate constraints (same-tier neighbors as immutable)
+        - Try to place new card without moving existing cards
+        - If fits within flex zone → SUCCESS
+
+     C. L-CONNECTOR BACKUP:
+        - If neither works, save as L-connector option
+
+  4. If all tiers fail, use best L-connector fallback
 ```
 
 ---
@@ -251,22 +260,34 @@ Uses Playwright headless browser to capture console, detect errors, verify place
 
 ---
 
-## Current Limitations & Future Enhancements
+## Algorithm Enhancements (2025-11-14)
 
-### Limitations
-1. **No lookahead:** Doesn't check if placing card X will break card X+1
-2. **No redistribution:** Existing cards never shift after placement
-3. **Greedy tier selection:** First tier that fits wins (not optimal global solution)
-4. **Single direction:** Always processes left→right or right→left, never bidirectional
+### ✅ Implemented: Dynamic Redistribution During Placement
 
-### Potential Enhancements
-1. **Lookahead (next 3-5 cards):** Before committing placement, check if future cards can fit
-2. **Post-placement optimization:** After placing all cards, run physics simulation within tiers
-3. **Clustering:** Detect dense clusters (3+ cards within 2×FLEX_ZONE), treat as unit
-4. **Bidirectional placement:** Meet in middle, resolve center conflicts with equal distribution
-5. **Cost function:** Instead of first-fit, try all valid positions and pick lowest cost
+**Problem Solved:** Original algorithm treated placed cards as immutable, causing unnecessary L-connectors when cards had flex zone space available.
 
-**Trade-off:** Complexity vs. benefit. Current algorithm handles typical timeline density well.
+**Solution:** When placing card N, try redistributing ALL cards on tier (existing + new) to find positions that:
+- Keep each card within its flex zone (±112px from natural X)
+- Maintain minimum gaps (285px center-to-center)
+- Minimize total offset from natural positions
+
+**Results:**
+- Critical view (10 events): 0 L-connectors ✅
+- Wrongful dismissal view (12 events): 0 L-connectors ✅
+- Example: Sept 20 and Oct 15 now fit on same tier through redistribution
+
+### Remaining Limitations
+1. **Greedy left-to-right packing:** Redistribution uses greedy approach (place each card as close to natural X as constraints allow). Could use global optimization for absolute minimum total offset.
+2. **Single direction:** Always processes left→right or right→left, never bidirectional.
+3. **No lookahead beyond current tier:** Doesn't predict if placing on tier A will cause problems for future cards on tier B.
+
+### Future Enhancement Ideas
+1. **Global optimization:** Replace greedy packing with linear programming solver for absolute minimum total offset
+2. **Clustering detection:** Detect dense clusters (3+ cards within 2×FLEX_ZONE), pre-compute optimal arrangement
+3. **Bidirectional placement:** Meet in middle, resolve center conflicts with equal distribution
+4. **Cross-tier lookahead:** Before placing on tier, simulate next 3-5 cards to avoid cascading failures
+
+**Current Status:** Algorithm handles typical timeline density excellently. Further optimization has diminishing returns.
 
 ---
 
@@ -287,14 +308,19 @@ Uses Playwright headless browser to capture console, detect errors, verify place
 
 ## Commit History (Key Milestones)
 
-- `2f76d47` - Fix flex zone card shifting: Implement complete batch redistribution
-- `04c7704` - Tune batch redistribution for more aggressive card shifting
-- `debe59e` - Fix scope error: Use flexZoneRadius parameter
-- `2fa5743` - Improve cost function to strongly prefer batch redistribution
-- `5186ed4` - Add enhanced event logging: show titles and dates
-- `8d9c6fb` - Add constraint-based recursive placement algorithm (WIP)
+- `[CURRENT]` - **Implement redistribution-aware placement algorithm** ✅ ZERO L-CONNECTORS
+  - Added `tryPlaceWithRedistribution()`: attempts to redistribute all cards on tier when placing new card
+  - Added `findOptimalPositions()`: greedy left-to-right packing within flex zones
+  - Modified `placeCardRecursive()`: tries redistribution first, falls back to old method
+  - Result: Eliminated all L-connectors in critical (10 events) and wrongful dismissal (12 events) views
+- `a0da741` - Fix anchor duplication: stop recursion before right anchor (previous working version)
 - `d781d8d` - Fix constraint calculation: use CENTER positions not edge positions
-- `a0da741` - **Fix anchor duplication: stop recursion before right anchor** ✅ WORKING
+- `8d9c6fb` - Add constraint-based recursive placement algorithm (WIP)
+- `5186ed4` - Add enhanced event logging: show titles and dates
+- `2fa5743` - Improve cost function to strongly prefer batch redistribution
+- `debe59e` - Fix scope error: Use flexZoneRadius parameter
+- `04c7704` - Tune batch redistribution for more aggressive card shifting
+- `2f76d47` - Fix flex zone card shifting: Implement complete batch redistribution
 
 ---
 

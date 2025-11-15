@@ -2288,7 +2288,86 @@
         };
       }
 
-      // Try to place a card on a specific tier
+      // Try to place card WITH redistribution of existing cards on tier
+      function tryPlaceWithRedistribution(newCard, tier, placedCards) {
+        // Get all cards currently on this tier
+        const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
+
+        // All cards to arrange (existing + new), sorted by natural X
+        const allCards = [...cardsOnTier, newCard].sort((a, b) => a.x - b.x);
+
+        console.log(`    🔄 Trying redistribution on ${tier} with ${allCards.length} cards`);
+
+        // Try to pack all cards optimally within their flex zones
+        const solution = findOptimalPositions(allCards, tier, placedCards);
+
+        if (solution) {
+          console.log(`    ✅ Redistribution successful! Total offset: ${solution.totalOffset.toFixed(0)}px`);
+          return {
+            tier: tier,
+            positions: solution.positions,
+            usesLConnector: false,
+            totalOffset: solution.totalOffset
+          };
+        }
+
+        console.log(`    ❌ Redistribution failed - cards can't fit within flex zones`);
+        return null;
+      }
+
+      // Find optimal positions for all cards on a tier (greedy left-to-right packing)
+      function findOptimalPositions(cards, tier, allPlacedCards) {
+        const positions = [];
+        let totalOffset = 0;
+
+        // Canvas boundaries (for card centers)
+        let prevRightBoundary = CARD_WIDTH/2; // Left edge of canvas
+        const canvasRightBoundary = width - CARD_WIDTH/2;
+
+        for (let i = 0; i < cards.length; i++) {
+          const card = cards[i];
+
+          // Card's flex zone (based on natural X)
+          const flexLeft = card.x - FLEX_ZONE;
+          const flexRight = card.x + FLEX_ZONE;
+
+          // Minimum position: max of (flex left, previous card's right + gap, canvas left)
+          const minPos = Math.max(flexLeft, prevRightBoundary);
+
+          // Maximum position: min of (flex right, canvas right)
+          const maxPos = Math.min(flexRight, canvasRightBoundary);
+
+          // Try to place at natural X, or as close as possible
+          let optimalPos = card.x;
+          if (optimalPos < minPos) optimalPos = minPos;
+          if (optimalPos > maxPos) optimalPos = maxPos;
+
+          // Check if position is within flex zone
+          if (optimalPos < flexLeft || optimalPos > flexRight) {
+            // Can't fit within flex zone - redistribution fails
+            return null;
+          }
+
+          const offset = Math.abs(optimalPos - card.x);
+          totalOffset += offset;
+
+          positions.push({
+            card: card,
+            position: optimalPos,
+            offset: offset
+          });
+
+          // Update boundary for next card
+          prevRightBoundary = optimalPos + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2;
+        }
+
+        return {
+          positions: positions,
+          totalOffset: totalOffset
+        };
+      }
+
+      // Try to place a card on a specific tier (OLD METHOD - fallback only)
       function tryPlaceOnTier(card, tier, placedCards) {
         const constraints = calculateConstraints(card, tier, placedCards);
 
@@ -2344,20 +2423,50 @@
 
         console.log(`  🔄 Zigzag preference: ${preferAbove ? 'above' : 'below'} (card ${cardIdx})`);
 
-        // Try each tier in order, collecting L-connector options as backups
+        // Try each tier in order, with redistribution first, then L-connector fallback
         let bestLConnector = null;
         for (const tier of tierOrder) {
+          // FIRST: Try redistribution (shift existing cards on tier to make room)
+          const redistResult = tryPlaceWithRedistribution(card, tier, placedCards);
+
+          if (redistResult) {
+            // Success! Apply redistributions to all cards on tier
+            console.log(`  ✨ Placed on ${tier} WITH redistribution`);
+
+            // Update positions of existing cards on this tier
+            for (const posInfo of redistResult.positions) {
+              if (posInfo.card !== card) {
+                // Update existing card's position
+                posInfo.card.finalX = posInfo.position;
+                posInfo.card.offset = posInfo.offset;
+                console.log(`    📌 Redistributed "${posInfo.card.text.substring(0, 30)}..." to ${posInfo.position.toFixed(0)} (offset=${posInfo.offset.toFixed(0)}px)`);
+              } else {
+                // Place new card
+                card.assignedTier = tier;
+                card.finalX = posInfo.position;
+                card.offset = posInfo.offset;
+                card.usesLConnector = false;
+              }
+            }
+
+            placedCards.push(card);
+
+            // Recurse to next card
+            return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
+          }
+
+          // FALLBACK: Try old method (no redistribution)
           const result = tryPlaceOnTier(card, tier, placedCards);
 
           if (result && !result.usesLConnector) {
-            // Success! Card fits within flex zone
+            // Success! Card fits within flex zone (no redistribution needed)
             card.assignedTier = tier;
             card.finalX = result.finalX;
             card.offset = result.offset;
             card.usesLConnector = false;
 
             placedCards.push(card);
-            console.log(`  ✨ Placed on ${tier} within flex zone`);
+            console.log(`  ✨ Placed on ${tier} within flex zone (no redistribution)`);
 
             // Recurse to next card
             return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
