@@ -2290,13 +2290,16 @@
 
       // Try to place card WITH redistribution of existing cards on tier
       function tryPlaceWithRedistribution(newCard, tier, placedCards) {
-        // Get all cards currently on this tier
-        const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
+        // Get all cards currently on this tier (EXCLUDING ANCHORS - they must stay fixed)
+        const cardsOnTier = placedCards.filter(c =>
+          c.assignedTier === tier &&
+          !c.isAnchor  // Don't redistribute anchor cards
+        );
 
         // All cards to arrange (existing + new), sorted by natural X
         const allCards = [...cardsOnTier, newCard].sort((a, b) => a.x - b.x);
 
-        console.log(`    🔄 Trying redistribution on ${tier} with ${allCards.length} cards`);
+        console.log(`    🔄 Trying redistribution on ${tier} with ${allCards.length} cards (${cardsOnTier.length} existing + 1 new)`);
 
         // Try to pack all cards optimally within their flex zones
         const solution = findOptimalPositions(allCards, tier, placedCards);
@@ -2320,9 +2323,18 @@
         const positions = [];
         let totalOffset = 0;
 
+        // Get anchor cards on this tier as fixed constraints
+        const anchorsOnTier = allPlacedCards.filter(c => c.assignedTier === tier && c.isAnchor);
+
         // Canvas boundaries (for card centers)
         let prevRightBoundary = CARD_WIDTH/2; // Left edge of canvas
         const canvasRightBoundary = width - CARD_WIDTH/2;
+
+        // If there's a left anchor on this tier, constrain left boundary
+        const leftAnchor = anchorsOnTier.find(a => a.finalX < cards[0].x);
+        if (leftAnchor) {
+          prevRightBoundary = Math.max(prevRightBoundary, leftAnchor.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2);
+        }
 
         for (let i = 0; i < cards.length; i++) {
           const card = cards[i];
@@ -2331,20 +2343,31 @@
           const flexLeft = card.x - FLEX_ZONE;
           const flexRight = card.x + FLEX_ZONE;
 
-          // Minimum position: max of (flex left, previous card's right + gap, canvas left)
+          // Minimum position: max of (flex left, previous card's right + gap)
           const minPos = Math.max(flexLeft, prevRightBoundary);
 
           // Maximum position: min of (flex right, canvas right)
           const maxPos = Math.min(flexRight, canvasRightBoundary);
+
+          console.log(`      Card ${i}: natural=${card.x.toFixed(0)} flex=[${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}] minPos=${minPos.toFixed(0)} maxPos=${maxPos.toFixed(0)} prevBoundary=${prevRightBoundary.toFixed(0)}`);
+
+          // Check if there's a valid range BEFORE trying to place
+          if (minPos > maxPos) {
+            // No valid position - gap constraint conflicts with flex zone
+            console.log(`      ✗ No valid range: minPos (${minPos.toFixed(0)}) > maxPos (${maxPos.toFixed(0)})`);
+            return null;
+          }
 
           // Try to place at natural X, or as close as possible
           let optimalPos = card.x;
           if (optimalPos < minPos) optimalPos = minPos;
           if (optimalPos > maxPos) optimalPos = maxPos;
 
-          // Check if position is within flex zone
+          console.log(`      → Placed at ${optimalPos.toFixed(0)}`);
+
+          // Double-check position is within flex zone (should always pass now)
           if (optimalPos < flexLeft || optimalPos > flexRight) {
-            // Can't fit within flex zone - redistribution fails
+            console.log(`      ✗ BUG: Position ${optimalPos.toFixed(0)} outside flex zone [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}]`);
             return null;
           }
 
@@ -2439,14 +2462,26 @@
                 // Update existing card's position
                 posInfo.card.finalX = posInfo.position;
                 posInfo.card.offset = posInfo.offset;
-                console.log(`    📌 Redistributed "${posInfo.card.text.substring(0, 30)}..." to ${posInfo.position.toFixed(0)} (offset=${posInfo.offset.toFixed(0)}px)`);
+                const cardLeft = posInfo.position - CARD_WIDTH/2;
+                const cardRight = posInfo.position + CARD_WIDTH/2;
+                console.log(`    📌 Redistributed "${posInfo.card.text.substring(0, 30)}..." center=${posInfo.position.toFixed(0)} left=${cardLeft.toFixed(0)} right=${cardRight.toFixed(0)}`);
               } else {
                 // Place new card
                 card.assignedTier = tier;
                 card.finalX = posInfo.position;
                 card.offset = posInfo.offset;
                 card.usesLConnector = false;
+                const cardLeft = posInfo.position - CARD_WIDTH/2;
+                const cardRight = posInfo.position + CARD_WIDTH/2;
+                console.log(`    ✨ New card placed: center=${posInfo.position.toFixed(0)} left=${cardLeft.toFixed(0)} right=${cardRight.toFixed(0)}`);
               }
+            }
+
+            // Verify gaps after redistribution
+            const sortedPositions = redistResult.positions.slice().sort((a, b) => a.position - b.position);
+            for (let i = 0; i < sortedPositions.length - 1; i++) {
+              const gap = (sortedPositions[i+1].position - CARD_WIDTH/2) - (sortedPositions[i].position + CARD_WIDTH/2);
+              console.log(`    🔍 Gap between cards: ${gap.toFixed(1)}px (min required: ${MIN_GAP}px) ${gap >= MIN_GAP ? '✓' : '✗ OVERLAP!'}`);
             }
 
             placedCards.push(card);
@@ -2520,11 +2555,13 @@
           leftAnchor.finalX = leftAnchor.x;
           leftAnchor.offset = 0;
           leftAnchor.usesLConnector = false;
+          leftAnchor.isAnchor = true;  // Mark as anchor so it won't be redistributed
           console.log(`  📍 Left anchor: "${leftAnchor.text}" at X=${leftAnchor.x.toFixed(0)} on above1`);
 
           // Right anchor
           const rightAnchor = pointEvents[pointEvents.length - 1];
           rightAnchor.assignedTier = 'below1';
+          rightAnchor.isAnchor = true;  // Mark as anchor so it won't be redistributed
           rightAnchor.finalX = rightAnchor.x;
           rightAnchor.offset = 0;
           rightAnchor.usesLConnector = false;
