@@ -65,7 +65,7 @@
       font-size: 14px;
       background: var(--bg-primary);
       color: var(--text-primary);
-      padding: 40px 20px;
+      padding: 40px 10px;
       transition: background-color 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
     }
@@ -73,7 +73,7 @@
     .container {
       max-width: 100%;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 10px;
     }
 
     /* Header */
@@ -1602,7 +1602,7 @@
       const containerWidth = container.node().clientWidth;
       const width = containerWidth * 0.97;
       const height = currentView === 'all' ? 1400 : 800;
-      const minMargin = CARD_WIDTH / 2 + 20; // 140 + 20 = 160px (prevents card cutoff)
+      const minMargin = CARD_WIDTH / 2 + 15; // 140 + 15 = 155px (prevents card cutoff)
       const margin = {
         top: 80,
         right: Math.max(containerWidth * 0.015, minMargin),
@@ -1988,14 +1988,64 @@
           // Calculate group's natural span
           const naturalStart = cards[0].x;
           const naturalEnd = cards[n - 1].x;
-
-          // Center the compact group around the natural centroid
           const naturalCentroid = (naturalStart + naturalEnd) / 2;
-          const redistributedStart = naturalCentroid - redistributedSpan / 2;
 
-          console.log(`      Natural span: ${naturalStart.toFixed(0)}-${naturalEnd.toFixed(0)}, redistributed around ${naturalCentroid.toFixed(0)}`);
+          // BOUNDARY-AWARE: Calculate start position that keeps all cards in bounds
+          let redistributedStart = naturalCentroid - redistributedSpan / 2;
 
-          // Place cards
+          // Clamp to ensure all cards stay within boundaries
+          const minStart = leftBoundary;  // Leftmost card can't go left of this
+          const maxStart = rightBoundary - redistributedSpan;  // Rightmost card can't go right
+
+          if (redistributedStart < minStart) {
+            console.log(`      Clamping redistributedStart from ${redistributedStart.toFixed(0)} to ${minStart.toFixed(0)} (left boundary)`);
+            redistributedStart = minStart;
+          } else if (redistributedStart > maxStart) {
+            console.log(`      Clamping redistributedStart from ${redistributedStart.toFixed(0)} to ${maxStart.toFixed(0)} (right boundary)`);
+            redistributedStart = maxStart;
+          }
+
+          console.log(`      Natural span: ${naturalStart.toFixed(0)}-${naturalEnd.toFixed(0)}, centroid=${naturalCentroid.toFixed(0)}`);
+
+          // Find optimal position within clamped range that minimizes offset
+          // Try to stay close to natural centroid while respecting boundaries
+          let optimalStart = redistributedStart;
+          let minTotalOffset = Infinity;
+
+          // Sample a few positions around redistributedStart
+          const samples = [
+            redistributedStart,
+            Math.max(minStart, redistributedStart - 50),
+            Math.min(maxStart, redistributedStart + 50)
+          ];
+
+          for (const startPos of samples) {
+            let sampleTotalOffset = 0;
+            let valid = true;
+
+            for (let i = 0; i < n; i++) {
+              const pos = startPos + i * centerToCenterSpacing;
+              const card = cards[i];
+              const flexLeft = card.x - FLEX_ZONE;
+              const flexRight = card.x + FLEX_ZONE;
+
+              if (pos < flexLeft || pos > flexRight) {
+                valid = false;
+                break;
+              }
+              sampleTotalOffset += Math.abs(pos - card.x);
+            }
+
+            if (valid && sampleTotalOffset < minTotalOffset) {
+              minTotalOffset = sampleTotalOffset;
+              optimalStart = startPos;
+            }
+          }
+
+          redistributedStart = optimalStart;
+          console.log(`      Optimal start: ${redistributedStart.toFixed(0)} (total offset: ${minTotalOffset.toFixed(0)}px)`);
+
+          // Place cards at optimal positions
           let currentPos = redistributedStart;
           for (let i = 0; i < n; i++) {
             const card = cards[i];
@@ -3017,4 +3067,3 @@
   </script>
 </body>
 </html>
-<\!-- Last updated: 2025-11-12 20:58:29 -->
