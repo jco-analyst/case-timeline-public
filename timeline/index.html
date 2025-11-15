@@ -2327,14 +2327,24 @@
         const anchorsOnTier = allPlacedCards.filter(c => c.assignedTier === tier && c.isAnchor);
 
         // Canvas boundaries (for card centers)
-        let prevRightBoundary = CARD_WIDTH/2; // Left edge of canvas
-        const canvasRightBoundary = width - CARD_WIDTH/2;
+        let leftBoundaryStart = CARD_WIDTH/2; // Left edge of canvas
+        let rightBoundaryEnd = width - CARD_WIDTH/2; // Right edge of canvas
 
         // If there's a left anchor on this tier, constrain left boundary
         const leftAnchor = anchorsOnTier.find(a => a.finalX < cards[0].x);
         if (leftAnchor) {
-          prevRightBoundary = Math.max(prevRightBoundary, leftAnchor.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2);
+          leftBoundaryStart = leftAnchor.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2;
+          console.log(`      Left anchor at ${leftAnchor.finalX.toFixed(0)} → leftBoundary=${leftBoundaryStart.toFixed(0)}`);
         }
+
+        // If there's a right anchor on this tier, constrain right boundary
+        const rightAnchor = anchorsOnTier.find(a => a.finalX > cards[cards.length-1].x);
+        if (rightAnchor) {
+          rightBoundaryEnd = rightAnchor.finalX - CARD_WIDTH/2 - MIN_GAP - CARD_WIDTH/2;
+          console.log(`      Right anchor at ${rightAnchor.finalX.toFixed(0)} → rightBoundary=${rightBoundaryEnd.toFixed(0)}`);
+        }
+
+        let prevRightBoundary = leftBoundaryStart;
 
         for (let i = 0; i < cards.length; i++) {
           const card = cards[i];
@@ -2346,8 +2356,8 @@
           // Minimum position: max of (flex left, previous card's right + gap)
           const minPos = Math.max(flexLeft, prevRightBoundary);
 
-          // Maximum position: min of (flex right, canvas right)
-          const maxPos = Math.min(flexRight, canvasRightBoundary);
+          // Maximum position: min of (flex right, right boundary accounting for right anchor)
+          const maxPos = Math.min(flexRight, rightBoundaryEnd);
 
           console.log(`      Card ${i}: natural=${card.x.toFixed(0)} flex=[${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}] minPos=${minPos.toFixed(0)} maxPos=${maxPos.toFixed(0)} prevBoundary=${prevRightBoundary.toFixed(0)}`);
 
@@ -2358,18 +2368,11 @@
             return null;
           }
 
-          // Try to place at natural X, or as close as possible
-          let optimalPos = card.x;
-          if (optimalPos < minPos) optimalPos = minPos;
-          if (optimalPos > maxPos) optimalPos = maxPos;
+          // CRITICAL: Place at LEFTMOST position to leave max space for cards to the right
+          // This is key to allowing subsequent cards to fit
+          const optimalPos = minPos;
 
-          console.log(`      → Placed at ${optimalPos.toFixed(0)}`);
-
-          // Double-check position is within flex zone (should always pass now)
-          if (optimalPos < flexLeft || optimalPos > flexRight) {
-            console.log(`      ✗ BUG: Position ${optimalPos.toFixed(0)} outside flex zone [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}]`);
-            return null;
-          }
+          console.log(`      → Placed at LEFTMOST: ${optimalPos.toFixed(0)} (natural was ${card.x.toFixed(0)}, shift=${(optimalPos - card.x).toFixed(0)}px)`);
 
           const offset = Math.abs(optimalPos - card.x);
           totalOffset += offset;
