@@ -1597,10 +1597,10 @@
         maxDate = viewportEndDate;
       }
 
-      // Dimensions - use 97% of container width (1.5% padding each side)
+      // Dimensions - use 95% of container width to prevent horizontal scroll
       // Use taller height for "all" view to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
-      const width = containerWidth * 0.97;
+      const width = containerWidth * 0.95;
       const height = currentView === 'all' ? 1400 : 800;
       const minMargin = CARD_WIDTH / 2 + 15; // 140 + 15 = 155px (prevents card cutoff)
       const margin = {
