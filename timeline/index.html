@@ -2318,7 +2318,7 @@
         return null;
       }
 
-      // Find optimal positions for all cards on a tier (greedy left-to-right packing)
+      // Find optimal positions for all cards on a tier (global redistribution)
       function findOptimalPositions(cards, tier, allPlacedCards) {
         const positions = [];
         let totalOffset = 0;
@@ -2327,66 +2327,144 @@
         const anchorsOnTier = allPlacedCards.filter(c => c.assignedTier === tier && c.isAnchor);
 
         // Canvas boundaries (for card centers)
-        let leftBoundaryStart = CARD_WIDTH/2; // Left edge of canvas
-        let rightBoundaryEnd = width - CARD_WIDTH/2; // Right edge of canvas
+        let leftBoundary = CARD_WIDTH/2; // Left edge of canvas
+        let rightBoundary = width - CARD_WIDTH/2; // Right edge of canvas
 
         // If there's a left anchor on this tier, constrain left boundary
         const leftAnchor = anchorsOnTier.find(a => a.finalX < cards[0].x);
         if (leftAnchor) {
-          leftBoundaryStart = leftAnchor.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2;
-          console.log(`      Left anchor at ${leftAnchor.finalX.toFixed(0)} → leftBoundary=${leftBoundaryStart.toFixed(0)}`);
+          leftBoundary = leftAnchor.finalX + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2;
+          console.log(`      Left anchor at ${leftAnchor.finalX.toFixed(0)} → leftBoundary=${leftBoundary.toFixed(0)}`);
         }
 
         // If there's a right anchor on this tier, constrain right boundary
         const rightAnchor = anchorsOnTier.find(a => a.finalX > cards[cards.length-1].x);
         if (rightAnchor) {
-          rightBoundaryEnd = rightAnchor.finalX - CARD_WIDTH/2 - MIN_GAP - CARD_WIDTH/2;
-          console.log(`      Right anchor at ${rightAnchor.finalX.toFixed(0)} → rightBoundary=${rightBoundaryEnd.toFixed(0)}`);
+          rightBoundary = rightAnchor.finalX - CARD_WIDTH/2 - MIN_GAP - CARD_WIDTH/2;
+          console.log(`      Right anchor at ${rightAnchor.finalX.toFixed(0)} → rightBoundary=${rightBoundary.toFixed(0)}`);
         }
 
-        let prevRightBoundary = leftBoundaryStart;
+        // GLOBAL REDISTRIBUTION: Calculate optimal spacing for all cards together
+        const n = cards.length;
+        const availableSpace = rightBoundary - leftBoundary;
+        // Required space is center-to-center distance from first to last card
+        // For n cards, this is (n-1) gaps of (CARD_WIDTH + MIN_GAP) center-to-center
+        const requiredSpace = (n - 1) * (CARD_WIDTH + MIN_GAP);
 
-        for (let i = 0; i < cards.length; i++) {
-          const card = cards[i];
+        console.log(`      Total space: available=${availableSpace.toFixed(0)}px, required=${requiredSpace.toFixed(0)}px (for ${n} card centers)`);
 
-          // Card's flex zone (based on natural X)
+        // Check if cards can physically fit
+        if (requiredSpace > availableSpace) {
+          console.log(`      ✗ Can't fit: need ${requiredSpace.toFixed(0)}px but only have ${availableSpace.toFixed(0)}px`);
+          return null;
+        }
+
+        // Special case: single card - just place at natural position if within bounds
+        if (n === 1) {
+          const card = cards[0];
           const flexLeft = card.x - FLEX_ZONE;
           const flexRight = card.x + FLEX_ZONE;
 
-          // Minimum position: max of (flex left, previous card's right + gap)
-          const minPos = Math.max(flexLeft, prevRightBoundary);
+          // Try natural position first
+          let optimalPos = card.x;
+          if (optimalPos < leftBoundary) optimalPos = leftBoundary;
+          if (optimalPos > rightBoundary) optimalPos = rightBoundary;
 
-          // Maximum position: min of (flex right, right boundary accounting for right anchor)
-          const maxPos = Math.min(flexRight, rightBoundaryEnd);
-
-          console.log(`      Card ${i}: natural=${card.x.toFixed(0)} flex=[${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}] minPos=${minPos.toFixed(0)} maxPos=${maxPos.toFixed(0)} prevBoundary=${prevRightBoundary.toFixed(0)}`);
-
-          // Check if there's a valid range BEFORE trying to place
-          if (minPos > maxPos) {
-            // No valid position - gap constraint conflicts with flex zone
-            console.log(`      ✗ No valid range: minPos (${minPos.toFixed(0)}) > maxPos (${maxPos.toFixed(0)})`);
+          // Check if within flex zone
+          if (optimalPos < flexLeft || optimalPos > flexRight) {
+            console.log(`      ✗ Single card: natural=${card.x.toFixed(0)} adjusted to ${optimalPos.toFixed(0)}, outside flex zone [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}]`);
             return null;
           }
 
-          // Try to place at natural X (centered), or as close as possible
-          // Only shift if natural position would violate constraints
-          let optimalPos = card.x;
-          if (optimalPos < minPos) optimalPos = minPos;
-          if (optimalPos > maxPos) optimalPos = maxPos;
-
-          console.log(`      → Placed at ${optimalPos.toFixed(0)} (natural=${card.x.toFixed(0)}, shift=${(optimalPos - card.x).toFixed(0)}px)`);
-
           const offset = Math.abs(optimalPos - card.x);
-          totalOffset += offset;
+          console.log(`      → Single card placed at ${optimalPos.toFixed(0)} (shift=${offset.toFixed(0)}px)`);
 
-          positions.push({
-            card: card,
-            position: optimalPos,
-            offset: offset
-          });
+          return {
+            positions: [{card: card, position: optimalPos, offset: offset}],
+            totalOffset: offset
+          };
+        }
 
-          // Update boundary for next card
-          prevRightBoundary = optimalPos + CARD_WIDTH/2 + MIN_GAP + CARD_WIDTH/2;
+        // Multiple cards: Try natural positions first, only redistribute if overlaps exist
+
+        // Step 1: Check if natural positions work
+        let hasOverlap = false;
+        for (let i = 0; i < n - 1; i++) {
+          const gap = cards[i + 1].x - cards[i].x;
+          const minGapNeeded = CARD_WIDTH + MIN_GAP;
+          if (gap < minGapNeeded) {
+            hasOverlap = true;
+            console.log(`      Overlap detected: cards at ${cards[i].x.toFixed(0)} and ${cards[i+1].x.toFixed(0)} (gap=${gap.toFixed(0)}px, need=${minGapNeeded.toFixed(0)}px)`);
+            break;
+          }
+        }
+
+        // Step 2: If no overlaps, use natural positions
+        if (!hasOverlap) {
+          console.log(`      No overlaps - using natural positions`);
+          for (let i = 0; i < n; i++) {
+            const card = cards[i];
+            const offset = 0;
+            totalOffset += offset;
+
+            positions.push({
+              card: card,
+              position: card.x,
+              offset: offset
+            });
+
+            console.log(`      → Card ${i} placed at natural ${card.x.toFixed(0)} (shift=0px)`);
+          }
+        } else {
+          // Step 3: Overlaps exist - redistribute with MINIMUM spacing (keep group compact)
+          // Use minimum spacing to keep cards as close to natural positions as possible
+          const centerToCenterSpacing = CARD_WIDTH + MIN_GAP;  // 285px
+          const redistributedSpan = (n - 1) * centerToCenterSpacing;
+
+          console.log(`      Redistribution needed: using minimum spacing=${centerToCenterSpacing.toFixed(0)}px`);
+
+          // Calculate group's natural span
+          const naturalStart = cards[0].x;
+          const naturalEnd = cards[n - 1].x;
+
+          // Center the compact group around the natural centroid
+          const naturalCentroid = (naturalStart + naturalEnd) / 2;
+          const redistributedStart = naturalCentroid - redistributedSpan / 2;
+
+          console.log(`      Natural span: ${naturalStart.toFixed(0)}-${naturalEnd.toFixed(0)}, redistributed around ${naturalCentroid.toFixed(0)}`);
+
+          // Place cards
+          let currentPos = redistributedStart;
+          for (let i = 0; i < n; i++) {
+            const card = cards[i];
+            const flexLeft = card.x - FLEX_ZONE;
+            const flexRight = card.x + FLEX_ZONE;
+
+            console.log(`      Card ${i}: natural=${card.x.toFixed(0)} flex=[${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}] redistributedPos=${currentPos.toFixed(0)}`);
+
+            // Check if within flex zone and boundaries
+            if (currentPos < flexLeft || currentPos > flexRight) {
+              console.log(`      ✗ Redistributed position ${currentPos.toFixed(0)} outside flex zone [${flexLeft.toFixed(0)}, ${flexRight.toFixed(0)}]`);
+              return null;
+            }
+            if (currentPos < leftBoundary || currentPos > rightBoundary) {
+              console.log(`      ✗ Redistributed position ${currentPos.toFixed(0)} outside boundaries [${leftBoundary.toFixed(0)}, ${rightBoundary.toFixed(0)}]`);
+              return null;
+            }
+
+            const offset = Math.abs(currentPos - card.x);
+            totalOffset += offset;
+
+            console.log(`      → Placed at ${currentPos.toFixed(0)} (shift=${offset.toFixed(0)}px)`);
+
+            positions.push({
+              card: card,
+              position: currentPos,
+              offset: offset
+            });
+
+            currentPos += centerToCenterSpacing;
+          }
         }
 
         return {
