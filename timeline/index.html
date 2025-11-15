@@ -2529,10 +2529,35 @@
 
         console.log(`  🔄 Zigzag preference: ${preferAbove ? 'above' : 'below'} (card ${cardIdx})`);
 
-        // Try each tier in order, with redistribution first, then L-connector fallback
+        // PASS 1: Try all tiers WITHOUT redistribution (prefer natural positions and zigzag)
         let bestLConnector = null;
         for (const tier of tierOrder) {
-          // FIRST: Try redistribution (shift existing cards on tier to make room)
+          const result = tryPlaceOnTier(card, tier, placedCards);
+
+          if (result && !result.usesLConnector) {
+            // Success! Card fits within flex zone at natural position
+            card.assignedTier = tier;
+            card.finalX = result.finalX;
+            card.offset = result.offset;
+            card.usesLConnector = false;
+
+            placedCards.push(card);
+            console.log(`  ✨ Placed on ${tier} within flex zone (no redistribution)`);
+
+            // Recurse to next card
+            return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
+          } else if (result && result.usesLConnector) {
+            // Card fits but needs L-connector - save as backup
+            console.log(`  ⚠️  ${tier} would need L-connector`);
+            if (!bestLConnector) {
+              bestLConnector = result; // Save first L-connector option
+            }
+          }
+        }
+
+        // PASS 2: Try all tiers WITH redistribution (only if Pass 1 failed)
+        console.log(`  🔄 Pass 1 failed - trying redistribution on all tiers`);
+        for (const tier of tierOrder) {
           const redistResult = tryPlaceWithRedistribution(card, tier, placedCards);
 
           if (redistResult) {
@@ -2571,29 +2596,6 @@
 
             // Recurse to next card
             return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
-          }
-
-          // FALLBACK: Try old method (no redistribution)
-          const result = tryPlaceOnTier(card, tier, placedCards);
-
-          if (result && !result.usesLConnector) {
-            // Success! Card fits within flex zone (no redistribution needed)
-            card.assignedTier = tier;
-            card.finalX = result.finalX;
-            card.offset = result.offset;
-            card.usesLConnector = false;
-
-            placedCards.push(card);
-            console.log(`  ✨ Placed on ${tier} within flex zone (no redistribution)`);
-
-            // Recurse to next card
-            return placeCardRecursive(cardIdx + 1, placedCards, endIdx);
-          } else if (result && result.usesLConnector) {
-            // Card fits but needs L-connector - save as backup
-            console.log(`  ⚠️  ${tier} would need L-connector`);
-            if (!bestLConnector) {
-              bestLConnector = result; // Save first L-connector option
-            }
           }
         }
 
