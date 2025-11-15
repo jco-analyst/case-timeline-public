@@ -1289,10 +1289,9 @@
       viewportStartDate = d3.min(viewportDates);
       viewportEndDate = d3.max(viewportDates);
 
-      // Add padding for visual breathing room and anchor flex zones
-      const TIMELINE_PADDING_DAYS = 30;
-      viewportStartDate = d3.timeDay.offset(viewportStartDate, -TIMELINE_PADDING_DAYS);
-      viewportEndDate = d3.timeDay.offset(viewportEndDate, TIMELINE_PADDING_DAYS);
+      // Add small padding (1 day on each side) for visual breathing room
+      viewportStartDate = d3.timeDay.offset(viewportStartDate, -1);
+      viewportEndDate = d3.timeDay.offset(viewportEndDate, 1);
     }
 
     // Get events within current viewport
