@@ -693,11 +693,6 @@
       object-fit: contain;
     }
 
-    /* No shift needed - modal is now centered */
-    .side-panel.shifted {
-      transform: none;
-    }
-
     .panel-overlay {
       position: fixed;
       top: 0;
@@ -3012,18 +3007,14 @@
         `;
       }
 
-      // Shift main panel to the left and show image modal
-      sidePanel.classList.add('shifted');
+      // Show image modal (no shift needed - modal is centered)
       imageModal.classList.add('open');
     }
 
     // Hide image modal
     function hideImageModal() {
       const imageModal = document.getElementById('image-modal');
-      const sidePanel = document.getElementById('side-panel');
-
       imageModal.classList.remove('open');
-      sidePanel.classList.remove('shifted');
     }
 
     // Hide side panel
