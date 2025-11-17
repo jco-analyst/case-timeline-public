@@ -1590,7 +1590,28 @@
         left: Math.max(containerWidth * 0.015, minMargin),
         bottom: 80
       };
-      const timelineY = height / 2;
+
+      // Calculate timeline Y position(s) based on view mode
+      let timelineY; // Keep as fallback for non-overview modes
+      let timelineYPositions = {}; // Map convergenceTrack to timelineY
+
+      if (currentView === 'overview') {
+        // Divide height into 3 swim lanes for convergence tracks
+        const usableHeight = height - margin.top - margin.bottom;
+        const swimLaneHeight = usableHeight / 3;
+
+        // Calculate centerline Y position for each track
+        timelineYPositions[1] = margin.top + (swimLaneHeight / 2);           // Track 1: Motive (top)
+        timelineYPositions[2] = margin.top + swimLaneHeight + (swimLaneHeight / 2); // Track 2: Triggers (middle)
+        timelineYPositions[3] = margin.top + (2 * swimLaneHeight) + (swimLaneHeight / 2); // Track 3: Execution (bottom)
+
+        // Set fallback timelineY to track 1 (for any events without convergenceTrack)
+        timelineY = timelineYPositions[1];
+      } else {
+        // Single timeline mode for other views
+        timelineY = height / 2;
+        timelineYPositions[1] = timelineYPositions[2] = timelineYPositions[3] = timelineY;
+      }
 
       // Create SVG
       const svg = container.append('svg')
@@ -1620,13 +1641,49 @@
       // This ensures events are processed left-to-right, preserving chronological order
       // Earlier events placed first will constrain later events (no later event can be left of earlier)
 
-      // Draw timeline line
-      svg.append('line')
-        .attr('class', 'timeline-line')
-        .attr('x1', margin.left)
-        .attr('y1', timelineY)
-        .attr('x2', width - margin.right)
-        .attr('y2', timelineY);
+      // Draw timeline line(s)
+      if (currentView === 'overview') {
+        // Draw 3 horizontal lines, one for each convergence track
+        for (const track of [1, 2, 3]) {
+          svg.append('line')
+            .attr('class', 'timeline-line')
+            .attr('x1', margin.left)
+            .attr('y1', timelineYPositions[track])
+            .attr('x2', width - margin.right)
+            .attr('y2', timelineYPositions[track]);
+        }
+
+        // Add track headers above each swim lane
+        const trackLabels = {
+          1: 'Protected Grounds & Accommodations (THE MOTIVE)',
+          2: 'Protected Activities & Retaliation Triggers (THE TRIGGERS)',
+          3: 'Pretextual Discipline & Termination (THE EXECUTION)'
+        };
+        const trackColors = {
+          1: '#3498db', // Blue
+          2: '#e67e22', // Orange
+          3: '#e74c3c'  // Red
+        };
+
+        for (const track of [1, 2, 3]) {
+          svg.append('text')
+            .attr('class', 'track-header')
+            .attr('x', margin.left + 10)
+            .attr('y', timelineYPositions[track] - 35) // 35px above timeline
+            .attr('fill', trackColors[track])
+            .attr('font-weight', 'bold')
+            .attr('font-size', '14px')
+            .text(trackLabels[track]);
+        }
+      } else {
+        // Single timeline line for other views
+        svg.append('line')
+          .attr('class', 'timeline-line')
+          .attr('x1', margin.left)
+          .attr('y1', timelineY)
+          .attr('x2', width - margin.right)
+          .attr('y2', timelineY);
+      }
 
       // Generate dynamic month markers based on date range
       const monthMarkers = [];
@@ -2282,6 +2339,13 @@
         // Create unique ID for this event
         const eventId = `event-${eventIndex}`;
         event.eventId = eventId;
+
+        // Get timeline Y based on event's convergenceTrack (if overview mode)
+        let eventTimelineY = timelineY; // Default to single timeline
+        if (currentView === 'overview' && event.convergenceTrack) {
+          eventTimelineY = timelineYPositions[event.convergenceTrack];
+        }
+
         if (event.type === 'range') {
           // Draw range as horizontal bar - always above timeline
           const x1 = event.x; // Use pre-calculated X position
@@ -2290,9 +2354,9 @@
           // Find the appropriate stack level for this bar
           const stackLevel = findRangeBarStackLevel(x1, x2);
 
-          // Calculate barY based on stack level
+          // Calculate barY based on stack level and timeline Y position for this track
           // First bar: 23px above, subsequent bars stack with 3px spacing
-          const barY = timelineY - (firstBarOffset + stackLevel * (barHeight + barSpacing));
+          const barY = eventTimelineY - (firstBarOffset + stackLevel * (barHeight + barSpacing));
 
           // Cycle through range bar colors for visual variety
           const barColorIndex = placedRangeBars.length % rangeBarColors.length;
@@ -2484,17 +2548,17 @@
           let cardTopY;
           if (isAbove) {
             // Position so card bottom is at line endpoint
-            cardTopY = timelineY - layerDistance - cardHeight + PADDING_OFFSET;
+            cardTopY = eventTimelineY - layerDistance - cardHeight + PADDING_OFFSET;
           } else {
             // Position so card top is at the line endpoint
-            cardTopY = timelineY + layerDistance + PADDING_OFFSET;
+            cardTopY = eventTimelineY + layerDistance + PADDING_OFFSET;
           }
 
           // Update card position
           card.style('top', cardTopY + 'px');
 
           // Draw connector line: straight if connector attaches directly at event dot, L-shaped otherwise
-          const cardEdgeY = isAbove ? (timelineY - layerDistance) : (timelineY + layerDistance);
+          const cardEdgeY = isAbove ? (eventTimelineY - layerDistance) : (eventTimelineY + layerDistance);
 
           // Check if connector can attach directly at event dot (no horizontal offset needed)
           if (offset === 0 && connectorAttachX === x) {
@@ -2503,7 +2567,7 @@
               .attr('class', 'connector-line')
               .attr('data-event-id', eventId)
               .attr('x1', x)
-              .attr('y1', timelineY)
+              .attr('y1', eventTimelineY)
               .attr('x2', x)
               .attr('y2', cardEdgeY);
           } else {
