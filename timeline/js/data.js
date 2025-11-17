@@ -1294,7 +1294,7 @@ const timelineEvents = [
     evidenceImages: [
       {
         type: 'email',
-        file: 'images/evidence/correspondence/Oct-22-2025-Michelle-Sherman-Request.png',
+        file: 'images/evidence/correspondence/Oct-22-2025-Employment-Records-Request.png',
         caption: 'Oct 22, 11:34 PM. Employee formally requests complete employment file from Michelle Sherman. Item 8 requests work email access - later explicitly refused by Carol Burke.'
       }
     ],
@@ -1512,8 +1512,13 @@ const timelineEvents = [
       },
       {
         type: 'doc',
-        file: 'images/evidence/documents/Employment-Agreement-Dear-Rollins-Error.pdf',
-        caption: 'SMOKING GUN: Employment Agreement with "Dear Rollins:" salutation error. Wrong employee name in contract. Received Oct 30. Question: Is this the wrong version sent Oct 30, or the "corrected" version sent Nov 4? Document tampering concerns. Contract may be void = $10k-$20k value.'
+        file: 'images/evidence/documents/Continuation-of-Coverage.pdf',
+        caption: 'Manulife Continuation of Coverage form - wrong benefits document sent Oct 30'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Life-Conversion-Form.pdf',
+        caption: 'Manulife Life Conversion Form - wrong benefits document sent Oct 30'
       }
     ],
     witnesses: ['Carol Burke (employer lawyer)', 'Document metadata', 'Email records'],
@@ -1626,7 +1631,7 @@ const timelineEvents = [
   },
 
   {
-    id: 54,
+    id: 60,
     timestamp: '2025-11-05',
     text: 'Michelle Sherman: ROE Released to MSCA',
     category: 'correspondence-michelle',
@@ -1644,6 +1649,11 @@ const timelineEvents = [
         type: 'email',
         file: 'images/evidence/correspondence/Nov-04-2025-Michelle-Sherman-ROE-3.png',
         caption: 'Nov 4 email from Michelle Sherman indicating ROE would be released to MSCA "sometime on Wednesday November 5, 2025." Shows 14-day delay from termination (Oct 22 to Nov 5) violating federal 5-day requirement by 9 days.'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/ROE-NOV5-2025.pdf',
+        caption: 'Actual ROE document released Nov 5, 2025 - proof of 14-day delay violating 5-day federal requirement'
       }
     ],
     witnesses: ['Michelle Sherman (HR)', 'MSCA records', 'EI application timeline'],

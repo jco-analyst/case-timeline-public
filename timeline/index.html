@@ -632,7 +632,7 @@
       top: 50%;
       left: calc(50% + 128px);
       transform: translateY(-50%);
-      width: 875px;
+      width: 1200px;
       max-height: 95vh;
       background: var(--bg-card);
       border-radius: 12px;
@@ -690,6 +690,40 @@
       height: auto;
       border-radius: 4px;
       object-fit: contain;
+    }
+
+    /* PDF Link Styling */
+    .pdf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      margin: 4px 8px 4px 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 13px;
+      max-width: 350px;
+    }
+
+    .pdf-link:hover {
+      background: var(--btn-hover-bg);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .pdf-link-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .pdf-link-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
     }
 
     /* Shift main panel when image modal is open */
@@ -2873,34 +2907,59 @@
           const clickClass = isClickable ? 'clickable' : '';
           const clickAttr = isClickable ? `data-img-index="${index}"` : '';
 
-          // Determine size based on type
-          let maxWidth = '300px'; // default for text/maps
-          let maxHeight = '600px'; // default
-          if (img.type === 'doc') {
-            maxWidth = '300px';
-            maxHeight = '600px';
-          }
-          if (img.type === 'photo') {
-            maxWidth = '400px';
-            maxHeight = '600px';
-          }
-          if (img.type === 'email') {
-            maxWidth = '650px'; // Almost full width of 720px panel
-            maxHeight = '1000px'; // Much taller for email readability
-          }
+          // Check if this is a PDF file
+          const isPdf = img.file.toLowerCase().endsWith('.pdf');
 
-          content += `
-            <div class="evidence-image-container">
-              <img
-                src="${img.file}"
-                alt="${img.caption || 'Evidence'}"
-                class="evidence-image ${clickClass}"
-                style="max-width: ${maxWidth}; max-height: ${maxHeight};"
-                ${clickAttr}
-              />
-              ${img.caption ? `<p class="evidence-caption">${img.caption}</p>` : ''}
-            </div>
-          `;
+          if (isPdf) {
+            // Extract filename without extension and make concise
+            const filename = img.file.split('/').pop();
+            const nameWithoutExt = filename.replace('.pdf', '');
+            // Create concise name by shortening it
+            let conciseName = nameWithoutExt;
+            if (conciseName.includes('-2025')) {
+              // For files like "Continuation-of-Coverage.pdf" → "Continuation of Coverage"
+              conciseName = conciseName.replace('-2025', '').replace(/-/g, ' ');
+            } else if (conciseName.includes('-')) {
+              conciseName = conciseName.replace(/-/g, ' ');
+            }
+
+            content += `
+              <div class="pdf-link ${clickClass}" ${clickAttr} style="cursor: pointer;">
+                <span class="pdf-link-icon">📄</span>
+                <span class="pdf-link-name">${conciseName}</span>
+              </div>
+            `;
+          } else {
+            // Regular image rendering
+            // Determine size based on type
+            let maxWidth = '300px'; // default for text/maps
+            let maxHeight = '600px'; // default
+            if (img.type === 'doc') {
+              maxWidth = '300px';
+              maxHeight = '600px';
+            }
+            if (img.type === 'photo') {
+              maxWidth = '400px';
+              maxHeight = '600px';
+            }
+            if (img.type === 'email') {
+              maxWidth = '650px'; // Almost full width of 720px panel
+              maxHeight = '1000px'; // Much taller for email readability
+            }
+
+            content += `
+              <div class="evidence-image-container">
+                <img
+                  src="${img.file}"
+                  alt="${img.caption || 'Evidence'}"
+                  class="evidence-image ${clickClass}"
+                  style="max-width: ${maxWidth}; max-height: ${maxHeight};"
+                  ${clickAttr}
+                />
+                ${img.caption ? `<p class="evidence-caption">${img.caption}</p>` : ''}
+              </div>
+            `;
+          }
         });
 
         content += `</div>`;
