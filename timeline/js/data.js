@@ -22,7 +22,10 @@ const timelineEvents = [
     witnesses: ['Boss (John)', 'HR (possibly present at interview)'],
     legalSignificance: 'CRITICAL FOUNDATION: Employer knew from BEFORE HIRING that family was employee\'s everything. Cannot claim surprise about family obligations. Shows discriminatory motive: Boss KNEW family was priority (told at interview) → Accommodated family obligations Oct 2024-July 2025 → Withdrew accommodation July 20, 2025 ("When we\'re in crunch time, I need you in the shop") → Terminated Oct 22, 2025 (citing family-related lateness). Pattern: Employer used knowledge of family obligations to hire employee, then later weaponized those same obligations to terminate. Alberta Human Rights Act Section 7 protects family status.',
     priority: 'critical',
-    icon: '👨‍👩‍👧'
+    icon: '👨‍👩‍👧',
+    convergenceTrack: 1,
+    causalLinks: [1, 76, 6],
+    chainGroup: 'family-status-foundation'
   },
 
   {
@@ -42,7 +45,10 @@ const timelineEvents = [
     evidenceImages: [],
     witnesses: ['Boss (John)', 'HR'],
     legalSignificance: 'Employer had knowledge from day one that family was employee\'s top priority. Later disciplined and terminated employee for those same family obligations. Shows employer\'s knowledge of protected ground from beginning of employment. CRITICAL: Contract contains "Dear Rollins:" salutation (wrong employee) - may void contract, worth $10k-$20k if proven. PDF ANALYSIS CONCERN: Technical analysis reveals font subset inconsistencies (different prefixes for same font) suggesting text may have been copy-pasted or altered after original creation. Multiple subset prefixes indicate content from different sources, raising questions about document authenticity.',
-    priority: 'medium'
+    priority: 'medium',
+    convergenceTrack: 1,
+    causalLinks: [2, 71, 64],
+    chainGroup: 'employment-foundation'
   },
 
   {

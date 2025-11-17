@@ -626,15 +626,14 @@
       margin: 0;
     }
 
-    /* Image Modal (centered and on top) */
+    /* Image Modal (centered on top of card) */
     .image-modal {
       position: fixed;
-      top: 20px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 90vw;
-      max-width: 1600px;
-      max-height: 90vh;
+      transform: translate(-50%, -50%);
+      width: 85vw;
+      max-height: 95vh;
       background: var(--bg-card);
       border-radius: 12px;
       box-shadow: var(--shadow-lg);
@@ -687,7 +686,7 @@
 
     .image-modal-content img {
       max-width: 100%;
-      max-height: calc(90vh - 120px);
+      max-height: calc(95vh - 140px);
       width: auto;
       height: auto;
       border-radius: 4px;
@@ -1034,7 +1033,7 @@
       <div class="subtitle">Jan 2024 - Oct 2025 • <span id="event-count">35 events</span></div>
 
       <div class="controls">
-        <button class="view-btn active" data-view="critical">Critical Only</button>
+        <button class="view-btn active" data-view="overview">📊 Overview (Lawyer View)</button>
         <button class="view-btn" data-view="family">Family Discrimination</button>
         <button class="view-btn" data-view="ohs">OHS Retaliation</button>
         <button class="view-btn" data-view="disability">Disability</button>
@@ -1171,7 +1170,7 @@
       '#9B59B6'   // Purple
     ];
 
-    let currentView = 'critical';
+    let currentView = 'overview';
     let activeLatenessFilters = new Set(); // Track which lateness person filters are active
 
     // Viewport state for virtual scrolling (event-based)
@@ -1392,7 +1391,10 @@
       console.log('🔍 DEBUG: Starting with', events.length, 'total events');
 
       // Apply main tag filter - with special handling for family/disability with lateness filters
-      if (currentView === 'critical') {
+      if (currentView === 'overview') {
+        events = events.filter(e => e.convergenceTrack !== undefined);
+        console.log('🔍 DEBUG: After overview filter:', events.length, 'events (convergence track events)');
+      } else if (currentView === 'critical') {
         events = events.filter(e => e.tags && e.tags.includes('critical'));
         console.log('🔍 DEBUG: After critical filter:', events.length, 'events');
       } else if (currentView === 'family') {
