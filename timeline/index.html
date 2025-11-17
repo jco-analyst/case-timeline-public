@@ -887,6 +887,72 @@
       right: 8px;
     }
 
+    /* Causal Connectors */
+    .causal-connector {
+      cursor: pointer;
+      opacity: 0.5;
+      transition: stroke 0.2s ease, stroke-width 0.2s ease, opacity 0.2s ease;
+    }
+
+    .causal-connector:hover {
+      opacity: 1;
+    }
+
+    .causal-connector.highlighted {
+      stroke: #e74c3c;
+      stroke-width: 3;
+      opacity: 1;
+      stroke-dasharray: none;
+    }
+
+    /* Causal chain highlighting */
+    .event-card.chain-highlighted {
+      box-shadow: 0 0 12px rgba(231, 76, 60, 0.8);
+      border: 2px solid #e74c3c;
+      z-index: 100;
+    }
+
+    .event-card.chain-dimmed {
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    .timeline-dot.chain-highlighted {
+      r: 14;
+      filter: drop-shadow(0 0 8px rgba(231, 76, 60, 0.8));
+      z-index: 100;
+    }
+
+    .timeline-dot.chain-dimmed {
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .connector-line.chain-highlighted {
+      stroke: #e74c3c;
+      stroke-width: 3;
+      opacity: 1;
+      z-index: 50;
+    }
+
+    .connector-line.chain-dimmed {
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .causal-connector.chain-highlighted {
+      stroke: #e74c3c;
+      stroke-width: 3;
+      opacity: 1;
+      stroke-dasharray: none;
+      z-index: 50;
+    }
+
+    .causal-connector.chain-dimmed {
+      opacity: 0.05;
+      z-index: 0;
+    }
+
     /* Mini-map */
     .mini-map-container {
       position: fixed;
@@ -1133,6 +1199,9 @@
 
     let currentView = 'overview';
     let activeLatenessFilters = new Set(); // Track which lateness person filters are active
+
+    // Global reference to clear function (for hideSidePanel to access)
+    let clearCausalChainHighlight = null;
 
     // Viewport state for virtual scrolling (event-based)
     let currentViewportIndex = 0; // Current page index (0, 1, 2, ...)
@@ -1582,7 +1651,31 @@
       // Use taller height for "all" view to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
       const width = containerWidth * 0.97;
-      const height = currentView === 'all' ? 1400 : 800;
+      let height = currentView === 'all' ? 1400 : 800;
+
+      // For Overview mode, calculate dynamic height based on events per track
+      if (currentView === 'overview') {
+        const ESTIMATED_CARD_HEIGHT = 160;
+        const MIN_SWIM_LANE_HEIGHT = 350;
+
+        // Count events in each convergence track
+        const trackCounts = { 1: 0, 2: 0, 3: 0 };
+        viewportEvents.forEach(e => {
+          if (e.convergenceTrack && trackCounts.hasOwnProperty(e.convergenceTrack)) {
+            trackCounts[e.convergenceTrack]++;
+          }
+        });
+
+        // Calculate height needed for each track (events are staggered left/right)
+        // Estimate: ~3-4 events per row at max density
+        const eventsPerRow = 3.5;
+        const rowsPerTrack = Math.ceil(Math.max(...Object.values(trackCounts)) / eventsPerRow);
+        const heightPerTrack = Math.max(MIN_SWIM_LANE_HEIGHT, rowsPerTrack * ESTIMATED_CARD_HEIGHT + 100);
+
+        // Total height: 3 tracks + margins (160px total)
+        height = Math.max(800, (3 * heightPerTrack) + 160);
+      }
+
       const minMargin = CARD_WIDTH / 2 + 5; // 140 + 5 = 145px (5px clearance from edges)
       const margin = {
         top: 80,
@@ -1616,12 +1709,43 @@
       // Create SVG
       const svg = container.append('svg')
         .attr('width', width)
-        .attr('height', height);
+        .attr('height', height)
+        .on('click', function() {
+          // Clear highlighting if clicking on SVG background (not on interactive elements)
+          const clickTarget = d3.event.target;
+          const tagName = clickTarget.tagName.toLowerCase();
+
+          // Only clear if clicking on SVG itself, background rect, or timeline lines (not events/dots/connectors)
+          if (tagName === 'svg' || tagName === 'rect' ||
+              (tagName === 'line' && clickTarget.classList.contains('timeline-line'))) {
+            clearCausalChainHighlight();
+          }
+        });
+
+      // Add background rectangle to capture clicks on empty space
+      svg.append('rect')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('fill', 'transparent')
+        .attr('class', 'svg-background')
+        .style('cursor', 'default');
 
       // Create scale with dynamic domain
       const xScale = d3.scaleTime()
         .domain([minDate, maxDate])
         .range([margin.left, width - margin.right]);
+
+      // Define arrow marker for causal connectors
+      svg.append('defs').append('marker')
+        .attr('id', 'arrowhead')
+        .attr('markerWidth', 10)
+        .attr('markerHeight', 10)
+        .attr('refX', 9)
+        .attr('refY', 3)
+        .attr('orient', 'auto')
+        .append('polygon')
+        .attr('points', '0 0, 10 3, 0 6')
+        .attr('fill', '#999');
 
       // Calculate spatial center of timeline
       const timelineCenter = (margin.left + (width - margin.right)) / 2;
@@ -1655,9 +1779,9 @@
 
         // Add track headers above each swim lane
         const trackLabels = {
-          1: 'Protected Grounds & Accommodations (THE MOTIVE)',
-          2: 'Protected Activities & Retaliation Triggers (THE TRIGGERS)',
-          3: 'Pretextual Discipline & Termination (THE EXECUTION)'
+          1: 'Protected Grounds & Accommodations',
+          2: 'Protected Activities & Retaliation Triggers',
+          3: 'Pretextual Discipline & Termination'
         };
         const trackColors = {
           1: '#3498db', // Blue
@@ -2334,6 +2458,159 @@
       // END CONSTRAINT-BASED PLACEMENT
       // ============================================================================
 
+      // ============================================================================
+      // DRAW CAUSAL CONNECTORS (before events so they appear behind)
+      // ============================================================================
+      function drawCausalConnectors() {
+        if (currentView !== 'overview') return; // Only for overview mode
+
+        // Create connector group
+        const connectorsGroup = svg.append('g')
+          .attr('class', 'causal-connectors');
+
+        viewportEvents.forEach(sourceEvent => {
+          if (!sourceEvent.causalLinks || sourceEvent.causalLinks.length === 0) {
+            return; // No causal links
+          }
+
+          sourceEvent.causalLinks.forEach(targetEventId => {
+            // Find target event in viewport
+            const targetEvent = viewportEvents.find(e => e.id === targetEventId);
+            if (!targetEvent) return; // Target not in current viewport
+
+            // Get positions
+            const sourceX = sourceEvent.x;
+            const sourceTrack = sourceEvent.convergenceTrack || 1;
+            const sourceY = timelineYPositions[sourceTrack];
+
+            const targetX = targetEvent.x;
+            const targetTrack = targetEvent.convergenceTrack || 1;
+            const targetY = timelineYPositions[targetTrack];
+
+            // Draw curved arrow from source to target
+            drawCausalArrow(connectorsGroup,
+              sourceX, sourceY, sourceTrack,
+              targetX, targetY, targetTrack,
+              sourceEvent, targetEvent);
+          });
+        });
+      }
+
+      function drawCausalArrow(group, x1, y1, track1, x2, y2, track2, sourceEvent, targetEvent) {
+        // Arrow path: curved line from event to event
+        // Use quadratic bezier curve with control point in middle
+
+        const midX = (x1 + x2) / 2;
+        let controlY;
+
+        if (track1 === track2) {
+          // Same track: slight upward curve
+          controlY = y1 - 40;
+        } else if (Math.abs(track2 - track1) === 1) {
+          // Adjacent tracks: moderate curve
+          controlY = (y1 + y2) / 2;
+        } else {
+          // Distant tracks: larger curve
+          controlY = (y1 + y2) / 2 + (Math.abs(y2 - y1) * 0.3);
+        }
+
+        // Build path: quadratic bezier
+        const pathData = `M${x1},${y1} Q${midX},${controlY} ${x2},${y2}`;
+
+        // Draw the arrow line
+        group.append('path')
+          .attr('d', pathData)
+          .attr('class', `causal-connector`)
+          .attr('data-source-id', sourceEvent.id)
+          .attr('data-target-id', targetEvent.id)
+          .attr('data-chain-group', sourceEvent.chainGroup || '')
+          .attr('stroke', '#999')
+          .attr('stroke-width', '2')
+          .attr('fill', 'none')
+          .attr('stroke-dasharray', '5,5') // Dashed line
+          .attr('marker-end', 'url(#arrowhead)');
+
+        // Add hover effect
+        group.selectAll(`.causal-connector[data-source-id="${sourceEvent.id}"][data-target-id="${targetEvent.id}"]`)
+          .on('mouseenter', function() {
+            d3.select(this).attr('stroke', '#e74c3c').attr('stroke-width', '3');
+          })
+          .on('mouseleave', function() {
+            d3.select(this).attr('stroke', '#999').attr('stroke-width', '2');
+          });
+      }
+
+      function highlightCausalChain(chainGroup, events) {
+        if (!chainGroup) return;
+
+        // Find all events in this chain group
+        const chainEvents = events.filter(e => e.chainGroup === chainGroup);
+        const chainEventIds = new Set(chainEvents.map(e => e.eventId));
+
+        // Highlight chain events (cards are in container, not SVG)
+        container.selectAll('.event-card')
+          .each(function() {
+            const eventId = d3.select(this).attr('data-event-id');
+            const isInChain = chainEventIds.has(eventId);
+            d3.select(this)
+              .classed('chain-highlighted', isInChain)
+              .classed('chain-dimmed', !isInChain);
+          });
+
+        // Highlight timeline dots
+        svg.selectAll('.timeline-dot')
+          .each(function() {
+            const eventId = d3.select(this).attr('data-event-id');
+            const isInChain = chainEventIds.has(eventId);
+            d3.select(this)
+              .classed('chain-highlighted', isInChain)
+              .classed('chain-dimmed', !isInChain);
+          });
+
+        // Highlight connectors in chain
+        svg.selectAll('.causal-connector')
+          .each(function() {
+            const dataChainGroup = d3.select(this).attr('data-chain-group');
+            const isInChain = dataChainGroup === chainGroup;
+            d3.select(this)
+              .classed('chain-highlighted', isInChain)
+              .classed('chain-dimmed', dataChainGroup !== chainGroup && dataChainGroup !== '');
+          });
+
+        // Highlight event connector lines
+        svg.selectAll('.connector-line')
+          .each(function() {
+            const eventId = d3.select(this).attr('data-event-id');
+            const isInChain = chainEventIds.has(eventId);
+            d3.select(this)
+              .classed('chain-highlighted', isInChain)
+              .classed('chain-dimmed', !isInChain);
+          });
+      }
+
+      // Assign to global variable so hideSidePanel can access it
+      clearCausalChainHighlight = function() {
+        // Remove all highlighting classes (cards are in container, not SVG)
+        container.selectAll('.event-card')
+          .classed('chain-highlighted', false)
+          .classed('chain-dimmed', false);
+
+        svg.selectAll('.timeline-dot')
+          .classed('chain-highlighted', false)
+          .classed('chain-dimmed', false);
+
+        svg.selectAll('.causal-connector')
+          .classed('chain-highlighted', false)
+          .classed('chain-dimmed', false);
+
+        svg.selectAll('.connector-line')
+          .classed('chain-highlighted', false)
+          .classed('chain-dimmed', false);
+      };
+
+      // Call the function to draw causal connectors BEFORE drawing events
+      drawCausalConnectors();
+
       // Draw events
       viewportEvents.forEach((event, eventIndex) => {
         // Create unique ID for this event
@@ -2479,6 +2756,15 @@
             .style('left', cardLeft + 'px')
             .style('top', '0px')
             .on('click', function() {
+              // Get the event associated with this card
+              const eventId = d3.select(this).attr('data-event-id');
+              const clickedEvent = viewportEvents.find(e => e.eventId === eventId);
+
+              // Highlight causal chain if in overview mode
+              if (currentView === 'overview' && clickedEvent && clickedEvent.chainGroup) {
+                highlightCausalChain(clickedEvent.chainGroup, viewportEvents);
+              }
+
               // Add highlight effect
               d3.select(this).classed('highlight', true);
               // Remove highlight after animation
@@ -2579,7 +2865,7 @@
 
             // Calculate staggered transition point
             // Base: 50% of distance, then stagger by 12px per offset card
-            const baseMidpoint = timelineY + (isAbove ? -layerDistance/2 : layerDistance/2);
+            const baseMidpoint = eventTimelineY + (isAbove ? -layerDistance/2 : layerDistance/2);
             const staggerAmount = 12; // pixels to stagger each L-connector
             const staggerDirection = offset > 0 ? 1 : -1; // stagger up/down based on offset direction
             const staggerCount = offset !== 0 ? offsetCounts[layer] : 0;
@@ -2590,7 +2876,7 @@
               .attr('class', 'connector-line')
               .attr('data-event-id', eventId)
               .attr('x1', x)
-              .attr('y1', timelineY)
+              .attr('y1', eventTimelineY)
               .attr('x2', x)
               .attr('y2', transitionY);
 
@@ -2618,7 +2904,7 @@
             .attr('class', `timeline-dot category-${event.category} priority-${event.priority || 'medium'}`)
             .attr('data-event-id', eventId)
             .attr('cx', x)
-            .attr('cy', timelineY)
+            .attr('cy', eventTimelineY)
             .attr('r', 10)
             .attr('fill', categoryColors[event.category])
             .on('click', () => showSidePanel(event))
@@ -2736,8 +3022,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical" and "all" views
-      const showNavigation = (currentView === 'critical' || currentView === 'all');
+      // Only show mini-map and navigation for "critical", "overview", and "all" views
+      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'all');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
@@ -3084,6 +3370,10 @@
     // Hide side panel
     function hideSidePanel() {
       hideImageModal(); // Close image modal if open
+      // Clear causal chain highlighting (if function exists)
+      if (clearCausalChainHighlight) {
+        clearCausalChainHighlight();
+      }
       document.getElementById('side-panel').classList.remove('open');
       document.getElementById('panel-overlay').classList.remove('visible');
     }
