@@ -2978,12 +2978,23 @@
 
       document.getElementById('panel-content').innerHTML = content;
 
-      // Add event listeners to clickable images
+      // Add event listeners to clickable images and PDFs
       if (event.evidenceImages && event.evidenceImages.length > 0) {
         setTimeout(() => {
+          // Handle regular images
           const clickableImages = document.querySelectorAll('.evidence-image.clickable');
           clickableImages.forEach(img => {
             img.addEventListener('click', function() {
+              const index = parseInt(this.getAttribute('data-img-index'));
+              const imgData = event.evidenceImages[index];
+              showImageModal(imgData);
+            });
+          });
+
+          // Handle PDF links
+          const pdfLinks = document.querySelectorAll('.pdf-link.clickable');
+          pdfLinks.forEach(link => {
+            link.addEventListener('click', function() {
               const index = parseInt(this.getAttribute('data-img-index'));
               const imgData = event.evidenceImages[index];
               showImageModal(imgData);
