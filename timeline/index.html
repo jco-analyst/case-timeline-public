@@ -3027,7 +3027,7 @@
 
       if (isPDF) {
         // Render PDF with iframe for maximum compatibility
-        imageModalContent.innerHTML = `
+        const iframeHTML = `
           <iframe
             src="${imgData.file}#toolbar=0"
             type="application/pdf"
@@ -3043,6 +3043,8 @@
             </a>
           </p>
         `;
+        console.log('PDF iframe HTML:', iframeHTML);
+        imageModalContent.innerHTML = iframeHTML;
       } else {
         // Render image normally
         imageModalContent.innerHTML = `
