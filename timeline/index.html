@@ -2841,7 +2841,7 @@
 
             // Calculate staggered transition point
             // Base: 50% of distance, then stagger by 12px per offset card
-            const baseMidpoint = eventTimelineY + (isAbove ? -layerDistance/2 : layerDistance/2);
+            const baseMidpoint = timelineY + (isAbove ? -layerDistance/2 : layerDistance/2);
             const staggerAmount = 12; // pixels to stagger each L-connector
             const staggerDirection = offset > 0 ? 1 : -1; // stagger up/down based on offset direction
             const staggerCount = offset !== 0 ? offsetCounts[layer] : 0;
@@ -2852,7 +2852,7 @@
               .attr('class', 'connector-line')
               .attr('data-event-id', eventId)
               .attr('x1', x)
-              .attr('y1', eventTimelineY)
+              .attr('y1', timelineY)
               .attr('x2', x)
               .attr('y2', transitionY);
 
@@ -2880,7 +2880,7 @@
             .attr('class', `timeline-dot category-${event.category} priority-${event.priority || 'medium'}`)
             .attr('data-event-id', eventId)
             .attr('cx', x)
-            .attr('cy', eventTimelineY)
+            .attr('cy', timelineY)
             .attr('r', 10)
             .attr('fill', categoryColors[event.category])
             .on('click', () => showSidePanel(event))
