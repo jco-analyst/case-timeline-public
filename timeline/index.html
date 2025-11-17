@@ -1651,31 +1651,7 @@
       // Use taller height for "all" view to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
       const width = containerWidth * 0.97;
-      let height = currentView === 'all' ? 1400 : 800;
-
-      // For Overview mode, calculate dynamic height based on events per track
-      if (currentView === 'overview') {
-        const ESTIMATED_CARD_HEIGHT = 160;
-        const MIN_SWIM_LANE_HEIGHT = 350;
-
-        // Count events in each convergence track
-        const trackCounts = { 1: 0, 2: 0, 3: 0 };
-        viewportEvents.forEach(e => {
-          if (e.convergenceTrack && trackCounts.hasOwnProperty(e.convergenceTrack)) {
-            trackCounts[e.convergenceTrack]++;
-          }
-        });
-
-        // Calculate height needed for each track (events are staggered left/right)
-        // Estimate: ~3-4 events per row at max density
-        const eventsPerRow = 3.5;
-        const rowsPerTrack = Math.ceil(Math.max(...Object.values(trackCounts)) / eventsPerRow);
-        const heightPerTrack = Math.max(MIN_SWIM_LANE_HEIGHT, rowsPerTrack * ESTIMATED_CARD_HEIGHT + 100);
-
-        // Total height: 3 tracks + margins (160px total)
-        height = Math.max(800, (3 * heightPerTrack) + 160);
-      }
-
+      const height = currentView === 'all' ? 1400 : 800;
       const minMargin = CARD_WIDTH / 2 + 5; // 140 + 5 = 145px (5px clearance from edges)
       const margin = {
         top: 80,
@@ -1779,9 +1755,9 @@
 
         // Add track headers above each swim lane
         const trackLabels = {
-          1: 'Protected Grounds & Accommodations',
-          2: 'Protected Activities & Retaliation Triggers',
-          3: 'Pretextual Discipline & Termination'
+          1: 'Protected Grounds & Accommodations (THE MOTIVE)',
+          2: 'Protected Activities & Retaliation Triggers (THE TRIGGERS)',
+          3: 'Pretextual Discipline & Termination (THE EXECUTION)'
         };
         const trackColors = {
           1: '#3498db', // Blue
@@ -3022,8 +2998,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical", "overview", and "all" views
-      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'all');
+      // Only show mini-map and navigation for "critical" and "all" views
+      const showNavigation = (currentView === 'critical' || currentView === 'all');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
