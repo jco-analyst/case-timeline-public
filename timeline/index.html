@@ -2732,8 +2732,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical" view
-      const showNavigation = (currentView === 'critical');
+      // Only show mini-map and navigation for "critical" and "overview" views
+      const showNavigation = (currentView === 'critical' || currentView === 'overview');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
