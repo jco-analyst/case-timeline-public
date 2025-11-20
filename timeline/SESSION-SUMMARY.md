@@ -87,7 +87,7 @@
 
 **Discovered During Analysis:**
 Four events had dates with `?` marks that caused crashes:
-- `2025-01-08` - Write-Up #2 (refined from Sept 2024 to Jan 2025 for chronological accuracy)
+- `2024-09-15?` - Write-Up #2
 - `2024-10-01?` - Confined Space Safety Meeting
 - `2025-07-20?` - Epoxy Paint Tank Injury
 - `2025-10-17?` - Differential Treatment

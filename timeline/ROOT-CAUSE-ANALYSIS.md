@@ -36,7 +36,7 @@ Four events had uncertain dates with `?` suffix that caused crashes:
 
 | Line | Timestamp | Event | Tags |
 |------|-----------|-------|------|
-| 95 | `2025-01-08` | Write-Up #2: First Timecard Write-Up | wrongful-dismissal |
+| 95 | `2024-09-15?` | Write-Up #2: First Timecard Write-Up | wrongful-dismissal |
 | 115 | `2024-10-01?` | Confined Space Safety Meeting | critical, ohs, wrongful-dismissal |
 | 733 | `2025-07-20?` | Epoxy Paint Tank Injury | smoking-gun, ohs, wrongful-dismissal |
 | 1512 | `2025-10-17?` | Differential Treatment | wrongful-dismissal |

@@ -106,16 +106,16 @@ const timelineEvents = [
     chainGroup: 'ohs-advocacy-origin'
   },
 
-  // Early 2025 - First Discipline Begins (After Baby Born Oct 2024)
+  // Fall 2024 - First Discipline Begins
   {
     id: 4,
-    timestamp: '2025-01-08',
+    timestamp: '2024-09-15?',
     text: 'Write-Up #2: First Timecard Write-Up',
     category: 'termination',
     type: 'point',
     endDate: null,
     tags: ['wrongful-dismissal'],
-    description: 'First documented timecard discipline - written warning for not filling out timecard (Write-Up #2, date estimated as early January 2025). Timing: After baby born (Oct 9, 2024), after hydraulic troubleshooting incident where employee was proven right. Boss begins building paper trail after being shown up on technical issue. About 6 weeks after return to normal work from new parent obligations. Note: Employer\'s timecard system was fundamentally broken (cannot submit during work hours, automatic lockout after 3 days, boss himself struggled with it, new employees consistently had problems).',
+    description: 'First documented timecard discipline - written warning for not filling out timecard (likely Write-Up #2, exact date uncertain). Timing: After hydraulic troubleshooting incident where employee was proven right. Boss begins building paper trail after being shown up on technical issue. Note: Employer\'s timecard system was fundamentally broken (cannot submit during work hours, automatic lockout after 3 days, boss himself struggled with it, new employees consistently had problems).',
     evidence: [
       'Write-up document (awaiting from employer)',
       'Testimony about broken timecard system',

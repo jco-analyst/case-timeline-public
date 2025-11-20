@@ -28,7 +28,7 @@ Uncaught TypeError: Cannot read properties of undefined (reading 'toFixed')
 ### Why It Crashed
 
 1. **Data Discovery:** Found 4 events with uncertain dates marked with `?`:
-   - `'2025-01-08'` (Write-Up #2: First Timecard Write-Up - date refined from Sept 2024 to Jan 2025)
+   - `'2024-09-15?'` (Write-Up #2: First Timecard Write-Up)
    - `'2024-10-01?'` (Confined Space Safety Meeting - OHS)
    - `'2025-07-20?'` (Epoxy Paint Tank Injury - OHS)
    - `2025-10-17?'` (Differential treatment event)
@@ -151,7 +151,7 @@ These events are now properly handled:
 
 | Event | Original Timestamp | Cleaned Timestamp | Filter Tags |
 |-------|-------------------|-------------------|-------------|
-| Write-Up #2 | 2024-09-15? | 2025-01-08 | wrongful-dismissal |
+| Write-Up #2 | 2024-09-15? | 2024-09-15 | wrongful-dismissal |
 | Confined Space Safety | 2024-10-01? | 2024-10-01 | critical, ohs, wrongful-dismissal |
 | Epoxy Paint Tank | 2025-07-20? | 2025-07-20 | smoking-gun, ohs, wrongful-dismissal |
 | Differential Treatment | 2025-10-17? | 2025-10-17 | wrongful-dismissal |
