@@ -1934,7 +1934,7 @@ const timelineEvents = [
     evidenceImages: [
       {
         type: 'text',
-        file: 'images/evidence/family-status/lateness-notifications/Oct-10-2025-Write-Up-Day-Of-Return.jpg',
+        file: 'images/evidence/smoking-guns/Oct-10-2025-Write-Up-Day-Of-Return.jpg',
         caption: 'SMOKING GUN: Oct 10, 2025 - First day back from parental leave. TWO SEPARATE EVENTS: (1) Morning 8 min late - grandparents delayed flight (Thanksgiving), childcare coordination, texted 4:54 AM. (2) Write-Up #4 issued SAME DAY for SEPT 3 TIMECARD (NOT for Oct 10 lateness). 33-day delay from Sept 7 "urgent" deadline proves retaliation timing: saved discipline for first day back from protected parental leave.'
       }
     ],
