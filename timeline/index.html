@@ -1139,6 +1139,8 @@
     let viewportStartDate = null;
     let viewportEndDate = null;
     let allFilteredEvents = []; // Cache of all filtered events
+    let singleDayEvents = []; // Single-day events (used for pagination)
+    let multiDayEvents = []; // Multi-day events (appear on all overlapping pages)
     let fullTimelineStart = null;
     let fullTimelineEnd = null;
     let miniMapDragInitialized = false; // Prevent duplicate drag listeners
@@ -1218,8 +1220,16 @@
         fullTimelineEnd = null;
         currentViewportIndex = 0;
         eventsPerViewport = 10;
+        singleDayEvents = [];
+        multiDayEvents = [];
         return;
       }
+
+      // Separate single-day and multi-day events
+      singleDayEvents = events.filter(e => !e.parsedEndDate || e.parsedEndDate.getTime() === e.parsedDate.getTime());
+      multiDayEvents = events.filter(e => e.parsedEndDate && e.parsedEndDate.getTime() !== e.parsedDate.getTime());
+
+      console.log('🔍 DEBUG: Separated events - Single-day:', singleDayEvents.length, 'Multi-day:', multiDayEvents.length);
 
       // Calculate full timeline range (dates already parsed in init())
       const allDates = [];
@@ -1230,35 +1240,36 @@
       fullTimelineStart = d3.min(allDates);
       fullTimelineEnd = d3.max(allDates);
 
-      // Calculate optimal events per viewport
-      eventsPerViewport = calculateEventsPerViewport(events.length);
+      // Calculate optimal events per viewport based on SINGLE-DAY events only
+      eventsPerViewport = calculateEventsPerViewport(singleDayEvents.length);
 
       // Reset to first page
       currentViewportIndex = 0;
 
-      // Update viewport dates based on first page of events
+      // Update viewport dates based on first page of SINGLE-DAY events
       updateViewportDates(events);
       updateNavigationButtons(events);
     }
 
     // Update viewport date range based on current page index
     function updateViewportDates(events) {
-      if (events.length === 0) return;
+      if (singleDayEvents.length === 0) return;
 
-      // Sort events by date
-      const sortedEvents = [...events].sort((a, b) => a.parsedDate - b.parsedDate);
+      // Sort SINGLE-DAY events by date (pagination based on these only)
+      const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
 
-      // Get events for current viewport
+      // Get single-day events for current viewport page
       const startIdx = currentViewportIndex * eventsPerViewport;
-      const endIdx = Math.min(startIdx + eventsPerViewport, sortedEvents.length);
-      const viewportEvents = sortedEvents.slice(startIdx, endIdx);
+      const endIdx = Math.min(startIdx + eventsPerViewport, sortedSingleDay.length);
+      const viewportSingleDayEvents = sortedSingleDay.slice(startIdx, endIdx);
 
-      if (viewportEvents.length === 0) return;
+      if (viewportSingleDayEvents.length === 0) return;
 
-      // Calculate date range from these events
+      // Calculate date range from SINGLE-DAY events only
       const viewportDates = [];
-      viewportEvents.forEach(e => {
+      viewportSingleDayEvents.forEach(e => {
         viewportDates.push(e.parsedDate);
+        // For single-day events, only use start date
         if (e.parsedEndDate) viewportDates.push(e.parsedEndDate);
       });
 
@@ -1268,6 +1279,8 @@
       // Add small padding (1 day on each side) for visual breathing room
       viewportStartDate = d3.timeDay.offset(viewportStartDate, -1);
       viewportEndDate = d3.timeDay.offset(viewportEndDate, 1);
+
+      console.log('🔍 DEBUG: Viewport date range:', viewportStartDate, 'to', viewportEndDate);
     }
 
     // Get events within current viewport
@@ -1299,7 +1312,7 @@
 
     // Move viewport right (later dates / next page)
     function moveViewportRight() {
-      const totalPages = Math.ceil(allFilteredEvents.length / eventsPerViewport);
+      const totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
       if (currentViewportIndex >= totalPages - 1) return;
 
       currentViewportIndex++;
@@ -1320,7 +1333,8 @@
         return;
       }
 
-      const totalPages = Math.ceil(events.length / eventsPerViewport);
+      // Calculate total pages based on SINGLE-DAY events only
+      const totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
 
       // Disable left if on first page
       if (currentViewportIndex <= 0) {
@@ -1589,14 +1603,27 @@
       const container = d3.select('#timeline');
       container.html(''); // Clear
 
-      // For event-based pagination, get the events for current page directly
-      // (don't use date-range filtering which would include wrong events)
-      const sortedEvents = [...events].sort((a, b) => a.parsedDate - b.parsedDate);
+      // STEP 1: Get SINGLE-DAY events for current page
+      const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
       const startIdx = currentViewportIndex * eventsPerViewport;
-      const endIdx = Math.min(startIdx + eventsPerViewport, sortedEvents.length);
-      const viewportEvents = sortedEvents.slice(startIdx, endIdx);
-      console.log('🔍 DEBUG: viewportEvents (after pagination):', viewportEvents.length, 'events');
-      console.log('🔍 DEBUG: Pagination - startIdx:', startIdx, 'endIdx:', endIdx);
+      const endIdx = Math.min(startIdx + eventsPerViewport, sortedSingleDay.length);
+      const pageSingleDayEvents = sortedSingleDay.slice(startIdx, endIdx);
+
+      console.log('🔍 DEBUG: Single-day events for page:', pageSingleDayEvents.length);
+
+      // STEP 2: Get MULTI-DAY events that overlap with viewport date range
+      const overlappingMultiDay = multiDayEvents.filter(e => {
+        const eventStart = e.parsedDate;
+        const eventEnd = e.parsedEndDate;
+        // Include if event overlaps with viewport
+        return (eventStart <= viewportEndDate && eventEnd >= viewportStartDate);
+      });
+
+      console.log('🔍 DEBUG: Overlapping multi-day events:', overlappingMultiDay.length);
+
+      // STEP 3: Combine single-day + overlapping multi-day events
+      const viewportEvents = [...pageSingleDayEvents, ...overlappingMultiDay];
+      console.log('🔍 DEBUG: Total viewport events:', viewportEvents.length, '(', pageSingleDayEvents.length, 'single-day +', overlappingMultiDay.length, 'multi-day)');
 
       if (viewportEvents.length === 0) {
         console.log('⚠️ DEBUG: No events in viewport! Showing empty message.');
@@ -2771,20 +2798,51 @@
 
         // Click to jump to this event
         dot.addEventListener('click', () => {
-          // Find which page this event is on
-          const sortedEvents = [...allFilteredEvents].sort((a, b) => a.parsedDate - b.parsedDate);
-          const eventIndex = sortedEvents.findIndex(e => e.id === event.id);
+          // Check if this is a single-day or multi-day event
+          const isSingleDay = !event.parsedEndDate || event.parsedEndDate.getTime() === event.parsedDate.getTime();
 
-          if (eventIndex >= 0) {
-            // Calculate which page this event is on
-            currentViewportIndex = Math.floor(eventIndex / eventsPerViewport);
+          if (isSingleDay) {
+            // For single-day events: find page based on position in singleDayEvents
+            const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
+            const eventIndex = sortedSingleDay.findIndex(e => e.id === event.id);
 
-            // Update viewport dates for this page
-            updateViewportDates(allFilteredEvents);
-            updateNavigationButtons(allFilteredEvents);
-            renderTimeline(allFilteredEvents);
-            renderMiniMap();
+            if (eventIndex >= 0) {
+              currentViewportIndex = Math.floor(eventIndex / eventsPerViewport);
+            }
+          } else {
+            // For multi-day events: find first page that overlaps with this event
+            const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
+            const totalPages = Math.ceil(sortedSingleDay.length / eventsPerViewport);
+
+            // Search each page to find first one that overlaps
+            for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
+              const pageStart = pageIdx * eventsPerViewport;
+              const pageEnd = Math.min(pageStart + eventsPerViewport, sortedSingleDay.length);
+              const pageEvents = sortedSingleDay.slice(pageStart, pageEnd);
+
+              if (pageEvents.length > 0) {
+                const pageDates = [];
+                pageEvents.forEach(e => {
+                  pageDates.push(e.parsedDate);
+                  if (e.parsedEndDate) pageDates.push(e.parsedEndDate);
+                });
+                const pageStartDate = d3.timeDay.offset(d3.min(pageDates), -1);
+                const pageEndDate = d3.timeDay.offset(d3.max(pageDates), 1);
+
+                // Check if multi-day event overlaps with this page
+                if (event.parsedDate <= pageEndDate && event.parsedEndDate >= pageStartDate) {
+                  currentViewportIndex = pageIdx;
+                  break;
+                }
+              }
+            }
           }
+
+          // Update viewport dates for this page
+          updateViewportDates(allFilteredEvents);
+          updateNavigationButtons(allFilteredEvents);
+          renderTimeline(allFilteredEvents);
+          renderMiniMap();
         });
 
         miniMapTimeline.appendChild(dot);
