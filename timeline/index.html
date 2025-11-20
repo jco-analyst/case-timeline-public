@@ -994,6 +994,7 @@
       <div class="subtitle">Jan 2024 - Oct 2025 • <span id="event-count">35 events</span></div>
 
       <div class="controls">
+        <button class="view-btn" data-view="overview">Overview</button>
         <button class="view-btn" data-view="family">Family Discrimination</button>
         <button class="view-btn" data-view="ohs">OHS Retaliation</button>
         <button class="view-btn" data-view="disability">Disability</button>
@@ -1354,6 +1355,70 @@
       if (currentView === 'critical') {
         events = events.filter(e => e.tags && e.tags.includes('critical'));
         console.log('🔍 DEBUG: After critical filter:', events.length, 'events');
+      } else if (currentView === 'overview') {
+        // Overview filter: Comprehensive convergence timeline for lawyer consultation
+        // Covers all 3 tracks: Protected Grounds, Protected Activities/Reprisals, Pretextual Discipline
+        const overviewEventIds = [
+          // TRACK 1: Protected Grounds & Accommodation (Foundation)
+          71,  // First Interview - Family Priority Disclosed
+          1,   // Hired as Electrical Technician
+          2,   // ADHD Disclosed (Pre-Employment)
+          6,   // Baby Born
+          76,  // Accommodation Agreement (flexible schedule)
+          9,   // Sleep Apnea Diagnosed (Feb 2025)
+          72,  // Parental Leave Request
+
+          // TRACK 2: Protected Activities & Reprisals (Triggers)
+          3,   // Hydraulic Troubleshooting Victory (OHS advocacy origin)
+          5,   // Confined Space Safety Meeting - Sent Home
+          8,   // Hydraulic Lines Write-Up - Safety Research Punished
+          15,  // June 13 - Boss Approved Sick Child (later disciplined)
+          17,  // June 25 - Good Faith Over-Communication
+          21,  // July 14-31 - OVERTIME MARATHON (18 consecutive days)
+          22,  // July 21 - Accommodation Revoked (SG #1)
+          24,  // "Last Chance" meeting
+          28,  // Aug 28 - Sick Baby Denial
+          73,  // Michelle Sherman "Everyone has children" (SG #2)
+          74,  // Parental Leave Period (range)
+          30,  // Sept 7 - "Urgent" Email (SG #3)
+
+          // TRACK 3: Pretextual Discipline & Bad Faith (Execution)
+          4,   // Write-Up #2 (First Timecard)
+          78,  // Boss's Field Hand Wage Theft Story
+          26,  // Headphones incident (leads to Write-Up #1)
+          64,  // Write-Up #1 Document (OHS Retaliation)
+          27,  // Write-Up #3 events
+          31,  // Oct 10 - Return from Leave (SG #4)
+          65,  // Write-Up #4 Document
+          33,  // Oct 20 - Accommodation Request Denied
+          34,  // Oct 21 - Employee Backs Down
+          66,  // Timecard Unlock Catch-22 (SG #7)
+          35,  // Oct 22 - Termination (SG #5)
+          79,  // Oct 22 - Email Access Revoked
+
+          // SMOKING GUNS & COMPARATORS (Differential Treatment)
+          37,  // Timecard unlock manipulation
+          38,  // Boss lateness/missing meetings
+          39,  // Boss lateness/missing meetings
+          40,  // Boss lateness/missing meetings
+          41,  // Boss lateness/missing meetings
+          42,  // Boss lateness/missing meetings
+          43,  // Boss lateness/missing meetings
+          67,  // Boss Lateness Pattern (range)
+          45,  // RJ Late Same Day as Termination
+          59,  // Jessica Differential Treatment (sick note)
+          75,  // Boss Timecard Struggles
+
+          // POST-TERMINATION BAD FAITH
+          50,  // Oct 30 - Wrong Documents Sent
+          51,  // Nov 4 - "Dear Rollins:" Contract Error (SG #6)
+          52,  // Nov 4 - Corrected Documents
+          60,  // Michelle Sherman ROE Request
+          61,  // ROE Released (14-day delay)
+          70   // Wrong Bank Account
+        ];
+        events = events.filter(e => overviewEventIds.includes(e.id));
+        console.log('🔍 DEBUG: After overview filter:', events.length, 'events');
       } else if (currentView === 'family') {
         // Family view with optional lateness sub-filtering
         if (activeLatenessFilters.size === 0) {
@@ -1575,10 +1640,10 @@
       }
 
       // Dimensions - use 97% of container width with optimized margins
-      // Use taller height for "all" view to accommodate Tier 3
+      // Use taller height for "all" and "overview" views to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
       const width = containerWidth * 0.97;
-      const height = currentView === 'all' ? 1400 : 800;
+      const height = (currentView === 'all' || currentView === 'overview') ? 1400 : 800;
       const minMargin = CARD_WIDTH / 2 + 5; // 140 + 5 = 145px (5px clearance from edges)
       const margin = {
         top: 80,
@@ -2107,9 +2172,9 @@
         console.log(`\n🎯 Placing [${cardIdx}] "${card.text}" (${eventDate}) at naturalX=${card.x.toFixed(0)}`);
 
         // Determine tier order (zigzag pattern: above1, below1, above1, below1...)
-        // Tier 3 (above3/below3) only used for "all events" filter
+        // Tier 3 (above3/below3) only used for "all events" and "overview" filters
         const preferAbove = cardIdx % 2 === 0;
-        const useTier3 = currentView === 'all';
+        const useTier3 = (currentView === 'all' || currentView === 'overview');
         const tierOrder = preferAbove
           ? (useTier3 ? ['above1', 'below1', 'above2', 'below2', 'above3', 'below3']
                       : ['above1', 'below1', 'above2', 'below2'])
@@ -2668,8 +2733,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical" and "all" views
-      const showNavigation = (currentView === 'critical' || currentView === 'all');
+      // Only show mini-map and navigation for "critical", "overview", and "all" views
+      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'all');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
