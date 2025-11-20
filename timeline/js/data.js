@@ -1921,24 +1921,23 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'wrongful-dismissal'],
-    description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 5 - Oct 9). SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline for Sept 3 timecard → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 5 → "Urgent" email Sept 7 → Silence during entire leave → Write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job. SAME DAY Oct 10: Employee also 8 minutes late due to helping grandparents with delayed Thanksgiving flight (childcare coordination). Two separate issues same day: write-up retaliation + family status lateness.',
+    description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 5 - Oct 9). SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline for Sept 3 timecard → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 5 → "Urgent" email Sept 7 → Silence during entire leave → Write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.',
     evidence: [
       'Write-up document for Sept 3 timecard (Oct 10 issue date)',
       'Sept 7 Michelle Sherman "urgent" email',
       'Sept 3 timecard in question',
       'Parental leave dates (Sept 5 - Oct 9)',
       '33-day delay timeline',
-      'Employee testimony: stopped reading, just signed',
-      'Oct 10 lateness texts (grandparents delayed flight)'
+      'Employee testimony: stopped reading, just signed'
     ],
     evidenceImages: [
       {
         type: 'text',
         file: 'images/evidence/smoking-guns/Oct-10-2025-Write-Up-Day-Of-Return.jpg',
-        caption: 'SMOKING GUN: Oct 10, 2025 - First day back from parental leave. TWO SEPARATE EVENTS: (1) Morning 8 min late - grandparents delayed flight (Thanksgiving), childcare coordination, texted 4:54 AM. (2) Write-Up #4 issued SAME DAY for SEPT 3 TIMECARD (NOT for Oct 10 lateness). 33-day delay from Sept 7 "urgent" deadline proves retaliation timing: saved discipline for first day back from protected parental leave.'
+        caption: 'SMOKING GUN: Oct 10, 2025 - Write-Up #4 issued FIRST DAY back from parental leave for SEPT 3 TIMECARD. 33-day delay from Sept 7 "urgent" deadline proves retaliation timing: employer deliberately saved discipline for first day back from protected parental leave.'
       }
     ],
-    witnesses: ['Michelle Sherman (urgent email)', 'John Gonzales (delivered write-up)', 'Employee', 'Grandparents (Oct 10 flight delay)', 'Wife Sam (childcare coordination)'],
+    witnesses: ['Michelle Sherman (urgent email)', 'John Gonzales (delivered write-up)', 'Employee'],
     legalSignificance: '🚨 PARENTAL LEAVE RETALIATION SMOKING GUN 🚨 The 33-day delay proves: (1) NOT actually urgent despite Sept 7 email marked "URGENT", (2) Employer deliberately saved discipline for maximum impact = first day of return, (3) Protected activity: Parental leave (5 weeks), (4) Adverse action: Disciplinary write-up, (5) Causal connection: 33-day delay + timing = premeditated retaliation. PATTERN: Catastrophic ROE error during leave (Sept 11) → Write-up day of return (Oct 10) → Termination 12 days later (Oct 22). This timing pattern proves termination was PREMEDITATED, not based on legitimate progressive discipline. Alberta Employment Standards Code prohibits retaliation for exercising protected rights (parental leave). Combined with coercive environment (learned helplessness by write-up #4), this write-up is INVALID. Two for two: Write-up #1 = OHS retaliation, Write-up #4 = Parental leave retaliation. Just cause defense collapses.',
     priority: 'nuclear',
     icon: '📝',
