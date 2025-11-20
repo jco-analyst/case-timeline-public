@@ -132,7 +132,7 @@ const timelineEvents = [
 
   {
     id: 78,
-    timestamp: '2024-09-20?',
+    timestamp: '2025-01-08',
     text: 'Boss\'s Field Hand Wage Theft Intimidation Story',
     category: 'termination',
     type: 'point',
@@ -297,7 +297,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['family', 'bad-faith', 'wrongful-dismissal'],
-    description: 'Employer changed morning meeting start time from 8:00 AM to 7:30 AM (approximate timeframe: March-May 2025, exact date being confirmed with coworkers). This eliminated the 30-minute buffer period (7:30-8:00 AM) and created MORE opportunities for employee to be "late." Timing correlates with text notification system implementation (building paper trail) and accommodation withdrawal pattern leading to Oct 22 termination. Meeting purpose: Daily recaps with tasks already planned in Jira on Wednesdays - earlier start served no clear business purpose but made childcare drop-off significantly harder. Employee initially late to new 7:30 AM time (early morning childcare difficulty), then started arriving 15 minutes EARLY on June 3, 2025 and maintained early arrival pattern (witness testimony: Ramon noticed "You\'re here early!").',
+    description: 'Employer changed morning meeting start time from 8:00 AM to 7:30 AM (approximate timeframe: March-May 2025, exact date being confirmed with coworkers). This eliminated the 30-minute buffer period (7:30-8:00 AM) and created MORE opportunities for employee to be "late." Timing correlates with text notification system implementation (building paper trail) and accommodation withdrawal pattern leading to Oct 22 termination. Meeting purpose: Daily recaps with tasks already planned in Jira on Wednesdays - earlier start served no clear business purpose. Employee initially late to new 7:30 AM time (early morning difficulty), then started arriving 15 minutes EARLY on June 3, 2025 and maintained early arrival pattern (witness testimony: Ramon noticed "You\'re here early!").',
     evidence: [
       'Email/text announcement of meeting time change (if exists)',
       'Employee testimony about change timing',
@@ -740,30 +740,6 @@ const timelineEvents = [
   },
 
   {
-    id: 24,
-    timestamp: '2025-07-28',
-    text: '"Last Chance" Warning Meeting',
-    category: 'termination',
-    type: 'point',
-    endDate: null,
-    tags: ['wrongful-dismissal'],
-    description: 'Written warning meeting during or shortly after July overtime marathon. Attendees: John (boss) + Michelle (HR). Subject: Timecards and/or lateness. Boss and HR both stated: "This is your last chance." Employee believes written warning issued but doesn\'t have copy. Context: One of 10+ times employee was threatened with termination by John throughout employment. "Solutions" discussed: Employee should write notes, set alarms. Boss promised to message/remind about delayed timecards - for the most part, he didn\'t follow through ("unless at beginning of shift"). Employer claimed delayed timecards "put strain on payroll" and they "couldn\'t pay me" - but employee was NEVER not paid due to timecard delays (claim was exaggerated). Employee signed/acknowledged (if written) under duress - needed job for family.',
-    evidence: [
-      'Write-up document (need from employer)',
-      'Meeting notes (if documented)',
-      'Pattern of boss\'s threats (10+ times)',
-      'Boss\'s failure to follow through on promises'
-    ],
-    witnesses: ['Boss (John)', 'Michelle (HR)'],
-    legalSignificance: 'Timing critical: During or right after 18-day overtime marathon (140.5 hours in 2 weeks). Employee exhausted. System required timecard submission AFTER work hours. Boss delayed unlocking timecards causing missed deadlines. Then gave "last chance" warning during most stressful work period. Coercive environment - boss threatened termination 10+ times throughout employment. Employee signed without objection due to intimidation, not genuine acknowledgment. "Last chance" threats part of pattern, not legitimate progressive discipline. This warning later cited to justify Oct 22 termination, BUT: (1) Oct 22 lateness was different circumstances (technical failure), (2) No accommodation offered for family status, (3) Warning given under duress, (4) Same-day termination still disproportionate.',
-    priority: 'high',
-    icon: '⚠️',
-    convergenceTrack: 3,
-    causalLinks: [21, 25, 65],
-    chainGroup: 'progressive-discipline-under-duress'
-  },
-
-  {
     id: 42,
     timestamp: '2025-07-27',
     text: 'Boss Late - Marathon Day 14',
@@ -845,6 +821,38 @@ const timelineEvents = [
     convergenceTrack: 2,
     causalLinks: [36, 65, 30],
     chainGroup: 'parental-leave-retaliation-premeditated'
+  },
+
+  {
+    id: 80,
+    timestamp: '2025-09-04',
+    text: 'PARENTAL LEAVE PERIOD: 5 Weeks',
+    category: 'family',
+    type: 'range',
+    endDate: '2025-10-09',
+    tags: ['critical', 'family', 'wrongful-dismissal'],
+    description: 'Employee took 5 weeks government parental leave from Sept 4 - Oct 9, 2025. Reason stated to employer: "As my wife transitions back to full time work." This was PROTECTED LEAVE under Alberta Employment Standards Code and federal Employment Insurance parental benefits. Employee explicitly informed employer that: (1) Wife returning to full-time work, (2) Employee needed leave for childcare, (3) Both parents would be working full-time upon return (Oct 10), (4) Child too young for daycare. CRITICAL TIMELINE: Sept 4-Oct 9 protected leave → Oct 10 return + Write-Up #4 SAME DAY (33-day delay retaliation for Sept 3 timecard) → Oct 20-21 accommodation request denied → Oct 22 terminated (12 days after return). Textbook parental leave retaliation under Alberta Human Rights Act.',
+    evidence: [
+      'Parental leave approval (HR confirmation)',
+      'Oct 5 Michelle Sherman email confirming leave dates',
+      'Paystubs showing leave period',
+      'EI parental benefits documentation',
+      'July 28 request showing stated reason'
+    ],
+    evidenceImages: [
+      {
+        type: 'email',
+        file: 'images/evidence/correspondence/Oct-05-2025-Parental-Leave-Confirmation.png',
+        caption: 'Oct 5, 2025: HR confirmation of parental leave dates (Sept 4 - Oct 9, 2025). Employee explicitly told employer reason was wife returning to full-time work, establishing ongoing childcare obligations upon return.'
+      }
+    ],
+    witnesses: ['Boss (John)', 'Michelle Sherman (HR)', 'Wife (Sam)'],
+    legalSignificance: 'PROTECTED LEAVE RETALIATION: Employee took 5 weeks parental leave (Sept 4-Oct 9) for legitimate childcare needs. Returned Oct 10 and received Write-Up #4 SAME DAY for Sept 3 timecard issue (33-day delay proves retaliation). Terminated 12 days later (Oct 22). TIMING PROVES DISCRIMINATION: (1) Protected activity (parental leave) → (2) Immediate adverse action (write-up same day as return) → (3) Quick termination (12 days). Prima facie case under Alberta Human Rights Act Section 7 (family status) and Section 11 (reprisal). Employee told employer in July that both parents would be working full-time after leave, yet employer offered ZERO accommodation and terminated within 2 weeks of return. Federal and provincial law protect parental leave - termination 12 days after return creates strong inference of retaliation.',
+    priority: 'nuclear',
+    icon: '👶',
+    convergenceTrack: 2,
+    causalLinks: [77, 36, 30, 35],
+    chainGroup: 'parental-leave-retaliation-execution'
   },
 
   {
@@ -1113,7 +1121,7 @@ const timelineEvents = [
   {
     id: 31,
     timestamp: '2025-10-14',
-    text: 'Sick Day 1 - Differential Treatment Begins',
+    text: 'Sick Day 1 - Sickness Differential Treatment',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -2035,7 +2043,7 @@ const timelineEvents = [
     type: 'range',
     endDate: '2025-08-25',
     tags: ['disability', 'wrongful-dismissal'],
-    description: 'July 4 - August 25, 2025: Boss sent FOUR documented timecard reminders over 52 days (July 4, July 28, Aug 11, Aug 25). THREE reminders sent on SUNDAYS (employee\'s rest days). This pattern proves: (1) Boss FULFILLED his promise to remind employee (from Write-Up #2), (2) System difficulty was ONGOING and SYSTEMIC (required 4 reminders in under 2 months), (3) Problem was NOT employee refusing to comply - employee needed reminders because broken system + ADHD executive function difficulty. CRITICAL: Boss has same ADHD condition ("I understand the struggles"), boss was written up for timecards himself when he started, boss "notoriously bad" at timecards, boss "hates them to this day," boss became manager partly "so he would never have to do time cards ever again." CONTRADICTION: If boss needed accommodation for timecards (promoted to avoid them) but employee FIRED for timecard issues, that\'s DISABILITY DISCRIMINATION. Employee has ADHD (disclosed Jan 2024), zero accommodations offered for 21 months, then terminated citing timecard failures that boss himself struggled with.',
+    description: 'July 4 - August 25, 2025: Boss sent FOUR documented timecard reminders to THE TEAM over 52 days (July 4, July 28, Aug 11, Aug 25). THREE reminders sent on SUNDAYS (employee\'s rest days). Context: Jessica and other new hires had joined the team - boss was sending reminders to ensure entire team submitted timecards, not targeting employee personally. This pattern proves: (1) Boss FULFILLED his promise to remind employee (from Write-Up #2), (2) System difficulty was ONGOING and SYSTEMIC affecting multiple team members (required 4 reminders in under 2 months), (3) Problem was NOT employee refusing to comply - employee needed reminders because broken system + ADHD executive function difficulty, as did other team members. CRITICAL: Boss has same ADHD condition ("I understand the struggles"), boss was written up for timecards himself when he started, boss "notoriously bad" at timecards, boss "hates them to this day," boss became manager partly "so he would never have to do time cards ever again." CONTRADICTION: If boss needed accommodation for timecards (promoted to avoid them) but employee FIRED for timecard issues, that\'s DISABILITY DISCRIMINATION. Employee has ADHD (disclosed Jan 2024), zero accommodations offered for 21 months, then terminated citing timecard failures that boss himself struggled with.',
     evidence: [
       'July 4, 2025: Boss timecard reminder (text message photo)',
       'July 28, 2025: Reminder on SUNDAY during marathon Day 15 (text photo)',
