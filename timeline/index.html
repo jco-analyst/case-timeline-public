@@ -994,13 +994,14 @@
       <div class="subtitle">Jan 2024 - Oct 2025 • <span id="event-count">35 events</span></div>
 
       <div class="controls">
-        <button class="view-btn active" data-view="overview">Overview</button>
+        <button class="view-btn" data-view="overview">Overview</button>
         <button class="view-btn" data-view="family">Family Discrimination</button>
         <button class="view-btn" data-view="ohs">OHS Retaliation</button>
         <button class="view-btn" data-view="disability">Disability</button>
         <button class="view-btn" data-view="wrongful-dismissal">Wrongful Dismissal</button>
         <button class="view-btn" data-view="correspondence">Correspondence</button>
         <button class="view-btn" data-view="smoking-gun">Smoking Gun</button>
+        <button class="view-btn active" data-view="all">All Events</button>
       </div>
 
       <!-- Lateness Sub-Filters (shown when Family or Disability filter is active) -->
@@ -1130,7 +1131,7 @@
       '#9B59B6'   // Purple
     ];
 
-    let currentView = 'overview';
+    let currentView = 'all';
     let activeLatenessFilters = new Set(); // Track which lateness person filters are active
 
     // Viewport state for virtual scrolling (event-based)
@@ -1639,10 +1640,10 @@
       }
 
       // Dimensions - use 97% of container width with optimized margins
-      // Use taller height for "all" view to accommodate Tier 3
+      // Use taller height for "all" and "overview" views to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
       const width = containerWidth * 0.97;
-      const height = currentView === 'all' ? 1400 : 800;
+      const height = (currentView === 'all' || currentView === 'overview') ? 1400 : 800;
       const minMargin = CARD_WIDTH / 2 + 5; // 140 + 5 = 145px (5px clearance from edges)
       const margin = {
         top: 80,
@@ -2171,9 +2172,9 @@
         console.log(`\n🎯 Placing [${cardIdx}] "${card.text}" (${eventDate}) at naturalX=${card.x.toFixed(0)}`);
 
         // Determine tier order (zigzag pattern: above1, below1, above1, below1...)
-        // Tier 3 (above3/below3) only used for "all events" filter
+        // Tier 3 (above3/below3) only used for "all events" and "overview" filters
         const preferAbove = cardIdx % 2 === 0;
-        const useTier3 = currentView === 'all';
+        const useTier3 = (currentView === 'all' || currentView === 'overview');
         const tierOrder = preferAbove
           ? (useTier3 ? ['above1', 'below1', 'above2', 'below2', 'above3', 'below3']
                       : ['above1', 'below1', 'above2', 'below2'])
@@ -2732,8 +2733,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical" view
-      const showNavigation = (currentView === 'critical');
+      // Only show mini-map and navigation for "critical", "overview", and "all" views
+      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'all');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
