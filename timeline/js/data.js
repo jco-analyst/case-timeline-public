@@ -928,14 +928,13 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['family', 'bad-faith', 'wrongful-dismissal'],
-    description: 'Employee requested personal day via text: "Hey John, I\'m gonna take a personal day today. Not feeling too well." Boss responded: "You can\'t take any more personal days u need to get a doctors notes." EMPLOYER LIED: This was employee\'s FIRST personal day request ever. Employee had only taken bereavement leave (July 6) previously, never a personal day. Boss\'s false statement ("can\'t take any more") was factually incorrect and designed to intimidate. Context: Wife had just returned to full-time work ~Aug 4 (child too young for daycare), creating extraordinary household circumstances. Employee stayed home Aug 4 (very sick), but felt pressured by boss\'s lie and doctor\'s note demand to return ASAP. Employee returned while still contagious, infected entire office (boss, Ramon, coworkers) AND family (wife, baby). Boss took 2 days off for same illness. Double standard: Boss denied employee 1 day (lying about personal day usage), then took 2 days himself for same illness employee gave him.',
+    description: 'Employee requested personal day via text: "Hey John, I\'m gonna take a personal day today. Not feeling too well." Boss responded: "You can\'t take any more personal days u need to get a doctors notes." EMPLOYER LIED: This was employee\'s FIRST personal day request ever. Employee had only taken bereavement leave (July 6) previously, never a personal day. Boss\'s false statement ("can\'t take any more") was factually incorrect and designed to intimidate. Employee stayed home Aug 4 (very sick), but felt pressured by boss\'s lie and doctor\'s note demand to return ASAP. Employee returned while still contagious, infected entire office (boss, Ramon, coworkers). Boss took 2 days off for same illness. Double standard: Boss denied employee 1 day (lying about personal day usage), then took 2 days himself for same illness employee gave him.',
     evidence: [
       'Aug 4 text messages (employee has)',
       'Employee testimony about first personal day ever',
       'Bereavement leave July 6 (only previous time off)',
       'Boss took 2 days off after getting sick (August timeframe)',
-      'Ramon took days off after getting sick',
-      'Wife and baby got sick from employee (family infected because boss forced premature return)'
+      'Ramon took days off after getting sick'
     ],
     evidenceImages: [
       {
@@ -944,8 +943,8 @@ const timelineEvents = [
         caption: 'Aug 4, 2025. Employee: "Hey John, I\'m gonna take a personal day today. Not feeling too well." Boss: "You can\'t take any more personal days u need to get a doctors notes." BOSS LIED: This was employee\'s FIRST personal day ever (only previous time off was bereavement July 6). Boss\'s false statement created pressure to return while still sick, leading to office-wide infection.'
       }
     ],
-    witnesses: ['Boss (John) - made false statement', 'Wife (Sam) - can confirm first personal day, employee very sick, family got infected', 'Ramon - took days off after getting sick from employee', 'Coworkers who got sick'],
-    legalSignificance: 'BAD FAITH CONDUCT: Boss made factually false statement ("can\'t take any more personal days") when this was employee\'s FIRST personal day ever. This lie created pressure forcing sick employee to return prematurely, resulting in: (1) Office-wide infection (boss, Ramon, coworkers got sick), (2) Family infection (wife and baby got sick), (3) Workplace health hazard (should have allowed proper recovery). DOUBLE STANDARD: Boss denied employee 1 day (using lies), took 2 days himself for same illness. PATTERN EVIDENCE - Third explicit rejection of family/personal/health needs within 8 weeks: July 21 (boss: "crunch time, need you in shop") → Aug 4 (boss: lie about personal days) → Aug 28 (boss: sick baby denied). Shows systematic pattern of bad faith, lying, intimidation, double standards. Timing: Wife returned to work full-time ~Aug 4 (NO daycare available), employee needed flexibility, employer responded with lies and coercion instead of accommodation.',
+    witnesses: ['Boss (John) - made false statement', 'Wife (Sam) - can confirm first personal day, employee very sick', 'Ramon - took days off after getting sick from employee', 'Coworkers who got sick'],
+    legalSignificance: 'BAD FAITH CONDUCT: Boss made factually false statement ("can\'t take any more personal days") when this was employee\'s FIRST personal day ever. This lie created pressure forcing sick employee to return prematurely, resulting in: (1) Office-wide infection (boss, Ramon, coworkers got sick), (2) Workplace health hazard (should have allowed proper recovery). DOUBLE STANDARD: Boss denied employee 1 day (using lies), took 2 days himself for same illness. PATTERN EVIDENCE - Third explicit rejection of family/personal/health needs within 8 weeks: July 21 (boss: "crunch time, need you in shop") → Aug 4 (boss: lie about personal days) → Aug 28 (boss: sick baby denied). Shows systematic pattern of bad faith, lying, intimidation, double standards.',
     priority: 'high',
     icon: '🤥',
     convergenceTrack: 2,
