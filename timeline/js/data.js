@@ -640,7 +640,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-07-31',
-    tags: ['critical', 'family', 'wrongful-dismissal'],
+    tags: ['critical', 'family', 'ohs', 'wrongful-dismissal'],
     description: '18 CONSECUTIVE DAYS of work with ZERO days off. Includes weekends (Saturdays and Sundays). Daily hours: 8-11.5 hours per day. July 14-28 total: 140.5 hours in 15 days (avg 9.37 hrs/day, many 10-11.5 hr days). Employee paid overtime (time-and-a-half after 8 hrs/day and 44 hrs/week). Normal schedule: Monday-Friday, 7:30 AM - 4:30 PM. Marathon schedule: Monday-Sunday, extended hours. Major project crunch. Employee worked voluntarily to help company meet deadline.',
     evidence: [
       'Timecard records showing 18 consecutive days',
