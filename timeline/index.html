@@ -2806,8 +2806,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical", "overview", and "family" (Human Rights) views
-      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'family');
+      // Only show mini-map and navigation for "critical", "overview", "family" (Human Rights), and "wrongful-dismissal" views
+      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'family' || currentView === 'wrongful-dismissal');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
