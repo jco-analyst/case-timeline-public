@@ -996,15 +996,14 @@
 
       <div class="controls">
         <button class="view-btn active" data-view="overview">Overview</button>
-        <button class="view-btn" data-view="family">Family Discrimination</button>
+        <button class="view-btn" data-view="family">Human Rights</button>
         <button class="view-btn" data-view="ohs">OHS Retaliation</button>
-        <button class="view-btn" data-view="disability">Disability</button>
         <button class="view-btn" data-view="wrongful-dismissal">Wrongful Dismissal</button>
         <button class="view-btn" data-view="correspondence">Correspondence</button>
         <button class="view-btn" data-view="smoking-gun">Smoking Gun</button>
       </div>
 
-      <!-- Lateness Sub-Filters (shown when Family or Disability filter is active) -->
+      <!-- Lateness Sub-Filters (shown when Human Rights filter is active) -->
       <div class="lateness-subfilters" id="lateness-subfilters">
         <span class="lateness-label">Lateness:</span>
         <button class="lateness-btn" data-person="employee" title="Employee Lateness">Employee</button>
@@ -1434,19 +1433,22 @@
         events = events.filter(e => overviewEventIds.includes(e.id));
         console.log('🔍 DEBUG: After overview filter:', events.length, 'events');
       } else if (currentView === 'family') {
-        // Family view with optional lateness sub-filtering
+        // Human Rights view (family + disability) with optional lateness sub-filtering
         if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show ONLY non-lateness family events (pure family discrimination)
+          // No lateness filters: show ONLY non-lateness human rights events (pure discrimination)
           events = events.filter(e => {
-            if (!e.tags || !e.tags.includes('family')) return false;
+            if (!e.tags) return false;
+            // Must have family OR disability tag
+            const hasHumanRightsTag = e.tags.includes('family') || e.tags.includes('disability');
+            if (!hasHumanRightsTag) return false;
             // Exclude Jan 10 First Interview (id 71) - creates timeline compression (9mo gap before baby)
             if (e.id === 71) return false;
-            // Exclude lateness events - only show pure family discrimination events
+            // Exclude lateness events - only show pure human rights discrimination events
             return !e.tags.includes('lateness-employee') &&
                    !e.tags.includes('lateness-boss') &&
                    !e.tags.includes('lateness-coworker');
           });
-          console.log('🔍 DEBUG: After family filter (no lateness filters):', events.length, 'events');
+          console.log('🔍 DEBUG: After human rights filter (no lateness filters):', events.length, 'events');
         } else {
           // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
           events = events.filter(e => {
@@ -1458,38 +1460,12 @@
 
             return false;
           });
-          console.log('🔍 DEBUG: After family filter (with lateness filters):', events.length, 'events');
+          console.log('🔍 DEBUG: After human rights filter (with lateness filters):', events.length, 'events');
           console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
         }
       } else if (currentView === 'ohs') {
         events = events.filter(e => e.tags && e.tags.includes('ohs'));
         console.log('🔍 DEBUG: After ohs filter:', events.length, 'events');
-      } else if (currentView === 'disability') {
-        // Disability view with optional lateness sub-filtering
-        if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show ONLY non-lateness disability events (pure disability discrimination)
-          events = events.filter(e => {
-            if (!e.tags || !e.tags.includes('disability')) return false;
-            // Exclude lateness events - only show pure disability discrimination events
-            return !e.tags.includes('lateness-employee') &&
-                   !e.tags.includes('lateness-boss') &&
-                   !e.tags.includes('lateness-coworker');
-          });
-          console.log('🔍 DEBUG: After disability filter (no lateness filters):', events.length, 'events');
-        } else {
-          // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
-          events = events.filter(e => {
-            if (!e.tags) return false;
-
-            // Show ONLY lateness events that match active filters
-            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
-            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
-
-            return false;
-          });
-          console.log('🔍 DEBUG: After disability filter (with lateness filters):', events.length, 'events');
-          console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
-        }
       } else if (currentView === 'wrongful-dismissal') {
         events = events.filter(e => e.tags && e.tags.includes('wrongful-dismissal'));
         console.log('🔍 DEBUG: After wrongful-dismissal filter:', events.length, 'events');
@@ -1514,16 +1490,16 @@
           btn.classList.add('active');
           currentView = btn.dataset.view;
 
-          // Show/hide lateness subfilters for Family and Disability views
+          // Show/hide lateness subfilters for Human Rights view
           const latenessSubfilters = document.getElementById('lateness-subfilters');
-          if (currentView === 'family' || currentView === 'disability') {
+          if (currentView === 'family') {
             latenessSubfilters.classList.add('visible');
-            // ALWAYS reset lateness filters when entering Family/Disability view
+            // ALWAYS reset lateness filters when entering Human Rights view
             activeLatenessFilters.clear();
             document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           } else {
             latenessSubfilters.classList.remove('visible');
-            // Reset lateness filters when leaving Family/Disability view
+            // Reset lateness filters when leaving Human Rights view
             activeLatenessFilters.clear();
             document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           }
@@ -2762,8 +2738,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical" and "overview" views
-      const showNavigation = (currentView === 'critical' || currentView === 'overview');
+      // Only show mini-map and navigation for "critical", "overview", and "family" (Human Rights) views
+      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'family');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
