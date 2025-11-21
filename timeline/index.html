@@ -1338,10 +1338,10 @@
       }
 
       // Override for Family Status Discrimination view: break before July 20 turning point
-      // Page 1: Foundation through Bereavement Leave (10 events)
+      // Page 1: Baby Born through Bereavement Leave (9 events) - Jan 10 excluded
       // Page 2: July 20 smoking gun through termination (10 events)
       if (currentView === 'family-status-discrimination') {
-        eventsPerViewport = 10; // July 6 is last event of page 1, July 20 starts page 2
+        eventsPerViewport = 9; // July 6 is last event of page 1, July 20 starts page 2
       }
 
       // Reset to first page
@@ -1582,9 +1582,12 @@
         }
       } else if (currentView === 'family-status-discrimination') {
         // Include events with tag OR multiday events from ID list
+        // Exclude Jan 10 interview (id 71) to widen timeline
         events = events.filter(e =>
-          (e.tags && e.tags.includes('family-status-discrimination')) ||
-          familyStatusRangeEvents.includes(e.id)
+          e.id !== 71 && (
+            (e.tags && e.tags.includes('family-status-discrimination')) ||
+            familyStatusRangeEvents.includes(e.id)
+          )
         );
         console.log('🔍 DEBUG: After family-status-discrimination filter:', events.length, 'events');
       } else if (currentView === 'disability-discrimination') {
