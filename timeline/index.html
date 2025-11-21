@@ -1439,6 +1439,8 @@
           // No lateness filters: show ONLY non-lateness family events (pure family discrimination)
           events = events.filter(e => {
             if (!e.tags || !e.tags.includes('family')) return false;
+            // Exclude Jan 10 First Interview (id 71) - creates timeline compression (9mo gap before baby)
+            if (e.id === 71) return false;
             // Exclude lateness events - only show pure family discrimination events
             return !e.tags.includes('lateness-employee') &&
                    !e.tags.includes('lateness-boss') &&
