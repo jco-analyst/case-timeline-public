@@ -1433,21 +1433,40 @@
         events = events.filter(e => overviewEventIds.includes(e.id));
         console.log('🔍 DEBUG: After overview filter:', events.length, 'events');
       } else if (currentView === 'family') {
-        // Human Rights view (family + disability) with optional lateness sub-filtering
+        // Human Rights view (curated list of key discrimination events) with optional lateness sub-filtering
         if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show ONLY non-lateness human rights events (pure discrimination)
-          events = events.filter(e => {
-            if (!e.tags) return false;
-            // Must have family OR disability tag
-            const hasHumanRightsTag = e.tags.includes('family') || e.tags.includes('disability');
-            if (!hasHumanRightsTag) return false;
-            // Exclude Jan 10 First Interview (id 71) - creates timeline compression (9mo gap before baby)
-            if (e.id === 71) return false;
-            // Exclude lateness events - only show pure human rights discrimination events
-            return !e.tags.includes('lateness-employee') &&
-                   !e.tags.includes('lateness-boss') &&
-                   !e.tags.includes('lateness-coworker');
-          });
+          // No lateness filters: show curated human rights discrimination timeline
+          const humanRightsEventIds = [
+            // Foundation (Disabilities + Family Status)
+            2,   // ADHD Disclosed (Jan 15, 2024)
+            6,   // Baby Born (Oct 9, 2024)
+            9,   // Sleep Apnea Diagnosed (Feb 18, 2025)
+            76,  // 9-Month Accommodation "Being late is okay"
+
+            // Accommodation Withdrawal Pattern
+            15,  // June 13 - Sick Child Approved (contrast with Aug 28 denial)
+            21,  // July 14-31 - OVERTIME MARATHON (exhaustion context)
+            22,  // July 21 - Accommodation Revoked SMOKING GUN #1
+            28,  // Aug 28 - Sick Baby Denied
+            74,  // Aug 4 - Personal Day Denied (Boss Lied)
+
+            // Parental Leave Retaliation
+            72,  // Parental Leave Request (July 28)
+            80,  // Sept 4 - Oct 9 Parental Leave Period (5 weeks)
+            36,  // Sept 7 - "Urgent" Email SMOKING GUN #3
+            30,  // Oct 10 - Return from Leave (morning lateness - family obligation)
+            65,  // Oct 10 - Write-Up #4 SMOKING GUN #4
+
+            // Final Retaliation
+            33,  // Oct 20 - Schedule Accommodation Denied SMOKING GUN #7
+            34,  // Oct 21 - Employee Backs Down
+            35,  // Oct 22 - Termination SMOKING GUN #5
+
+            // Comparators (Differential Treatment)
+            59,  // Jessica Differential Sick Note Treatment
+            73   // Michelle Sherman "Having children should not be a reason" SMOKING GUN #2
+          ];
+          events = events.filter(e => humanRightsEventIds.includes(e.id));
           console.log('🔍 DEBUG: After human rights filter (no lateness filters):', events.length, 'events');
         } else {
           // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
