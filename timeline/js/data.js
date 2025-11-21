@@ -23,9 +23,6 @@ const timelineEvents = [
     legalSignificance: 'CRITICAL FOUNDATION: Employer knew from BEFORE HIRING that family was employee\'s everything. Cannot claim surprise about family obligations. Shows discriminatory motive: Boss KNEW family was priority (told at interview) → Accommodated family obligations Oct 2024-July 2025 → Withdrew accommodation July 20, 2025 ("When we\'re in crunch time, I need you in the shop") → Terminated Oct 22, 2025 (citing family-related lateness). Pattern: Employer used knowledge of family obligations to hire employee, then later weaponized those same obligations to terminate. Alberta Human Rights Act Section 7 protects family status.',
     priority: 'critical',
     icon: '👨‍👩‍👧',
-    convergenceTrack: 1,
-    causalLinks: [1, 76, 6],
-    chainGroup: 'family-status-foundation'
   },
 
   {
@@ -46,9 +43,6 @@ const timelineEvents = [
     witnesses: ['Boss (John)', 'HR'],
     legalSignificance: 'Employer had knowledge from day one that family was employee\'s top priority. Later disciplined and terminated employee for those same family obligations. Shows employer\'s knowledge of protected ground from beginning of employment. CRITICAL: Contract contains "Dear Rollins:" salutation (wrong employee) - may void contract, worth $10k-$20k if proven. PDF ANALYSIS CONCERN: Technical analysis reveals font subset inconsistencies (different prefixes for same font) suggesting text may have been copy-pasted or altered after original creation. Multiple subset prefixes indicate content from different sources, raising questions about document authenticity.',
     priority: 'medium',
-    convergenceTrack: 1,
-    causalLinks: [2, 71, 64],
-    chainGroup: 'employment-foundation'
   },
 
   {
@@ -76,9 +70,6 @@ const timelineEvents = [
     legalSignificance: 'Employer knew about ADHD from day one of employment. Boss has same condition. Employee later disciplined 4-6 times for timecard issues (executive function difficulty related to ADHD). Employer never offered ANY accommodations despite knowing about disability from start. Alberta Human Rights Act protects mental disabilities.',
     priority: 'high',
     icon: '🧠',
-    convergenceTrack: 1,
-    causalLinks: [9, 75, 27],
-    chainGroup: 'disability-disclosure-pattern'
   },
 
   // Summer 2024 - Hydraulic Troubleshooting Victory
@@ -101,9 +92,6 @@ const timelineEvents = [
     legalSignificance: 'CRITICAL: This is WHY employee started speaking up more. Employee was proven right after expensive multi-day failure. Boss was shown up by subordinate in front of VP. This established pattern: (1) Employee identifies problem correctly, (2) Management ignores employee, (3) Wastes time/money, (4) Employee proven right, (5) No acknowledgment, (6) Employee continues advocating. Boss perceived increased advocacy as threat. This is the origin of retaliation.',
     priority: 'critical',
     icon: '🔧',
-    convergenceTrack: 1,
-    causalLinks: [4, 8, 5],
-    chainGroup: 'ohs-advocacy-origin'
   },
 
   // Early 2025 - First Discipline Begins (After Baby Born Oct 2024)
@@ -125,9 +113,6 @@ const timelineEvents = [
     witnesses: ['Boss (John)', 'HR', 'New employees who struggled with system'],
     legalSignificance: 'First discipline occurs after employee challenged boss\'s competence. Minor administrative issue weaponized to establish disciplinary record. System was broken by design - employer disciplined employees for failures employer created. Pattern: Boss threatens termination for timecards (told story about field hand forced to work without pay).',
     priority: 'high',
-    convergenceTrack: 2,
-    causalLinks: [3, 8, 78, 75],
-    chainGroup: 'pretextual-discipline-foundation'
   },
 
   {
@@ -150,9 +135,6 @@ const timelineEvents = [
     legalSignificance: 'SMOKING GUN FOR BAD FAITH: Boss admitted to illegal wage theft (forcing field hand to work without pay = Alberta Employment Standards violation) to intimidate employee. Proves: (1) Boss\'s management style based on FEAR and THREATS, not constructive discipline, (2) Boss weaponizes timecard system to control/intimidate workers, (3) Pattern of illegal coercion (not just with this employee), (4) Explains why employee signed write-ups without objection - intimidated by boss\'s threats of extreme consequences (termination or wage forfeit), (5) Undermines just cause defense - progressive discipline in coercive environment is NOT legitimate performance management. WALLACE DAMAGES: Bad faith manner of dismissal. Boss created poisoned work environment through threats and intimidation. Employee worked under duress knowing boss would use illegal tactics (wage theft) if employee didn\'t comply. This story connects to: Write-Up #2 (timecard discipline), "Last Chance" meeting (July/Aug 2025, 10+ threats pattern), termination Oct 22 (end of intimidation campaign).',
     priority: 'high',
     icon: '💰',
-    convergenceTrack: 2,
-    causalLinks: [4, 24, 35],
-    chainGroup: 'coercive-work-environment'
   },
 
   {
@@ -175,9 +157,6 @@ const timelineEvents = [
     legalSignificance: 'OHS Act Section 35 protects workers who raise safety concerns. Sending employee home from safety meeting = retaliation for protected activity. CRITICAL: After this meeting, employer implemented confined space entry procedures, rescue team, and rescue plan - proving employee\'s concerns were 100% valid. Employer wouldn\'t implement these procedures if work wasn\'t hazardous. PATTERN: Employee raises legitimate concern → Employer retaliates → Employee proven right.',
     priority: 'critical',
     icon: '⚠️',
-    convergenceTrack: 2,
-    causalLinks: [26, 25, 62, 63],
-    chainGroup: 'ohs-retaliation-pattern'
   },
 
   // October 2024 - Baby Born & Family Obligations Begin
@@ -198,9 +177,6 @@ const timelineEvents = [
     legalSignificance: 'Marks beginning of family status obligations that employer later used as basis for "just cause" termination. Childcare lateness is protected under Alberta Human Rights Act. Employer knew from day one family was priority, yet disciplined for family obligations after child born. Timeline overlap: First hydraulic write-up occurred around same time as child\'s birth.',
     priority: 'critical',
     icon: '👶',
-    convergenceTrack: 2,
-    causalLinks: [76, 10, 11, 12, 13, 14, 15],
-    chainGroup: 'family-status-trigger'
   },
 
   {
@@ -225,33 +201,6 @@ const timelineEvents = [
     legalSignificance: 'SMOKING GUN: Proves employer CAN accommodate family status without undue hardship (did so successfully for 9 months). Employer CANNOT establish just cause for behavior employer previously deemed "okay." Accommodation withdrawal was RETALIATION for July 20 family boundary assertion. Alberta Human Rights: Once employer accommodates protected ground, withdrawal = discrimination. Pattern: (1) Oct 2024: "Being late is okay, just notify" → (2) July 20, 2025: Employee asserts family boundary → (3) July 21: Boss says "doesn\'t matter what happens at home" → (4) Aug-Oct: ALL requests denied → (5) Oct 22: Terminated. This proves lateness was NEVER the real issue - issue was employer refusing to tolerate employee prioritizing family over unlimited work demands. If lateness + notification was acceptable Oct 2024-July 2025, employer cannot claim same conduct is "just cause" in Aug-Oct 2025. FATAL to just cause defense.',
     priority: 'nuclear',
     icon: '✅',
-    convergenceTrack: 1,
-    causalLinks: [6, 10, 21, 22],
-    chainGroup: 'family-accommodation-and-withdrawal'
-  },
-
-  {
-    id: 8,
-    timestamp: '2024-10-25',
-    text: 'Hydraulic Lines Write-Up - Safety Research Punished',
-    category: 'ohs',
-    type: 'point',
-    endDate: null,
-    tags: ['critical', 'ohs', 'wrongful-dismissal'],
-    description: 'Three meetings around hydraulic line installation project: (1) Safety training on portal system - employee wore headphones from being outside, researched hydraulic fitting methods on phone during training. (2) VP meeting discussing "what we can do better" after multiple installation failures - employee challenged VP and boss about fitting and alternative installation methods, suggested Loctite for hydraulic lines. (3) Disciplinary meeting - formal written warning for "using headphones during safety meeting" claiming prior warning (employee never heard of policy before). Verbal warning: "Shouldn\'t have spoken to VP like that." Boss perceived technical input as "talking back." Character label "aggressive behavior" emerged. Employee signed blank without objections - intimidated, needed job.',
-    evidence: [
-      'Written warning (saw briefly in Outlook before access cut)',
-      'Project records showing hydraulic failures',
-      'Work orders for specialists called in',
-      'Coworker testimony - entire team uncomfortable with work'
-    ],
-    witnesses: ['Ramon (coworker)', 'RJ (coworker)', 'Louis (coworker)', 'Boss', 'VP', 'HR (possibly)'],
-    legalSignificance: 'Pretextual discipline - formal write-up says "headphones/safety violation" but verbal warning reveals real issue: challenging leadership in front of VP. Employee was doing due diligence on ongoing safety failures. Employer simultaneously requires phones for safety compliance (door access, safety observations) but disciplines for phone use. Contradictory policies. First negative feedback ever - prior to this, no documented performance issues. Timing: Same month as baby\'s birth. PATTERN: Safety advocacy → Immediate discipline.',
-    priority: 'critical',
-    icon: '🎧',
-    convergenceTrack: 2,
-    causalLinks: [3, 5, 4],
-    chainGroup: 'ohs-retaliation-pattern'
   },
 
   // 2025 Timeline Begins
@@ -282,9 +231,6 @@ const timelineEvents = [
     legalSignificance: 'Employer knew about sleep apnea from February 2025. Boss has same condition. Sleep apnea causes difficulty waking to alarms, chronic fatigue, sleep disruption. All subsequent lateness discipline occurred AFTER employer knew. Employer NEVER offered ANY accommodations despite knowing employee had medical condition affecting sleep/wake cycles. Alberta Human Rights Act protects physical disabilities. Cannot discipline for disability-related behaviors without first attempting accommodation.',
     priority: 'critical',
     icon: '😴',
-    convergenceTrack: 1,
-    causalLinks: [2, 15, 25, 27],
-    chainGroup: 'disability-sleep-apnea'
   },
 
   // March-May 2025 - Meeting Time Change & Paper Trail Building
@@ -311,9 +257,6 @@ const timelineEvents = [
     legalSignificance: 'PREMEDITATED PAPER TRAIL BUILDING: Meeting time change created MORE discipline opportunities at SAME TIME employer building text notification system. Pattern suggests intentional setup: (1) Change meeting 30 min earlier (harder for childcare), (2) Build text notification system (document lateness), (3) Withdraw accommodation July 20, (4) Terminate Oct 22. Legal significance: May show DISCRIMINATORY MOTIVE - employer deliberately created conditions making it harder for employee with family obligations to arrive on time, then used resulting lateness as pretext for termination. Employee response: Started arriving 15 min EARLY (witness: Ramon) - shows good faith effort. Despite arriving early for months, still terminated. Completely undermines "just cause" - how can conduct "destroy employment relationship" when employee arriving EARLY? Alberta Human Rights Act Section 7 protects family status.',
     priority: 'high',
     icon: '🕐',
-    convergenceTrack: 2,
-    causalLinks: [10, 11, 12, 73],
-    chainGroup: 'premeditated-paper-trail'
   },
 
   // April-June 2025 - Documented Lateness Pattern
@@ -653,9 +596,6 @@ const timelineEvents = [
     legalSignificance: 'CRITICAL: Employer imposed unreasonable work demands with no consideration for family status obligations. 18 consecutive days without a single day off eliminates all family time for employee with newborn baby (now ~9 months old). Extended hours reduce time for childcare. July 24 & 31 lateness incidents occurred DURING this marathon - employer CAUSED the exhaustion, then PUNISHED employee for lateness resulting from exhaustion. Alberta employment standards: employers must provide reasonable notice for significant schedule changes. Short notice for extended period = unreasonable.',
     priority: 'critical',
     icon: '⏰',
-    convergenceTrack: 2,
-    causalLinks: [22, 23, 24, 25, 78],
-    chainGroup: 'excessive-work-demands-retaliation'
   },
 
   {
@@ -684,9 +624,6 @@ const timelineEvents = [
     legalSignificance: '🚨 NUCLEAR SMOKING GUN 🚨 Boss\'s own words prove family status discrimination: "It doesn\'t matter what happens at [home], you need to come in." Demanded employee abandon childcare responsibilities to work until midnight on Sunday. Threatened employee next day for prioritizing family. Textbook family status discrimination - employer refused to accommodate family caregiving obligations. This single incident: (1) Proves employer discriminated against family status, (2) Shows pretextual discipline (caused exhaustion through unreasonable demands, then punished resulting lateness), (3) Pattern of retaliation (threatened for asserting family obligations), (4) Undermines "just cause" (can\'t claim lateness was employee\'s fault when employer worked them into exhaustion), (5) Bad faith discharge (no regard for family obligations/wellbeing). TEXT MESSAGES ARE OBJECTIVE PROOF. This needs to be prominently featured in ALL legal filings.',
     priority: 'nuclear',
     icon: '💣',
-    convergenceTrack: 2,
-    causalLinks: [21, 23, 24, 73, 74],
-    chainGroup: 'explicit-family-discrimination'
   },
 
   {
@@ -818,9 +755,6 @@ const timelineEvents = [
     legalSignificance: 'PROVES EMPLOYER KNOWLEDGE: Employee told employer in July that wife returning to full-time work (Aug 2025) and employee needed parental leave for childcare. Employer KNEW employee would return from leave in October with ongoing childcare obligations (both parents working, no daycare available). Employer CANNOT argue employee should have "found daycare" - child too young (legal barrier). Employer CANNOT claim surprise about Oct 2025 childcare challenges - employee warned them in July. TIMING PROVES RETALIATION: July 28 request → Sept 4-Oct 9 protected leave → Oct 10 SAME DAY return + Write-Up #4 (33-day delay from Sept 7) → Oct 20-21 accommodation denied → Oct 22 terminated = TEXTBOOK parental leave retaliation under Alberta Human Rights Act. Pattern shows: protected activity (parental leave for family obligations) → immediate adverse action (write-up same day as return) → quick termination (12 days). Prima facie case: protected ground (family status) + adverse action (termination) + temporal connection (12 days).',
     priority: 'nuclear',
     icon: '👨‍🍼',
-    convergenceTrack: 2,
-    causalLinks: [36, 65, 30],
-    chainGroup: 'parental-leave-retaliation-premeditated'
   },
 
   {
@@ -850,9 +784,6 @@ const timelineEvents = [
     legalSignificance: 'PROTECTED LEAVE RETALIATION: Employee took 5 weeks parental leave (Sept 4-Oct 9) for legitimate childcare needs. Returned Oct 10 and received Write-Up #4 SAME DAY for Sept 3 timecard issue (33-day delay proves retaliation). Terminated 12 days later (Oct 22). TIMING PROVES DISCRIMINATION: (1) Protected activity (parental leave) → (2) Immediate adverse action (write-up same day as return) → (3) Quick termination (12 days). Prima facie case under Alberta Human Rights Act Section 7 (family status) and Section 11 (reprisal). Employee told employer in July that both parents would be working full-time after leave, yet employer offered ZERO accommodation and terminated within 2 weeks of return. Federal and provincial law protect parental leave - termination 12 days after return creates strong inference of retaliation.',
     priority: 'nuclear',
     icon: '👶',
-    convergenceTrack: 2,
-    causalLinks: [77, 36, 30, 35],
-    chainGroup: 'parental-leave-retaliation-execution'
   },
 
   {
@@ -889,9 +820,6 @@ const timelineEvents = [
     legalSignificance: '🚨 GAME CHANGER - COR LEVERAGE 🚨 This incident: (1) PROVES employee\'s year-long PPE requests were correct - employer FINALLY provided full face masks AFTER injury, (2) Unreported workplace injury (3 workers) violates WCB + OHS reporting requirements, (3) Likely PSI (Potentially Serious Incident) - chemical exposure in confined space, multiple workers, work stoppage required, (4) No incident investigation (violates COR Element 7), (5) Pattern: Employee warned about hazard for YEAR → Denied → Workers injured → Employee terminated 3 months later = witness elimination. STRATEGIC LEVERAGE: Employer likely holds COR (Certificate of Recognition) certification - MANDATORY for oil & gas contracts. Filing OHS complaint triggers investigation → unreported injury discovered → COR Employer Review → potential COR suspension/cancellation = BUSINESS CATASTROPHE (cannot bid on contracts, hundreds of thousands to millions in lost revenue). This creates NUCLEAR settlement leverage: Employer\'s settlement cost ($30-50k) << COR investigation risk (potentially millions + business-threatening). Makes wrongful dismissal case high-leverage settlement negotiation.',
     priority: 'nuclear',
     icon: '☣️',
-    convergenceTrack: 2,
-    causalLinks: [5, 62, 63, 26],
-    chainGroup: 'ohs-injury-pattern'
   },
 
   {
@@ -915,9 +843,6 @@ const timelineEvents = [
     legalSignificance: 'SMOKING GUN #2: Direct evidence of family status discrimination from HEAD OF HR (not just rogue supervisor). Legal significance: (1) EXPLICIT REJECTION of family obligations as legitimate reason for lateness - "having children should not be a reason" = textbook family status discrimination, (2) Made by HEAD OF HR (Michelle Sherman) = shows INSTITUTIONAL/SYSTEMIC discrimination (not isolated), (3) Made AFTER 140-hour overtime month = shows employer ingratitude and bad faith, (4) Pattern with boss\'s July 21 statement = TWO senior management figures (supervisor + HR head) both rejected family obligations within weeks, (5) Proves discriminatory MOTIVE - employer knew family was reason for lateness (employee communicated childcare every time), then explicitly rejected family obligations as legitimate, (6) Alberta Human Rights Act Section 7 protects family status - employer cannot discipline for childcare-related lateness without first attempting accommodation. CRITICAL: Write-Up #3 may contain this statement IN WRITING if Michelle documented her comments - request from employer immediately. If proven, this is DEVASTATING evidence worth tens of thousands in human rights damages (non-taxable).',
     priority: 'nuclear',
     icon: '💣',
-    convergenceTrack: 2,
-    causalLinks: [22, 28, 72],
-    chainGroup: 'institutional-family-discrimination'
   },
 
   {
@@ -947,9 +872,6 @@ const timelineEvents = [
     legalSignificance: 'BAD FAITH CONDUCT: Boss made factually false statement ("can\'t take any more personal days") when this was employee\'s FIRST personal day ever. This lie created pressure forcing sick employee to return prematurely, resulting in: (1) Office-wide infection (boss, Ramon, coworkers got sick), (2) Workplace health hazard (should have allowed proper recovery). DOUBLE STANDARD: Boss denied employee 1 day (using lies), took 2 days himself for same illness. PATTERN EVIDENCE - Third explicit rejection of family/personal/health needs within 8 weeks: July 21 (boss: "crunch time, need you in shop") → Aug 4 (boss: lie about personal days) → Aug 28 (boss: sick baby denied). Shows systematic pattern of bad faith, lying, intimidation, double standards.',
     priority: 'high',
     icon: '🤥',
-    convergenceTrack: 2,
-    causalLinks: [73, 28, 75],
-    chainGroup: 'coercive-environment-pattern'
   },
 
   {
@@ -1046,9 +968,6 @@ const timelineEvents = [
     legalSignificance: '🚨 BLATANT FAMILY STATUS DISCRIMINATION 🚨 Sick infant requiring medical care = core protected obligation under Alberta Human Rights Act. No alternative caregiver (wife also sick). Employer refused accommodation without ANY discussion. Flat "you still need to come to work" despite legitimate medical need. This is EXACTLY what human rights law prohibits. Employer failed fundamental duty to accommodate: (1) No inquiry into alternatives, (2) No assessment of undue hardship, (3) Flat refusal despite employee explaining medical necessity, (4) Forced impossible choice. Retaliation timeline: Aug 28 denial → Aug 29 employee stays home (exercises rights) → Sept 3 retroactive documentation demand → parental leave → Oct 22 terminated (7.5 weeks after). Pattern: Employee exercised family status rights (stayed home with sick baby) → Employer retaliated. TEXT MESSAGES ARE OBJECTIVE PROOF.',
     priority: 'nuclear',
     icon: '🤒',
-    convergenceTrack: 2,
-    causalLinks: [14, 73, 74, 36],
-    chainGroup: 'family-accommodation-withdrawal-sequence'
   },
 
   {
@@ -1077,9 +996,6 @@ const timelineEvents = [
     legalSignificance: '🚨 PRETEXT SMOKING GUN 🚨 This email DESTROYS employer\'s credibility. Employer claimed Sept 3 timecard was URGENT (Sept 8 deadline) but then waited 33 DAYS to discipline employee - issuing Write-Up #4 on Oct 10, employee\'s FIRST DAY BACK from protected parental leave. If issue was truly urgent, employer would have: (1) Disciplined immediately or during leave, (2) At minimum disciplined within reasonable time of Sept 8 deadline. Instead: Waited precisely until employee returned from protected leave. This timing is NOT coincidence - it\'s RETALIATION. Proves employer manufactured urgency (Sept 8 deadline) to create paper trail, then strategically delayed discipline to punish employee for exercising parental leave rights. Pattern: Sept 7 false urgency → Employee takes leave Sept 4-Oct 9 → Oct 10 first day back = Write-Up #4 → Oct 22 terminated (12 days later). Classic retaliation timeline.',
     priority: 'critical',
     icon: '📧',
-    convergenceTrack: 2,
-    causalLinks: [77, 28, 65],
-    chainGroup: 'parental-leave-retaliation-premeditated'
   },
 
   {
@@ -1112,9 +1028,6 @@ const timelineEvents = [
     legalSignificance: '🚨 DEVASTATING TIMELINE 🚨 Employee returns from protected parental leave Oct 10. SAME DAY has family caregiving obligation (elderly family airport transport). 12 DAYS LATER = TERMINATED. This timing creates strong presumption of retaliation for exercising parental leave rights. Courts highly skeptical of terminations shortly after protected leave. Family caregiving for elderly relatives = also protected under family status. CRITICAL: Write-Up #4 issued SAME DAY for Sept 3 timecard issue - employer knew on Sept 7 (Michelle "urgent" email with Sept 8 deadline) but waited 33 days until first day back from parental leave to discipline. Proves retaliation.',
     latenessPersonKey: 'employee',
     priority: 'nuclear',
-    convergenceTrack: 2,
-    causalLinks: [65, 65, 31],
-    chainGroup: 'parental-leave-retaliation-execution'
   },
 
   {
@@ -1208,9 +1121,6 @@ const timelineEvents = [
     legalSignificance: '🚨 SYSTEM MANIPULATION SMOKING GUN 🚨 This is DEVASTATING proof of employer bad faith and manufactured "just cause." Employer designed broken timecard system with automatic lockout feature. Once locked: (1) Employee has ZERO ability to submit timecards (system blocks access), (2) ONLY boss can unlock (employee completely dependent), (3) Each day locked = accumulating "continued failures" employee CANNOT prevent, (4) Boss controls timing of unlock = boss controls whether employee can comply. CATCH-22 TIMELINE: Oct 20 morning: Employee requests unlock (trying to prevent further violations) → Boss controls unlock timing → System remains locked → Employee accumulates "evidence" of continued failure while waiting for boss → Oct 22: Boss terminates for "continued failure to submit timecards." Boss literally CREATED the "continued failure" pattern by controlling access to the system. Employee was trying to comply (requested unlock) but was POWERLESS without boss cooperation. This proves: (1) "Just cause" based on failures EMPLOYER CAUSED, (2) System designed to entrap employees (auto-lock with boss-only unlock), (3) Pretextual discipline (boss weaponized his own delays), (4) Bad faith (blamed employee for problem boss had power to fix), (5) ADHD discrimination (executive function difficulty with broken system + boss deliberately withheld accommodation tool - the unlock).',
     priority: 'nuclear',
     icon: '🔒',
-    convergenceTrack: 2,
-    causalLinks: [66, 34, 35],
-    chainGroup: 'system-manipulation-final'
   },
 
   {
@@ -1232,9 +1142,6 @@ const timelineEvents = [
     legalSignificance: '🚨 TRIGGERING EVENT FOR TERMINATION 🚨 Timeline: Oct 20 accommodation request/refusal + employee pushback → Oct 22 morning late → Oct 22 SAME DAY terminated. Employee challenged boss\'s mandatory overtime demand. Offered reasonable alternative (work other days, same hours). Boss refused without ANY discussion. Coercive language ("no ifs ands or buts"). Employee pushed back ("I said I couldn\'t"). 2 DAYS LATER: Terminated. This timing suggests: (1) Real reason for termination = challenging mandatory overtime, (2) Oct 22 lateness was convenient pretext, (3) Boss already wanted employee gone (safety complaints, parental leave, childcare), (4) Refusal to accept mandatory overtime = perceived insubordination = final straw. Failure to accommodate personal obligations: No inquiry into undue hardship, flat refusal, no alternatives explored. May support constructive dismissal if employee hadn\'t been fired: Unilateral change (12-hr shifts + weekends), short notice, refusal to accommodate, coercive language, intolerable conditions.',
     priority: 'nuclear',
     icon: '⏰',
-    convergenceTrack: 2,
-    causalLinks: [37, 34, 35],
-    chainGroup: 'final-accommodation-denial-trigger'
   },
 
   {
@@ -1327,9 +1234,6 @@ const timelineEvents = [
     legalSignificance: '🚨 ULTIMATE WRONGFUL TERMINATION 🚨 TIMELINE: Oct 10 returned from parental leave → Oct 14-16 sick (required note, Jessica wasn\'t) → Oct 20-21 requested accommodation, pushed back on overtime → Oct 22 8AM late (phone died) → Oct 22 SAME DAY terminated. Just cause threshold NOT MET: Lateness alone doesn\'t meet "destroy employment relationship" standard. ONE technical failure (phone died) ≠ fundamental breach. Inconsistent application (others late, no discipline). Family status discrimination (majority of lateness childcare-related, no accommodation offered). Disability discrimination (sleep apnea + ADHD known, no accommodation). SAME-DAY termination proves PRETEXT: No investigation, no hearing employee\'s side, disproportionate response, no final warning this incident would result in termination. Real reason timeline: Safety advocacy → Parental leave x2 → Family accommodations requested/denied → Oct 20-21 overtime pushback → Oct 22 pretext firing. ZERO procedural fairness: Ambush meeting (no warning), predetermined (letter ready), under 2 minutes total, no opportunity to respond/explain, employee in shock (paralyzed, felt cornered), boss: "You know what this is" (foregone conclusion), no discussion, just handed letter, employee read silently, heart sank, immediate financial panic, couldn\'t pay rent/bills, asked if anything to sign (no) and left, felt predetermined ("anything I said wouldn\'t have helped"), "I knew it was over." Supervised exit: Rushed, intimidating, forgot termination letter at workplace. "Last chance" warning does NOT justify this: (1) Oct 22 different circumstances (technical failure vs childcare), (2) No investigation, (3) No accommodation ever offered for family status, (4) Warning given under duress (10+ threats), (5) Same-day termination still disproportionate, (6) Protected ground not considered. ULTIMATE PROOF: Terminated for being technically competent safety advocate with family obligations employer refused to accommodate.',
     priority: 'nuclear',
     icon: '⚖️',
-    convergenceTrack: 3,
-    causalLinks: [33, 37, 79],
-    chainGroup: 'termination-execution'
   },
 
   {
@@ -1353,9 +1257,6 @@ const timelineEvents = [
     legalSignificance: '🚨 EVIDENCE SPOLIATION SMOKING GUN 🚨 Employer intentionally destroyed critical evidence WHILE employee was actively gathering it (same day as termination, during brief walk). This is CONSCIOUS SPOLIATION showing: (1) Employer knew emails were harmful to their case, (2) Employer destroyed evidence before employee could preserve it, (3) Timing (during brief walk) suggests monitoring and intentional destruction. ADVERSE INFERENCE: Court can assume destroyed emails would support employee\'s version - particularly portal unlock emails proving boss caused 50% of timecard problems employee was disciplined for. LOST EVIDENCE: Portal unlock emails = SMOKING GUN for ADHD discrimination (would prove system failure + boss\'s failures, NOT employee\'s disability), All write-ups = critical evidence of progressive discipline failure, HR correspondence = proof of employer responses. EMPLOYEE HAS NO FRIENDLY WITNESSES: Boss hostile, Michelle hostile, Danielle hostile, coworkers fear retaliation. ONLY OBJECTIVE PROOF WAS IN EMAILS - timestamped, undisputable, cannot be recharacterized. EMPLOYER DESTROYED THAT PROOF. REMEDIES: (1) Preservation order for all email backups/portal logs, (2) Production of complete email archive and IT access logs, (3) Adverse inference that destroyed emails supported employee, (4) Aggravated/punitive damages for intentional spoliation, (5) Coworker subpoenas for same portal emails. BAD FAITH DAMAGES: Evidence destruction extends Wallace damages, 2024 Alberta case awarded $10k punitive for ROE delay alone - evidence destruction more egregious.',
     priority: 'nuclear',
     icon: '🗑️',
-    convergenceTrack: 3,
-    causalLinks: [35, 53, 60, 61],
-    chainGroup: 'post-termination-obstruction'
   },
 
   // POST-TERMINATION CORRESPONDENCE - Bad Faith Pattern
@@ -1895,22 +1796,22 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'wrongful-dismissal'],
-    description: 'Mid-October 2024: FIRST DISCIPLINARY ACTION - Employee receives written warning for wearing headphones during safety meeting. Verbal warning from boss: "You shouldn\'t have spoken to the VP like that". REAL REASON: Employee proved boss wrong about failing hydraulic project in front of VP during invited troubleshooting session ("what can we do better?"). Boss eventually bought the correct fittings employee suggested, proving employee was right. SMOKING GUN: This write-up is PRETEXTUAL OHS RETALIATION. Protected activity: Technical input during safety troubleshooting. Adverse action: Written warning + characterized as "aggressive". Causal connection: Boss\'s own verbal admission. LEGAL SIGNIFICANCE: If Write-Up #1 is invalid (OHS retaliation + signed under duress), entire progressive discipline chain collapses. All subsequent write-ups occurred in coercive environment established by this retaliatory first write-up. Employee didn\'t know could object in writing: "I just didn\'t want to lose my job."',
+    description: 'Mid-October 2024: FIRST DISCIPLINARY ACTION - Three meetings around hydraulic line installation project: (1) Safety training on portal system - employee wore headphones from being outside, researched hydraulic fitting methods on phone during training. (2) VP meeting discussing "what we can do better" after multiple installation failures - employee challenged VP and boss about fitting and alternative installation methods, suggested Loctite for hydraulic lines. Boss eventually bought the correct fittings employee suggested, proving employee was right. (3) Disciplinary meeting - formal written warning for "using headphones during safety meeting" claiming prior warning (employee never heard of policy before). Verbal warning from boss: "You shouldn\'t have spoken to the VP like that." Boss perceived technical input as "talking back." Character label "aggressive behavior" emerged. Employee signed without objections - intimidated, needed job, didn\'t know could object in writing. SMOKING GUN: This write-up is PRETEXTUAL OHS RETALIATION. Protected activity: Technical input during safety troubleshooting. Adverse action: Written warning + characterized as "aggressive". Causal connection: Boss\'s own verbal admission. LEGAL SIGNIFICANCE: If Write-Up #1 is invalid (OHS retaliation + signed under duress), entire progressive discipline chain collapses. All subsequent write-ups occurred in coercive environment established by this retaliatory first write-up.',
     evidence: [
       'Written warning document (requested from employer)',
+      'Project records showing hydraulic failures',
+      'Work orders for specialists called in',
       'Hydraulic project timeline showing boss bought employee\'s suggested fittings',
       'Boss verbal statement: "shouldn\'t have spoken to VP like that"',
       'No written phone/headphone policy',
+      'Coworker testimony - entire team uncomfortable with work',
       'Employee testimony: first write-up ever, signed under duress, didn\'t know could object'
     ],
     evidenceImages: [],
-    witnesses: ['Employee', 'VP present at hydraulic meeting', 'Ramon (hydraulic project)', 'Team members (hydraulic troubleshooting)', 'Boss John Gonzales'],
-    legalSignificance: '🚨 FOUNDATION OF ENTIRE CASE 🚨 This write-up is PRETEXTUAL OHS RETALIATION: (1) Employee exercised protected right to raise technical/safety concerns during invited troubleshooting, (2) Boss retaliated with disciplinary action + characterized competence as "aggression", (3) Employee proven RIGHT (boss eventually bought suggested fittings), (4) NO legitimate business reason for discipline (safety input during "what can we do better" meeting), (5) Signed under DURESS (first write-up, job necessity, no knowledge of right to object). ALBERTA LAW: OHS retaliation is prohibited. If first write-up is invalid retaliation, ENTIRE progressive discipline chain collapses. Cannot establish just cause based on disciplinary record that started with illegal retaliation. Sets coercive tone for all subsequent write-ups (learned helplessness pattern begins here). This is the KEY to destroying employer\'s just cause defense.',
+    witnesses: ['Employee', 'VP present at hydraulic meeting', 'Ramon (coworker)', 'RJ (coworker)', 'Louis (coworker)', 'Team members (hydraulic troubleshooting)', 'Boss John Gonzales', 'HR (possibly)'],
+    legalSignificance: '🚨 FOUNDATION OF ENTIRE CASE 🚨 This write-up is PRETEXTUAL OHS RETALIATION: (1) Employee exercised protected right to raise technical/safety concerns during invited troubleshooting, (2) Boss retaliated with disciplinary action + characterized competence as "aggression", (3) Employee proven RIGHT (boss eventually bought suggested fittings), (4) NO legitimate business reason for discipline (safety input during "what can we do better" meeting), (5) Signed under DURESS (first write-up, job necessity, no knowledge of right to object). ALBERTA LAW: OHS retaliation is prohibited. If first write-up is invalid retaliation, ENTIRE progressive discipline chain collapses. Cannot establish just cause based on disciplinary record that started with illegal retaliation. Sets coercive tone for all subsequent write-ups (learned helplessness pattern begins here). Timing: Same month as baby\'s birth. Employer simultaneously requires phones for safety compliance (door access, safety observations) but disciplines for phone use - contradictory policies. This is the KEY to destroying employer\'s just cause defense.',
     priority: 'nuclear',
     icon: '📝',
-    convergenceTrack: 3,
-    causalLinks: [3, 8, 4],
-    chainGroup: 'invalid-progressive-discipline'
   },
 
   {
@@ -1941,9 +1842,6 @@ const timelineEvents = [
     legalSignificance: '🚨 PARENTAL LEAVE RETALIATION SMOKING GUN 🚨 The 33-day delay proves: (1) NOT actually urgent despite Sept 7 email marked "URGENT", (2) Employer deliberately saved discipline for maximum impact = first day of return, (3) Protected activity: Parental leave (5 weeks), (4) Adverse action: Disciplinary write-up, (5) Causal connection: 33-day delay + timing = premeditated retaliation. PATTERN: Catastrophic ROE error during leave (Sept 11) → Write-up day of return (Oct 10) → Termination 12 days later (Oct 22). This timing pattern proves termination was PREMEDITATED, not based on legitimate progressive discipline. Alberta Employment Standards Code prohibits retaliation for exercising protected rights (parental leave). Combined with coercive environment (learned helplessness by write-up #4), this write-up is INVALID. Two for two: Write-up #1 = OHS retaliation, Write-up #4 = Parental leave retaliation. Just cause defense collapses.',
     priority: 'nuclear',
     icon: '📝',
-    convergenceTrack: 3,
-    causalLinks: [36, 30, 35],
-    chainGroup: 'parental-leave-retaliation-execution'
   },
 
   {
