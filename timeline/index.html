@@ -1581,28 +1581,67 @@
           console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
         }
       } else if (currentView === 'family-status-discrimination') {
-        // Include events with tag OR multiday events from ID list
-        // Exclude Jan 10 interview (id 71) to widen timeline
-        events = events.filter(e =>
-          e.id !== 71 && (
-            (e.tags && e.tags.includes('family-status-discrimination')) ||
-            familyStatusRangeEvents.includes(e.id)
-          )
-        );
+        if (activeLatenessFilters.size === 0) {
+          // No lateness filters: show full family status view
+          // Exclude Jan 10 interview (id 71) to widen timeline
+          events = events.filter(e =>
+            e.id !== 71 && (
+              (e.tags && e.tags.includes('family-status-discrimination')) ||
+              familyStatusRangeEvents.includes(e.id)
+            )
+          );
+        } else {
+          // Lateness filters active: show ONLY matching lateness events
+          events = events.filter(e => {
+            if (activeLatenessFilters.has('employee')) {
+              if ((e.tags && e.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(e.id)) return true;
+            }
+            if (activeLatenessFilters.has('boss-coworker')) {
+              if ((e.tags && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(e.id)) return true;
+            }
+            return false;
+          });
+        }
         console.log('🔍 DEBUG: After family-status-discrimination filter:', events.length, 'events');
       } else if (currentView === 'disability-discrimination') {
-        // Include events with tag OR multiday events from ID list
-        events = events.filter(e =>
-          (e.tags && e.tags.includes('disability-discrimination')) ||
-          disabilityRangeEvents.includes(e.id)
-        );
+        if (activeLatenessFilters.size === 0) {
+          // No lateness filters: show full disability view
+          events = events.filter(e =>
+            (e.tags && e.tags.includes('disability-discrimination')) ||
+            disabilityRangeEvents.includes(e.id)
+          );
+        } else {
+          // Lateness filters active: show ONLY matching lateness events
+          events = events.filter(e => {
+            if (activeLatenessFilters.has('employee')) {
+              if ((e.tags && e.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(e.id)) return true;
+            }
+            if (activeLatenessFilters.has('boss-coworker')) {
+              if ((e.tags && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(e.id)) return true;
+            }
+            return false;
+          });
+        }
         console.log('🔍 DEBUG: After disability-discrimination filter:', events.length, 'events');
       } else if (currentView === 'just-cause-failure') {
-        // Include events with tag OR multiday events from ID list
-        events = events.filter(e =>
-          (e.tags && e.tags.includes('just-cause-failure')) ||
-          justCauseRangeEvents.includes(e.id)
-        );
+        if (activeLatenessFilters.size === 0) {
+          // No lateness filters: show full just cause view
+          events = events.filter(e =>
+            (e.tags && e.tags.includes('just-cause-failure')) ||
+            justCauseRangeEvents.includes(e.id)
+          );
+        } else {
+          // Lateness filters active: show ONLY matching lateness events
+          events = events.filter(e => {
+            if (activeLatenessFilters.has('employee')) {
+              if ((e.tags && e.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(e.id)) return true;
+            }
+            if (activeLatenessFilters.has('boss-coworker')) {
+              if ((e.tags && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(e.id)) return true;
+            }
+            return false;
+          });
+        }
         console.log('🔍 DEBUG: After just-cause-failure filter:', events.length, 'events');
       } else if (currentView === 'bad-faith-conduct') {
         // Include events with tag OR multiday events from ID list
@@ -1632,16 +1671,22 @@
           btn.classList.add('active');
           currentView = btn.dataset.view;
 
-          // Show/hide lateness subfilters for Human Rights view
+          // Show/hide lateness subfilters for views with lateness evidence
           const latenessSubfilters = document.getElementById('lateness-subfilters');
-          if (currentView === 'family') {
+          const viewsWithLatenessSubfilters = [
+            'family',                        // Human Rights (curated)
+            'family-status-discrimination',  // Employee lateness = family obligations
+            'disability-discrimination',     // Lateness from sleep apnea/ADHD
+            'just-cause-failure'             // Differential treatment (boss vs employee)
+          ];
+          if (viewsWithLatenessSubfilters.includes(currentView)) {
             latenessSubfilters.classList.add('visible');
-            // ALWAYS reset lateness filters when entering Human Rights view
+            // ALWAYS reset lateness filters when entering view with subfilters
             activeLatenessFilters.clear();
             document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           } else {
             latenessSubfilters.classList.remove('visible');
-            // Reset lateness filters when leaving Human Rights view
+            // Reset lateness filters when leaving view with subfilters
             activeLatenessFilters.clear();
             document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           }
