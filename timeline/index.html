@@ -1111,6 +1111,26 @@
       'correspondence-michelle': '#e91e63'
     };
 
+    // Helper function to get effective color (respects lateness filter overrides)
+    function getEffectiveColor(event) {
+      // Check if employee lateness subfilter is active
+      if (activeLatenessFilters.has('employee')) {
+        if (event.tags && event.tags.includes('lateness-employee')) {
+          return '#4A90E2';  // Blue for employee lateness
+        }
+      }
+
+      // Check if boss/coworker lateness subfilter is active
+      if (activeLatenessFilters.has('boss-coworker')) {
+        if (event.tags && (event.tags.includes('lateness-boss') || event.tags.includes('lateness-coworker'))) {
+          return '#FF8C42';  // Orange for boss/coworker lateness
+        }
+      }
+
+      // No override - return original category color
+      return categoryColors[event.category];
+    }
+
     const categoryLabels = {
       family: 'Family Status',
       ohs: 'OHS Retaliation',
@@ -2521,7 +2541,7 @@
               // Highlight connector lines
               svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
                 .classed('highlighted', true)
-                .attr('stroke', categoryColors[event.category]);
+                .attr('stroke', getEffectiveColor(event));
 
               // Highlight timeline dot
               svg.select(`.timeline-dot[data-event-id="${eventId}"]`)
@@ -2544,7 +2564,7 @@
           // Date heading (colored)
           card.append('div')
             .attr('class', 'card-date')
-            .style('color', categoryColors[event.category])
+            .style('color', getEffectiveColor(event))
             .text(d3.timeFormat('%b %d, %Y')(event.parsedDate));
 
           // Event title
@@ -2647,13 +2667,13 @@
             .attr('cx', x)
             .attr('cy', timelineY)
             .attr('r', 10)
-            .attr('fill', categoryColors[event.category])
+            .attr('fill', getEffectiveColor(event))
             .on('click', () => showSidePanel(event))
             .on('mouseenter', function() {
               // Highlight connector lines
               svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
                 .classed('highlighted', true)
-                .attr('stroke', categoryColors[event.category]);
+                .attr('stroke', getEffectiveColor(event));
 
               // Highlight timeline dot
               d3.select(this).classed('highlighted', true);
@@ -2797,7 +2817,7 @@
         const dot = document.createElement('div');
         dot.className = 'mini-map-event';
         dot.style.left = xPos + 'px';
-        dot.style.background = categoryColors[event.category] || '#999';
+        dot.style.background = getEffectiveColor(event) || '#999';
         dot.title = event.text;
 
         // Click to jump to this event
@@ -2940,7 +2960,7 @@
 
       const categoryBadge = document.getElementById('panel-category');
       categoryBadge.textContent = categoryLabels[event.category];
-      categoryBadge.style.backgroundColor = categoryColors[event.category];
+      categoryBadge.style.backgroundColor = getEffectiveColor(event);
 
       // Set content
       let content = '';
