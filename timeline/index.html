@@ -1243,6 +1243,13 @@
       // Calculate optimal events per viewport based on SINGLE-DAY events only
       eventsPerViewport = calculateEventsPerViewport(singleDayEvents.length);
 
+      // Override for Human Rights view: force page break before Sept 7 (event #12)
+      // Page 1: Foundation + Accommodation Withdrawal (Jan - Aug)
+      // Page 2: Parental Leave Retaliation + Termination (Sept 7 onwards)
+      if (currentView === 'family' && activeLatenessFilters.size === 0) {
+        eventsPerViewport = 11; // Sept 7 becomes first event of page 2
+      }
+
       // Reset to first page
       currentViewportIndex = 0;
 
