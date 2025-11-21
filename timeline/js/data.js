@@ -186,7 +186,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-07-20',
-    tags: ['critical', 'smoking-gun', 'family', 'wrongful-dismissal'],
+    tags: ['critical', 'smoking-gun', 'family', 'wrongful-dismissal', 'lateness-employee'],
     description: 'Around the time baby was born (October 2024), boss (John) told employee: "Being late is okay. Just let me know in advance" and "Taking days off is okay. Just let me know in advance." This was VERBAL ONLY (no written policy). Accommodation lasted 9 MONTHS (Oct 2024 - July 20, 2025). Employee complied 100% - texted boss every single time before/during lateness (13+ documented notifications), never failed to notify, made up time when possible. Employer explicitly deemed childcare-related lateness "okay" with advance notice. ACCOMMODATION WORKED: No undue hardship for 9 months, no business disruption, employee provided consistent notice. Accommodation ended July 20, 2025 (turning point) when employee refused Sunday midnight work to care for baby. Boss withdrew accommodation as PUNISHMENT for asserting family boundary.',
     evidence: [
       'Employee testimony (boss\'s direct statement)',
@@ -583,7 +583,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-07-31',
-    tags: ['critical', 'family', 'ohs', 'wrongful-dismissal'],
+    tags: ['critical', 'family', 'ohs', 'wrongful-dismissal', 'lateness-employee'],
     description: '18 CONSECUTIVE DAYS of work with ZERO days off. Includes weekends (Saturdays and Sundays). Daily hours: 8-11.5 hours per day. July 14-28 total: 140.5 hours in 15 days (avg 9.37 hrs/day, many 10-11.5 hr days). Employee paid overtime (time-and-a-half after 8 hrs/day and 44 hrs/week). Normal schedule: Monday-Friday, 7:30 AM - 4:30 PM. Marathon schedule: Monday-Sunday, extended hours. Major project crunch. Employee worked voluntarily to help company meet deadline.',
     evidence: [
       'Timecard records showing 18 consecutive days',
@@ -764,7 +764,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-10-09',
-    tags: ['critical', 'family', 'wrongful-dismissal'],
+    tags: ['critical', 'family', 'wrongful-dismissal', 'lateness-employee'],
     description: 'Employee took 5 weeks government parental leave from Sept 4 - Oct 9, 2025. Reason stated to employer: "As my wife transitions back to full time work." This was PROTECTED LEAVE under Alberta Employment Standards Code and federal Employment Insurance parental benefits. Employee explicitly informed employer that: (1) Wife returning to full-time work, (2) Employee needed leave for childcare, (3) Both parents would be working full-time upon return (Oct 10), (4) Child too young for daycare. CRITICAL TIMELINE: Sept 4-Oct 9 protected leave → Oct 10 return + Write-Up #4 SAME DAY (33-day delay retaliation for Sept 3 timecard) → Oct 20-21 accommodation request denied → Oct 22 terminated (12 days after return). Textbook parental leave retaliation under Alberta Human Rights Act.',
     evidence: [
       'Parental leave approval (HR confirmation)',
@@ -1875,7 +1875,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'range',
     endDate: '2025-08-09',
-    tags: ['smoking-gun', 'wrongful-dismissal'],
+    tags: ['smoking-gun', 'wrongful-dismissal', 'lateness-boss'],
     description: 'May 16 - August 9, 2025: PATTERN OF BOSS LATENESS WITHOUT DISCIPLINE. Six documented instances where Boss John Gonzales was late or missed meetings, NO CONSEQUENCES. Meanwhile, employee disciplined with progressive write-ups leading to termination for similar lateness (average 3-10 minutes). INSTANCES: (1) May 16: Boss missing morning meeting, (2) May 28: Boss late to work, (3) July 10: Boss not there for morning meeting, (4) July 22: Employee checks up on late boss (role reversal), (5) July 27: Boss late to work, (6) Aug 9: Boss late to work on SATURDAY. PROVES: Inconsistent application of attendance standards = discrimination. Boss has same timecard struggles (admitted during write-up #2), boss late frequently without write-ups, employee late with proactive communication and terminated. Cannot establish "just cause" when employer doesn\'t apply same standards to management. LEGAL SMOKING GUN: Same conduct (lateness) → Different treatment (boss no discipline, employee terminated) = DIFFERENTIAL TREATMENT. Proves "just cause" is pretextual - real reason is discrimination/targeting.',
     evidence: [
       'May 16: Boss missing morning meeting (group chat)',
@@ -1932,7 +1932,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'range',
     endDate: '2025-08-25',
-    tags: ['disability', 'wrongful-dismissal'],
+    tags: ['disability', 'wrongful-dismissal', 'lateness-employee'],
     description: 'July 4 - August 25, 2025: Boss sent FOUR documented timecard reminders to THE TEAM over 52 days (July 4, July 28, Aug 11, Aug 25). THREE reminders sent on SUNDAYS (employee\'s rest days). Context: Jessica and other new hires had joined the team - boss was sending reminders to ensure entire team submitted timecards, not targeting employee personally. This pattern proves: (1) Boss FULFILLED his promise to remind employee (from Write-Up #2), (2) System difficulty was ONGOING and SYSTEMIC affecting multiple team members (required 4 reminders in under 2 months), (3) Problem was NOT employee refusing to comply - employee needed reminders because broken system + ADHD executive function difficulty, as did other team members. CRITICAL: Boss has same ADHD condition ("I understand the struggles"), boss was written up for timecards himself when he started, boss "notoriously bad" at timecards, boss "hates them to this day," boss became manager partly "so he would never have to do time cards ever again." CONTRADICTION: If boss needed accommodation for timecards (promoted to avoid them) but employee FIRED for timecard issues, that\'s DISABILITY DISCRIMINATION. Employee has ADHD (disclosed Jan 2024), zero accommodations offered for 21 months, then terminated citing timecard failures that boss himself struggled with.',
     evidence: [
       'July 4, 2025: Boss timecard reminder (text message photo)',
