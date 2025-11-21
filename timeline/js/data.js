@@ -1831,13 +1831,7 @@ const timelineEvents = [
       '33-day delay timeline',
       'Employee testimony: stopped reading, just signed'
     ],
-    evidenceImages: [
-      {
-        type: 'text',
-        file: 'images/evidence/smoking-guns/Oct-10-2025-Write-Up-Day-Of-Return.jpg',
-        caption: 'SMOKING GUN: Oct 10, 2025 - Write-Up #4 issued FIRST DAY back from parental leave for SEPT 3 TIMECARD. 33-day delay from Sept 7 "urgent" deadline proves retaliation timing: employer deliberately saved discipline for first day back from protected parental leave.'
-      }
-    ],
+    evidenceImages: [],
     witnesses: ['Michelle Sherman (urgent email)', 'John Gonzales (delivered write-up)', 'Employee'],
     legalSignificance: '🚨 PARENTAL LEAVE RETALIATION SMOKING GUN 🚨 The 33-day delay proves: (1) NOT actually urgent despite Sept 7 email marked "URGENT", (2) Employer deliberately saved discipline for maximum impact = first day of return, (3) Protected activity: Parental leave (5 weeks), (4) Adverse action: Disciplinary write-up, (5) Causal connection: 33-day delay + timing = premeditated retaliation. PATTERN: Catastrophic ROE error during leave (Sept 11) → Write-up day of return (Oct 10) → Termination 12 days later (Oct 22). This timing pattern proves termination was PREMEDITATED, not based on legitimate progressive discipline. Alberta Employment Standards Code prohibits retaliation for exercising protected rights (parental leave). Combined with coercive environment (learned helplessness by write-up #4), this write-up is INVALID. Two for two: Write-up #1 = OHS retaliation, Write-up #4 = Parental leave retaliation. Just cause defense collapses.',
     priority: 'nuclear',
