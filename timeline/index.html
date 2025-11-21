@@ -1167,6 +1167,38 @@
       67   // DIFFERENTIAL TREATMENT: Boss Lateness Pattern (6 Instances)
     ];
 
+    // Multiday events to include in specialized filter views (by event ID)
+    // Family Status: 76, 80 via tags + add 21, 67
+    const familyStatusRangeEvents = [
+      21,  // OVERTIME MARATHON: Eliminated family time for 18 days
+      67   // DIFFERENTIAL TREATMENT: Boss lateness pattern (comparator)
+    ];
+    // Disability: All from Family Status + 75 via tag
+    const disabilityRangeEvents = [
+      76,  // 9-MONTH ACCOMMODATION: Boss knew about disabilities
+      21,  // OVERTIME MARATHON: Exhaustion exacerbates disabilities
+      80,  // PARENTAL LEAVE: Context for disability-related termination
+      67   // DIFFERENTIAL TREATMENT: Boss has same conditions
+    ];
+    // Just Cause Failure: ALL multiday events
+    const justCauseRangeEvents = [
+      3,   // HYDRAULIC: Employee proven right (undermines incompetence claim)
+      76,  // 9-MONTH ACCOMMODATION: FATAL - can't claim just cause for accepted conduct
+      21,  // OVERTIME MARATHON: Employee worked voluntarily (undermines unreliable)
+      80,  // PARENTAL LEAVE: Protected leave (can't use for just cause)
+      67,  // DIFFERENTIAL TREATMENT: Same conduct, different treatment
+      75   // TIMECARD PATTERN: Systemic issue, not employee fault
+    ];
+    // Bad Faith Conduct: ALL multiday events
+    const badFaithRangeEvents = [
+      3,   // HYDRAULIC: Origin of retaliation pattern
+      76,  // 9-MONTH ACCOMMODATION: Withdrawal was punishment
+      21,  // OVERTIME MARATHON: Created exhaustion then disciplined for it
+      80,  // PARENTAL LEAVE: Textbook retaliation timing
+      67,  // DIFFERENTIAL TREATMENT: Proves pretextual targeting
+      75   // TIMECARD PATTERN: Boss admits system broken
+    ];
+
     // Viewport state for virtual scrolling (event-based)
     let currentViewportIndex = 0; // Current page index (0, 1, 2, ...)
     let eventsPerViewport = 10; // Dynamically calculated
@@ -1438,6 +1470,7 @@
           // TRACK 3: Pretextual Discipline & Bad Faith (Execution)
           4,   // Write-Up #2 (First Timecard)
           78,  // Boss's Field Hand Wage Theft Story
+          75,  // Jul 4 - Aug 25 - TIMECARD REMINDER PATTERN (systemic issue)
           26,  // Headphones incident (leads to Write-Up #1)
           64,  // Write-Up #1 Document (OHS Retaliation)
           27,  // Write-Up #3 events
@@ -1520,16 +1553,32 @@
           console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
         }
       } else if (currentView === 'family-status-discrimination') {
-        events = events.filter(e => e.tags && e.tags.includes('family-status-discrimination'));
+        // Include events with tag OR multiday events from ID list
+        events = events.filter(e =>
+          (e.tags && e.tags.includes('family-status-discrimination')) ||
+          familyStatusRangeEvents.includes(e.id)
+        );
         console.log('🔍 DEBUG: After family-status-discrimination filter:', events.length, 'events');
       } else if (currentView === 'disability-discrimination') {
-        events = events.filter(e => e.tags && e.tags.includes('disability-discrimination'));
+        // Include events with tag OR multiday events from ID list
+        events = events.filter(e =>
+          (e.tags && e.tags.includes('disability-discrimination')) ||
+          disabilityRangeEvents.includes(e.id)
+        );
         console.log('🔍 DEBUG: After disability-discrimination filter:', events.length, 'events');
       } else if (currentView === 'just-cause-failure') {
-        events = events.filter(e => e.tags && e.tags.includes('just-cause-failure'));
+        // Include events with tag OR multiday events from ID list
+        events = events.filter(e =>
+          (e.tags && e.tags.includes('just-cause-failure')) ||
+          justCauseRangeEvents.includes(e.id)
+        );
         console.log('🔍 DEBUG: After just-cause-failure filter:', events.length, 'events');
       } else if (currentView === 'bad-faith-conduct') {
-        events = events.filter(e => e.tags && e.tags.includes('bad-faith-conduct'));
+        // Include events with tag OR multiday events from ID list
+        events = events.filter(e =>
+          (e.tags && e.tags.includes('bad-faith-conduct')) ||
+          badFaithRangeEvents.includes(e.id)
+        );
         console.log('🔍 DEBUG: After bad-faith-conduct filter:', events.length, 'events');
       } else if (currentView === 'post-termination-misconduct') {
         events = events.filter(e => e.tags && e.tags.includes('post-termination-misconduct'));
