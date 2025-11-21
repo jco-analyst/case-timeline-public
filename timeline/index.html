@@ -1420,7 +1420,6 @@
           6,   // Baby Born
           76,  // Accommodation Agreement (flexible schedule)
           9,   // Sleep Apnea Diagnosed (Feb 2025)
-          72,  // Parental Leave Request
 
           // TRACK 2: Protected Activities & Reprisals (Triggers)
           3,   // Hydraulic Troubleshooting Victory (OHS advocacy origin)
@@ -1448,27 +1447,15 @@
           34,  // Oct 21 - Employee Backs Down
           66,  // Timecard Unlock Catch-22 (SG #7)
           35,  // Oct 22 - Termination (SG #5)
-          79,  // Oct 22 - Email Access Revoked
 
           // SMOKING GUNS & COMPARATORS (Differential Treatment)
-          38,  // Boss lateness/missing meetings
-          39,  // Boss lateness/missing meetings
-          40,  // Boss lateness/missing meetings
-          41,  // Boss lateness/missing meetings
-          42,  // Boss lateness/missing meetings
-          43,  // Boss lateness/missing meetings
-          67,  // Boss Lateness Pattern (range)
+          67,  // Boss Lateness Pattern (range) - covers all 6 individual instances
           45,  // RJ Late Same Day as Termination
           59,  // Jessica Differential Treatment (sick note)
-          75,  // Boss Timecard Struggles
 
           // POST-TERMINATION BAD FAITH
-          50,  // Oct 30 - Wrong Documents Sent
           51,  // Nov 4 - "Dear Rollins:" Contract Error (SG #6)
-          52,  // Nov 4 - Corrected Documents
-          60,  // Michelle Sherman ROE Request
-          61,  // ROE Released (14-day delay)
-          70   // Wrong Bank Account
+          61   // ROE Released (14-day delay)
         ];
         events = events.filter(e => overviewEventIds.includes(e.id));
         console.log('🔍 DEBUG: After overview filter:', events.length, 'events');
@@ -2813,8 +2800,16 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical", "overview", "family" (Human Rights), and "wrongful-dismissal" views
-      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'family' || currentView === 'wrongful-dismissal');
+      // Show mini-map and navigation for all specialized filter views
+      const showNavigation = (
+        currentView === 'overview' ||
+        currentView === 'family-status-discrimination' ||
+        currentView === 'disability-discrimination' ||
+        currentView === 'just-cause-failure' ||
+        currentView === 'bad-faith-conduct' ||
+        currentView === 'post-termination-misconduct' ||
+        currentView === 'ohs'
+      );
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
