@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Wrongful Dismissal Timeline - Case Evidence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1050,8 +1047,29 @@
     <div class="image-modal-content" id="image-modal-content"></div>
   </div>
 
-  <!-- Load Event Data (version param busts cache - update on changes) -->
-  <script src="js/data.js?v=20251121-2"></script>
+  <!-- Load Event Data with cache-busting timestamp -->
+  <script>
+    // Dynamically load data.js with timestamp to bust GitHub Pages CDN cache
+    var dataLoaded = false;
+    var domReady = false;
+
+    function tryInit() {
+      if (dataLoaded && domReady && typeof init === 'function') {
+        init();
+      }
+    }
+
+    (function() {
+      var script = document.createElement('script');
+      script.src = 'js/data.js?t=' + Date.now();
+      script.onload = function() {
+        console.log('📦 data.js loaded with cache bust');
+        dataLoaded = true;
+        tryInit();
+      };
+      document.head.appendChild(script);
+    })();
+  </script>
 
   <!-- Timeline Implementation -->
   <script>
@@ -3298,8 +3316,11 @@
       });
     }
 
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', init);
+    // Initialize on load (waits for both DOM and data.js)
+    document.addEventListener('DOMContentLoaded', function() {
+      domReady = true;
+      tryInit();
+    });
   </script>
 </body>
 </html>
