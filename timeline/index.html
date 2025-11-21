@@ -1337,11 +1337,11 @@
         eventsPerViewport = 11; // Sept 7 becomes first event of page 2
       }
 
-      // Override for Family Status Discrimination view: break after July 20 turning point
-      // Page 1: Foundation through "Family Doesn't Matter" smoking gun (11 events)
-      // Page 2: Parental leave request (July 28) through termination (9 events)
+      // Override for Family Status Discrimination view: break before July 20 turning point
+      // Page 1: Foundation through Bereavement Leave (10 events)
+      // Page 2: July 20 smoking gun through termination (10 events)
       if (currentView === 'family-status-discrimination') {
-        eventsPerViewport = 11; // July 20 is last event of page 1, July 28 starts page 2
+        eventsPerViewport = 10; // July 6 is last event of page 1, July 20 starts page 2
       }
 
       // Reset to first page
