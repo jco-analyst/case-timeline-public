@@ -1051,7 +1051,7 @@
   </div>
 
   <!-- Load Event Data (version param busts cache - update on changes) -->
-  <script src="js/data.js?v=20251121-1"></script>
+  <script src="js/data.js?v=20251121-2"></script>
 
   <!-- Timeline Implementation -->
   <script>
@@ -1317,6 +1317,13 @@
       // Page 2: Parental Leave Retaliation + Termination (Sept 7 onwards)
       if (currentView === 'family' && activeLatenessFilters.size === 0) {
         eventsPerViewport = 11; // Sept 7 becomes first event of page 2
+      }
+
+      // Override for Family Status Discrimination view: break after July 20 turning point
+      // Page 1: Foundation through "Family Doesn't Matter" smoking gun (12 events)
+      // Page 2: Parental leave request through termination (12 events)
+      if (currentView === 'family-status-discrimination') {
+        eventsPerViewport = 12; // July 20 is last event of page 1
       }
 
       // Reset to first page
