@@ -65,7 +65,7 @@
       font-size: 14px;
       background: var(--bg-primary);
       color: var(--text-primary);
-      padding: 40px 10px;
+      padding: 40px 20px;
       transition: background-color 0.3s ease, color 0.3s ease;
       overflow-x: hidden;
     }
@@ -73,7 +73,7 @@
     .container {
       max-width: 100%;
       margin: 0 auto;
-      padding: 0 10px;
+      padding: 0 20px;
     }
 
     /* Header */
@@ -195,6 +195,10 @@
     }
 
     /* Dark mode adjustments */
+    [data-theme="dark"] .lateness-subfilters {
+      background: var(--bg-secondary);
+    }
+
     [data-theme="dark"] .lateness-btn {
       border-color: var(--border-color);
     }
@@ -206,9 +210,8 @@
     /* Timeline Container */
     .timeline-wrapper {
       position: relative;
-      padding: 100px 5px;
+      padding: 100px 20px;
       min-height: 800px;
-      overflow-x: hidden;
       overflow-y: auto;
     }
 
@@ -390,7 +393,6 @@
     .tag-disability { background: #eab308; color: #1f2937; }
     .tag-wrongful-dismissal { background: #2563eb; }
     .tag-correspondence { background: #059669; }
-    .tag-bad-faith { background: #7c2d12; color: #ffffff; }
     .tag-lateness-employee { background: #6b7280; }
     .tag-lateness-boss { background: #4b5563; }
     .tag-lateness-coworker { background: #9ca3af; color: #1f2937; }
@@ -627,13 +629,13 @@
       margin: 0;
     }
 
-    /* Image Modal (centered on top of card) */
+    /* Image Modal (side-by-side) */
     .image-modal {
       position: fixed;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 85vw;
+      left: calc(50% + 128px);
+      transform: translateY(-50%);
+      width: 875px;
       max-height: 95vh;
       background: var(--bg-card);
       border-radius: 12px;
@@ -676,22 +678,26 @@
     }
 
     .image-modal-content {
-      padding: 24px;
+      padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
-      flex: 1;
+      gap: 12px;
     }
 
     .image-modal-content img {
       max-width: 100%;
-      max-height: calc(95vh - 140px);
+      max-height: calc(95vh - 80px);
       width: auto;
       height: auto;
       border-radius: 4px;
       object-fit: contain;
+    }
+
+    /* Shift main panel when image modal is open */
+    .side-panel.shifted {
+      transform: translate(-85%, -52%) scale(1);
     }
 
     .panel-overlay {
@@ -848,7 +854,7 @@
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 21px;
+      width: 35px;
       height: 70px;
       border-radius: 6px;
       background: var(--bg-card);
@@ -857,7 +863,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 32px;
       box-shadow: var(--shadow-md);
       transition: all 0.3s ease;
       z-index: 2500;
@@ -891,16 +897,16 @@
     /* Mini-map */
     .mini-map-container {
       position: fixed;
-      bottom: 10px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       width: 80%;
       max-width: 900px;
-      height: 40px;
+      height: 60px;
       background: var(--bg-card);
       border: 2px solid var(--border-color);
       border-radius: 12px;
-      padding: 5px 15px;
+      padding: 10px 15px;
       box-shadow: var(--shadow-md);
       z-index: 2500;
     }
@@ -951,6 +957,21 @@
       cursor: grabbing;
     }
 
+    .mini-map-label {
+      position: absolute;
+      bottom: -22px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .mini-map-label-start {
+      left: 0;
+    }
+
+    .mini-map-label-end {
+      right: 0;
+    }
   </style>
 </head>
 <body>
@@ -974,10 +995,10 @@
 
   <!-- Navigation Arrows -->
   <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Navigate left">
-    ◀
+    ←
   </button>
   <button class="nav-arrow nav-arrow-right" id="nav-arrow-right" aria-label="Navigate right">
-    ▶
+    →
   </button>
 
   <!-- Mini-map -->
@@ -995,16 +1016,17 @@
       <div class="subtitle">Jan 2024 - Oct 2025 • <span id="event-count">35 events</span></div>
 
       <div class="controls">
-        <button class="view-btn active" data-view="overview">Overview</button>
-        <button class="view-btn" data-view="family-status-discrimination">Family Status Discrimination</button>
-        <button class="view-btn" data-view="disability-discrimination">Disability Discrimination</button>
-        <button class="view-btn" data-view="just-cause-failure">Just Cause Failure</button>
-        <button class="view-btn" data-view="bad-faith-conduct">Bad Faith Conduct</button>
-        <button class="view-btn" data-view="post-termination-misconduct">Post-Termination Misconduct</button>
+        <button class="view-btn active" data-view="critical">Critical Only</button>
+        <button class="view-btn" data-view="family">Family Discrimination</button>
         <button class="view-btn" data-view="ohs">OHS Retaliation</button>
+        <button class="view-btn" data-view="disability">Disability</button>
+        <button class="view-btn" data-view="wrongful-dismissal">Wrongful Dismissal</button>
+        <button class="view-btn" data-view="correspondence">Correspondence</button>
+        <button class="view-btn" data-view="smoking-gun">Smoking Gun</button>
+        <button class="view-btn" data-view="all">All Events</button>
       </div>
 
-      <!-- Lateness Sub-Filters (shown when Human Rights filter is active) -->
+      <!-- Lateness Sub-Filters (shown when Family or Disability filter is active) -->
       <div class="lateness-subfilters" id="lateness-subfilters">
         <span class="lateness-label">Lateness:</span>
         <button class="lateness-btn" data-person="employee" title="Employee Lateness">Employee</button>
@@ -1112,28 +1134,6 @@
       'correspondence-michelle': '#e91e63'
     };
 
-    // Helper function to get effective color (respects lateness filter overrides)
-    function getEffectiveColor(event) {
-      // Check if employee lateness subfilter is active
-      if (activeLatenessFilters.has('employee')) {
-        // Check tags OR multiday event ID list
-        if ((event.tags && event.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(event.id)) {
-          return '#4A90E2';  // Blue for employee lateness
-        }
-      }
-
-      // Check if boss/coworker lateness subfilter is active
-      if (activeLatenessFilters.has('boss-coworker')) {
-        // Check tags OR multiday event ID list
-        if ((event.tags && (event.tags.includes('lateness-boss') || event.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(event.id)) {
-          return '#FF8C42';  // Orange for boss/coworker lateness
-        }
-      }
-
-      // No override - return original category color
-      return categoryColors[event.category];
-    }
-
     const categoryLabels = {
       family: 'Family Status',
       ohs: 'OHS Retaliation',
@@ -1153,19 +1153,8 @@
       '#9B59B6'   // Purple
     ];
 
-    let currentView = 'overview';
+    let currentView = 'critical';
     let activeLatenessFilters = new Set(); // Track which lateness person filters are active
-
-    // Multiday events to include in lateness subfilters (by event ID)
-    const latenessEmployeeRangeEvents = [
-      76,  // 9-MONTH ACCOMMODATION: "Being Late is Okay"
-      21,  // OVERTIME MARATHON: 18 Consecutive Days
-      80,  // PARENTAL LEAVE PERIOD: 5 Weeks
-      75   // TIMECARD REMINDER PATTERN: Boss Reminds 4 Times in 52 Days
-    ];
-    const latenessBossRangeEvents = [
-      67   // DIFFERENTIAL TREATMENT: Boss Lateness Pattern (6 Instances)
-    ];
 
     // Viewport state for virtual scrolling (event-based)
     let currentViewportIndex = 0; // Current page index (0, 1, 2, ...)
@@ -1173,8 +1162,6 @@
     let viewportStartDate = null;
     let viewportEndDate = null;
     let allFilteredEvents = []; // Cache of all filtered events
-    let singleDayEvents = []; // Single-day events (used for pagination)
-    let multiDayEvents = []; // Multi-day events (appear on all overlapping pages)
     let fullTimelineStart = null;
     let fullTimelineEnd = null;
     let miniMapDragInitialized = false; // Prevent duplicate drag listeners
@@ -1254,16 +1241,8 @@
         fullTimelineEnd = null;
         currentViewportIndex = 0;
         eventsPerViewport = 10;
-        singleDayEvents = [];
-        multiDayEvents = [];
         return;
       }
-
-      // Separate single-day and multi-day events
-      singleDayEvents = events.filter(e => !e.parsedEndDate || e.parsedEndDate.getTime() === e.parsedDate.getTime());
-      multiDayEvents = events.filter(e => e.parsedEndDate && e.parsedEndDate.getTime() !== e.parsedDate.getTime());
-
-      console.log('🔍 DEBUG: Separated events - Single-day:', singleDayEvents.length, 'Multi-day:', multiDayEvents.length);
 
       // Calculate full timeline range (dates already parsed in init())
       const allDates = [];
@@ -1274,43 +1253,35 @@
       fullTimelineStart = d3.min(allDates);
       fullTimelineEnd = d3.max(allDates);
 
-      // Calculate optimal events per viewport based on SINGLE-DAY events only
-      eventsPerViewport = calculateEventsPerViewport(singleDayEvents.length);
-
-      // Override for Human Rights view: force page break before Sept 7 (event #12)
-      // Page 1: Foundation + Accommodation Withdrawal (Jan - Aug)
-      // Page 2: Parental Leave Retaliation + Termination (Sept 7 onwards)
-      if (currentView === 'family' && activeLatenessFilters.size === 0) {
-        eventsPerViewport = 11; // Sept 7 becomes first event of page 2
-      }
+      // Calculate optimal events per viewport
+      eventsPerViewport = calculateEventsPerViewport(events.length);
 
       // Reset to first page
       currentViewportIndex = 0;
 
-      // Update viewport dates based on first page of SINGLE-DAY events
+      // Update viewport dates based on first page of events
       updateViewportDates(events);
       updateNavigationButtons(events);
     }
 
     // Update viewport date range based on current page index
     function updateViewportDates(events) {
-      if (singleDayEvents.length === 0) return;
+      if (events.length === 0) return;
 
-      // Sort SINGLE-DAY events by date (pagination based on these only)
-      const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
+      // Sort events by date
+      const sortedEvents = [...events].sort((a, b) => a.parsedDate - b.parsedDate);
 
-      // Get single-day events for current viewport page
+      // Get events for current viewport
       const startIdx = currentViewportIndex * eventsPerViewport;
-      const endIdx = Math.min(startIdx + eventsPerViewport, sortedSingleDay.length);
-      const viewportSingleDayEvents = sortedSingleDay.slice(startIdx, endIdx);
+      const endIdx = Math.min(startIdx + eventsPerViewport, sortedEvents.length);
+      const viewportEvents = sortedEvents.slice(startIdx, endIdx);
 
-      if (viewportSingleDayEvents.length === 0) return;
+      if (viewportEvents.length === 0) return;
 
-      // Calculate date range from SINGLE-DAY events only
+      // Calculate date range from these events
       const viewportDates = [];
-      viewportSingleDayEvents.forEach(e => {
+      viewportEvents.forEach(e => {
         viewportDates.push(e.parsedDate);
-        // For single-day events, only use start date
         if (e.parsedEndDate) viewportDates.push(e.parsedEndDate);
       });
 
@@ -1320,8 +1291,6 @@
       // Add small padding (1 day on each side) for visual breathing room
       viewportStartDate = d3.timeDay.offset(viewportStartDate, -1);
       viewportEndDate = d3.timeDay.offset(viewportEndDate, 1);
-
-      console.log('🔍 DEBUG: Viewport date range:', viewportStartDate, 'to', viewportEndDate);
     }
 
     // Get events within current viewport
@@ -1353,7 +1322,7 @@
 
     // Move viewport right (later dates / next page)
     function moveViewportRight() {
-      const totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
+      const totalPages = Math.ceil(allFilteredEvents.length / eventsPerViewport);
       if (currentViewportIndex >= totalPages - 1) return;
 
       currentViewportIndex++;
@@ -1374,8 +1343,7 @@
         return;
       }
 
-      // Calculate total pages based on SINGLE-DAY events only
-      const totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
+      const totalPages = Math.ceil(events.length / eventsPerViewport);
 
       // Disable left if on first page
       if (currentViewportIndex <= 0) {
@@ -1409,147 +1377,70 @@
       if (currentView === 'critical') {
         events = events.filter(e => e.tags && e.tags.includes('critical'));
         console.log('🔍 DEBUG: After critical filter:', events.length, 'events');
-      } else if (currentView === 'overview') {
-        // Overview filter: Comprehensive convergence timeline for lawyer consultation
-        // Covers all 3 tracks: Protected Grounds, Protected Activities/Reprisals, Pretextual Discipline
-        const overviewEventIds = [
-          // TRACK 1: Protected Grounds & Accommodation (Foundation)
-          71,  // First Interview - Family Priority Disclosed
-          1,   // Hired as Electrical Technician
-          2,   // ADHD Disclosed (Pre-Employment)
-          6,   // Baby Born
-          76,  // Accommodation Agreement (flexible schedule)
-          9,   // Sleep Apnea Diagnosed (Feb 2025)
-          72,  // Parental Leave Request
-
-          // TRACK 2: Protected Activities & Reprisals (Triggers)
-          3,   // Hydraulic Troubleshooting Victory (OHS advocacy origin)
-          5,   // Confined Space Safety Meeting - Sent Home
-          8,   // Hydraulic Lines Write-Up - Safety Research Punished
-          15,  // June 13 - Boss Approved Sick Child (later disciplined)
-          17,  // June 25 - Good Faith Over-Communication
-          21,  // July 14-31 - OVERTIME MARATHON (18 consecutive days)
-          22,  // July 21 - Accommodation Revoked (SG #1)
-          28,  // Aug 28 - Sick Baby Denial
-          73,  // Michelle Sherman "Everyone has children" (SG #2)
-          74,  // Aug 4 - Personal Day Denied (Boss Lied)
-          80,  // Sept 4-Oct 9 - PARENTAL LEAVE PERIOD (5 weeks)
-          36,  // Sept 7 - "Urgent" Email (SG #3)
-
-          // TRACK 3: Pretextual Discipline & Bad Faith (Execution)
-          4,   // Write-Up #2 (First Timecard)
-          78,  // Boss's Field Hand Wage Theft Story
-          26,  // Headphones incident (leads to Write-Up #1)
-          64,  // Write-Up #1 Document (OHS Retaliation)
-          27,  // Write-Up #3 events
-          30,  // Oct 10 - Return from Leave + Family Lateness (SG #4)
-          65,  // Write-Up #4 Document
-          33,  // Oct 20 - Accommodation Request Denied
-          34,  // Oct 21 - Employee Backs Down
-          66,  // Timecard Unlock Catch-22 (SG #7)
-          35,  // Oct 22 - Termination (SG #5)
-          79,  // Oct 22 - Email Access Revoked
-
-          // SMOKING GUNS & COMPARATORS (Differential Treatment)
-          38,  // Boss lateness/missing meetings
-          39,  // Boss lateness/missing meetings
-          40,  // Boss lateness/missing meetings
-          41,  // Boss lateness/missing meetings
-          42,  // Boss lateness/missing meetings
-          43,  // Boss lateness/missing meetings
-          67,  // Boss Lateness Pattern (range)
-          45,  // RJ Late Same Day as Termination
-          59,  // Jessica Differential Treatment (sick note)
-          75,  // Boss Timecard Struggles
-
-          // POST-TERMINATION BAD FAITH
-          50,  // Oct 30 - Wrong Documents Sent
-          51,  // Nov 4 - "Dear Rollins:" Contract Error (SG #6)
-          52,  // Nov 4 - Corrected Documents
-          60,  // Michelle Sherman ROE Request
-          61,  // ROE Released (14-day delay)
-          70   // Wrong Bank Account
-        ];
-        events = events.filter(e => overviewEventIds.includes(e.id));
-        console.log('🔍 DEBUG: After overview filter:', events.length, 'events');
       } else if (currentView === 'family') {
-        // Human Rights view (curated list of key discrimination events) with optional lateness sub-filtering
+        // Family view with optional lateness sub-filtering
         if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show curated human rights discrimination timeline
-          const humanRightsEventIds = [
-            // Foundation (Disabilities + Family Status)
-            2,   // ADHD Disclosed (Jan 15, 2024)
-            6,   // Baby Born (Oct 9, 2024)
-            9,   // Sleep Apnea Diagnosed (Feb 18, 2025)
-            76,  // 9-Month Accommodation "Being late is okay"
-
-            // Accommodation Withdrawal Pattern
-            15,  // June 13 - Sick Child Approved (contrast with Aug 28 denial)
-            21,  // July 14-31 - OVERTIME MARATHON (exhaustion context)
-            22,  // July 21 - Accommodation Revoked SMOKING GUN #1
-            28,  // Aug 28 - Sick Baby Denied
-            74,  // Aug 4 - Personal Day Denied (Boss Lied)
-
-            // Parental Leave Retaliation
-            72,  // Parental Leave Request (July 28)
-            80,  // Sept 4 - Oct 9 Parental Leave Period (5 weeks)
-            36,  // Sept 7 - "Urgent" Email SMOKING GUN #3
-            30,  // Oct 10 - Return from Leave (morning lateness - family obligation)
-            65,  // Oct 10 - Write-Up #4 SMOKING GUN #4
-
-            // Final Retaliation
-            33,  // Oct 20 - Schedule Accommodation Denied SMOKING GUN #7
-            34,  // Oct 21 - Employee Backs Down
-            35,  // Oct 22 - Termination SMOKING GUN #5
-
-            // Comparators (Differential Treatment)
-            59,  // Jessica Differential Sick Note Treatment
-            73   // Michelle Sherman "Having children should not be a reason" SMOKING GUN #2
-          ];
-          events = events.filter(e => humanRightsEventIds.includes(e.id));
-          console.log('🔍 DEBUG: After human rights filter (no lateness filters):', events.length, 'events');
+          // No lateness filters: show ONLY non-lateness family events (pure family discrimination)
+          events = events.filter(e => {
+            if (!e.tags || !e.tags.includes('family')) return false;
+            // Exclude lateness events - only show pure family discrimination events
+            return !e.tags.includes('lateness-employee') &&
+                   !e.tags.includes('lateness-boss') &&
+                   !e.tags.includes('lateness-coworker');
+          });
+          console.log('🔍 DEBUG: After family filter (no lateness filters):', events.length, 'events');
         } else {
           // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
           events = events.filter(e => {
-            // Check employee lateness filter
-            if (activeLatenessFilters.has('employee')) {
-              // Include if has lateness-employee tag OR is in multiday employee events list
-              if ((e.tags && e.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(e.id)) {
-                return true;
-              }
-            }
+            if (!e.tags) return false;
 
-            // Check boss/coworker lateness filter
-            if (activeLatenessFilters.has('boss-coworker')) {
-              // Include if has lateness-boss/coworker tag OR is in multiday boss events list
-              if ((e.tags && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(e.id)) {
-                return true;
-              }
-            }
+            // Show ONLY lateness events that match active filters
+            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
+            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
 
             return false;
           });
-          console.log('🔍 DEBUG: After human rights filter (with lateness filters):', events.length, 'events');
+          console.log('🔍 DEBUG: After family filter (with lateness filters):', events.length, 'events');
           console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
         }
-      } else if (currentView === 'family-status-discrimination') {
-        events = events.filter(e => e.tags && e.tags.includes('family-status-discrimination'));
-        console.log('🔍 DEBUG: After family-status-discrimination filter:', events.length, 'events');
-      } else if (currentView === 'disability-discrimination') {
-        events = events.filter(e => e.tags && e.tags.includes('disability-discrimination'));
-        console.log('🔍 DEBUG: After disability-discrimination filter:', events.length, 'events');
-      } else if (currentView === 'just-cause-failure') {
-        events = events.filter(e => e.tags && e.tags.includes('just-cause-failure'));
-        console.log('🔍 DEBUG: After just-cause-failure filter:', events.length, 'events');
-      } else if (currentView === 'bad-faith-conduct') {
-        events = events.filter(e => e.tags && e.tags.includes('bad-faith-conduct'));
-        console.log('🔍 DEBUG: After bad-faith-conduct filter:', events.length, 'events');
-      } else if (currentView === 'post-termination-misconduct') {
-        events = events.filter(e => e.tags && e.tags.includes('post-termination-misconduct'));
-        console.log('🔍 DEBUG: After post-termination-misconduct filter:', events.length, 'events');
       } else if (currentView === 'ohs') {
         events = events.filter(e => e.tags && e.tags.includes('ohs'));
         console.log('🔍 DEBUG: After ohs filter:', events.length, 'events');
+      } else if (currentView === 'disability') {
+        // Disability view with optional lateness sub-filtering
+        if (activeLatenessFilters.size === 0) {
+          // No lateness filters: show ONLY non-lateness disability events (pure disability discrimination)
+          events = events.filter(e => {
+            if (!e.tags || !e.tags.includes('disability')) return false;
+            // Exclude lateness events - only show pure disability discrimination events
+            return !e.tags.includes('lateness-employee') &&
+                   !e.tags.includes('lateness-boss') &&
+                   !e.tags.includes('lateness-coworker');
+          });
+          console.log('🔍 DEBUG: After disability filter (no lateness filters):', events.length, 'events');
+        } else {
+          // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
+          events = events.filter(e => {
+            if (!e.tags) return false;
+
+            // Show ONLY lateness events that match active filters
+            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
+            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
+
+            return false;
+          });
+          console.log('🔍 DEBUG: After disability filter (with lateness filters):', events.length, 'events');
+          console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
+        }
+      } else if (currentView === 'wrongful-dismissal') {
+        events = events.filter(e => e.tags && e.tags.includes('wrongful-dismissal'));
+        console.log('🔍 DEBUG: After wrongful-dismissal filter:', events.length, 'events');
+      } else if (currentView === 'correspondence') {
+        events = events.filter(e => e.tags && e.tags.includes('correspondence'));
+        console.log('🔍 DEBUG: After correspondence filter:', events.length, 'events');
+      } else if (currentView === 'smoking-gun') {
+        events = events.filter(e => e.tags && e.tags.includes('smoking-gun'));
+        console.log('🔍 DEBUG: After smoking-gun filter:', events.length, 'events');
       }
       // 'all' view shows everything - no filter applied
 
@@ -1565,16 +1456,16 @@
           btn.classList.add('active');
           currentView = btn.dataset.view;
 
-          // Show/hide lateness subfilters for Human Rights view
+          // Show/hide lateness subfilters for Family and Disability views
           const latenessSubfilters = document.getElementById('lateness-subfilters');
-          if (currentView === 'family') {
+          if (currentView === 'family' || currentView === 'disability') {
             latenessSubfilters.classList.add('visible');
-            // ALWAYS reset lateness filters when entering Human Rights view
+            // ALWAYS reset lateness filters when entering Family/Disability view
             activeLatenessFilters.clear();
             document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           } else {
             latenessSubfilters.classList.remove('visible');
-            // Reset lateness filters when leaving Human Rights view
+            // Reset lateness filters when leaving Family/Disability view
             activeLatenessFilters.clear();
             document.querySelectorAll('.lateness-btn').forEach(btn => btn.classList.remove('active'));
           }
@@ -1621,6 +1512,444 @@
         `${count} event${count !== 1 ? 's' : ''}`;
     }
 
+    // Check if two cards overlap or are too close (with tolerance)
+    // Returns true if gap between cards is less than tolerance
+    function cardsOverlap(card1, card2, tolerance = 30) {
+      const overlap = Math.min(card1.right, card2.right) - Math.max(card1.left, card2.left);
+      // Positive overlap = actual overlap, zero = touching, negative = gap
+      // Return true if overlapping OR gap < tolerance
+      return overlap > -tolerance;
+    }
+
+    // Check if card position is within container bounds
+    function isWithinBounds(eventX, offset, containerWidth) {
+      const cardCenterX = eventX + offset;
+      const cardLeft = cardCenterX - CARD_WIDTH / 2;
+      const cardRight = cardCenterX + CARD_WIDTH / 2;
+      const margin = 20; // Keep cards 20px from edge (reduced to allow more placement room)
+
+      return cardLeft >= margin && cardRight <= containerWidth - margin;
+    }
+
+    // Check if connector line stays within card bounds (5px buffer from edges)
+    function connectorWithinCardBounds(eventX, offset) {
+      const cardCenterX = eventX + offset;
+      const cardLeft = cardCenterX - CARD_WIDTH / 2;
+      const cardRight = cardCenterX + CARD_WIDTH / 2;
+      const minDistanceFromEdge = 5;
+
+      return (eventX >= cardLeft + minDistanceFromEdge && eventX <= cardRight - minDistanceFromEdge);
+    }
+
+    // Find minimum shift to clear overlaps with existing cards on a tier
+    function findMinimumShiftToClearOverlap(eventX, layer, occupiedLayers, containerWidth, maxShift = 100) {
+      const existingCards = occupiedLayers[layer] || [];
+      if (existingCards.length === 0) return 0; // No cards, no shift needed
+
+      // Try progressively larger shifts in both directions
+      const shiftIncrements = [0, 10, -10, 20, -20, 30, -30, 40, -40, 50, -50, 60, -60, 70, -70, 80, -80, 90, -90, 100, -100, 120, -120, 140, -140, 160, -160, 180, -180, 200, -200];
+
+      for (const shift of shiftIncrements) {
+        if (Math.abs(shift) > maxShift) continue;
+
+        const cardCenterX = eventX + shift;
+        const cardLeft = cardCenterX - CARD_WIDTH / 2;
+        const cardRight = cardCenterX + CARD_WIDTH / 2;
+        const proposedCard = { left: cardLeft, right: cardRight };
+
+        // Check if this shift clears all overlaps
+        let hasOverlap = false;
+        for (const card of existingCards) {
+          if (cardsOverlap(proposedCard, card, MIN_GAP)) {
+            hasOverlap = true;
+            break;
+          }
+        }
+
+        // Check bounds and connector position
+        if (!hasOverlap &&
+            isWithinBounds(eventX, shift, containerWidth) &&
+            connectorWithinCardBounds(eventX, shift)) {
+          return shift;
+        }
+      }
+
+      return null; // No valid small shift found
+    }
+
+    // Find gaps between existing cards on a layer
+    function findGaps(existingCards, eventX, cardWidth) {
+      if (existingCards.length === 0) {
+        return []; // No cards = no gaps to compute
+      }
+
+      // Sort cards by centerX position
+      const sorted = [...existingCards].sort((a, b) => a.centerX - b.centerX);
+      const gaps = [];
+      const halfWidth = cardWidth / 2;
+
+      // Gap to the left of leftmost card
+      const leftmostCard = sorted[0];
+      gaps.push({
+        type: 'left-edge',
+        end: leftmostCard.left,
+        distanceFromEvent: Math.abs(eventX - (leftmostCard.left - MIN_GAP - halfWidth))
+      });
+
+      // Gaps between consecutive cards
+      for (let i = 0; i < sorted.length - 1; i++) {
+        const gapStart = sorted[i].right;
+        const gapEnd = sorted[i + 1].left;
+        const gapWidth = gapEnd - gapStart;
+
+        if (gapWidth >= cardWidth + MIN_GAP * 2) {
+          const gapCenter = (gapStart + gapEnd) / 2;
+          gaps.push({
+            type: 'between',
+            start: gapStart,
+            end: gapEnd,
+            width: gapWidth,
+            center: gapCenter,
+            distanceFromEvent: Math.abs(eventX - gapCenter)
+          });
+        }
+      }
+
+      // Gap to the right of rightmost card
+      const rightmostCard = sorted[sorted.length - 1];
+      gaps.push({
+        type: 'right-edge',
+        start: rightmostCard.right,
+        distanceFromEvent: Math.abs(eventX - (rightmostCard.right + MIN_GAP + halfWidth))
+      });
+
+      // Sort gaps by distance from eventX (prefer closer = smaller offset)
+      return gaps.sort((a, b) => a.distanceFromEvent - b.distanceFromEvent);
+    }
+
+    // Compute offset needed to place card in a gap
+    function computeOffsetForGap(gap, eventX, cardWidth) {
+      const halfWidth = cardWidth / 2;
+      let targetOffset;
+
+      if (gap.type === 'between') {
+        // Place card as close as possible to eventX while staying in gap
+        // (prefer minimal offset over centering in gap)
+        const gapLeft = gap.start + MIN_GAP;
+        const gapRight = gap.end - MIN_GAP;
+        const idealCardLeft = eventX - halfWidth;
+        const idealCardRight = eventX + halfWidth;
+
+        if (idealCardLeft >= gapLeft && idealCardRight <= gapRight) {
+          // Card fits at natural position within gap
+          targetOffset = 0;
+        } else if (eventX < gap.center) {
+          // Event is left of gap center - place at left edge of gap
+          const cardCenterX = gapLeft + halfWidth;
+          targetOffset = cardCenterX - eventX;
+        } else {
+          // Event is right of gap center - place at right edge of gap
+          const cardCenterX = gapRight - halfWidth;
+          targetOffset = cardCenterX - eventX;
+        }
+      } else if (gap.type === 'left-edge') {
+        // Place card with right edge at gap.end - MIN_GAP
+        const cardCenterX = gap.end - MIN_GAP - halfWidth;
+        targetOffset = cardCenterX - eventX;
+      } else if (gap.type === 'right-edge') {
+        // Place card with left edge at gap.start + MIN_GAP
+        const cardCenterX = gap.start + MIN_GAP + halfWidth;
+        targetOffset = cardCenterX - eventX;
+      } else {
+        return 0;
+      }
+
+      // Constrain offset to MAX_OFFSET to prevent excessive shifting
+      if (Math.abs(targetOffset) > MAX_OFFSET) {
+        return null; // Gap requires too much offset, skip it
+      }
+
+      return targetOffset;
+    }
+
+    // Find smallest valid offset for a card on a specific layer
+    function findSmallestValidOffset(eventX, layer, occupiedLayers, containerWidth) {
+      const existingCards = occupiedLayers[layer] || [];
+
+      // STEP 1: Try offset = 0 first (preferred - straight line)
+      const proposedLeft = eventX - CARD_WIDTH / 2;
+      const proposedRight = eventX + CARD_WIDTH / 2;
+      const proposedCard = { left: proposedLeft, right: proposedRight };
+
+      // Check if offset=0 works
+      let hasOverlap = false;
+      for (const card of existingCards) {
+        if (cardsOverlap(proposedCard, card, MIN_GAP)) {
+          hasOverlap = true;
+          break;
+        }
+      }
+
+      if (!hasOverlap && isWithinBounds(eventX, 0, containerWidth)) {
+        return 0;
+      }
+
+      // STEP 2: Find gaps and try placing card in each gap
+      const gaps = findGaps(existingCards, eventX, CARD_WIDTH);
+
+      for (const gap of gaps) {
+        const offset = computeOffsetForGap(gap, eventX, CARD_WIDTH);
+
+        // Skip gap if offset exceeds MAX_OFFSET
+        if (offset === null) continue;
+
+        // Verify this offset doesn't overlap with any existing cards
+        const testLeft = (eventX + offset) - CARD_WIDTH / 2;
+        const testRight = (eventX + offset) + CARD_WIDTH / 2;
+        const testCard = { left: testLeft, right: testRight };
+
+        let testOverlap = false;
+        for (const card of existingCards) {
+          if (cardsOverlap(testCard, card, MIN_GAP)) {
+            testOverlap = true;
+            break;
+          }
+        }
+
+        if (!testOverlap && isWithinBounds(eventX, offset, containerWidth)) {
+          return offset;
+        }
+      }
+
+      // STEP 3: No valid position found
+      return null;
+    }
+
+    // Calculate cost of a placement solution
+    // Prefer batch redistribution (spreading load) over large single-card offsets
+    function calculatePlacementCost(placements) {
+      let cost = 0;
+      let movedCards = 0;
+      let maxOffset = 0;
+
+      for (const p of placements) {
+        const deviation = Math.abs(p.offset);
+        if (deviation > 0) {
+          movedCards++;
+          maxOffset = Math.max(maxOffset, deviation);
+        }
+        // Square the deviation to penalize larger shifts
+        cost += deviation * deviation;
+      }
+
+      // Bonus for batch redistribution: strongly prefer spreading small offsets across multiple cards
+      // This encourages cards to shift together rather than using L-shaped connectors
+      if (movedCards > 1) {
+        // Give 60% cost reduction for distributing load across multiple cards
+        cost *= 0.4;
+      }
+
+      // Penalty for very large single-card offsets (L-shaped connectors)
+      if (movedCards === 1 && maxOffset > 100) {
+        cost *= 2.0;  // Double cost for L-shaped connectors
+      }
+
+      // Strong penalty for zero movement (encourage spreading out when possible)
+      // This makes batch redistribution with small shifts preferred over no movement
+      if (movedCards === 0) {
+        cost += 500;  // Large fixed cost to make batch redistribution strongly preferred
+      }
+
+      return cost;
+    }
+
+    // Check if a placement solution is valid (no overlaps, within bounds, respects chronology)
+    function isValidPlacement(placements, containerWidth, margin) {
+      // Check each placement individually
+      for (const placement of placements) {
+        const cardLeft = placement.finalX - CARD_WIDTH / 2;
+        const cardRight = placement.finalX + CARD_WIDTH / 2;
+
+        // Check container bounds
+        if (cardLeft < margin || cardRight > containerWidth - margin) {
+          return false;
+        }
+      }
+
+      // Check for overlaps between all pairs
+      for (let i = 0; i < placements.length; i++) {
+        for (let j = i + 1; j < placements.length; j++) {
+          const p1 = placements[i];
+          const p2 = placements[j];
+          const card1 = { left: p1.finalX - CARD_WIDTH/2, right: p1.finalX + CARD_WIDTH/2 };
+          const card2 = { left: p2.finalX - CARD_WIDTH/2, right: p2.finalX + CARD_WIDTH/2 };
+
+          if (cardsOverlap(card1, card2, MIN_GAP)) {
+            return false;
+          }
+        }
+      }
+
+      return true;
+    }
+
+    // Find optimal batch redistribution using multiple strategies
+    function findOptimalRedistribution(newCardX, existingCards, containerWidth, flexZoneRadius) {
+      const margin = 10; // Reduced margin - cards can be closer to edges
+      const SMALL_SHIFT_MAX = 60;  // Small shifts: 0-60px
+      const LARGE_SHIFT_MAX = 200; // Large shifts: beyond flex zone, before L-shaped
+
+      let bestSolution = null;
+      let lowestCost = Infinity;
+
+      // Strategy 1: New card only - try incremental offsets (small shifts)
+      for (let offset = 0; Math.abs(offset) <= SMALL_SHIFT_MAX; offset = offset <= 0 ? -offset + 10 : -offset) {
+        const placements = [
+          { naturalX: newCardX, offset: offset, finalX: newCardX + offset, isNew: true },
+          ...existingCards.map(c => ({ naturalX: c.eventX, offset: 0, finalX: c.centerX, isNew: false }))
+        ];
+
+        if (isValidPlacement(placements, containerWidth, margin)) {
+          const cost = calculatePlacementCost(placements);
+          if (cost < lowestCost) {
+            lowestCost = cost;
+            bestSolution = { placements, strategy: 'new-card-small' };
+          }
+        }
+      }
+
+      // Strategy 2: Batch redistribution - shift nearby existing cards to make room
+      // Always try this strategy (competes with Strategy 1) - cost function picks best solution
+      if (existingCards.length > 0) {
+        const BATCH_SHIFT_RANGE = 80; // Max shift per existing card (increased for aggressive redistribution)
+        const BATCH_SHIFT_STEP = 10;  // Step size for shifts
+
+        // Find cards that might conflict (within potential placement zone)
+        const potentialConflictCards = existingCards.filter(c => {
+          const distance = Math.abs(c.centerX - newCardX);
+          return distance < (CARD_WIDTH + flexZoneRadius);
+        });
+
+        // Only try batch redistribution if we have a small number of nearby cards (performance)
+        if (potentialConflictCards.length > 0 && potentialConflictCards.length <= 8) {
+          // Try shifting nearby cards left or right
+          for (let batchOffset = -BATCH_SHIFT_RANGE; batchOffset <= BATCH_SHIFT_RANGE; batchOffset += BATCH_SHIFT_STEP) {
+            if (batchOffset === 0) continue; // Skip no-shift case
+
+            // Try placing new card with minimal offset while shifting existing cards
+            for (let newOffset = -SMALL_SHIFT_MAX; newOffset <= SMALL_SHIFT_MAX; newOffset += 10) {
+              const placements = [
+                { naturalX: newCardX, offset: newOffset, finalX: newCardX + newOffset, isNew: true }
+              ];
+
+              // Apply batch shift to nearby cards, keep others fixed
+              for (const card of existingCards) {
+                const isNearby = potentialConflictCards.includes(card);
+                const cardOffset = isNearby ? batchOffset : 0;
+                placements.push({
+                  naturalX: card.eventX,
+                  offset: cardOffset,
+                  finalX: card.centerX + cardOffset,
+                  isNew: false,
+                  card: card
+                });
+              }
+
+              if (isValidPlacement(placements, containerWidth, margin)) {
+                const cost = calculatePlacementCost(placements);
+                if (cost < lowestCost) {
+                  lowestCost = cost;
+                  bestSolution = { placements, strategy: 'batch-redistribution' };
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Strategy 3: New card only - large shifts (competes with other strategies)
+      // Only use if batch redistribution didn't find a solution (large shifts are less desirable)
+      if (!bestSolution) {
+        for (let offset = SMALL_SHIFT_MAX + 10; Math.abs(offset) <= LARGE_SHIFT_MAX; offset = offset <= 0 ? -offset + 10 : -offset) {
+          const placements = [
+            { naturalX: newCardX, offset: offset, finalX: newCardX + offset, isNew: true },
+            ...existingCards.map(c => ({ naturalX: c.eventX, offset: 0, finalX: c.centerX, isNew: false }))
+          ];
+
+          if (isValidPlacement(placements, containerWidth, margin)) {
+            const cost = calculatePlacementCost(placements);
+            if (cost < lowestCost) {
+              lowestCost = cost;
+              bestSolution = { placements, strategy: 'new-card-large' };
+            }
+          }
+        }
+      }
+
+      return bestSolution;
+    }
+
+    // Try to place card on tier using batch redistribution strategies
+    // Returns { success: true, offset: X, adjustments: [...] } if placement found
+    function tryAddCardToTier(newCardX, layer, occupiedLayers, containerWidth) {
+      const existingCards = occupiedLayers[layer] || [];
+      const FLEX_ZONE_RADIUS = CARD_WIDTH * 0.4; // 112px for 280px card
+
+      // Try to find optimal placement using multiple strategies
+      const solution = findOptimalRedistribution(newCardX, existingCards, containerWidth, FLEX_ZONE_RADIUS);
+
+      if (solution) {
+        // Extract new card's placement
+        const newCardPlacement = solution.placements.find(p => p.isNew);
+
+        // Extract adjustments for existing cards (if any)
+        const adjustments = solution.placements
+          .filter(p => !p.isNew && p.offset !== 0)
+          .map(p => ({
+            card: p.card,
+            newCenterX: p.finalX,
+            offset: p.offset
+          }));
+
+        console.log(`[${layer}] Card placed using strategy '${solution.strategy}' at X=${newCardPlacement.finalX.toFixed(0)}, offset=${newCardPlacement.offset.toFixed(0)}${adjustments.length > 0 ? ` with ${adjustments.length} card adjustments` : ''}`);
+        console.log(`   📅 Event: naturalX=${newCardX.toFixed(0)}`);
+
+        return {
+          success: true,
+          offset: newCardPlacement.offset,
+          adjustments: adjustments
+        };
+      }
+
+      // No valid placement found on this tier
+      console.log(`[${layer}] No valid placement found for card at X=${newCardX.toFixed(0)}, trying next tier`);
+      return { success: false };
+    }
+
+    // Find best position (layer + offset) for card
+    function findBestPosition(eventX, preferAbove, occupiedLayers, containerWidth, useTier3 = false) {
+      // Include Tier 3 only for "all" view (when useTier3 is true)
+      const tryOrder = preferAbove
+        ? (useTier3 ? ['above1', 'above2', 'above3', 'below1', 'below2', 'below3'] : ['above1', 'above2', 'below1', 'below2'])
+        : (useTier3 ? ['below1', 'below2', 'below3', 'above1', 'above2', 'above3'] : ['below1', 'below2', 'above1', 'above2']);
+
+      // Try each tier - use batch redistribution to validate
+      for (const layer of tryOrder) {
+        const result = tryAddCardToTier(eventX, layer, occupiedLayers, containerWidth);
+        if (result.success) {
+          return { layer, offset: result.offset, adjustments: result.adjustments || [] };
+        }
+      }
+
+      // Fallback: use preferred layer with offset=0 (should rarely happen)
+      console.warn(`⚠️ FALLBACK TRIGGERED! No tier could fit card at X=${eventX.toFixed(0)}, forcing to ${tryOrder[0]} with offset=0`);
+      return {
+        layer: tryOrder[0],
+        offset: 0,
+        adjustments: []
+      };
+    }
+
     // Tooltip functions
     function showTooltip(event, data, mouseEvent) {
       const tooltip = d3.select('#tooltip');
@@ -1657,27 +1986,14 @@
       const container = d3.select('#timeline');
       container.html(''); // Clear
 
-      // STEP 1: Get SINGLE-DAY events for current page
-      const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
+      // For event-based pagination, get the events for current page directly
+      // (don't use date-range filtering which would include wrong events)
+      const sortedEvents = [...events].sort((a, b) => a.parsedDate - b.parsedDate);
       const startIdx = currentViewportIndex * eventsPerViewport;
-      const endIdx = Math.min(startIdx + eventsPerViewport, sortedSingleDay.length);
-      const pageSingleDayEvents = sortedSingleDay.slice(startIdx, endIdx);
-
-      console.log('🔍 DEBUG: Single-day events for page:', pageSingleDayEvents.length);
-
-      // STEP 2: Get MULTI-DAY events that overlap with viewport date range
-      const overlappingMultiDay = multiDayEvents.filter(e => {
-        const eventStart = e.parsedDate;
-        const eventEnd = e.parsedEndDate;
-        // Include if event overlaps with viewport
-        return (eventStart <= viewportEndDate && eventEnd >= viewportStartDate);
-      });
-
-      console.log('🔍 DEBUG: Overlapping multi-day events:', overlappingMultiDay.length);
-
-      // STEP 3: Combine single-day + overlapping multi-day events
-      const viewportEvents = [...pageSingleDayEvents, ...overlappingMultiDay];
-      console.log('🔍 DEBUG: Total viewport events:', viewportEvents.length, '(', pageSingleDayEvents.length, 'single-day +', overlappingMultiDay.length, 'multi-day)');
+      const endIdx = Math.min(startIdx + eventsPerViewport, sortedEvents.length);
+      const viewportEvents = sortedEvents.slice(startIdx, endIdx);
+      console.log('🔍 DEBUG: viewportEvents (after pagination):', viewportEvents.length, 'events');
+      console.log('🔍 DEBUG: Pagination - startIdx:', startIdx, 'endIdx:', endIdx);
 
       if (viewportEvents.length === 0) {
         console.log('⚠️ DEBUG: No events in viewport! Showing empty message.');
@@ -1719,16 +2035,16 @@
         maxDate = viewportEndDate;
       }
 
-      // Dimensions - use 97% of container width with optimized margins
+      // Dimensions - use 95% of container width (fully responsive)
       // Use taller height for "all" view to accommodate Tier 3
       const containerWidth = container.node().clientWidth;
-      const width = containerWidth * 0.97;
+      const width = containerWidth * 0.95;
       const height = currentView === 'all' ? 1400 : 800;
-      const minMargin = CARD_WIDTH / 2 + 5; // 140 + 5 = 145px (5px clearance from edges)
+      const minMargin = CARD_WIDTH / 2 + 20; // 140 + 20 = 160px (prevents card cutoff)
       const margin = {
         top: 80,
-        right: Math.max(containerWidth * 0.015, minMargin),
-        left: Math.max(containerWidth * 0.015, minMargin),
+        right: Math.max(containerWidth * 0.025, minMargin),
+        left: Math.max(containerWidth * 0.025, minMargin),
         bottom: 80
       };
       const timelineY = height / 2;
@@ -1917,10 +2233,10 @@
 
       // Calculate constraints for a card on a specific tier
       function calculateConstraints(card, tier, placedCards) {
-        // Start with timeline margins (same boundaries as timeline axis)
-        // Cards respect same margins as timeline axis for visual consistency
-        let leftCenterBoundary = margin.left;  // Align with timeline start
-        let rightCenterBoundary = width - margin.right;  // Align with timeline end
+        // Start with canvas boundaries (just prevent card from going off screen)
+        // These are minimal - only prevent physical cutoff, not visual margin
+        let leftCenterBoundary = CARD_WIDTH/2;  // Left edge of card at 0px
+        let rightCenterBoundary = width - CARD_WIDTH/2;  // Right edge of card at width
 
         // Find constraints from already-placed cards on same tier
         const cardsOnTier = placedCards.filter(c => c.assignedTier === tier);
@@ -2010,9 +2326,9 @@
         // Get anchor cards on this tier as fixed constraints
         const anchorsOnTier = allPlacedCards.filter(c => c.assignedTier === tier && c.isAnchor);
 
-        // Start with timeline margins (same boundaries as timeline axis)
-        let leftBoundary = margin.left; // Align with timeline start
-        let rightBoundary = width - margin.right; // Align with timeline end
+        // Canvas boundaries (for card centers)
+        let leftBoundary = CARD_WIDTH/2; // Left edge of canvas
+        let rightBoundary = width - CARD_WIDTH/2; // Right edge of canvas
 
         // If there's a left anchor on this tier, constrain left boundary
         const leftAnchor = anchorsOnTier.find(a => a.finalX < cards[0].x);
@@ -2110,64 +2426,14 @@
           // Calculate group's natural span
           const naturalStart = cards[0].x;
           const naturalEnd = cards[n - 1].x;
+
+          // Center the compact group around the natural centroid
           const naturalCentroid = (naturalStart + naturalEnd) / 2;
+          const redistributedStart = naturalCentroid - redistributedSpan / 2;
 
-          // BOUNDARY-AWARE: Calculate start position that keeps all cards in bounds
-          let redistributedStart = naturalCentroid - redistributedSpan / 2;
+          console.log(`      Natural span: ${naturalStart.toFixed(0)}-${naturalEnd.toFixed(0)}, redistributed around ${naturalCentroid.toFixed(0)}`);
 
-          // Clamp to ensure all cards stay within boundaries
-          const minStart = leftBoundary;  // Leftmost card can't go left of this
-          const maxStart = rightBoundary - redistributedSpan;  // Rightmost card can't go right
-
-          if (redistributedStart < minStart) {
-            console.log(`      Clamping redistributedStart from ${redistributedStart.toFixed(0)} to ${minStart.toFixed(0)} (left boundary)`);
-            redistributedStart = minStart;
-          } else if (redistributedStart > maxStart) {
-            console.log(`      Clamping redistributedStart from ${redistributedStart.toFixed(0)} to ${maxStart.toFixed(0)} (right boundary)`);
-            redistributedStart = maxStart;
-          }
-
-          console.log(`      Natural span: ${naturalStart.toFixed(0)}-${naturalEnd.toFixed(0)}, centroid=${naturalCentroid.toFixed(0)}`);
-
-          // Find optimal position within clamped range that minimizes offset
-          // Try to stay close to natural centroid while respecting boundaries
-          let optimalStart = redistributedStart;
-          let minTotalOffset = Infinity;
-
-          // Sample a few positions around redistributedStart
-          const samples = [
-            redistributedStart,
-            Math.max(minStart, redistributedStart - 50),
-            Math.min(maxStart, redistributedStart + 50)
-          ];
-
-          for (const startPos of samples) {
-            let sampleTotalOffset = 0;
-            let valid = true;
-
-            for (let i = 0; i < n; i++) {
-              const pos = startPos + i * centerToCenterSpacing;
-              const card = cards[i];
-              const flexLeft = card.x - FLEX_ZONE;
-              const flexRight = card.x + FLEX_ZONE;
-
-              if (pos < flexLeft || pos > flexRight) {
-                valid = false;
-                break;
-              }
-              sampleTotalOffset += Math.abs(pos - card.x);
-            }
-
-            if (valid && sampleTotalOffset < minTotalOffset) {
-              minTotalOffset = sampleTotalOffset;
-              optimalStart = startPos;
-            }
-          }
-
-          redistributedStart = optimalStart;
-          console.log(`      Optimal start: ${redistributedStart.toFixed(0)} (total offset: ${minTotalOffset.toFixed(0)}px)`);
-
-          // Place cards at optimal positions
+          // Place cards
           let currentPos = redistributedStart;
           for (let i = 0; i < n; i++) {
             const card = cards[i];
@@ -2571,7 +2837,7 @@
               // Highlight connector lines
               svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
                 .classed('highlighted', true)
-                .attr('stroke', getEffectiveColor(event));
+                .attr('stroke', categoryColors[event.category]);
 
               // Highlight timeline dot
               svg.select(`.timeline-dot[data-event-id="${eventId}"]`)
@@ -2594,7 +2860,7 @@
           // Date heading (colored)
           card.append('div')
             .attr('class', 'card-date')
-            .style('color', getEffectiveColor(event))
+            .style('color', categoryColors[event.category])
             .text(d3.timeFormat('%b %d, %Y')(event.parsedDate));
 
           // Event title
@@ -2697,13 +2963,13 @@
             .attr('cx', x)
             .attr('cy', timelineY)
             .attr('r', 10)
-            .attr('fill', getEffectiveColor(event))
+            .attr('fill', categoryColors[event.category])
             .on('click', () => showSidePanel(event))
             .on('mouseenter', function() {
               // Highlight connector lines
               svg.selectAll(`.connector-line[data-event-id="${eventId}"]`)
                 .classed('highlighted', true)
-                .attr('stroke', getEffectiveColor(event));
+                .attr('stroke', categoryColors[event.category]);
 
               // Highlight timeline dot
               d3.select(this).classed('highlighted', true);
@@ -2813,8 +3079,8 @@
       const leftArrow = document.getElementById('nav-arrow-left');
       const rightArrow = document.getElementById('nav-arrow-right');
 
-      // Only show mini-map and navigation for "critical", "overview", "family" (Human Rights), and "wrongful-dismissal" views
-      const showNavigation = (currentView === 'critical' || currentView === 'overview' || currentView === 'family' || currentView === 'wrongful-dismissal');
+      // Only show mini-map and navigation for "critical" and "all" views
+      const showNavigation = (currentView === 'critical' || currentView === 'all');
 
       if (!showNavigation || !fullTimelineStart || !fullTimelineEnd || allFilteredEvents.length === 0) {
         // Hide mini-map and navigation arrows
@@ -2847,56 +3113,25 @@
         const dot = document.createElement('div');
         dot.className = 'mini-map-event';
         dot.style.left = xPos + 'px';
-        dot.style.background = getEffectiveColor(event) || '#999';
+        dot.style.background = categoryColors[event.category] || '#999';
         dot.title = event.text;
 
         // Click to jump to this event
         dot.addEventListener('click', () => {
-          // Check if this is a single-day or multi-day event
-          const isSingleDay = !event.parsedEndDate || event.parsedEndDate.getTime() === event.parsedDate.getTime();
+          // Find which page this event is on
+          const sortedEvents = [...allFilteredEvents].sort((a, b) => a.parsedDate - b.parsedDate);
+          const eventIndex = sortedEvents.findIndex(e => e.id === event.id);
 
-          if (isSingleDay) {
-            // For single-day events: find page based on position in singleDayEvents
-            const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
-            const eventIndex = sortedSingleDay.findIndex(e => e.id === event.id);
+          if (eventIndex >= 0) {
+            // Calculate which page this event is on
+            currentViewportIndex = Math.floor(eventIndex / eventsPerViewport);
 
-            if (eventIndex >= 0) {
-              currentViewportIndex = Math.floor(eventIndex / eventsPerViewport);
-            }
-          } else {
-            // For multi-day events: find first page that overlaps with this event
-            const sortedSingleDay = [...singleDayEvents].sort((a, b) => a.parsedDate - b.parsedDate);
-            const totalPages = Math.ceil(sortedSingleDay.length / eventsPerViewport);
-
-            // Search each page to find first one that overlaps
-            for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
-              const pageStart = pageIdx * eventsPerViewport;
-              const pageEnd = Math.min(pageStart + eventsPerViewport, sortedSingleDay.length);
-              const pageEvents = sortedSingleDay.slice(pageStart, pageEnd);
-
-              if (pageEvents.length > 0) {
-                const pageDates = [];
-                pageEvents.forEach(e => {
-                  pageDates.push(e.parsedDate);
-                  if (e.parsedEndDate) pageDates.push(e.parsedEndDate);
-                });
-                const pageStartDate = d3.timeDay.offset(d3.min(pageDates), -1);
-                const pageEndDate = d3.timeDay.offset(d3.max(pageDates), 1);
-
-                // Check if multi-day event overlaps with this page
-                if (event.parsedDate <= pageEndDate && event.parsedEndDate >= pageStartDate) {
-                  currentViewportIndex = pageIdx;
-                  break;
-                }
-              }
-            }
+            // Update viewport dates for this page
+            updateViewportDates(allFilteredEvents);
+            updateNavigationButtons(allFilteredEvents);
+            renderTimeline(allFilteredEvents);
+            renderMiniMap();
           }
-
-          // Update viewport dates for this page
-          updateViewportDates(allFilteredEvents);
-          updateNavigationButtons(allFilteredEvents);
-          renderTimeline(allFilteredEvents);
-          renderMiniMap();
         });
 
         miniMapTimeline.appendChild(dot);
@@ -2990,7 +3225,7 @@
 
       const categoryBadge = document.getElementById('panel-category');
       categoryBadge.textContent = categoryLabels[event.category];
-      categoryBadge.style.backgroundColor = getEffectiveColor(event);
+      categoryBadge.style.backgroundColor = categoryColors[event.category];
 
       // Set content
       let content = '';
@@ -3060,50 +3295,18 @@
             maxHeight = '1000px'; // Much taller for email readability
           }
 
-          // Check if this is a PDF file - render as button-like container
-          const isPdf = img.file.toLowerCase().endsWith('.pdf');
-
-          if (isPdf) {
-            // Extract filename without extension for button label
-            const filename = img.file.split('/').pop();
-            const nameWithoutExt = filename.replace('.pdf', '');
-            let buttonLabel = nameWithoutExt;
-            if (buttonLabel.includes('-2025')) {
-              buttonLabel = buttonLabel.replace('-2025', '').replace(/-/g, ' ');
-            } else if (buttonLabel.includes('-')) {
-              buttonLabel = buttonLabel.replace(/-/g, ' ');
-            }
-
-            content += `
-              <div class="evidence-image-container">
-                <button
-                  class="pdf-button ${clickClass}"
-                  ${clickAttr}
-                  style="padding: 12px 16px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 14px; color: var(--text-primary); transition: all 0.2s; display: flex; align-items: center; gap: 8px;"
-                  onmouseover="this.style.background='var(--btn-hover-bg)'; this.style.borderColor='var(--border-hover)';"
-                  onmouseout="this.style.background='var(--bg-secondary)'; this.style.borderColor='var(--border-color)';"
-                >
-                  <span style="font-size: 16px;">📄</span>
-                  <span>${buttonLabel}</span>
-                </button>
-                ${img.caption ? `<p class="evidence-caption">${img.caption}</p>` : ''}
-              </div>
-            `;
-          } else {
-            // Regular image rendering
-            content += `
-              <div class="evidence-image-container">
-                <img
-                  src="${img.file}"
-                  alt="${img.caption || 'Evidence'}"
-                  class="evidence-image ${clickClass}"
-                  style="max-width: ${maxWidth}; max-height: ${maxHeight};"
-                  ${clickAttr}
-                />
-                ${img.caption ? `<p class="evidence-caption">${img.caption}</p>` : ''}
-              </div>
-            `;
-          }
+          content += `
+            <div class="evidence-image-container">
+              <img
+                src="${img.file}"
+                alt="${img.caption || 'Evidence'}"
+                class="evidence-image ${clickClass}"
+                style="max-width: ${maxWidth}; max-height: ${maxHeight};"
+                ${clickAttr}
+              />
+              ${img.caption ? `<p class="evidence-caption">${img.caption}</p>` : ''}
+            </div>
+          `;
         });
 
         content += `</div>`;
@@ -3120,13 +3323,12 @@
 
       document.getElementById('panel-content').innerHTML = content;
 
-      // Add event listeners to clickable items (images, buttons, etc)
+      // Add event listeners to clickable images
       if (event.evidenceImages && event.evidenceImages.length > 0) {
         setTimeout(() => {
-          // Handle all clickable elements
-          const clickableElements = document.querySelectorAll('[data-img-index]');
-          clickableElements.forEach(element => {
-            element.addEventListener('click', function() {
+          const clickableImages = document.querySelectorAll('.evidence-image.clickable');
+          clickableImages.forEach(img => {
+            img.addEventListener('click', function() {
               const index = parseInt(this.getAttribute('data-img-index'));
               const imgData = event.evidenceImages[index];
               showImageModal(imgData);
@@ -3179,14 +3381,18 @@
         `;
       }
 
-      // Show image modal (no shift needed - modal is centered)
+      // Shift main panel to the left and show image modal
+      sidePanel.classList.add('shifted');
       imageModal.classList.add('open');
     }
 
     // Hide image modal
     function hideImageModal() {
       const imageModal = document.getElementById('image-modal');
+      const sidePanel = document.getElementById('side-panel');
+
       imageModal.classList.remove('open');
+      sidePanel.classList.remove('shifted');
     }
 
     // Hide side panel
@@ -3249,3 +3455,4 @@
   </script>
 </body>
 </html>
+<\!-- Last updated: 2025-11-12 20:58:29 -->

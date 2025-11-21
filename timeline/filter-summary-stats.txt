@@ -1,0 +1,65 @@
+TIMELINE FILTER ALLOCATION - FINAL STATISTICS
+==============================================
+
+DOCUMENTS CREATED:
+1. TIMELINE-FILTER-ALLOCATION-PLAN.md (957 lines, 48KB)
+   - Complete comprehensive plan
+   - 7 sections with detailed allocation matrices
+   - Implementation checklist
+   - Event-by-event rationale
+
+2. FILTER-ALLOCATION-SUMMARY.md (172 lines, 6.7KB)
+   - Executive summary
+   - Quick reference
+   - Settlement alignment
+   - Implementation priorities
+
+3. FILTER-REALLOCATION-VISUAL.md (388 lines)
+   - Before/After visual comparison
+   - Filter purpose matrix
+   - Smoking gun distribution
+   - Success metrics
+
+CURRENT STATE (ANALYZED):
+- Total events: 70
+- Events with wrongful-dismissal tag: 69 (98.6% - MASSIVE OVERLAP)
+- Events with family tag: 22
+- Events with smoking-gun tag: 20
+- Events with correspondence tag: 11
+- Events with disability tag: 5
+- Events with bad-faith tag: 5
+- Events with ohs tag: 5
+
+TARGET STATE (AFTER IMPLEMENTATION):
+- overview: 15-20 events
+- family-status-discrimination: 25-30 events
+- disability-discrimination: 12-15 events
+- just-cause-failure: 20-25 events (REDUCED from 69)
+- bad-faith-conduct: 15-20 events
+- post-termination-misconduct: 12 events
+- ohs-retaliation: 8-10 events
+
+EVENTS TO MOVE:
+- From wrongful-dismissal to family-status-discrimination: 21 events
+- From wrongful-dismissal to disability-discrimination: 5 events
+- From wrongful-dismissal to bad-faith-conduct: 5 events
+- From wrongful-dismissal to post-termination-misconduct: 11 events
+- From wrongful-dismissal to ohs-retaliation: 4 events
+- Remaining on just-cause-failure (renamed): 20-25 events
+
+TOTAL REDUCTION: 45-50 events removed from wrongful-dismissal
+
+SMOKING GUN ELIMINATION:
+- Remove smoking-gun as standalone filter
+- Integrate 20 smoking guns into respective legal theory filters
+- Distribution: Family (7), Disability (1), Just Cause (3), Bad Faith (2), Post-Term (3), OHS (2)
+
+SETTLEMENT ALIGNMENT:
+- Family Status Discrimination: $25k-$40k (non-taxable, strongest)
+- Disability Discrimination: $25k-$50k (non-taxable, strong secondary)
+- Just Cause Failure + Bad Faith: $15k-$35k (foundation + Wallace)
+- Post-Termination Misconduct: +$10k-$15k (punitive)
+- OHS Retaliation: Pattern evidence (supports bad faith)
+TOTAL RANGE: $50k-$75k (most likely $55k-$70k)
+
+ANALYSIS COMPLETE: November 21, 2025

@@ -1,7 +1,6 @@
 // Timeline Event Data for Wrongful Dismissal Case
 // Categories: family (red), ohs (orange), disability (yellow), termination (blue), competence (gray)
-// Post-Termination: correspondence-danielle (green), correspondence-carol (purple), correspondence-michelle (pink)
-// NOTE: All correspondence events use tag 'post-termination-misconduct' for filtering
+// Correspondence: correspondence-danielle (green), correspondence-carol (purple), correspondence-michelle (pink)
 
 const timelineEvents = [
   // January 2024 - Employment Begins
@@ -12,7 +11,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family', 'wrongful-dismissal'],
     description: 'During first interview for Electrical Technician position, employee told boss (John): "Family means everything to me, this is a way to provide for my family." This statement established from day one that family was employee\'s top priority and primary motivation for employment. Boss knew about family obligations before even hiring employee, yet later disciplined and terminated employee for those same family obligations.',
     evidence: [
       'Employee testimony about first interview conversation',
@@ -49,11 +48,11 @@ const timelineEvents = [
   {
     id: 2,
     timestamp: '2024-01-15',
-    text: '⭐ ADHD Disclosed (Pre-Employment)',
+    text: 'ADHD Disclosed (Pre-Employment)',
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'disability-discrimination'],
+    tags: ['disability', 'wrongful-dismissal'],
     description: 'Pre-employment drug test showed amphetamine-based ADHD medication. Employee provided doctor\'s note explaining medication. Boss (John) acknowledged he has ADHD himself and told employee he "understood the struggles." NO accommodations offered from day one.',
     evidence: [
       'Drug test records (employer has)',
@@ -81,7 +80,7 @@ const timelineEvents = [
     category: 'competence',
     type: 'range',
     endDate: '2024-07-07',
-    tags: ['critical', 'ohs'],
+    tags: ['critical'],
     description: 'Processing tank stand not raising smoothly. Management assumed single-acting hydraulic system, spent 4-7 days troubleshooting (multiple specialist visits, VP personally involved). Employee suggested double-acting system with wrong flow regulator part. Boss ignored suggestion. Eventually called head office - employee was RIGHT. System was double-acting, wrong part installed. Boss explained solution to team without crediting employee. Employee realized "I could not count on management" and started speaking up more proactively about technical and safety issues.',
     evidence: [
       'Work orders/project records',
@@ -103,7 +102,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['disability-discrimination'],
+    tags: ['wrongful-dismissal'],
     description: 'First documented timecard discipline - written warning for not filling out timecard (Write-Up #2, date estimated as early January 2025). Timing: After baby born (Oct 9, 2024), after hydraulic troubleshooting incident where employee was proven right. Boss begins building paper trail after being shown up on technical issue. About 6 weeks after return to normal work from new parent obligations. Note: Employer\'s timecard system was fundamentally broken (cannot submit during work hours, automatic lockout after 3 days, boss himself struggled with it, new employees consistently had problems).',
     evidence: [
       'Write-up document (awaiting from employer)',
@@ -119,11 +118,11 @@ const timelineEvents = [
   {
     id: 78,
     timestamp: '2025-01-08',
-    text: '⭐ Boss\'s Field Hand Wage Theft Intimidation Story',
+    text: 'Boss\'s Field Hand Wage Theft Intimidation Story',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['bad-faith-conduct'],
+    tags: ['bad-faith', 'wrongful-dismissal'],
     description: 'During discussions about employee\'s timecard issues (likely around Write-Up #2 or timecard discipline meetings), boss told intimidation story about previous field hand employee: Field hand repeatedly forgot to submit timecards. Boss gave ultimatum: (1) Admit you forgot timecard → Get fired immediately, OR (2) Don\'t submit timecard → Don\'t get paid for hours worked. FIELD HAND CHOSE TO WORK WITHOUT PAY to avoid termination. Boss told this story to intimidate employee about timecard compliance consequences. CRITICAL: This is WAGE THEFT - Alberta Employment Standards Code requires employers pay for all hours worked, regardless of timecard submission. Boss bragged about illegal conduct (forcing employee to forfeit wages) as intimidation tactic. Story part of broader pattern: Boss threatened employee with termination 10+ times throughout employment, creating coercive environment where employee signed write-ups under duress.',
     evidence: [
       'Employee testimony (heard story directly from boss)',
@@ -145,8 +144,8 @@ const timelineEvents = [
     category: 'ohs',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'ohs', 'wrongful-dismissal', 'bad-faith-conduct'],
-    description: 'Employee raised legitimate PPE concerns at safety meeting: debris flying into eyes despite safety glasses while working inside 10+ year old processing tanks (high-pressure washing, sanding rust, chemical residue). Requested full face mask. Employer refused - claimed MSDS showed chemicals not harmful. Employee rebutted: "Regardless of MSDS, debris flying into our eyes. Tanks not 100% clean. Just because MSDS says safe doesn\'t mean it is." Told safety manager "you don\'t really care about us." Safety manager got upset. Employee SENT HOME from safety meeting for being "too passionate about safety." NO formal write-up, but removed from safety discussion for advocating for worker protection.\n\n📎 CROSS-REFERENCES:\n• OHS Retaliation: Sent home from safety meeting for raising legitimate PPE concerns - retaliation for protected safety advocacy\n• Bad Faith Conduct: Public humiliation - sent home in front of coworkers for being \'too passionate about safety\' - intimidation tactic\n• Just Cause Failure: Context for Write-Up #1 - pattern of retaliation for competence/advocacy begins here (if first write-up invalid, entire progressive discipline collapses)',
+    tags: ['critical', 'ohs', 'wrongful-dismissal'],
+    description: 'Employee raised legitimate PPE concerns at safety meeting: debris flying into eyes despite safety glasses while working inside 10+ year old processing tanks (high-pressure washing, sanding rust, chemical residue). Requested full face mask. Employer refused - claimed MSDS showed chemicals not harmful. Employee rebutted: "Regardless of MSDS, debris flying into our eyes. Tanks not 100% clean. Just because MSDS says safe doesn\'t mean it is." Told safety manager "you don\'t really care about us." Safety manager got upset. Employee SENT HOME from safety meeting for being "too passionate about safety." NO formal write-up, but removed from safety discussion for advocating for worker protection.',
     evidence: [
       'Any safety meeting minutes (if documented)',
       'Safety Culture app submissions by employee',
@@ -168,7 +167,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family', 'wrongful-dismissal'],
     description: 'Employee\'s daughter born October 9, 2024. Child born into family where employee already told employer (first interview) that "family means everything to me." This marks beginning of childcare-related lateness and absences. Child too young to be admitted to daycare (legal/policy barrier, not choice).',
     evidence: [
       'Birth certificate',
@@ -187,7 +186,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-07-20',
-    tags: ['critical', 'smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'smoking-gun', 'family', 'wrongful-dismissal'],
     description: 'Around the time baby was born (October 2024), boss (John) told employee: "Being late is okay. Just let me know in advance" and "Taking days off is okay. Just let me know in advance." This was VERBAL ONLY (no written policy). Accommodation lasted 9 MONTHS (Oct 2024 - July 20, 2025). Employee complied 100% - texted boss every single time before/during lateness (13+ documented notifications), never failed to notify, made up time when possible. Employer explicitly deemed childcare-related lateness "okay" with advance notice. ACCOMMODATION WORKED: No undue hardship for 9 months, no business disruption, employee provided consistent notice. Accommodation ended July 20, 2025 (turning point) when employee refused Sunday midnight work to care for baby. Boss withdrew accommodation as PUNISHMENT for asserting family boundary.',
     evidence: [
       'Employee testimony (boss\'s direct statement)',
@@ -209,11 +208,11 @@ const timelineEvents = [
   {
     id: 9,
     timestamp: '2025-02-18',
-    text: '⭐ Sleep Apnea Diagnosed - Second Disability Disclosed',
+    text: 'Sleep Apnea Diagnosed - Second Disability Disclosed',
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'disability', 'disability-discrimination'],
+    tags: ['critical', 'disability', 'wrongful-dismissal'],
     description: 'Sleep study results: MODERATE sleep apnea diagnosed. Employee told boss and provided doctor\'s letter dated Feb 18, 2025. Boss (John) has sleep apnea himself - employee discussed condition with him. CPAP machine prescribed and purchased. NO accommodations offered (no flexible start time, no grace period, nothing). ALL 13 documented lateness incidents (April-October 2025) occurred AFTER employer knew about diagnosis.',
     evidence: [
       'Sleep study results',
@@ -243,8 +242,8 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'bad-faith-conduct', 'just-cause-failure'],
-    description: 'Employer changed morning meeting start time from 8:00 AM to 7:30 AM (approximate timeframe: March-May 2025, exact date being confirmed with coworkers). This eliminated the 30-minute buffer period (7:30-8:00 AM) and created MORE opportunities for employee to be "late." Timing correlates with text notification system implementation (building paper trail) and accommodation withdrawal pattern leading to Oct 22 termination. Meeting purpose: Daily recaps with tasks already planned in Jira on Wednesdays - earlier start served no clear business purpose. Employee initially late to new 7:30 AM time (early morning difficulty), then started arriving 15 minutes EARLY on June 3, 2025 and maintained early arrival pattern (witness testimony: Ramon noticed "You\'re here early!").\n\n📎 CROSS-REFERENCES:\n• Family Status: Eliminated 30-minute buffer for childcare drop-off, created MORE discipline opportunities during peak family obligations period\n• Just Cause Failure: Pretextual system manipulation - no business justification for change, designed to create discipline opportunities\n• Bad Faith Conduct: Timing suspicious (after baby born), shows pattern of creating conditions for failure rather than supporting success',
+    tags: ['family', 'bad-faith', 'wrongful-dismissal'],
+    description: 'Employer changed morning meeting start time from 8:00 AM to 7:30 AM (approximate timeframe: March-May 2025, exact date being confirmed with coworkers). This eliminated the 30-minute buffer period (7:30-8:00 AM) and created MORE opportunities for employee to be "late." Timing correlates with text notification system implementation (building paper trail) and accommodation withdrawal pattern leading to Oct 22 termination. Meeting purpose: Daily recaps with tasks already planned in Jira on Wednesdays - earlier start served no clear business purpose. Employee initially late to new 7:30 AM time (early morning difficulty), then started arriving 15 minutes EARLY on June 3, 2025 and maintained early arrival pattern (witness testimony: Ramon noticed "You\'re here early!").',
     evidence: [
       'Email/text announcement of meeting time change (if exists)',
       'Employee testimony about change timing',
@@ -269,7 +268,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Employee texted boss about being late. "Couple of minutes late." Reason not specified but likely childcare-related given pattern (7-month-old baby at home). Employee ALWAYS proactively notified boss when running late. Made up time by working through lunch or staying late.',
     evidence: [
       'Text message to boss (employee has)',
@@ -296,7 +295,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-boss', 'just-cause-failure'],
+    tags: ['lateness-boss', 'wrongful-dismissal'],
     description: 'Boss John missing morning meeting. Pattern of boss unavailability/lateness begins. Shows boss also had attendance issues but was never disciplined. DIFFERENTIAL TREATMENT: Employee disciplined for minor lateness (couple minutes), but boss missing entire meetings without consequences.',
     evidence: ['Text messages showing boss missing meeting'],
     evidenceImages: [
@@ -320,7 +319,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Employee texted boss about being late. "Couple of minutes late." GPS proves actually 3 min late. Texted exactly at start time (7:00 AM) showing last-minute wake difficulty - sleep apnea symptom.',
     evidence: ['Text message to boss', 'GPS location proof showing 3 min late'],
     evidenceImages: [
@@ -348,7 +347,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Employee texted boss about being late. "Couple of minutes late." GPS shows actually 9 min late. Text sent 1 min before leaving home = proactive communication.',
     evidence: ['Text message to boss', 'GPS location proof showing 9 min late'],
     evidenceImages: [
@@ -376,7 +375,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-boss', 'just-cause-failure'],
+    tags: ['lateness-boss', 'wrongful-dismissal'],
     description: 'Boss John late to work. Pattern continues from May 16. DIFFERENTIAL TREATMENT: Employee disciplined for being couple minutes late with proactive communication + GPS proof + making up time. Boss late/missing without consequences. Proves employer holds employee to discriminatory double standard.',
     evidence: ['Text messages about boss lateness'],
     evidenceImages: [
@@ -400,7 +399,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'family-status-discrimination'],
+    tags: ['family', 'wrongful-dismissal'],
     description: 'Employee texted boss about taking extra 30 minutes at lunch to take child to medical appointment. Attempted to schedule during lunch to minimize work disruption. Time likely made up same day (employee\'s standard practice).',
     evidence: [
       'Text message to boss',
@@ -426,7 +425,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family', 'wrongful-dismissal'],
     description: 'Employee\'s daughter (Kinza) sick night before. Employee texted boss: "Hey John, Kinza wasn\'t feeling too well last night. Can I take the morning off? I\'ll try to make it back for lunch." Boss responded: "Yes you\'re good. Thanks for letting me know" (APPROVED). Daughter still sick, employee could not return for afternoon. Emergency childcare for sick child - cannot leave sick child unattended. CRITICAL: This absence later appeared on Write-Up #3 as part of the progressive discipline pattern. Employer APPROVED the accommodation in June, but then later used it as justification for discipline - proving the write-ups were pretextual.',
     evidence: [
       'Text message exchange (HAVE THIS - CRITICAL)',
@@ -454,8 +453,8 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'lateness-employee', 'family-status-discrimination', 'disability-discrimination'],
-    description: 'Employee missed alarm. Texted boss about heading to work. "Less than an hour late" - longest single lateness documented. Likely sleep deprivation from caring for 8-month-old baby (born October 2024). Connection to BOTH sleep apnea (disability) AND childcare sleep disruption (family status).\n\n📎 CROSS-REFERENCES:\n• Disability Discrimination: Sleep apnea symptom (difficulty waking to alarms) - employer knew about diagnosis Feb 18, zero accommodations\n• Family Status Discrimination: Sleep deprivation from infant care (9-month-old baby) combined with disability symptoms',
+    tags: ['disability', 'lateness-employee', 'wrongful-dismissal'],
+    description: 'Employee missed alarm. Texted boss about heading to work. "Less than an hour late" - longest single lateness documented. Likely sleep deprivation from caring for 8-month-old baby (born October 2024). Connection to BOTH sleep apnea (disability) AND childcare sleep disruption (family status).',
     evidence: [
       'Text message to boss',
       'GPS location proof',
@@ -509,7 +508,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-employee', 'family-status-discrimination'],
+    tags: ['lateness-employee', 'wrongful-dismissal'],
     description: 'Employee texted boss about traffic: "Might be a couple mins late." Boss liked message (thumbs up). GPS PROVES EMPLOYEE ARRIVED 10 MIN EARLY. Employee warned about potential lateness as precaution, then made it on time anyway. PROVES good faith over-communication pattern, NOT unreliability.',
     evidence: ['Text message to boss', 'GPS location proof showing 10 min EARLY arrival'],
     evidenceImages: [
@@ -539,7 +538,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'family-status-discrimination'],
+    tags: ['family', 'wrongful-dismissal'],
     description: 'Employee texted boss requesting time off for celebration of life (funeral/memorial service). Family obligation to attend memorial service for deceased person. Boss approved the request.',
     evidence: ['Text message to boss requesting bereavement leave'],
     evidenceImages: [],
@@ -555,7 +554,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-boss', 'just-cause-failure'],
+    tags: ['lateness-boss', 'wrongful-dismissal'],
     description: 'July 10 (SAME DAY as overtime period begins). Boss John missing morning meeting. Pattern continues. IRONY: Employee working 10-hour day starting brutal overtime period, boss can\'t even make it to morning meeting. DIFFERENTIAL TREATMENT: Employee disciplined for being couple minutes late with proactive communication. Boss missing entire meetings without consequences.',
     evidence: ['Text messages about boss missing meeting', 'GPS proof of employee lateness'],
     evidenceImages: [
@@ -584,8 +583,8 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-07-31',
-    tags: ['critical', 'family', 'ohs', 'wrongful-dismissal', 'bad-faith-conduct'],
-    description: '18 CONSECUTIVE DAYS of work with ZERO days off. Includes weekends (Saturdays and Sundays). Daily hours: 8-11.5 hours per day. July 14-28 total: 140.5 hours in 15 days (avg 9.37 hrs/day, many 10-11.5 hr days). Employee paid overtime (time-and-a-half after 8 hrs/day and 44 hrs/week). Normal schedule: Monday-Friday, 7:30 AM - 4:30 PM. Marathon schedule: Monday-Sunday, extended hours. Major project crunch. Employee worked voluntarily to help company meet deadline.\n\n📎 CROSS-REFERENCES:\n• Family Status: Eliminated all family time with 9-month-old baby for 18 days, created conditions for July 20 boundary assertion\n• OHS Retaliation: Fatigue management failure - employer demanded extreme hours then disciplined for exhaustion (July 31 lateness)\n• Bad Faith Conduct: Created the condition (exhaustion) they later disciplined employee for - shows consciousness of wrongdoing\n• Just Cause Failure: Context shows employee working voluntarily to help company meet deadline - undermines \'unreliable\' narrative',
+    tags: ['critical', 'family', 'ohs', 'wrongful-dismissal'],
+    description: '18 CONSECUTIVE DAYS of work with ZERO days off. Includes weekends (Saturdays and Sundays). Daily hours: 8-11.5 hours per day. July 14-28 total: 140.5 hours in 15 days (avg 9.37 hrs/day, many 10-11.5 hr days). Employee paid overtime (time-and-a-half after 8 hrs/day and 44 hrs/week). Normal schedule: Monday-Friday, 7:30 AM - 4:30 PM. Marathon schedule: Monday-Sunday, extended hours. Major project crunch. Employee worked voluntarily to help company meet deadline.',
     evidence: [
       'Timecard records showing 18 consecutive days',
       'Daily hours: July 14-31',
@@ -602,11 +601,11 @@ const timelineEvents = [
   {
     id: 22,
     timestamp: '2025-07-20',
-    text: '⭐ SMOKING GUN: "Family Doesn\'t Matter" Statement',
+    text: 'SMOKING GUN: "Family Doesn\'t Matter" Statement',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family', 'wrongful-dismissal'],
     description: 'DAY 7 of overtime marathon. Sunday evening (~6 PM). Employee already worked late on SUNDAY (voluntary overtime). Employee texted: "Sorry John, I don\'t think I can make it back tonight. I hope you guys finished the primer by 6pm." (Had to go home - feed 9-month-old baby, care for wife, household duties). Boss responded: "Nope, come on back. We are still working. We will probably be here for another five hours." (Demanded employee return at 6 PM to work until 11 PM or midnight = 16+ hour day on day off, after 7 consecutive days). Employee at 8:52 PM: "Oh wow, still? Should I come in now?" Boss: "We are going to have a major talk tomorrow." JULY 21 MORNING MEETING - Boss held the threatened "major talk" meeting with employee. Boss told employee: "It doesn\'t matter what happens at [home], you need to come in to work." Boss explicitly told employee family obligations are irrelevant. Expected employee to prioritize work over caring for infant child and wife. This confrontation later led to Write-up #3 for lateness, directly connecting the family status discrimination to disciplinary action.',
     evidence: [
       'Text messages - COMPLETE EXCHANGE (EMPLOYEE HAS SCREENSHOTS - CRITICAL)',
@@ -660,7 +659,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-boss', 'just-cause-failure'],
+    tags: ['lateness-boss', 'wrongful-dismissal'],
     description: 'Mon July 22 (Day 9 of 18-day overtime marathon). Employee checking up on boss because boss was late. IRONY: Employee working brutal overtime marathon schedule, boss can\'t arrive on time. DIFFERENTIAL TREATMENT: Two days after July 20 Sunday "family doesn\'t matter" threat, boss himself is late without consequences. Pattern of hypocrisy.',
     evidence: ['Text messages checking on late boss'],
     evidenceImages: [
@@ -684,7 +683,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-boss', 'just-cause-failure'],
+    tags: ['lateness-boss', 'wrongful-dismissal'],
     description: 'Sat July 27 (Day 14 of 18-day overtime marathon). Boss John late on Saturday. DIFFERENTIAL TREATMENT: Employee working Day 14 of brutal 18-day marathon including weekends, still disciplined for minor lateness. Boss late on weekend work without consequences. Fifth documented instance of boss lateness pattern (May 16, 28, July 10, 22, 27).',
     evidence: ['Text messages about boss lateness'],
     evidenceImages: [
@@ -708,7 +707,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Employee 24 minutes late (WORST LATENESS OF ALL 13 INCIDENTS). Context: DAY 18 (FINAL DAY) of working 18 CONSECUTIVE DAYS with ZERO days off. Physically exhausted after 140.5 hours over 2+ weeks of extended daily hours including weekends. GPS proves 24 min late - employee utterly exhausted from brutal schedule.',
     evidence: [
       'Text message about lateness',
@@ -741,7 +740,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family', 'wrongful-dismissal'],
     description: 'Employee requested 5 weeks government parental leave. Reason stated to employer: "As my wife transitions back to full time work." This explicitly told employer that: (1) Wife returning to full-time work around August 2025, (2) Employee would need to take parental leave for childcare, (3) Employee would return to work in October with ONGOING childcare obligations (both parents working full-time), (4) Child too young for daycare (legal/policy barrier, not choice). EMPLOYER KNEW employee would return from leave facing same childcare challenges that led to accommodation period (Oct 2024-July 2025). Parental leave approved for Sept 4 - Oct 9, 2025 (5 weeks). CRITICAL: Employer cannot claim surprise about ongoing family obligations when employee explicitly stated reason for leave. Pattern: July 28 request → Sept 4-Oct 9 leave → Oct 10 return + Write-Up #4 SAME DAY (33-day delay retaliation) → Oct 20-21 accommodation denied → Oct 22 terminated (12 days after return from protected leave).',
     evidence: [
       'Parental leave request (method unknown - email/text/in-person not documented)',
@@ -765,7 +764,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-10-09',
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family', 'wrongful-dismissal'],
     description: 'Employee took 5 weeks government parental leave from Sept 4 - Oct 9, 2025. Reason stated to employer: "As my wife transitions back to full time work." This was PROTECTED LEAVE under Alberta Employment Standards Code and federal Employment Insurance parental benefits. Employee explicitly informed employer that: (1) Wife returning to full-time work, (2) Employee needed leave for childcare, (3) Both parents would be working full-time upon return (Oct 10), (4) Child too young for daycare. CRITICAL TIMELINE: Sept 4-Oct 9 protected leave → Oct 10 return + Write-Up #4 SAME DAY (33-day delay retaliation for Sept 3 timecard) → Oct 20-21 accommodation request denied → Oct 22 terminated (12 days after return). Textbook parental leave retaliation under Alberta Human Rights Act.',
     evidence: [
       'Parental leave approval (HR confirmation)',
@@ -790,11 +789,11 @@ const timelineEvents = [
   {
     id: 26,
     timestamp: '2025-07-20?',
-    text: '⭐ Epoxy Paint Tank Injury - 3 Workers (NO WCB Report)',
+    text: 'Epoxy Paint Tank Injury - 3 Workers Hurt',
     category: 'ohs',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'ohs'],
+    tags: ['smoking-gun', 'ohs', 'wrongful-dismissal'],
     description: 'July 19-21, 2025 (exact date uncertain). BOS tank pulled into wash bay for epoxy coating (primer + paint with accelerant). Work inside confined tank. Inadequate PPE provided (not full face mask employee requested year earlier). 3-worker crew: Employee + Ramon + RJ. Took turns entering tank (~10 min each, rotated). Work lasted less than 1 hour before stopped. ALL THREE WORKERS injured: intense burning pain in eyes, eyes watering continuously, pain so severe work completely stopped. Each worker experienced symptoms after only minutes of exposure. Employee told coworker (team lead), team lead reported to boss. Work stoppage: complete halt until proper PPE obtained. JULY 22, 2025: Full face masks arrived (confirmed by text message at 1:06 PM from Boss John: "Masks should be coming in from uline today"). Employer procured THE EXACT PPE EMPLOYEE REQUESTED IN 2024 within 1-2 days after injury. Workers reassigned during wait, no lost wages. Employee documented in Safety Culture app ("eyes burning from paint fumes" or similar). At least one coworker also documented. NO medical treatment sought (pain resolved after leaving environment), but chemical eye exposure causing pain/watering = injury. NO WCB/Injury report filed despite multiple workers injured and work stoppage required. Employer failed to file as required - likely to protect COR certification.',
     evidence: [
       'Safety Culture app submissions (employee + coworker)',
@@ -826,12 +825,12 @@ const timelineEvents = [
   {
     id: 73,
     timestamp: '2025-08-01?',
-    text: '⭐ Michelle Sherman Discriminatory Statement - Write-Up #3',
+    text: 'Michelle Sherman Discriminatory Statement - Write-Up #3',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'smoking-gun', 'family', 'family-status-discrimination', 'bad-faith-conduct'],
-    description: 'Write-Up #3 disciplinary meeting for 3 late instances. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee. SMOKING GUN STATEMENT: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late" (exact wording may vary slightly - employee testimony). This occurred AFTER employee worked 140.5 hours in July (18 consecutive days). Michelle\'s additional belittling behavior same meeting: Repeatedly asked "Do you care about work?" (after 140-hour month!), demanded phone always on "It\'s in your contract," called coworker during meeting to "prove" people answer phones, asked multiple times "Do you care about your job?" Context: Write-Up #3 exact date unknown but timeframe July/August 2025, after overtime marathon (July 14-31) and before Sept parental leave.\n\n📎 CROSS-REFERENCES:\n• Family Status Discrimination: Head of HR explicitly rejects protected ground - institutional discrimination (both boss AND HR rejected family obligations)\n• Bad Faith Conduct: Pretextual discipline - Write-Up #3 cited APPROVED accommodations (Jun 4, Jun 13) as misconduct - fabricated grounds',
+    tags: ['critical', 'smoking-gun', 'family', 'wrongful-dismissal', 'bad-faith'],
+    description: 'Write-Up #3 disciplinary meeting for 3 late instances. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee. SMOKING GUN STATEMENT: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late" (exact wording may vary slightly - employee testimony). This occurred AFTER employee worked 140.5 hours in July (18 consecutive days). Michelle\'s additional belittling behavior same meeting: Repeatedly asked "Do you care about work?" (after 140-hour month!), demanded phone always on "It\'s in your contract," called coworker during meeting to "prove" people answer phones, asked multiple times "Do you care about your job?" Context: Write-Up #3 exact date unknown but timeframe July/August 2025, after overtime marathon (July 14-31) and before Sept parental leave.',
     evidence: [
       'Write-Up #3 document (awaiting from employer - may contain Michelle\'s statement in writing)',
       'Employee testimony about Michelle\'s statement',
@@ -853,8 +852,8 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'bad-faith-conduct', 'family-status-discrimination'],
-    description: 'Employee requested personal day via text: "Hey John, I\'m gonna take a personal day today. Not feeling too well." Boss responded: "You can\'t take any more personal days u need to get a doctors notes." EMPLOYER LIED: This was employee\'s FIRST personal day request ever. Employee had only taken bereavement leave (July 6) previously, never a personal day. Boss\'s false statement ("can\'t take any more") was factually incorrect and designed to intimidate. Employee stayed home Aug 4 (very sick), but felt pressured by boss\'s lie and doctor\'s note demand to return ASAP. Employee returned while still contagious, infected entire office (boss, Ramon, coworkers). Boss took 2 days off for same illness. Double standard: Boss denied employee 1 day (lying about personal day usage), then took 2 days himself for same illness employee gave him.\n\n📎 CROSS-REFERENCES:\n• Family Status Discrimination: Accommodation withdrawal pattern continues - denied personal day for family needs 2 weeks after July 20 \'family doesn\'t matter\' statement\n• Bad Faith Conduct: Boss lied - falsely claimed personal days used up when employee still had days available - untruthful conduct',
+    tags: ['family', 'bad-faith', 'wrongful-dismissal'],
+    description: 'Employee requested personal day via text: "Hey John, I\'m gonna take a personal day today. Not feeling too well." Boss responded: "You can\'t take any more personal days u need to get a doctors notes." EMPLOYER LIED: This was employee\'s FIRST personal day request ever. Employee had only taken bereavement leave (July 6) previously, never a personal day. Boss\'s false statement ("can\'t take any more") was factually incorrect and designed to intimidate. Employee stayed home Aug 4 (very sick), but felt pressured by boss\'s lie and doctor\'s note demand to return ASAP. Employee returned while still contagious, infected entire office (boss, Ramon, coworkers). Boss took 2 days off for same illness. Double standard: Boss denied employee 1 day (lying about personal day usage), then took 2 days himself for same illness employee gave him.',
     evidence: [
       'Aug 4 text messages (employee has)',
       'Employee testimony about first personal day ever',
@@ -882,7 +881,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'lateness-boss', 'just-cause-failure'],
+    tags: ['critical', 'lateness-boss', 'wrongful-dismissal'],
     description: 'Sat Aug 9. Boss John late on Saturday work. SIXTH documented instance of boss lateness pattern (May 16, 28, July 10, 22, 27, Aug 9). Pattern continues after overtime marathon ended. DIFFERENTIAL TREATMENT: Boss late on Saturday without consequences. Employee terminated 2.5 months later (Oct 22) citing pattern of lateness. Proves discriminatory enforcement - same behavior, different outcomes based on protected grounds.',
     evidence: ['Text messages about boss lateness on Saturday'],
     evidenceImages: [
@@ -906,7 +905,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'lateness-employee', 'disability-discrimination'],
+    tags: ['disability', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Employee texted: "Woke up late this morning, will be a few minutes late." A few minutes late. Sleep deprivation likely due to newborn (now ~10 months old) AND sleep apnea (diagnosed Feb 18, employer knew). Combination of disability-related symptoms and family status obligations.',
     evidence: [
       'Text message to boss',
@@ -935,11 +934,11 @@ const timelineEvents = [
   {
     id: 28,
     timestamp: '2025-08-28',
-    text: '⭐ Sick Baby - Accommodation Request DENIED',
+    text: 'Sick Baby - Accommodation Request DENIED',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family', 'wrongful-dismissal'],
     description: 'Aug 28 - Employee texted boss requesting time off for sick infant daughter and wife: "Hey John, my daughter and wife are still pretty sick and need my help tomorrow. Is it okay if I take the day off? I\'ll be back on Friday." Context: Both infant daughter and wife sick. Baby required medical care. Legitimate family status obligation. Boss responded SAME DAY (Aug 28): "I\'m sorry they are sick, but you still need to come to work." Employee follow-up: "I understand the timing isn\'t ideal, but my baby needs medical care today, and I need to be there for her. I\'ll be back tomorrow and we\'ll catch up on anything urgent." Boss REFUSED accommodation - flat denial despite employee explaining baby needed medical care. No discussion of alternatives, no consideration of undue hardship. Forced employee to choose between job and sick infant. Employee stayed home Aug 29 to care for sick baby (prioritized child\'s health). Baby seen by doctor, doctor provided medical note. Sept 3 - Boss demanded doctor\'s note retroactively (5 days after). Pattern: Denied accommodation → Employee exercised family status rights → Boss built paper trail for retaliation.',
     evidence: [
       'Text messages Aug 28 - request + denial (CRITICAL EVIDENCE)',
@@ -978,7 +977,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family-status-discrimination'],
+    tags: ['critical', 'wrongful-dismissal'],
     description: 'Sept 7, 2025 at 12:33 PM: Michelle Sherman (HR Director) emails employee during parental leave: "I am confirming that your last day worked was September 2, 2025, for 9 hours. I do not see a timecard for September 3, 2025. Please confirm this is accurate information. The deadline to receive this information is Monday September 8, 2025 - 12:00pm CST, or sooner." CRITICAL: Michelle claims "URGENT" with Sept 8 deadline. Employee on parental leave starting Sept 4. Employer KNEW about missing Sept 3 timecard on Sept 7. Then WAITED 33 DAYS (from Sept 7 to Oct 10) to issue Write-Up #4 - and issued it on employee\'s FIRST DAY BACK from protected parental leave. If truly urgent (Sept 8 deadline), why wait 33 days to discipline? Answer: Waiting to punish employee for taking parental leave.',
     evidence: [
       'Email from Michelle Sherman Sept 7, 2025',
@@ -1002,11 +1001,11 @@ const timelineEvents = [
   {
     id: 30,
     timestamp: '2025-10-10',
-    text: '⭐ Return from Parental Leave + Family Lateness',
+    text: 'Return from Parental Leave + Family Lateness',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Returned to work from 5-week parental leave. Same day: Helping parents and grandparents get to airport during Thanksgiving weekend. Original plan: Take full day off. Flights delayed, wife able to drive them instead. Employee texted boss: flights delayed, wife driving them, employee on way to work. "Couple of minutes late." Family caregiving obligation - elderly parents/grandparents during holiday travel. Modified work schedule to accommodate family needs.',
     evidence: [
       'Text message to boss about flights/delay',
@@ -1038,7 +1037,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'just-cause-failure'],
+    tags: ['critical', 'wrongful-dismissal'],
     description: 'Employee sick (cold/flu symptoms, feverish). First of 2 non-consecutive sick days. Worked Oct 15 despite being sick (environment very cold, felt worse, had to take additional day off Oct 16). UNPAID sick days - employee had NO PTO available (all vacation used, PTO balance in negative). Boss sent text message REQUIRING medical documentation/sick note. No written policy requiring sick notes. Same week: Coworker Jessica visibly sick during morning meeting, boss sent her home, Jessica NOT required to provide sick note. DIFFERENTIAL TREATMENT: Employee required sick note, Jessica not. Timing: Final week before termination (Oct 22). Employer building paper trail in days before firing.',
     evidence: [
       'Text message from boss requiring sick note (CRITICAL - proves differential treatment)',
@@ -1060,7 +1059,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['just-cause-failure'],
+    tags: ['wrongful-dismissal'],
     description: 'Second non-consecutive sick day (Oct 14, worked 15, sick again 16). Still sick from cold/flu. Sick note requirement applied to both days. Jessica (coworker) sent home sick same week, NOT required to provide documentation.',
     evidence: [
       'Sick note covering both days',
@@ -1079,7 +1078,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'lateness-coworker', 'just-cause-failure'],
+    tags: ['critical', 'lateness-coworker', 'wrongful-dismissal'],
     description: 'Wed Oct 16. Coworkers RJ and Ramon both late to work. NO DISCIPLINE. CRITICAL: This is 6 days before employee termination (Oct 22) for pattern of lateness. Employer tolerates coworker lateness but not employee lateness. DIFFERENTIAL TREATMENT proves discriminatory motive. Same workplace, same attendance rules, different enforcement based on protected grounds (family status + parental leave retaliation).',
     evidence: ['Text messages or observations about RJ and Ramon lateness'],
     evidenceImages: [
@@ -1103,7 +1102,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure'],
+    tags: ['smoking-gun', 'wrongful-dismissal'],
     description: 'Monday Oct 20, 2025 at 7:37 AM. Employee texts boss: "Can I get TC unlock pls" (timecard unlock request). CRITICAL SYSTEM CATCH-22 PROOF: Timecard system auto-locks after 3 days of being late submitting. Once locked, employee CANNOT submit ANY future timecards (completely blocked from system). ONLY boss can unlock. Boss CONTROLS employee\'s ability to comply with timecard requirements going forward. Each day system remains locked = MORE accumulated "failures to submit" that employee is POWERLESS to fix. Oct 20: Employee requests unlock to prevent further violations. Boss controls unlock timing. Oct 22 (2 days later): Employee TERMINATED for "continued failure to submit timecards." SMOKING GUN: Boss weaponized unlock system. Boss created the "continued failure" pattern by controlling access to the remedy, then cited the pattern HE CREATED as just cause for termination. Employee literally COULD NOT submit timecards while system locked, yet employer blamed employee for not submitting. Textbook manipulation and bad faith.',
     evidence: [
       'Text message Oct 20, 7:37 AM requesting unlock',
@@ -1127,11 +1126,11 @@ const timelineEvents = [
   {
     id: 33,
     timestamp: '2025-10-20',
-    text: '⭐ Schedule Accommodation Denied - Mandatory Overtime',
+    text: 'Schedule Accommodation Denied - Mandatory Overtime',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family', 'wrongful-dismissal'],
     description: 'Boss announced (approximately Oct 20): All employees MUST work 12-hour shifts, Oct 20 through Oct 31 (12 consecutive days), mandatory Saturdays and Sundays, two upcoming projects. Very short notice (same day or day before). Normal schedule: 8-hour shifts, Monday-Friday. New requirement: 12-hour shifts + weekends. Extended hours interfere with childcare for newborn. No accommodation offered. Employee requested accommodation (verbal conversation): Take Thursday Oct 23 (half day) and Friday Oct 24 (full day) off. In exchange: Work Saturday, Sunday, remainder of week. Continue 12-hour shifts for rest of period. Reason: Help friend with home project (personal obligation previously scheduled). Total hours same or more. Willing to work weekends. Willing to work 12-hour shifts. Just needed 1.5 days flexibility. Boss REFUSED: "You are REQUIRED to work Saturday and Sunday. It\'s IN YOUR CONTRACT. You WILL HAVE TO come in to work. NO IFS ANDS OR BUTS." Employee stated couldn\'t work those specific days, explained prior commitment, offered alternative (work other weekends/extended hours). Boss: Flat refusal, no discussion of alternatives, claimed contractual obligation, coercive language ("no ifs ands or buts").',
     evidence: [
       'Verbal conversation (no text/email - WEAKNESS)',
@@ -1152,7 +1151,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'lateness-employee', 'disability-discrimination', 'just-cause-failure'],
+    tags: ['smoking-gun', 'lateness-employee', 'wrongful-dismissal'],
     description: 'Oct 21 night: Employee\'s phone battery died during sleep. Phone turned on briefly during night (light visible). Wife told employee to turn it off. Employee assumed phone had enough battery. Phone died completely. Alarm did not go off. 8:00 AM: Employee woke up late (no alarm). Immediately texted boss: "Sorry, my phone died during the middle of the night, on my way now." Employee has this text saved (CRITICAL). Arrived ~8:30 AM (expected 7:30 AM). Lateness: 1 hour. One-time technical failure (phone battery died). Not habitual. Employee notified immediately upon realizing. No pattern of phone-died incidents. NOT childcare-related (unlike previous lateness). SAME DAY AT LUNCH: TERMINATED.',
     evidence: [
       'Text message at 8:00 AM (HAVE THIS - CRITICAL)',
@@ -1186,7 +1185,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'lateness-coworker', 'just-cause-failure'],
+    tags: ['smoking-gun', 'lateness-coworker', 'wrongful-dismissal'],
     description: 'Wed Oct 22 - TERMINATION DAY. Coworker RJ late to work. NO DISCIPLINE. SMOKING GUN: Employee terminated at lunch THIS SAME DAY for pattern of lateness. RJ late SAME MORNING without consequences. PROVES: (1) Employer aware of RJ lateness same day as termination decision, (2) Chose to terminate employee but not discipline RJ for identical behavior, (3) Differential treatment on SAME DAY = undeniable proof of discriminatory motive. This is the ULTIMATE smoking gun for differential treatment - same day, same behavior, different outcomes based solely on protected grounds.',
     evidence: ['Text messages or observations about RJ lateness Oct 22', 'Coworker testimony'],
     evidenceImages: [
@@ -1206,12 +1205,12 @@ const timelineEvents = [
   {
     id: 35,
     timestamp: '2025-10-22',
-    text: '⭐ TERMINATION - Ambush Meeting',
+    text: 'TERMINATION - Ambush Meeting',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct'],
-    description: 'SAME DAY as morning lateness. Lunchtime. Attendees: John (boss) in person, Michelle Sherman (Head of HR) on screen (remote - she is based in USA). Duration: UNDER 2 MINUTES from start to finish. Called into office with NO advance warning - ambush meeting. Employee sat down. Handed termination letter immediately. Boss: "You know what this is" (or similar). Employee read letter silently - no discussion, just reading. Saw "Termination with just cause" - heart sank. Saw "no severance will be given" - not even 2 weeks. Immediate realization: Very likely won\'t get EI, no severance (not even 2 weeks employee knew he was entitled to), "I need this money to pay rent and bills," complete financial panic. Employee in SHOCK - couldn\'t say anything. Employee asked: "Is there anything I need to sign?" Employer: "No." Employee left immediately - "Just up and left." Knew it was over. Employee\'s state: Complete shock, heart sank at "just cause," immediate understanding of devastating impact (no EI, no severance, can\'t pay rent/bills, financial crisis for family), paralyzed - couldn\'t speak/respond, felt cornered ("Anything I would have said wouldn\'t have helped"), knew it was predetermined, nothing would change outcome, knew it was over - no point saying anything, read silently - too shocked to speak or object. After meeting: Boss WATCHED employee gather belongings (supervised exit). Employee rushed under pressure - being watched created stressful, intimidating environment. Accidentally LEFT TERMINATION LETTER at workplace in shock/stress of supervised exit. Shows impact of ambush - employee so shocked couldn\'t think clearly about keeping critical documents.\n\n📎 CROSS-REFERENCES:\n• Just Cause Failure: Same-day termination without investigation = zero procedural fairness (McKinley proportionality failure)\n• Bad Faith Conduct: Ambush meeting under 2 minutes, \'you know what this is\' statement, supervised exit = unfair dismissal process (Honda v. Keays moral damages)',
+    tags: ['smoking-gun', 'wrongful-dismissal'],
+    description: 'SAME DAY as morning lateness. Lunchtime. Attendees: John (boss) in person, Michelle Sherman (Head of HR) on screen (remote - she is based in USA). Duration: UNDER 2 MINUTES from start to finish. Called into office with NO advance warning - ambush meeting. Employee sat down. Handed termination letter immediately. Boss: "You know what this is" (or similar). Employee read letter silently - no discussion, just reading. Saw "Termination with just cause" - heart sank. Saw "no severance will be given" - not even 2 weeks. Immediate realization: Very likely won\'t get EI, no severance (not even 2 weeks employee knew he was entitled to), "I need this money to pay rent and bills," complete financial panic. Employee in SHOCK - couldn\'t say anything. Employee asked: "Is there anything I need to sign?" Employer: "No." Employee left immediately - "Just up and left." Knew it was over. Employee\'s state: Complete shock, heart sank at "just cause," immediate understanding of devastating impact (no EI, no severance, can\'t pay rent/bills, financial crisis for family), paralyzed - couldn\'t speak/respond, felt cornered ("Anything I would have said wouldn\'t have helped"), knew it was predetermined, nothing would change outcome, knew it was over - no point saying anything, read silently - too shocked to speak or object. After meeting: Boss WATCHED employee gather belongings (supervised exit). Employee rushed under pressure - being watched created stressful, intimidating environment. Accidentally LEFT TERMINATION LETTER at workplace in shock/stress of supervised exit. Shows impact of ambush - employee so shocked couldn\'t think clearly about keeping critical documents.',
     evidence: [
       'Termination letter (LEFT AT WORKPLACE - need to retrieve or get copy)',
       'Employee testimony about meeting',
@@ -1240,12 +1239,12 @@ const timelineEvents = [
   {
     id: 79,
     timestamp: '2025-10-22',
-    text: '⭐ EVIDENCE SPOLIATION: Email Access Cut During Active Review',
+    text: 'EVIDENCE SPOLIATION: Email Access Cut During Active Review',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'bad-faith-conduct'],
-    description: 'Oct 22, 2025 afternoon (SAME DAY as termination, ~2-3 hours after lunchtime meeting): Employee returned to office to gather belongings and began reviewing work email to preserve employment records. Accessed work email system and SAW FOUR WRITE-UPS displayed. Went for brief walk. RETURNED TO FIND EMAIL ACCESS COMPLETELY REVOKED - no opportunity to save or download any documents. CRITICAL EVIDENCE DESTROYED: (1) Portal unlock request emails - would prove boss unlocked timecards late ~50% of time, proving boss\'s delays caused the payroll pressure employee was disciplined for, (2) All four write-ups - complete content, exact dates, exact wording now inaccessible, (3) All HR correspondence with Michelle Sherman, Carol Burke, Danielle Schwartz, (4) Safety concern communications, OHS emails, PPE requests, (5) Accommodation discussion emails about childcare/schedule flexibility. EVIDENCE SPOLIATION ELEMENTS ALL MET: ✅ Duty to preserve (litigation anticipated after wrongful dismissal), ✅ Breach (cut access while employee actively reviewing), ✅ Relevance (all destroyed evidence directly relevant to claims), ✅ Prejudice (employee has NO objective proof, NO friendly witnesses - only proof was in emails employer destroyed). TIMING PROVES CONSCIOUSNESS OF WRONGDOING: Access cut same day as termination, during active evidence gathering, during brief walk (suggests monitoring/intentional timing), no notice given, no opportunity to download.\n\n📎 CROSS-REFERENCES:\n• Bad Faith Conduct: Email access cut WHILE employee actively reviewing employment records - consciousness of wrongdoing (destroyed evidence during active gathering)\n• Post-Termination Misconduct: (Implied connection - spoliation supports punitive damages claim alongside ROE violations)',
+    tags: ['smoking-gun', 'bad-faith', 'wrongful-dismissal'],
+    description: 'Oct 22, 2025 afternoon (SAME DAY as termination, ~2-3 hours after lunchtime meeting): Employee returned to office to gather belongings and began reviewing work email to preserve employment records. Accessed work email system and SAW FOUR WRITE-UPS displayed. Went for brief walk. RETURNED TO FIND EMAIL ACCESS COMPLETELY REVOKED - no opportunity to save or download any documents. CRITICAL EVIDENCE DESTROYED: (1) Portal unlock request emails - would prove boss unlocked timecards late ~50% of time, proving boss\'s delays caused the payroll pressure employee was disciplined for, (2) All four write-ups - complete content, exact dates, exact wording now inaccessible, (3) All HR correspondence with Michelle Sherman, Carol Burke, Danielle Schwartz, (4) Safety concern communications, OHS emails, PPE requests, (5) Accommodation discussion emails about childcare/schedule flexibility. EVIDENCE SPOLIATION ELEMENTS ALL MET: ✅ Duty to preserve (litigation anticipated after wrongful dismissal), ✅ Breach (cut access while employee actively reviewing), ✅ Relevance (all destroyed evidence directly relevant to claims), ✅ Prejudice (employee has NO objective proof, NO friendly witnesses - only proof was in emails employer destroyed). TIMING PROVES CONSCIOUSNESS OF WRONGDOING: Access cut same day as termination, during active evidence gathering, during brief walk (suggests monitoring/intentional timing), no notice given, no opportunity to download.',
     evidence: [
       'Employee testimony: saw four write-ups, took brief walk, returned to find access revoked',
       'Oct 22 timeline: termination at lunch → email review afternoon → access cut afternoon',
@@ -1272,7 +1271,7 @@ const timelineEvents = [
     category: 'correspondence-michelle',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Oct 22, 11:34 PM (same day as termination): Employee emails Michelle Sherman requesting complete employment file under Alberta law. Requests within 48 hours: (1) ROE, (2) All disciplinary notices, (3) Performance reviews, (4) HR correspondence, (5) Timesheets/payroll, (6) Employment contract, (7) Attendance policies, (8) Work email access. CRITICAL: Item 8 (work email access) explicitly requested - employer later refuses this item specifically.',
     evidence: [
       'Email to Michelle Sherman (Oct 22, 11:34 PM)',
@@ -1298,7 +1297,7 @@ const timelineEvents = [
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Oct 23: Carol Burke (employer lawyer) responds to employee\'s Oct 22 request. STALLING TACTICS: (1) Claims will provide employment file "once ROE finalized" (no timeline given), (2) Claims employment contract "already provided by Ms. Sherman" (to revoked work email - inaccessible), (3) Does not address Item 8 (work email access). Pattern: Conditioning document access on other items, claiming documents "provided" when inaccessible.',
     evidence: [
       'Email from Carol Burke (Oct 23)',
@@ -1326,7 +1325,7 @@ const timelineEvents = [
     category: 'correspondence-danielle',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Oct 24: Post-termination final pay coordination with Danielle Schwartz (payroll). Employee provides correct bank account details for direct deposit. Employee requests timecard access to verify final hours. TIMELINE ACCESS BLOCKED: Employer refuses to grant timecard system access post-termination, continuing pattern of timecard system manipulation and control.',
     evidence: [
       '2 emails with Danielle Schwartz (Oct 24)',
@@ -1354,11 +1353,11 @@ const timelineEvents = [
   {
     id: 47,
     timestamp: '2025-10-27',
-    text: '⭐ Danielle Schwartz: WRONG BANK ACCOUNT - Bad Faith',
+    text: 'Danielle Schwartz: WRONG BANK ACCOUNT - Bad Faith',
     category: 'correspondence-danielle',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct'],
+    tags: ['critical', 'correspondence', 'wrongful-dismissal'],
     description: 'Oct 27: Employer sends final pay to WRONG BANK ACCOUNT despite employee providing correct account information Oct 24. Multiple emails back and forth required to resolve employer error. Bad faith causing financial hardship when employee has no income and needs money for rent/bills. Pattern: Wrong bank account + blocked timecard access = post-termination misconduct.',
     evidence: [
       '7 emails with Danielle Schwartz (Oct 27)',
@@ -1415,7 +1414,7 @@ const timelineEvents = [
     category: 'correspondence-danielle',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Oct 28: Final resolution after multiple days coordination. Employee stress and financial uncertainty caused by employer "mistake." Wrong bank account error finally corrected after 4 days (Oct 24-28) of email exchanges. Employee forced to spend time and emotional energy resolving employer errors during already difficult post-termination period.',
     evidence: [
       '3 emails with Danielle Schwartz (Oct 28)',
@@ -1453,7 +1452,7 @@ const timelineEvents = [
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Oct 29: Employee requests complete employment file through lawyer. Carol Burke (employer\'s lawyer) acknowledges request. Sets up Oct 30 delivery of WRONG documents and Nov 4 correction creating document tampering concerns.',
     evidence: [
       'Email from Carol Burke (Oct 29)',
@@ -1475,11 +1474,11 @@ const timelineEvents = [
   {
     id: 50,
     timestamp: '2025-10-30',
-    text: '⭐ Carol Burke: WRONG DOCUMENTS SENT',
+    text: 'Carol Burke: WRONG DOCUMENTS SENT',
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct'],
+    tags: ['smoking-gun', 'correspondence', 'wrongful-dismissal'],
     description: 'Oct 30: Carol Burke sends employment documents in response to request. WRONG DOCUMENTS SENT: Employment agreement sent Oct 30 is incorrect. Creates document tampering concerns when corrected version sent Nov 4 (5 days later). CRITICAL QUESTION: Which version contained "Dear Rollins:" error - original Oct 30 or correction Nov 4? Document integrity compromised.',
     evidence: [
       '2 emails with Carol Burke (Oct 30)',
@@ -1521,7 +1520,7 @@ const timelineEvents = [
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Oct 31: Continued coordination about employment documents. Wrong documents sent Oct 30 creating need for additional emails and delays. Employee waiting for correct documents to understand legal position and prepare case.',
     evidence: [
       'Email from Carol Burke (Oct 31)',
@@ -1543,11 +1542,11 @@ const timelineEvents = [
   {
     id: 52,
     timestamp: '2025-11-04',
-    text: '⭐ Carol Burke: CORRECTED DOCUMENTS - "Dear Rollins:" Error',
+    text: 'Carol Burke: CORRECTED DOCUMENTS - Tampering Concerns',
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct'],
+    tags: ['smoking-gun', 'correspondence', 'wrongful-dismissal'],
     description: 'Nov 4: Carol Burke sends CORRECTED employment documents (5 DAYS after Oct 30 wrong docs). SMOKING GUN: Corrected documents raise serious tampering concerns. CRITICAL QUESTIONS: (1) Was "Dear Rollins:" error in original Oct 30 version or corrected Nov 4 version? If original = void contract worth $10k-$20k. (2) Was termination letter altered between Oct 22 and Nov 4? Employee 75% certain Oct 22 letter did NOT include specific 3 reasons listed in Nov 4 version. (3) Pattern of "mistakes" (wrong agreement + wrong bank account + ROE delay) destroys employer credibility.',
     evidence: [
       'Email from Carol Burke (Nov 4)',
@@ -1587,7 +1586,7 @@ const timelineEvents = [
     category: 'correspondence-michelle',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct'],
+    tags: ['smoking-gun', 'correspondence', 'wrongful-dismissal'],
     description: 'Nov 4, 2025: Employee requests Record of Employment (ROE) from Michelle Sherman (HR Director). FEDERAL LAW VIOLATION: Employment Insurance Act s. 19 requires employer issue ROE within 5 CALENDAR DAYS of termination or end of pay period. Termination date: Oct 22, 2025. ROE request date: Nov 4, 2025 = 13 DAYS after termination. Employer late by 8-9 days minimum (13 days - 5 day requirement = 8-9 day violation). Employee needs ROE for EI application. Delay causes: (1) EI application delay, (2) Financial hardship (no income, no EI), (3) Additional stress during already difficult post-termination period. 2024 Alberta case (ROE delay + financial hardship) = $10,000 punitive damages awarded.',
     evidence: [
       '3 emails with Michelle Sherman requesting ROE (Nov 4)',
@@ -1620,11 +1619,11 @@ const timelineEvents = [
   {
     id: 60,
     timestamp: '2025-11-05',
-    text: '⭐ Michelle Sherman: ROE Released - 14-Day Violation',
+    text: 'Michelle Sherman: ROE Released to MSCA',
     category: 'correspondence-michelle',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct'],
+    tags: ['correspondence', 'wrongful-dismissal'],
     description: 'Nov 5, 2025: Record of Employment (ROE) finally released to My Service Canada Account (MSCA) as indicated by Michelle Sherman in her Nov 4 email. 14-DAY TOTAL DELAY from termination (Oct 22 → Nov 5 = 14 days). Federal law requires ROE within 5 calendar days. Employer violated requirement by 9 days. This delay prevented employee from applying for EI benefits for nearly 2 weeks, causing financial hardship during period when employee had no income and family to support. Michelle Sherman\'s Nov 4 email: "It will more than likely be released to MSCA sometime on Wednesday November 5, 2025." Shows employer awareness of delay but no urgency despite federal legal requirement and employee\'s financial need.',
     evidence: [
       'Nov 4 Michelle Sherman email predicting Nov 5 release',
@@ -1658,7 +1657,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure'],
+    tags: ['smoking-gun', 'wrongful-dismissal'],
     description: 'Oct 17, 2025 (exact date uncertain): Jessica sent home sick from meeting and NOT required to provide sick note. SAME WEEK (Oct 14-16) employee was sick and REQUIRED to provide doctor\'s note. DIFFERENTIAL TREATMENT: Employer applies inconsistent sick note policy. Employee (with family obligations, sleep apnea, prior accommodation requests) held to stricter standard than Jessica. Proves discriminatory enforcement based on protected grounds. Pattern: Employee accommodation withdrawal (July 20) → sick note demands (Sept 3, Oct 14) → termination (Oct 22, 5 days later).',
     evidence: [
       'Text message requiring employee sick note',
@@ -1679,13 +1678,13 @@ const timelineEvents = [
   },
 
   {
-    id: 81,
+    id: 60,
     timestamp: '2025-09-11',
-    text: '⭐ CATASTROPHIC ROE ERROR - Parental Leave Retaliation',
+    text: 'CATASTROPHIC ROE ERROR - Parental Leave Retaliation',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct', 'family'],
+    tags: ['critical', 'family', 'wrongful-dismissal'],
     description: 'Sept 11, 2025: Employer issues INCORRECT Record of Employment (Serial M17099756) during employee\'s 5-week parental leave. CATASTROPHIC ERRORS: (1) First day worked shows Aug 24, 2025 (should be Jan 3, 2024 = 8 MONTHS WRONG!), (2) Only 59 insurable hours shown (should be 1,452 hours = 95.9% ERROR), (3) Only $1,979.52 insurable earnings shown (should be $35,538.76 = 94.4% ERROR). WOULD HAVE DESTROYED EI CLAIM: These errors would have cost employee approximately 18 MONTHS of EI parental benefits. Employer incompetence/chaos during protected parental leave. Corrected ROE not issued until Sept 19 (8-day delay). Shows employer administrative failures during period when employee exercising protected right to parental leave.',
     evidence: [
       'Incorrect ROE Serial M17099756 (Sept 11)',
@@ -1713,7 +1712,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct', 'family'],
+    tags: ['family', 'wrongful-dismissal'],
     description: 'Sept 19, 2025: Employer issues CORRECTED Record of Employment (Serial M17280425), 8 DAYS after incorrect ROE (Sept 11). Corrections: First day worked now Dec 15, 2024 (still wrong - should be Jan 3, 2024 but closer), 1,452 insurable hours (was 59), $35,538.76 insurable earnings (was $1,979.52). Signed by different person (Tiffany Li vs Ritika). Comments: "All vacation time has been used and paid out". Shows employer finally got it mostly right after catastrophic error, but 8-day delay during critical EI application period. Employee still on parental leave when corrected ROE issued.',
     evidence: [
       'Corrected ROE Serial M17280425 (Sept 19)',
@@ -1796,8 +1795,8 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs'],
-    description: 'Mid-October 2024: FIRST DISCIPLINARY ACTION - Three meetings around hydraulic line installation project: (1) Safety training on portal system - employee wore headphones from being outside, researched hydraulic fitting methods on phone during training. (2) VP meeting discussing "what we can do better" after multiple installation failures - employee challenged VP and boss about fitting and alternative installation methods, suggested Loctite for hydraulic lines. Boss eventually bought the correct fittings employee suggested, proving employee was right. (3) Disciplinary meeting - formal written warning for "using headphones during safety meeting" claiming prior warning (employee never heard of policy before). Verbal warning from boss: "You shouldn\'t have spoken to the VP like that." Boss perceived technical input as "talking back." Character label "aggressive behavior" emerged. Employee signed without objections - intimidated, needed job, didn\'t know could object in writing. SMOKING GUN: This write-up is PRETEXTUAL OHS RETALIATION. Protected activity: Technical input during safety troubleshooting. Adverse action: Written warning + characterized as "aggressive". Causal connection: Boss\'s own verbal admission. LEGAL SIGNIFICANCE: If Write-Up #1 is invalid (OHS retaliation + signed under duress), entire progressive discipline chain collapses. All subsequent write-ups occurred in coercive environment established by this retaliatory first write-up.\n\n📎 CROSS-REFERENCES:\n• Just Cause Failure: First write-up in progressive discipline chain - if invalid (OHS retaliation + signed under duress), entire chain collapses\n• Bad Faith Conduct: Pretextual discipline - \'headphones\' pretext for proving boss wrong at VP meeting (boss verbal admission: \'shouldn\'t have spoken to VP like that\')\n• OHS Retaliation: Protected activity - technical input during hydraulic troubleshooting - proven correct, then disciplined',
+    tags: ['smoking-gun', 'wrongful-dismissal'],
+    description: 'Mid-October 2024: FIRST DISCIPLINARY ACTION - Three meetings around hydraulic line installation project: (1) Safety training on portal system - employee wore headphones from being outside, researched hydraulic fitting methods on phone during training. (2) VP meeting discussing "what we can do better" after multiple installation failures - employee challenged VP and boss about fitting and alternative installation methods, suggested Loctite for hydraulic lines. Boss eventually bought the correct fittings employee suggested, proving employee was right. (3) Disciplinary meeting - formal written warning for "using headphones during safety meeting" claiming prior warning (employee never heard of policy before). Verbal warning from boss: "You shouldn\'t have spoken to the VP like that." Boss perceived technical input as "talking back." Character label "aggressive behavior" emerged. Employee signed without objections - intimidated, needed job, didn\'t know could object in writing. SMOKING GUN: This write-up is PRETEXTUAL OHS RETALIATION. Protected activity: Technical input during safety troubleshooting. Adverse action: Written warning + characterized as "aggressive". Causal connection: Boss\'s own verbal admission. LEGAL SIGNIFICANCE: If Write-Up #1 is invalid (OHS retaliation + signed under duress), entire progressive discipline chain collapses. All subsequent write-ups occurred in coercive environment established by this retaliatory first write-up.',
     evidence: [
       'Written warning document (requested from employer)',
       'Project records showing hydraulic failures',
@@ -1818,11 +1817,11 @@ const timelineEvents = [
   {
     id: 65,
     timestamp: '2025-10-10',
-    text: '⭐ Write-Up #4: FIRST DAY BACK FROM PARENTAL LEAVE',
+    text: 'Write-Up #4: FIRST DAY BACK FROM PARENTAL LEAVE',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'wrongful-dismissal'],
     description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 5 - Oct 9). SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline for Sept 3 timecard → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 5 → "Urgent" email Sept 7 → Silence during entire leave → Write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.',
     evidence: [
       'Write-up document for Sept 3 timecard (Oct 10 issue date)',
@@ -1842,11 +1841,11 @@ const timelineEvents = [
   {
     id: 66,
     timestamp: '2025-10-20',
-    text: '⭐ SMOKING GUN: Timecard Unlock CATCH-22',
+    text: 'SMOKING GUN: Timecard Unlock CATCH-22',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'disability-discrimination'],
+    tags: ['smoking-gun', 'wrongful-dismissal'],
     description: 'Monday October 20, 2025 at 7:37 AM: Employee texts boss: "Can I get TC unlock pls". DEVASTATING CATCH-22 SYSTEM: (1) Timecard system auto-locks after 3 days late, (2) Once locked, employee CANNOT submit ANY future timecards, (3) Only boss can unlock, (4) Boss controls employee\'s ability to comply with timecard requirements, (5) Each day locked = MORE accumulated "failures" to submit timecards, (6) Oct 20: Employee proactively requests unlock to PREVENT further violations, (7) Boss controls unlock timing, (8) Oct 22 (2 DAYS LATER): Terminated for "continued failure to submit timecards". SMOKING GUN: Boss WEAPONIZED the unlock system. Created "continued failure" pattern by controlling access to remedy, then cited pattern HE CREATED as just cause for termination. Employee requested remedy (unlock) to comply → Boss delayed remedy → Boss cited inability to comply (which boss caused) as just cause. This is TEXTBOOK MANIPULATION and proves just cause is PRETEXTUAL.',
     evidence: [
       'Oct 20 text: "Can I get TC unlock pls"',
@@ -1876,7 +1875,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'range',
     endDate: '2025-08-09',
-    tags: ['smoking-gun', 'just-cause-failure'],
+    tags: ['smoking-gun', 'wrongful-dismissal'],
     description: 'May 16 - August 9, 2025: PATTERN OF BOSS LATENESS WITHOUT DISCIPLINE. Six documented instances where Boss John Gonzales was late or missed meetings, NO CONSEQUENCES. Meanwhile, employee disciplined with progressive write-ups leading to termination for similar lateness (average 3-10 minutes). INSTANCES: (1) May 16: Boss missing morning meeting, (2) May 28: Boss late to work, (3) July 10: Boss not there for morning meeting, (4) July 22: Employee checks up on late boss (role reversal), (5) July 27: Boss late to work, (6) Aug 9: Boss late to work on SATURDAY. PROVES: Inconsistent application of attendance standards = discrimination. Boss has same timecard struggles (admitted during write-up #2), boss late frequently without write-ups, employee late with proactive communication and terminated. Cannot establish "just cause" when employer doesn\'t apply same standards to management. LEGAL SMOKING GUN: Same conduct (lateness) → Different treatment (boss no discipline, employee terminated) = DIFFERENTIAL TREATMENT. Proves "just cause" is pretextual - real reason is discrimination/targeting.',
     evidence: [
       'May 16: Boss missing morning meeting (group chat)',
@@ -1933,7 +1932,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'range',
     endDate: '2025-08-25',
-    tags: ['disability', 'disability-discrimination'],
+    tags: ['disability', 'wrongful-dismissal'],
     description: 'July 4 - August 25, 2025: Boss sent FOUR documented timecard reminders to THE TEAM over 52 days (July 4, July 28, Aug 11, Aug 25). THREE reminders sent on SUNDAYS (employee\'s rest days). Context: Jessica and other new hires had joined the team - boss was sending reminders to ensure entire team submitted timecards, not targeting employee personally. This pattern proves: (1) Boss FULFILLED his promise to remind employee (from Write-Up #2), (2) System difficulty was ONGOING and SYSTEMIC affecting multiple team members (required 4 reminders in under 2 months), (3) Problem was NOT employee refusing to comply - employee needed reminders because broken system + ADHD executive function difficulty, as did other team members. CRITICAL: Boss has same ADHD condition ("I understand the struggles"), boss was written up for timecards himself when he started, boss "notoriously bad" at timecards, boss "hates them to this day," boss became manager partly "so he would never have to do time cards ever again." CONTRADICTION: If boss needed accommodation for timecards (promoted to avoid them) but employee FIRED for timecard issues, that\'s DISABILITY DISCRIMINATION. Employee has ADHD (disclosed Jan 2024), zero accommodations offered for 21 months, then terminated citing timecard failures that boss himself struggled with.',
     evidence: [
       'July 4, 2025: Boss timecard reminder (text message photo)',
@@ -1981,7 +1980,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['bad-faith-conduct'],
+    tags: ['wrongful-dismissal'],
     description: 'Monday October 27, 2025 (5 days post-termination): Employer sends final pay to WRONG BANK ACCOUNT despite employee providing correct account information Oct 24. Danielle Schwartz (Sr. District Admin) coordinates final pay. Multiple emails back and forth Oct 27 required to resolve employer error. PROVES: Post-termination bad faith conduct. Employer incompetence/carelessness with terminated employee\'s final pay causes additional stress and delay. Pattern of employer administrative chaos: Wrong bank account (Oct 27) → Wrong documents sent by lawyer Carol Burke (Oct 30) → "Dear Rollins:" contract error → Catastrophic ROE error (Sept 11). AGGRAVATING FACTOR: Wallace damages for bad faith manner of dismissal include post-termination conduct. Wrong bank account = employer treated terminated employee carelessly, added unnecessary stress during already difficult time. Combined with ROE delays, document delays, shows pattern of bad faith post-termination treatment.',
     evidence: [
       'Oct 24 email: Employee provides correct bank account',

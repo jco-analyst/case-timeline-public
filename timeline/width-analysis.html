@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Width Analysis - Timeline Overflow Debug</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: monospace;
+      font-size: 14px;
+      padding: 40px 10px;
+      overflow-x: hidden;
+      background: #f0f0f0;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 10px;
+      background: #fff;
+      border: 2px solid blue;
+    }
+
+    svg {
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid red;
+    }
+
+    .debug-info {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: white;
+      border: 2px solid #333;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 12px;
+      max-width: 400px;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .debug-info h3 {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .debug-info div {
+      margin: 5px 0;
+      line-height: 1.6;
+    }
+
+    .overflow {
+      color: red;
+      font-weight: bold;
+    }
+
+    .ok {
+      color: green;
+    }
+
+    .warning {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <div class="debug-info" id="debug"></div>
+  <div class="container" id="timeline-container">
+    <!-- SVG will be inserted here -->
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    function analyzeWidths() {
+      const debug = document.getElementById('debug');
+      const container = d3.select('#timeline-container');
+
+      // Get viewport width
+      const viewportWidth = window.innerWidth;
+
+      // Get body computed values
+      const bodyStyle = window.getComputedStyle(document.body);
+      const bodyPaddingLeft = parseFloat(bodyStyle.paddingLeft);
+      const bodyPaddingRight = parseFloat(bodyStyle.paddingRight);
+      const bodyContentWidth = viewportWidth - bodyPaddingLeft - bodyPaddingRight;
+
+      // Get container computed values
+      const containerNode = container.node();
+      const containerStyle = window.getComputedStyle(containerNode);
+      const containerPaddingLeft = parseFloat(containerStyle.paddingLeft);
+      const containerPaddingRight = parseFloat(containerStyle.paddingRight);
+
+      // Container dimensions (using different measurement methods)
+      const containerOffsetWidth = containerNode.offsetWidth;
+      const containerClientWidth = containerNode.clientWidth;
+      const containerScrollWidth = containerNode.scrollWidth;
+      const containerBoundingWidth = containerNode.getBoundingClientRect().width;
+
+      // Timeline calculation (matching index.html line 1602-1603)
+      const containerWidth = containerNode.clientWidth;
+      const svgWidth = containerWidth * 0.97;
+      const minMargin = 280 / 2 + 15; // CARD_WIDTH/2 + 15 = 155px
+      const marginLeft = Math.max(containerWidth * 0.015, minMargin);
+      const marginRight = Math.max(containerWidth * 0.015, minMargin);
+      const totalMargin = marginLeft + marginRight;
+      const effectiveTimelineWidth = svgWidth - totalMargin;
+
+      // Create SVG to test actual rendering
+      const svg = container.append('svg')
+        .attr('width', svgWidth)
+        .attr('height', 400);
+
+      const svgNode = svg.node();
+      const svgOffsetWidth = svgNode.offsetWidth;
+      const svgClientWidth = svgNode.clientWidth;
+      const svgBoundingWidth = svgNode.getBoundingClientRect().width;
+
+      // Calculate what SHOULD fit
+      const availableWidth = viewportWidth - (bodyPaddingLeft + bodyPaddingRight + containerPaddingLeft + containerPaddingRight);
+
+      // Determine if overflow exists
+      const hasOverflow = document.body.scrollWidth > viewportWidth;
+      const bodyScrollWidth = document.body.scrollWidth;
+      const overflowAmount = bodyScrollWidth - viewportWidth;
+
+      // Build debug output
+      let html = '<h3>Width Analysis</h3>';
+
+      html += '<div><strong>VIEWPORT</strong></div>';
+      html += `<div>window.innerWidth: <strong>${viewportWidth}px</strong></div>`;
+      html += `<div>body.scrollWidth: <strong class="${hasOverflow ? 'overflow' : 'ok'}">${bodyScrollWidth}px</strong></div>`;
+      if (hasOverflow) {
+        html += `<div class="overflow">⚠️ OVERFLOW: +${overflowAmount.toFixed(1)}px</div>`;
+      }
+
+      html += '<div style="margin-top:10px"><strong>BODY</strong></div>';
+      html += `<div>padding-left: ${bodyPaddingLeft}px</div>`;
+      html += `<div>padding-right: ${bodyPaddingRight}px</div>`;
+      html += `<div>content width: <strong>${bodyContentWidth}px</strong></div>`;
+
+      html += '<div style="margin-top:10px"><strong>CONTAINER (.container)</strong></div>';
+      html += `<div>padding-left: ${containerPaddingLeft}px</div>`;
+      html += `<div>padding-right: ${containerPaddingRight}px</div>`;
+      html += `<div>offsetWidth: ${containerOffsetWidth}px</div>`;
+      html += `<div>clientWidth: <strong class="warning">${containerClientWidth}px</strong> (used!)</div>`;
+      html += `<div>scrollWidth: ${containerScrollWidth}px</div>`;
+      html += `<div>getBoundingClientRect: ${containerBoundingWidth.toFixed(1)}px</div>`;
+
+      html += '<div style="margin-top:10px"><strong>SVG CALCULATION</strong></div>';
+      html += `<div>containerWidth: ${containerWidth}px</div>`;
+      html += `<div>svgWidth = containerWidth × 0.97:</div>`;
+      html += `<div><strong class="warning">${svgWidth.toFixed(1)}px</strong></div>`;
+      html += `<div>margin.left: ${marginLeft.toFixed(1)}px</div>`;
+      html += `<div>margin.right: ${marginRight.toFixed(1)}px</div>`;
+      html += `<div>effective timeline: ${effectiveTimelineWidth.toFixed(1)}px</div>`;
+
+      html += '<div style="margin-top:10px"><strong>ACTUAL SVG</strong></div>';
+      html += `<div>offsetWidth: ${svgOffsetWidth}px</div>`;
+      html += `<div>clientWidth: ${svgClientWidth}px</div>`;
+      html += `<div>getBoundingClientRect: <strong>${svgBoundingWidth.toFixed(1)}px</strong></div>`;
+
+      html += '<div style="margin-top:10px"><strong>SPACE CALCULATION</strong></div>';
+      html += `<div>Total padding consumed:</div>`;
+      html += `<div>  body: ${bodyPaddingLeft + bodyPaddingRight}px</div>`;
+      html += `<div>  container: ${containerPaddingLeft + containerPaddingRight}px</div>`;
+      html += `<div>  TOTAL: ${bodyPaddingLeft + bodyPaddingRight + containerPaddingLeft + containerPaddingRight}px</div>`;
+      html += `<div>Available for SVG: <strong>${availableWidth}px</strong></div>`;
+      html += `<div>SVG actual width: <strong>${svgBoundingWidth.toFixed(1)}px</strong></div>`;
+
+      if (svgBoundingWidth > availableWidth) {
+        html += `<div class="overflow">⚠️ SVG EXCEEDS AVAILABLE SPACE BY: ${(svgBoundingWidth - availableWidth).toFixed(1)}px</div>`;
+      }
+
+      html += '<div style="margin-top:10px"><strong>ROOT CAUSE</strong></div>';
+
+      // The problem: clientWidth includes padding with box-sizing: border-box
+      // So when container has padding: 0 10px, clientWidth is ALREADY reduced by 20px
+      // Then SVG is 97% of that REDUCED width
+      // But the 3% gap (1.5% each side) doesn't account for container's own padding
+
+      const expectedContainerContent = bodyContentWidth - 20; // container padding
+      const actualSVGSpace = svgWidth + containerPaddingLeft + containerPaddingRight;
+
+      html += `<div>Expected container content: ${expectedContainerContent}px</div>`;
+      html += `<div>SVG + container padding: ${actualSVGSpace.toFixed(1)}px</div>`;
+
+      if (actualSVGSpace > bodyContentWidth) {
+        html += `<div class="overflow">⚠️ OVERFLOW CAUSED BY: SVG (${svgWidth.toFixed(1)}px) + container padding (${containerPaddingLeft + containerPaddingRight}px) = ${actualSVGSpace.toFixed(1)}px > body content (${bodyContentWidth}px)</div>`;
+      }
+
+      debug.innerHTML = html;
+    }
+
+    // Run analysis on load and resize
+    window.addEventListener('load', analyzeWidths);
+    window.addEventListener('resize', analyzeWidths);
+  </script>
+</body>
+</html>
