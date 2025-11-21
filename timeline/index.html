@@ -1115,14 +1115,16 @@
     function getEffectiveColor(event) {
       // Check if employee lateness subfilter is active
       if (activeLatenessFilters.has('employee')) {
-        if (event.tags && event.tags.includes('lateness-employee')) {
+        // Check tags OR multiday event ID list
+        if ((event.tags && event.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(event.id)) {
           return '#4A90E2';  // Blue for employee lateness
         }
       }
 
       // Check if boss/coworker lateness subfilter is active
       if (activeLatenessFilters.has('boss-coworker')) {
-        if (event.tags && (event.tags.includes('lateness-boss') || event.tags.includes('lateness-coworker'))) {
+        // Check tags OR multiday event ID list
+        if ((event.tags && (event.tags.includes('lateness-boss') || event.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(event.id)) {
           return '#FF8C42';  // Orange for boss/coworker lateness
         }
       }
@@ -1152,6 +1154,17 @@
 
     let currentView = 'overview';
     let activeLatenessFilters = new Set(); // Track which lateness person filters are active
+
+    // Multiday events to include in lateness subfilters (by event ID)
+    const latenessEmployeeRangeEvents = [
+      76,  // 9-MONTH ACCOMMODATION: "Being Late is Okay"
+      21,  // OVERTIME MARATHON: 18 Consecutive Days
+      80,  // PARENTAL LEAVE PERIOD: 5 Weeks
+      75   // TIMECARD REMINDER PATTERN: Boss Reminds 4 Times in 52 Days
+    ];
+    const latenessBossRangeEvents = [
+      67   // DIFFERENTIAL TREATMENT: Boss Lateness Pattern (6 Instances)
+    ];
 
     // Viewport state for virtual scrolling (event-based)
     let currentViewportIndex = 0; // Current page index (0, 1, 2, ...)
@@ -1497,11 +1510,21 @@
         } else {
           // Lateness filters active: show ONLY matching lateness events (EXCLUSIVE)
           events = events.filter(e => {
-            if (!e.tags) return false;
+            // Check employee lateness filter
+            if (activeLatenessFilters.has('employee')) {
+              // Include if has lateness-employee tag OR is in multiday employee events list
+              if ((e.tags && e.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(e.id)) {
+                return true;
+              }
+            }
 
-            // Show ONLY lateness events that match active filters
-            if (activeLatenessFilters.has('employee') && e.tags.includes('lateness-employee')) return true;
-            if (activeLatenessFilters.has('boss-coworker') && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) return true;
+            // Check boss/coworker lateness filter
+            if (activeLatenessFilters.has('boss-coworker')) {
+              // Include if has lateness-boss/coworker tag OR is in multiday boss events list
+              if ((e.tags && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(e.id)) {
+                return true;
+              }
+            }
 
             return false;
           });
