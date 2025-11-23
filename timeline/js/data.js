@@ -112,6 +112,13 @@ const timelineEvents = [
       'Boss responsible for unlocking timecards - his delays caused problems',
       '⚠️ Employee does NOT recall seeing this document in email'
     ],
+    evidenceImages: [
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-1a-Timecards-2025-02-21.pdf',
+        caption: 'Write-Up #1a (Feb 21, 2025): Timecards only. ⚠️ DOCUMENT INTEGRITY ISSUE: Employee does NOT recall receiving this in email. May have been added to file post-termination. Timecard system was broken - boss controlled unlocks, boss\'s delays caused problems.'
+      }
+    ],
     witnesses: ['Boss (John)', 'HR'],
     legalSignificance: '⚠️ DOCUMENT INTEGRITY: Employee does not recall receiving this write-up during employment. If employer added documents to file after termination = bad faith conduct / evidence tampering. Timecard discipline is also DISABILITY DISCRIMINATION - ADHD affects executive function (timecards), employer knew about ADHD from day 1, zero accommodation offered despite boss having same condition.',
     priority: 'high',
@@ -496,7 +503,13 @@ const timelineEvents = [
       'GPS evidence showing June 18 arrival at 8:33am',
       'Text message June 18 at 7:39am notifying boss'
     ],
-    evidenceImages: [],
+    evidenceImages: [
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-2-Fabricated-2025-06-18.pdf',
+        caption: 'Write-Up #2 (Jun 18, 2025): FABRICATED ALLEGATIONS. Claims June 13 absence "not communicated" but TEXT PROVES boss approved it. Internal contradiction: says both "did not contact" AND "Jonathan contact his supervisor at 737am". Pattern of fabricating paper trail.'
+      }
+    ],
     witnesses: ['Boss John Gonzales', 'Employee'],
     legalSignificance: '🚨 FABRICATED ALLEGATION IN OFFICIAL DOCUMENT 🚨 (1) June 13 sick child day was APPROVED by boss via text - write-up falsely claims "did not communicate absence", (2) Internal contradiction - document says "did not contact" then says "Jonathan contact his supervisor at 737am", (3) Disability discrimination - June 18 missed alarm was sleep apnea symptom. Making false statements in disciplinary documents = BAD FAITH CONDUCT. Pattern of fabricating paper trail to justify termination.',
     priority: 'nuclear',
@@ -863,7 +876,13 @@ const timelineEvents = [
       'July timecard showing 140.5 hours worked',
       'Employee testimony about Michelle\'s discriminatory statement'
     ],
-    evidenceImages: [],
+    evidenceImages: [
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-3-Michelle-Statement-2025-08-05.pdf',
+        caption: 'Write-Up #3 (Aug 5, 2025): FABRICATED ALLEGATIONS + SMOKING GUN. 3 of 5 allegations PROVABLY FALSE per GPS. Michelle Sherman statement: "Having children should not be a reason why you\'re late" = EXPLICIT family status discrimination from HEAD OF HR.'
+      }
+    ],
     witnesses: ['Boss (John) - present at meeting', 'Michelle Sherman (made the statement)', 'Employee'],
     legalSignificance: '🚨 DEVASTATING: FABRICATED ALLEGATIONS + DISCRIMINATORY STATEMENT 🚨 (1) GPS evidence PROVES 3 of 5 allegations in write-up are FALSE - employer fabricated disciplinary record, (2) Michelle Sherman\'s statement = EXPLICIT REJECTION of family status as legitimate reason for lateness = textbook family status discrimination from HEAD OF HR (institutional discrimination), (3) July 10 differential treatment - boss absent same day employee disciplined, (4) Making false statements in disciplinary documents = BAD FAITH CONDUCT. This write-up alone may be worth tens of thousands in human rights damages (non-taxable).',
     priority: 'nuclear',
@@ -1829,7 +1848,13 @@ const timelineEvents = [
       'No written phone/headphone policy',
       'Employee testimony: signed under duress'
     ],
-    evidenceImages: [],
+    evidenceImages: [
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-1b-Phone-Aggression-2025-02-21.pdf',
+        caption: 'Write-Up #1b (Feb 21, 2025): FOUNDATION OF CASE. Phone/earbuds + "aggression" allegations. The "aggression" was Jan 9 confined space PPE advocacy - PROTECTED OHS ACTIVITY recharacterized as misconduct. 30-day probation. If this write-up is OHS retaliation, entire discipline chain collapses.'
+      }
+    ],
     witnesses: ['Employee', 'Samantha Caines (HSE Manager)', 'Boss John Gonzales', 'Two managers (Feb 20 safety training)'],
     legalSignificance: '🚨 FOUNDATION OF ENTIRE CASE 🚨 This write-up is PRETEXTUAL OHS RETALIATION: (1) Jan 9, 2025 confined space incident was PROTECTED OHS activity - employee raised legitimate PPE concerns, (2) Employer recharacterized protected activity as "aggression", (3) Employer later IMPLEMENTED confined space procedures (proving employee was RIGHT), (4) Document exaggerates "verbal warnings every week", (5) Signed under DURESS. ALBERTA OHS ACT: Workers cannot face disciplinary action for raising safety concerns. If Write-Up #1b is invalid OHS retaliation, entire progressive discipline chain collapses. 30-day probation = coercive environment for all subsequent discipline.',
     priority: 'nuclear',
@@ -1854,7 +1879,13 @@ const timelineEvents = [
       'Official document: "This serves as your final opportunity to comply"',
       'Employee testimony: stopped reading, just signed'
     ],
-    evidenceImages: [],
+    evidenceImages: [
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-4-Final-Opportunity-2025-10-10.pdf',
+        caption: 'Write-Up #4 (Oct 10, 2025): "FINAL OPPORTUNITY" - Issued FIRST DAY back from 5-week parental leave. Sept 7 "urgent" email → 33-DAY DELAY → Oct 10 discipline = PARENTAL LEAVE RETALIATION. Proves termination was premeditated, not legitimate progressive discipline.'
+      }
+    ],
     witnesses: ['Michelle Sherman (urgent email + HR Director)', 'John Gonzales (delivered write-up)', 'Employee'],
     legalSignificance: '🚨 PARENTAL LEAVE RETALIATION SMOKING GUN 🚨 The 33-day delay proves: (1) NOT actually urgent despite Sept 7 email marked "URGENT", (2) Employer deliberately saved discipline for maximum impact = first day of return, (3) Protected activity: Parental leave (5 weeks), (4) Adverse action: "FINAL OPPORTUNITY" disciplinary write-up, (5) Causal connection: 33-day delay + timing = premeditated retaliation. PATTERN: Catastrophic ROE error during leave (Sept 11) → "FINAL OPPORTUNITY" write-up day of return (Oct 10) → Termination 12 days later (Oct 22). This timing pattern proves termination was PREMEDITATED, not based on legitimate progressive discipline. Alberta Employment Standards Code prohibits retaliation for exercising protected rights (parental leave). Combined with coercive environment (learned helplessness by write-up #4), this write-up is INVALID.',
     priority: 'nuclear',
