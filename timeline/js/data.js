@@ -106,7 +106,6 @@ const timelineEvents = [
     tags: ['disability'],
     description: 'February 21, 2025: Separate disciplinary consultation for timecards only (same day as Write-Up #1b). Per official document: "Individual continues to have issues on submitting timecards in a timely manner." Threatened with suspension or termination. ⚠️ DOCUMENT INTEGRITY ISSUE: Employee does NOT recall receiving this document in email during employment. Employee remembers 4 discipline emails total, but employer provided 6+ documents. This write-up may have been ADDED TO FILE AFTER TERMINATION.\n\nCRITICAL CONTEXT: Timecard system was fundamentally broken - boss responsible for unlocking timecards, boss\'s delays created the problem. Employee was disciplined for a system problem the boss caused. Boss himself was "notoriously bad" at timecards but received no discipline.',
     evidence: [
-      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21 17-10-37.pdf',
       'Testimony about broken timecard system',
       'Boss\'s admission he was "notoriously bad" at timecards',
       'Boss responsible for unlocking timecards - his delays caused problems',
@@ -498,7 +497,6 @@ const timelineEvents = [
     tags: ['smoking-gun', 'just-cause-failure', 'disability'],
     description: 'June 18, 2025: Write-Up #2 issued combining multiple allegations. Per official document:\n\n1. June 11-12: Failed to submit timecards\n2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense" [sic]\n3. June 18: Late to work, "did not contact his supervisor to notify that he will be late"\n\n🚨 FABRICATED ALLEGATION: June 13 sick child day - Write-up claims employee "did not communicate his absence" BUT TEXT EVIDENCE PROVES BOSS APPROVED IT: Employee texted "Hey John Kinza wasn\'t feeling too well last night. Can I take the morning off?" Boss replied "Yes your good. Thanks for letting me know."\n\n🚨 INTERNAL CONTRADICTION: Same document says (1) "did not contact his supervisor to notify that he will be late" then (2) "Jonathan contact his supervisor at 737am that he missed his alarm." Document contradicts itself.\n\nTermination threat: "If we do not see an immediate improvement in these behaviors, further discipline up to and including termination will result."\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: June 13 absence was APPROVED - text evidence proves write-up contains false statement\n• Document Integrity: Internal contradiction proves document unreliability\n• Disability Discrimination: June 18 missed alarm = sleep apnea symptom (diagnosed Feb 18)',
     evidence: [
-      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-06-18 23-05-08.pdf',
       'June 13 text message showing boss APPROVED sick child day',
       'GPS evidence showing June 18 arrival at 8:33am',
       'Text message June 18 at 7:39am notifying boss'
@@ -869,7 +867,6 @@ const timelineEvents = [
     tags: ['critical', 'smoking-gun', 'family', 'bad-faith-conduct'],
     description: 'August 5, 2025: Write-Up #3 issued. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee.\n\n🚨 FABRICATED ALLEGATIONS - 3 OF 5 ARE PROVABLY FALSE:\n\n| Write-Up Claims | GPS/Text Evidence | DISCREPANCY |\n|-----------------|-------------------|-------------|\n| June 25: Arrived 7:35am late | GPS: 7:20am (10 min EARLY) | FABRICATED |\n| July 10: Arrived 8:00am | GPS: 7:33am (only 3 min late) | FALSE - 27 min exaggeration |\n| July 28: Sent text about being late | NO text sent. GPS: 7:20am | FABRICATED |\n| July 31: Arrived 8:00am | GPS: 7:54am | Exaggerated by 6 min |\n| Aug 4: No remaining PTO/sick days | Boss said OK, no sick day policy | IRRELEVANT |\n\nSMOKING GUN STATEMENT at this meeting: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Michelle\'s additional belittling: Repeatedly asked "Do you care about work?" (after 140-hour July month!). July 10: Boss missed morning meeting entirely SAME DAY employee disciplined for 3 min lateness = DIFFERENTIAL TREATMENT.\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: GPS evidence PROVES 3 of 5 allegations are false\n• Family Status Discrimination: Head of HR explicitly rejects protected ground\n• Differential Treatment: July 10 boss absent, employee disciplined same day',
     evidence: [
-      'Employee Disciplinary Consultation Form - JONATHAN_CO_08.05.2025.pdf',
       'GPS evidence: July-28-Not-late.jpeg (proves NOT late)',
       'GPS evidence: July-31-Late.jpg (proves 7:54am not 8:00am)',
       'GPS evidence: Jun-25-2025-10min-EARLY.jpg (proves NOT late)',
@@ -881,6 +878,16 @@ const timelineEvents = [
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-3-Michelle-Statement-2025-08-05.pdf',
         caption: 'Write-Up #3 (Aug 5, 2025): FABRICATED ALLEGATIONS + SMOKING GUN. 3 of 5 allegations PROVABLY FALSE per GPS. Michelle Sherman statement: "Having children should not be a reason why you\'re late" = EXPLICIT family status discrimination from HEAD OF HR.'
+      },
+      {
+        type: 'gps',
+        file: 'images/evidence/gps-proofs/Jun-25-2025-10min-EARLY.jpg',
+        caption: 'GPS PROOF: Jun 25, 2025 - Write-Up claims "arrived 7:35am late" but GPS shows arrived 10 min EARLY. FABRICATED ALLEGATION.'
+      },
+      {
+        type: 'gps',
+        file: 'images/evidence/gps-proofs/July-31-2025-24min-Late.jpg',
+        caption: 'GPS PROOF: July 31, 2025 - Write-Up claims "arrived 8:00am" but GPS shows 7:54am. Employer EXAGGERATED by 6 minutes.'
       }
     ],
     witnesses: ['Boss (John) - present at meeting', 'Michelle Sherman (made the statement)', 'Employee'],
@@ -1842,7 +1849,6 @@ const timelineEvents = [
     tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs'],
     description: 'February 21, 2025: FIRST WRITTEN DISCIPLINARY ACTION (combined allegations). Per official document: (1) Phone/earbuds during Feb 20 safety training - "observed by two managers to be paying attention to his personal mobile phone", (2) Timecard issues (ongoing), (3) "Aggression towards Samantha Caines, HSE Manager (Jan. 9, 2025)" - THIS WAS THE CONFINED SPACE PPE INCIDENT where employee raised legitimate safety concerns and was sent home. Protected OHS activity recharacterized as "aggression". ACTION: 30-day probation starting March 13, 2025 (upon return from vacation) - "immediate termination" if issues recur. Document claims "verbal warnings every week" for timecards - EXAGGERATION per employee. Employee signed "No Comment" under duress.\n\nSMOKING GUN: Jan 9, 2025 confined space incident was PROTECTED OHS ACTIVITY - employee raised PPE concerns about tank work, was sent home, boss threatened "I would have fired you." Employer later IMPLEMENTED confined space procedures (proving employee was right), but used this incident as basis for discipline. This is TEXTBOOK OHS RETALIATION.\n\nWitnesses: Boss John Gonzales, Samantha Caines (HSE Manager), Two managers who observed phone use\nCorroboration: Confined space procedures implemented AFTER Jan 9 incident proves employee\'s concerns were valid.\n\n📎 CROSS-REFERENCES:\n• OHS Retaliation: Jan 9 confined space incident recharacterized as "aggression"\n• Just Cause Failure: First written discipline - if invalid (OHS retaliation), entire chain collapses\n• Document claims "verbal warnings every week" - EXAGGERATION',
     evidence: [
-      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21 23-46-05.pdf',
       'Confined space procedures implemented AFTER Jan 9 incident',
       'Boss threat: "I would have fired you if you were talking to me like that"',
       'No written phone/headphone policy',
@@ -1871,12 +1877,10 @@ const timelineEvents = [
     tags: ['smoking-gun', 'family'],
     description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 4 - Oct 9). Official document language: "This serves as your FINAL OPPORTUNITY to comply with this requirement." SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 4 → "Urgent" email Sept 7 → Silence during entire leave → "FINAL OPPORTUNITY" write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.\n\nEvidence:\n- Text messages: evidence/02-FAMILY-STATUS-DISCRIMINATION/lateness-notifications/ (Oct 10 morning lateness notification, 8+ hours advance notice)\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-10-2025-8min-Late.jpg\n- Michelle urgent email: evidence/01-CRITICAL-EVIDENCE/Sept-07-2025-Michelle-Urgent-Email.png (Sept 7 "deadline Monday Sept 8" - proves 33-day delay)',
     evidence: [
-      'Employee Disciplinary Consultation Form - JONATHAN_CO_10.10.2025.pdf',
       'Sept 7 Michelle Sherman "urgent" email',
       'Sept 3 timecard in question',
       'Parental leave dates (Sept 4 - Oct 9)',
       '33-day delay timeline',
-      'Official document: "This serves as your final opportunity to comply"',
       'Employee testimony: stopped reading, just signed'
     ],
     evidenceImages: [
