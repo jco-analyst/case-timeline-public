@@ -7,7 +7,7 @@ const timelineEvents = [
   // January 2024 - Employment Begins
   {
     id: 71,
-    timestamp: '2024-01-10',
+    timestamp: '2024-01-02',
     text: 'First Interview - Family Priority Disclosed',
     category: 'family',
     type: 'point',
@@ -28,7 +28,7 @@ const timelineEvents = [
 
   {
     id: 1,
-    timestamp: '2024-01-15',
+    timestamp: '2024-01-05',
     text: 'Hired as Electrical Technician',
     category: 'termination',
     type: 'point',
@@ -48,7 +48,7 @@ const timelineEvents = [
 
   {
     id: 2,
-    timestamp: '2024-01-15',
+    timestamp: '2024-01-05',
     text: '⭐ ADHD Disclosed (Pre-Employment)',
     category: 'disability',
     type: 'point',
@@ -95,24 +95,25 @@ const timelineEvents = [
     icon: '🔧',
   },
 
-  // Early 2025 - First Discipline Begins (After Baby Born Oct 2024)
+  // February 2025 - First Written Discipline
   {
     id: 4,
-    timestamp: '2025-01-08',
-    text: 'Write-Up #2: First Timecard Write-Up',
+    timestamp: '2025-02-21',
+    text: 'Write-Up #1a: Timecards Only - ⚠️ EMPLOYEE DID NOT SEE IN EMAIL',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['disability-discrimination'],
-    description: 'First documented timecard discipline - written warning for not filling out timecard (Write-Up #2, date estimated as early January 2025). Timing: After baby born (Oct 9, 2024), after hydraulic troubleshooting incident where employee was proven right. Boss begins building paper trail after being shown up on technical issue. About 6 weeks after return to normal work from new parent obligations. Note: Employer\'s timecard system was fundamentally broken (cannot submit during work hours, automatic lockout after 3 days, boss himself struggled with it, new employees consistently had problems).',
+    tags: ['disability-discrimination', 'fabricated-evidence', 'document-integrity'],
+    description: 'February 21, 2025: Separate disciplinary consultation for timecards only (same day as Write-Up #1b). Per official document: "Individual continues to have issues on submitting timecards in a timely manner." Threatened with suspension or termination. ⚠️ DOCUMENT INTEGRITY ISSUE: Employee does NOT recall receiving this document in email during employment. Employee remembers 4 discipline emails total, but employer provided 6+ documents. This write-up may have been ADDED TO FILE AFTER TERMINATION.\n\nCRITICAL CONTEXT: Timecard system was fundamentally broken - boss responsible for unlocking timecards, boss\'s delays created the problem. Employee was disciplined for a system problem the boss caused. Boss himself was "notoriously bad" at timecards but received no discipline.',
     evidence: [
-      'Write-up document (awaiting from employer)',
+      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21.pdf',
       'Testimony about broken timecard system',
       'Boss\'s admission he was "notoriously bad" at timecards',
-      'Coworker testimony about system problems'
+      'Boss responsible for unlocking timecards - his delays caused problems',
+      '⚠️ Employee does NOT recall seeing this document in email'
     ],
-    witnesses: ['Boss (John)', 'HR', 'New employees who struggled with system'],
-    legalSignificance: 'First discipline occurs after employee challenged boss\'s competence. Minor administrative issue weaponized to establish disciplinary record. System was broken by design - employer disciplined employees for failures employer created. Pattern: Boss threatens termination for timecards (told story about field hand forced to work without pay).',
+    witnesses: ['Boss (John)', 'HR'],
+    legalSignificance: '⚠️ DOCUMENT INTEGRITY: Employee does not recall receiving this write-up during employment. If employer added documents to file after termination = bad faith conduct / evidence tampering. Timecard discipline is also DISABILITY DISCRIMINATION - ADHD affects executive function (timecards), employer knew about ADHD from day 1, zero accommodation offered despite boss having same condition.',
     priority: 'high',
   },
 
@@ -140,22 +141,22 @@ const timelineEvents = [
 
   {
     id: 5,
-    timestamp: '2024-10-01?',
-    text: 'Confined Space Safety Meeting - Sent Home for Advocacy',
+    timestamp: '2025-01-09',
+    text: 'Confined Space Safety Meeting - Sent Home for Advocacy (DATE CONFIRMED)',
     category: 'ohs',
     type: 'point',
     endDate: null,
     tags: ['critical', 'ohs', 'wrongful-dismissal', 'bad-faith-conduct'],
-    description: 'Employee raised legitimate PPE concerns at safety meeting: debris flying into eyes despite safety glasses while working inside 10+ year old processing tanks (high-pressure washing, sanding rust, chemical residue). Requested full face mask. Employer refused - claimed MSDS showed chemicals not harmful. Employee rebutted: "Regardless of MSDS, debris flying into our eyes. Tanks not 100% clean. Just because MSDS says safe doesn\'t mean it is." Told safety manager "you don\'t really care about us." Safety manager got upset. Employee SENT HOME from safety meeting for being "too passionate about safety." NO formal write-up, but removed from safety discussion for advocating for worker protection.\n\nWitnesses: Sam (Safety Manager - conducted meeting), John (Manager - sent employee home for being "too passionate"), Other safety meeting attendees (names TBD)\nAvailable: Sam - Adverse witness (employer side), John - Adverse witness (employer side)\nCorroboration: Safety Manager Sam conducted meeting where employee raised legitimate PPE concerns (full face mask for debris protection). Manager John sent employee home for being "too passionate about safety" = public humiliation for protected safety advocacy. Employer later implemented confined space entry program (rescue team, rescue plan, confined space procedures) = proves employee\'s concerns were 100% valid.\n\n📎 CROSS-REFERENCES:\n• OHS Retaliation: Sent home from safety meeting for raising legitimate PPE concerns - retaliation for protected safety advocacy\n• Bad Faith Conduct: Public humiliation - sent home in front of coworkers for being \'too passionate about safety\' - intimidation tactic\n• Just Cause Failure: Context for Write-Up #1 - pattern of retaliation for competence/advocacy begins here (if first write-up invalid, entire progressive discipline collapses)',
+    description: 'January 9, 2025 (DATE CONFIRMED from Feb 21 disciplinary document referencing "aggression towards Samantha Caines, HSE Manager (Jan. 9, 2025)"): Employee raised legitimate PPE concerns at safety meeting: debris flying into eyes despite safety glasses while working inside 10+ year old processing tanks (high-pressure washing, sanding rust, chemical residue). Requested full face mask. Samantha Caines (HSE Manager/Safety Manager "Sam") refused - claimed MSDS showed chemicals not harmful. Employee rebutted: "Regardless of MSDS, debris flying into our eyes. Tanks not 100% clean. Just because MSDS says safe doesn\'t mean it is." Told safety manager "you don\'t really care about us." Boss John Gonzales SENT EMPLOYEE HOME from safety meeting. Boss threatened: "I would have fired you if you were talking to me like that." NO formal write-up at time, but later used as basis for discipline in Feb 21, 2025 Write-Up #1b - recharacterized as "aggression."\n\nWitnesses: Samantha Caines (HSE Manager - conducted meeting), John Gonzales (Manager - sent employee home, made threat), Other safety meeting attendees\nCorroboration: Employer later IMPLEMENTED confined space entry program (rescue team, rescue plan, confined space procedures) = proves employee\'s concerns were 100% VALID. Feb 21 write-up uses this incident as "aggression" = OHS RETALIATION.\n\n📎 CROSS-REFERENCES:\n• OHS Retaliation: Protected safety advocacy later recharacterized as "aggression" in Feb 21 Write-Up #1b\n• Bad Faith Conduct: Public humiliation - sent home, boss threatened termination\n• Write-Up #1b: This Jan 9 incident is one of the allegations in the Feb 21, 2025 disciplinary document',
     evidence: [
-      'Any safety meeting minutes (if documented)',
-      'Safety Culture app submissions by employee',
+      'Feb 21, 2025 disciplinary document (confirms Jan 9, 2025 date)',
       'Confined space procedures implemented AFTER this meeting (proves employee was right)',
       'Coworker testimony (Ramon and RJ present)',
-      'Rescue team documentation created AFTER incident'
+      'Rescue team documentation created AFTER incident',
+      'Boss threat: "I would have fired you if you were talking to me like that"'
     ],
-    witnesses: ['Ramon (coworker at meeting)', 'RJ (coworker at meeting)', 'Safety manager', 'Boss (Manager)'],
-    legalSignificance: 'OHS Act Section 35 protects workers who raise safety concerns. Sending employee home from safety meeting = retaliation for protected activity. CRITICAL: After this meeting, employer implemented confined space entry procedures, rescue team, and rescue plan - proving employee\'s concerns were 100% valid. Employer wouldn\'t implement these procedures if work wasn\'t hazardous. PATTERN: Employee raises legitimate concern → Employer retaliates → Employee proven right.',
+    witnesses: ['Ramon (coworker at meeting)', 'RJ (coworker at meeting)', 'Samantha Caines (HSE Manager)', 'Boss John Gonzales'],
+    legalSignificance: 'OHS Act Section 35 protects workers who raise safety concerns. Sending employee home from safety meeting = retaliation for protected activity. CRITICAL: (1) Employer implemented confined space procedures AFTER this meeting - proves employee was RIGHT, (2) This incident later used as "aggression" allegation in Feb 21 Write-Up #1b = TEXTBOOK OHS RETALIATION - protected activity recharacterized as misconduct.',
     priority: 'critical',
     icon: '⚠️',
   },
@@ -478,6 +479,28 @@ const timelineEvents = [
     legalSignificance: 'Employer knew employee had sleep apnea (diagnosed Feb 18). GPS PROVES missed alarm (sleep disorder symptom). ALSO related to sleep deprivation from caring for 8-month-old infant (family status). Employer never offered accommodation for known disability. Disciplining for disability-related behavior without accommodation violates Alberta Human Rights Act.',
     latenessPersonKey: 'employee',
     priority: 'medium'
+  },
+
+  {
+    id: 79,
+    timestamp: '2025-06-18',
+    text: 'Write-Up #2: FABRICATED ALLEGATIONS + Internal Contradiction',
+    category: 'termination',
+    type: 'point',
+    endDate: null,
+    tags: ['smoking-gun', 'just-cause-failure', 'fabricated-evidence', 'document-integrity', 'disability-discrimination'],
+    description: 'June 18, 2025: Write-Up #2 issued combining multiple allegations. Per official document:\n\n1. June 11-12: Failed to submit timecards\n2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense" [sic]\n3. June 18: Late to work, "did not contact his supervisor to notify that he will be late"\n\n🚨 FABRICATED ALLEGATION: June 13 sick child day - Write-up claims employee "did not communicate his absence" BUT TEXT EVIDENCE PROVES BOSS APPROVED IT: Employee texted "Hey John Kinza wasn\'t feeling too well last night. Can I take the morning off?" Boss replied "Yes your good. Thanks for letting me know."\n\n🚨 INTERNAL CONTRADICTION: Same document says (1) "did not contact his supervisor to notify that he will be late" then (2) "Jonathan contact his supervisor at 737am that he missed his alarm." Document contradicts itself.\n\nTermination threat: "If we do not see an immediate improvement in these behaviors, further discipline up to and including termination will result."\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: June 13 absence was APPROVED - text evidence proves write-up contains false statement\n• Document Integrity: Internal contradiction proves document unreliability\n• Disability Discrimination: June 18 missed alarm = sleep apnea symptom (diagnosed Feb 18)',
+    evidence: [
+      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-06-18 23-05-08.pdf',
+      'June 13 text message showing boss APPROVED sick child day',
+      'GPS evidence showing June 18 arrival at 8:33am',
+      'Text message June 18 at 7:39am notifying boss'
+    ],
+    evidenceImages: [],
+    witnesses: ['Boss John Gonzales', 'Employee'],
+    legalSignificance: '🚨 FABRICATED ALLEGATION IN OFFICIAL DOCUMENT 🚨 (1) June 13 sick child day was APPROVED by boss via text - write-up falsely claims "did not communicate absence", (2) Internal contradiction - document says "did not contact" then says "Jonathan contact his supervisor at 737am", (3) Disability discrimination - June 18 missed alarm was sleep apnea symptom. Making false statements in disciplinary documents = BAD FAITH CONDUCT. Pattern of fabricating paper trail to justify termination.',
+    priority: 'nuclear',
+    icon: '📝',
   },
 
   {
@@ -825,25 +848,26 @@ const timelineEvents = [
 
   {
     id: 73,
-    timestamp: '2025-08-01?',
-    text: '⭐ Michelle Sherman Discriminatory Statement - Write-Up #3',
-    category: 'family',
+    timestamp: '2025-08-05',
+    text: '⭐ Write-Up #3: FABRICATED ALLEGATIONS (3 of 5 FALSE) + Michelle Sherman Statement',
+    category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'smoking-gun', 'family', 'family-status-discrimination', 'bad-faith-conduct'],
-    description: 'Write-Up #3 disciplinary meeting for 3 late instances. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee. SMOKING GUN STATEMENT: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late" (exact wording may vary slightly - employee testimony). This occurred AFTER employee worked 140.5 hours in July (18 consecutive days). Michelle\'s additional belittling behavior same meeting: Repeatedly asked "Do you care about work?" (after 140-hour month!), demanded phone always on "It\'s in your contract," called coworker during meeting to "prove" people answer phones, asked multiple times "Do you care about your job?" Context: Write-Up #3 exact date unknown but timeframe July/August 2025, after overtime marathon (July 14-31) and before Sept parental leave.\n\n📎 CROSS-REFERENCES:\n• Family Status Discrimination: Head of HR explicitly rejects protected ground - institutional discrimination (both boss AND HR rejected family obligations)\n• Bad Faith Conduct: Pretextual discipline - Write-Up #3 cited APPROVED accommodations (Jun 4, Jun 13) as misconduct - fabricated grounds',
+    tags: ['critical', 'smoking-gun', 'family', 'family-status-discrimination', 'bad-faith-conduct', 'fabricated-evidence', 'document-integrity'],
+    description: 'August 5, 2025: Write-Up #3 issued. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee.\n\n🚨 FABRICATED ALLEGATIONS - 3 OF 5 ARE PROVABLY FALSE:\n\n| Write-Up Claims | GPS/Text Evidence | DISCREPANCY |\n|-----------------|-------------------|-------------|\n| June 25: Arrived 7:35am late | GPS: 7:20am (10 min EARLY) | FABRICATED |\n| July 10: Arrived 8:00am | GPS: 7:33am (only 3 min late) | FALSE - 27 min exaggeration |\n| July 28: Sent text about being late | NO text sent. GPS: 7:20am | FABRICATED |\n| July 31: Arrived 8:00am | GPS: 7:54am | Exaggerated by 6 min |\n| Aug 4: No remaining PTO/sick days | Boss said OK, no sick day policy | IRRELEVANT |\n\nSMOKING GUN STATEMENT at this meeting: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Michelle\'s additional belittling: Repeatedly asked "Do you care about work?" (after 140-hour July month!). July 10: Boss missed morning meeting entirely SAME DAY employee disciplined for 3 min lateness = DIFFERENTIAL TREATMENT.\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: GPS evidence PROVES 3 of 5 allegations are false\n• Family Status Discrimination: Head of HR explicitly rejects protected ground\n• Differential Treatment: July 10 boss absent, employee disciplined same day',
     evidence: [
-      'Write-Up #3 document (awaiting from employer - may contain Michelle\'s statement in writing)',
-      'Employee testimony about Michelle\'s statement',
-      'Boss (John) was present at meeting (witness to Michelle\'s statement)',
+      'Employee Disciplinary Consultation Form - JONATHAN_CO_08.05.2025.pdf',
+      'GPS evidence: July-28-Not-late.jpeg (proves NOT late)',
+      'GPS evidence: July-31-Late.jpg (proves 7:54am not 8:00am)',
+      'GPS evidence: Jun-25-2025-10min-EARLY.jpg (proves NOT late)',
       'July timecard showing 140.5 hours worked',
-      'Pattern: July 21 boss statement → July/Aug Michelle statement → Aug 28 sick baby denial'
+      'Employee testimony about Michelle\'s discriminatory statement'
     ],
     evidenceImages: [],
     witnesses: ['Boss (John) - present at meeting', 'Michelle Sherman (made the statement)', 'Employee'],
-    legalSignificance: 'SMOKING GUN #2: Direct evidence of family status discrimination from HEAD OF HR (not just rogue supervisor). Legal significance: (1) EXPLICIT REJECTION of family obligations as legitimate reason for lateness - "having children should not be a reason" = textbook family status discrimination, (2) Made by HEAD OF HR (Michelle Sherman) = shows INSTITUTIONAL/SYSTEMIC discrimination (not isolated), (3) Made AFTER 140-hour overtime month = shows employer ingratitude and bad faith, (4) Pattern with boss\'s July 21 statement = TWO senior management figures (supervisor + HR head) both rejected family obligations within weeks, (5) Proves discriminatory MOTIVE - employer knew family was reason for lateness (employee communicated childcare every time), then explicitly rejected family obligations as legitimate, (6) Alberta Human Rights Act Section 7 protects family status - employer cannot discipline for childcare-related lateness without first attempting accommodation. CRITICAL: Write-Up #3 may contain this statement IN WRITING if Michelle documented her comments - request from employer immediately. If proven, this is DEVASTATING evidence worth tens of thousands in human rights damages (non-taxable).',
+    legalSignificance: '🚨 DEVASTATING: FABRICATED ALLEGATIONS + DISCRIMINATORY STATEMENT 🚨 (1) GPS evidence PROVES 3 of 5 allegations in write-up are FALSE - employer fabricated disciplinary record, (2) Michelle Sherman\'s statement = EXPLICIT REJECTION of family status as legitimate reason for lateness = textbook family status discrimination from HEAD OF HR (institutional discrimination), (3) July 10 differential treatment - boss absent same day employee disciplined, (4) Making false statements in disciplinary documents = BAD FAITH CONDUCT. This write-up alone may be worth tens of thousands in human rights damages (non-taxable).',
     priority: 'nuclear',
-    icon: '💣',
+    icon: '📝',
   },
 
   {
@@ -1153,7 +1177,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'lateness-employee', 'disability-discrimination', 'just-cause-failure'],
-    description: 'Oct 21 night: Employee\'s phone battery died during sleep. Phone turned on briefly during night (light visible). Wife told employee to turn it off. Employee assumed phone had enough battery. Phone died completely. Alarm did not go off. 8:00 AM: Employee woke up late (no alarm). Immediately texted boss: "Sorry, my phone died during the middle of the night, on my way now." Employee has this text saved (CRITICAL). Arrived ~8:30 AM (expected 7:30 AM). Lateness: 1 hour. One-time technical failure (phone battery died). Not habitual. Employee notified immediately upon realizing. No pattern of phone-died incidents. NOT childcare-related (unlike previous lateness). SAME DAY AT LUNCH: TERMINATED.\n\nEvidence:\n- Text message: evidence/06-TERMINATION-INCIDENT/Oct-22-2025-Termination-Text.jpg (8:00 AM "my phone died during the middle of the night, on my way now")\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-22-2025-1.5hr-Late.jpg (left 8:24 AM, arrived 8:59 AM)\n\nWitnesses: Sam (wife - witnessed phone screen briefly turn on night before, employee turned off screen at her request, phone found dead in morning)\nAvailable: Sam - Yes (spouse, willing to testify)\nCorroboration: Wife can testify: (1) Phone screen briefly turned on during night (light disturbed sleep), (2) Wife asked employee to turn off screen, (3) Employee complied, (4) Phone died completely overnight (unforeseeable), (5) No alarm went off. Proves lateness was one-time technical failure, NOT willful misconduct or pattern behavior. Different from childcare-related lateness pattern.',
+    description: 'Oct 21 night: Employee\'s phone battery died during sleep. Phone turned on briefly during night (light visible). Wife told employee to turn it off. Employee assumed phone had enough battery. Phone died completely. Alarm did not go off. 8:00 AM: Employee woke up late (no alarm). Immediately texted boss: "Sorry, my phone died during the middle of the night, on my way now." Employee has this text saved (CRITICAL). Arrived 8:59 AM (expected 7:30 AM). Lateness: 1 hour 29 minutes (~1.5 hours). One-time technical failure (phone battery died). Not habitual. Employee notified immediately upon realizing. No pattern of phone-died incidents. NOT childcare-related (unlike previous lateness). SAME DAY AT LUNCH: TERMINATED.\n\nEvidence:\n- Text message: evidence/06-TERMINATION-INCIDENT/Oct-22-2025-Termination-Text.jpg (8:00 AM "my phone died during the middle of the night, on my way now")\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-22-2025-1.5hr-Late.jpg (left 8:24 AM, arrived 8:59 AM)\n\nWitnesses: Sam (wife - witnessed phone screen briefly turn on night before, employee turned off screen at her request, phone found dead in morning)\nAvailable: Sam - Yes (spouse, willing to testify)\nCorroboration: Wife can testify: (1) Phone screen briefly turned on during night (light disturbed sleep), (2) Wife asked employee to turn off screen, (3) Employee complied, (4) Phone died completely overnight (unforeseeable), (5) No alarm went off. Proves lateness was one-time technical failure, NOT willful misconduct or pattern behavior. Different from childcare-related lateness pattern.',
     evidence: [
       'Text message at 8:00 AM (HAVE THIS - CRITICAL)',
       'GPS location proof',
@@ -1791,26 +1815,23 @@ const timelineEvents = [
 
   {
     id: 64,
-    timestamp: '2024-10-15',
-    text: 'Write-Up #1: Hydraulic Headphones - OHS RETALIATION',
+    timestamp: '2025-02-21',
+    text: 'Write-Up #1b: Phone/Earbuds + "Aggression" + 30-Day Probation - OHS RETALIATION',
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs'],
-    description: 'Mid-October 2024: FIRST DISCIPLINARY ACTION - Three meetings around hydraulic line installation project: (1) Safety training on portal system - employee wore headphones from being outside, researched hydraulic fitting methods on phone during training. (2) VP meeting discussing "what we can do better" after multiple installation failures - employee challenged VP and boss about fitting and alternative installation methods, suggested Loctite for hydraulic lines. Boss eventually bought the correct fittings employee suggested, proving employee was right. (3) Disciplinary meeting - formal written warning for "using headphones during safety meeting" claiming prior warning (employee never heard of policy before). Verbal warning from boss: "You shouldn\'t have spoken to the VP like that." Boss perceived technical input as "talking back." Character label "aggressive behavior" emerged. Employee signed without objections - intimidated, needed job, didn\'t know could object in writing. SMOKING GUN: This write-up is PRETEXTUAL OHS RETALIATION. Protected activity: Technical input during safety troubleshooting. Adverse action: Written warning + characterized as "aggressive". Causal connection: Boss\'s own verbal admission. LEGAL SIGNIFICANCE: If Write-Up #1 is invalid (OHS retaliation + signed under duress), entire progressive discipline chain collapses. All subsequent write-ups occurred in coercive environment established by this retaliatory first write-up.\n\nWitnesses: VP (witnessed employee\'s technical competence during troubleshooting), Coworkers (witnessed team uncomfortable with work, employee proven right), Boss (admits: "you shouldn\'t have spoken to VP like that"), Employee\nAvailable: VP - Adverse witness (employer side), Coworkers - Unknown (may fear retaliation), Boss - Adverse witness\nCorroboration: VP witnessed employee challenge boss\'s installation method. Boss later bought exact fittings employee suggested = objective vindication. Boss\'s own verbal statement ("shouldn\'t have spoken to VP like that") = admission write-up was retaliation for proving boss wrong, NOT about headphones. No written phone/headphones policy existed. Pattern: Hydraulic July 2024 (employee proven right) → Confined Space Oct 2024 (sent home) → Write-Up #1 Oct 15 2024 (disciplined for being right) = OHS retaliation pattern.\n\n📎 CROSS-REFERENCES:\n• Just Cause Failure: First write-up in progressive discipline chain - if invalid (OHS retaliation + signed under duress), entire chain collapses\n• Bad Faith Conduct: Pretextual discipline - \'headphones\' pretext for proving boss wrong at VP meeting (boss verbal admission: \'shouldn\'t have spoken to VP like that\')\n• OHS Retaliation: Protected activity - technical input during hydraulic troubleshooting - proven correct, then disciplined',
+    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs', 'fabricated-evidence'],
+    description: 'February 21, 2025: FIRST WRITTEN DISCIPLINARY ACTION (combined allegations). Per official document: (1) Phone/earbuds during Feb 20 safety training - "observed by two managers to be paying attention to his personal mobile phone", (2) Timecard issues (ongoing), (3) "Aggression towards Samantha Caines, HSE Manager (Jan. 9, 2025)" - THIS WAS THE CONFINED SPACE PPE INCIDENT where employee raised legitimate safety concerns and was sent home. Protected OHS activity recharacterized as "aggression". ACTION: 30-day probation starting March 13, 2025 (upon return from vacation) - "immediate termination" if issues recur. Document claims "verbal warnings every week" for timecards - EXAGGERATION per employee. Employee signed "No Comment" under duress.\n\nSMOKING GUN: Jan 9, 2025 confined space incident was PROTECTED OHS ACTIVITY - employee raised PPE concerns about tank work, was sent home, boss threatened "I would have fired you." Employer later IMPLEMENTED confined space procedures (proving employee was right), but used this incident as basis for discipline. This is TEXTBOOK OHS RETALIATION.\n\nWitnesses: Boss John Gonzales, Samantha Caines (HSE Manager), Two managers who observed phone use\nCorroboration: Confined space procedures implemented AFTER Jan 9 incident proves employee\'s concerns were valid.\n\n📎 CROSS-REFERENCES:\n• OHS Retaliation: Jan 9 confined space incident recharacterized as "aggression"\n• Just Cause Failure: First written discipline - if invalid (OHS retaliation), entire chain collapses\n• Document claims "verbal warnings every week" - EXAGGERATION',
     evidence: [
-      'Written warning document (requested from employer)',
-      'Project records showing hydraulic failures',
-      'Work orders for specialists called in',
-      'Hydraulic project timeline showing boss bought employee\'s suggested fittings',
-      'Boss verbal statement: "shouldn\'t have spoken to VP like that"',
+      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21 23-46-05.pdf',
+      'Confined space procedures implemented AFTER Jan 9 incident',
+      'Boss threat: "I would have fired you if you were talking to me like that"',
       'No written phone/headphone policy',
-      'Coworker testimony - entire team uncomfortable with work',
-      'Employee testimony: first write-up ever, signed under duress, didn\'t know could object'
+      'Employee testimony: signed under duress'
     ],
     evidenceImages: [],
-    witnesses: ['Employee', 'VP present at hydraulic meeting', 'Ramon (coworker)', 'RJ (coworker)', 'Louis (coworker)', 'Team members (hydraulic troubleshooting)', 'Boss John Gonzales', 'HR (possibly)'],
-    legalSignificance: '🚨 FOUNDATION OF ENTIRE CASE 🚨 This write-up is PRETEXTUAL OHS RETALIATION: (1) Employee exercised protected right to raise technical/safety concerns during invited troubleshooting, (2) Boss retaliated with disciplinary action + characterized competence as "aggression", (3) Employee proven RIGHT (boss eventually bought suggested fittings), (4) NO legitimate business reason for discipline (safety input during "what can we do better" meeting), (5) Signed under DURESS (first write-up, job necessity, no knowledge of right to object). ALBERTA LAW: OHS retaliation is prohibited. If first write-up is invalid retaliation, ENTIRE progressive discipline chain collapses. Cannot establish just cause based on disciplinary record that started with illegal retaliation. Sets coercive tone for all subsequent write-ups (learned helplessness pattern begins here). Timing: Same month as baby\'s birth. Employer simultaneously requires phones for safety compliance (door access, safety observations) but disciplines for phone use - contradictory policies. This is the KEY to destroying employer\'s just cause defense.',
+    witnesses: ['Employee', 'Samantha Caines (HSE Manager)', 'Boss John Gonzales', 'Two managers (Feb 20 safety training)'],
+    legalSignificance: '🚨 FOUNDATION OF ENTIRE CASE 🚨 This write-up is PRETEXTUAL OHS RETALIATION: (1) Jan 9, 2025 confined space incident was PROTECTED OHS activity - employee raised legitimate PPE concerns, (2) Employer recharacterized protected activity as "aggression", (3) Employer later IMPLEMENTED confined space procedures (proving employee was RIGHT), (4) Document exaggerates "verbal warnings every week", (5) Signed under DURESS. ALBERTA OHS ACT: Workers cannot face disciplinary action for raising safety concerns. If Write-Up #1b is invalid OHS retaliation, entire progressive discipline chain collapses. 30-day probation = coercive environment for all subsequent discipline.',
     priority: 'nuclear',
     icon: '📝',
   },
@@ -1818,23 +1839,24 @@ const timelineEvents = [
   {
     id: 65,
     timestamp: '2025-10-10',
-    text: '⭐ Write-Up #4: FIRST DAY BACK FROM PARENTAL LEAVE',
+    text: '⭐ Write-Up #4: "FINAL OPPORTUNITY" - FIRST DAY BACK FROM PARENTAL LEAVE',
     category: 'termination',
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'family-status-discrimination'],
-    description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 5 - Oct 9). SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline for Sept 3 timecard → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 5 → "Urgent" email Sept 7 → Silence during entire leave → Write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.\n\nEvidence:\n- Text messages: evidence/02-FAMILY-STATUS-DISCRIMINATION/lateness-notifications/ (Oct 10 morning lateness notification, 8+ hours advance notice)\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-10-2025-8min-Late.jpg\n- Michelle urgent email: evidence/01-CRITICAL-EVIDENCE/Sept-07-2025-Michelle-Urgent-Email.png (Sept 7 "deadline Monday Sept 8" - proves 33-day delay)',
+    description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 4 - Oct 9). Official document language: "This serves as your FINAL OPPORTUNITY to comply with this requirement." SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 4 → "Urgent" email Sept 7 → Silence during entire leave → "FINAL OPPORTUNITY" write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.\n\nEvidence:\n- Text messages: evidence/02-FAMILY-STATUS-DISCRIMINATION/lateness-notifications/ (Oct 10 morning lateness notification, 8+ hours advance notice)\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-10-2025-8min-Late.jpg\n- Michelle urgent email: evidence/01-CRITICAL-EVIDENCE/Sept-07-2025-Michelle-Urgent-Email.png (Sept 7 "deadline Monday Sept 8" - proves 33-day delay)',
     evidence: [
-      'Write-up document for Sept 3 timecard (Oct 10 issue date)',
+      'Employee Disciplinary Consultation Form - JONATHAN_CO_10.10.2025.pdf',
       'Sept 7 Michelle Sherman "urgent" email',
       'Sept 3 timecard in question',
-      'Parental leave dates (Sept 5 - Oct 9)',
+      'Parental leave dates (Sept 4 - Oct 9)',
       '33-day delay timeline',
+      'Official document: "This serves as your final opportunity to comply"',
       'Employee testimony: stopped reading, just signed'
     ],
     evidenceImages: [],
-    witnesses: ['Michelle Sherman (urgent email)', 'John Gonzales (delivered write-up)', 'Employee'],
-    legalSignificance: '🚨 PARENTAL LEAVE RETALIATION SMOKING GUN 🚨 The 33-day delay proves: (1) NOT actually urgent despite Sept 7 email marked "URGENT", (2) Employer deliberately saved discipline for maximum impact = first day of return, (3) Protected activity: Parental leave (5 weeks), (4) Adverse action: Disciplinary write-up, (5) Causal connection: 33-day delay + timing = premeditated retaliation. PATTERN: Catastrophic ROE error during leave (Sept 11) → Write-up day of return (Oct 10) → Termination 12 days later (Oct 22). This timing pattern proves termination was PREMEDITATED, not based on legitimate progressive discipline. Alberta Employment Standards Code prohibits retaliation for exercising protected rights (parental leave). Combined with coercive environment (learned helplessness by write-up #4), this write-up is INVALID. Two for two: Write-up #1 = OHS retaliation, Write-up #4 = Parental leave retaliation. Just cause defense collapses.',
+    witnesses: ['Michelle Sherman (urgent email + HR Director)', 'John Gonzales (delivered write-up)', 'Employee'],
+    legalSignificance: '🚨 PARENTAL LEAVE RETALIATION SMOKING GUN 🚨 The 33-day delay proves: (1) NOT actually urgent despite Sept 7 email marked "URGENT", (2) Employer deliberately saved discipline for maximum impact = first day of return, (3) Protected activity: Parental leave (5 weeks), (4) Adverse action: "FINAL OPPORTUNITY" disciplinary write-up, (5) Causal connection: 33-day delay + timing = premeditated retaliation. PATTERN: Catastrophic ROE error during leave (Sept 11) → "FINAL OPPORTUNITY" write-up day of return (Oct 10) → Termination 12 days later (Oct 22). This timing pattern proves termination was PREMEDITATED, not based on legitimate progressive discipline. Alberta Employment Standards Code prohibits retaliation for exercising protected rights (parental leave). Combined with coercive environment (learned helplessness by write-up #4), this write-up is INVALID.',
     priority: 'nuclear',
     icon: '📝',
   },
