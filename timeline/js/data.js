@@ -99,14 +99,14 @@ const timelineEvents = [
   {
     id: 4,
     timestamp: '2025-02-21',
-    text: 'Write-Up #1a: Timecards Only - ⚠️ EMPLOYEE DID NOT SEE IN EMAIL',
+    text: 'Write-Up #1a: Timecards Only (11:10 AM) - ⚠️ EMPLOYEE DID NOT SEE IN EMAIL',
     category: 'termination',
     type: 'point',
     endDate: null,
     tags: ['disability-discrimination', 'fabricated-evidence', 'document-integrity'],
     description: 'February 21, 2025: Separate disciplinary consultation for timecards only (same day as Write-Up #1b). Per official document: "Individual continues to have issues on submitting timecards in a timely manner." Threatened with suspension or termination. ⚠️ DOCUMENT INTEGRITY ISSUE: Employee does NOT recall receiving this document in email during employment. Employee remembers 4 discipline emails total, but employer provided 6+ documents. This write-up may have been ADDED TO FILE AFTER TERMINATION.\n\nCRITICAL CONTEXT: Timecard system was fundamentally broken - boss responsible for unlocking timecards, boss\'s delays created the problem. Employee was disciplined for a system problem the boss caused. Boss himself was "notoriously bad" at timecards but received no discipline.',
     evidence: [
-      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21.pdf',
+      'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21 17-10-37.pdf',
       'Testimony about broken timecard system',
       'Boss\'s admission he was "notoriously bad" at timecards',
       'Boss responsible for unlocking timecards - his delays caused problems',
@@ -1816,7 +1816,7 @@ const timelineEvents = [
   {
     id: 64,
     timestamp: '2025-02-21',
-    text: 'Write-Up #1b: Phone/Earbuds + "Aggression" + 30-Day Probation - OHS RETALIATION',
+    text: 'Write-Up #1b: Phone/Earbuds + "Aggression" + 30-Day Probation (5:46 PM - 6.5hrs after #1a) - OHS RETALIATION',
     category: 'termination',
     type: 'point',
     endDate: null,
