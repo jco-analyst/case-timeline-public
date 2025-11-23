@@ -1735,24 +1735,29 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'post-termination-misconduct', 'family'],
-    description: 'Sept 11, 2025: Employer issues INCORRECT Record of Employment (Serial M17099756) during employee\'s 5-week parental leave. CATASTROPHIC ERRORS: (1) First day worked shows Aug 24, 2025 (should be Jan 3, 2024 = 8 MONTHS WRONG!), (2) Only 59 insurable hours shown (should be 1,452 hours = 95.9% ERROR), (3) Only $1,979.52 insurable earnings shown (should be $35,538.76 = 94.4% ERROR). WOULD HAVE DESTROYED EI CLAIM: These errors would have cost employee approximately 18 MONTHS of EI parental benefits. Employer incompetence/chaos during protected parental leave. Corrected ROE not issued until Sept 19 (8-day delay). Shows employer administrative failures during period when employee exercising protected right to parental leave.',
+    tags: ['smoking-gun', 'family'],
+    description: 'Sept 11, 2025: Employer issues INCORRECT Record of Employment (Serial M17099756) during employee\'s 5-week parental leave. CATASTROPHIC ERRORS: (1) First day worked shows Aug 24, 2025 (should be Jan 3, 2024 = 8 MONTHS WRONG!), (2) Only 59 insurable hours shown (should be 1,452 hours = 95.9% ERROR), (3) Only $1,979.52 insurable earnings shown (should be $35,538.76 = 94.4% ERROR). EI CLAIM INITIALLY DENIED: MSCA shows Sept 4 application went "Under Review", then Sept 11 decision: "Claim Not Established due to Insufficient hours worked." Employee had to email Michelle Sherman to correct the ROE. Corrected ROE issued Sept 19 (8-day delay). Once MSCA received corrected ROE, parental leave EI was approved. HARM: Denial + delay + employee forced to chase fix during protected parental leave.',
     evidence: [
       'Incorrect ROE Serial M17099756 (Sept 11)',
       'Corrected ROE Serial M17280425 (Sept 19)',
-      'Comparison showing massive errors',
-      'EI benefit calculation impact'
+      'MSCA screenshot showing EI claim DENIED Sept 11 due to "Insufficient hours worked"',
+      'Comparison showing massive errors'
     ],
     evidenceImages: [
       {
         type: 'doc',
         file: 'images/evidence/documents/ROE-2025-Incorrect.pdf',
-        caption: 'CATASTROPHIC ROE ERROR: Serial M17099756 signed Sept 11 2025 during parental leave. First day worked: Aug 24 2025 (8 months wrong!). Hours: 59 (should be 1,452). Earnings: $1,979.52 (should be $35,538.76). ERROR SO MASSIVE it would have DESTROYED employee\'s EI parental benefits claim (18 months of benefits lost). Employer incompetence during protected parental leave.'
+        caption: 'CATASTROPHIC ROE ERROR: Serial M17099756 signed Sept 11 2025 during parental leave. First day worked: Aug 24 2025 (8 months wrong!). Hours: 59 (should be 1,452). Earnings: $1,979.52 (should be $35,538.76). This error CAUSED Service Canada to deny the EI parental benefits claim.'
+      },
+      {
+        type: 'screenshot',
+        file: 'images/evidence/documents/Sept-09-2025-MSCA-Claim-Denied.png',
+        caption: 'MSCA PROOF OF INITIAL DENIAL: Sept 4 - Application "Under Review". Sept 11 - "Claim Not Established due to Insufficient hours worked." The incorrect ROE (59 hours instead of 1,452) caused denial. Employee had to email Michelle Sherman to fix it. After corrected ROE received (Sept 19), parental EI was approved. HARM: Denial, delay, and employee forced to chase fix during parental leave.'
       }
     ],
-    witnesses: ['Ritika (ROE signer)', 'Michelle Sherman (HR)', 'Service Canada (if EI filed)'],
-    legalSignificance: '🚨 PARENTAL LEAVE RETALIATION 🚨 Catastrophic ROE error during protected parental leave: (1) 95%+ error rate in hours and earnings, (2) Would have destroyed EI claim = financial catastrophe for new parent, (3) Timing: During 5-week parental leave (protected under Alberta Employment Standards), (4) 8-day delay to correct shows employer chaos/incompetence, (5) Pattern: Parental leave (Sept 5-Oct 9) → catastrophic ROE error (Sept 11) → write-up day of return (Oct 10) → termination 12 days later (Oct 22). Proves employer retaliation/targeting during protected leave. Even if not intentional retaliation, employer negligence during parental leave = aggravating factor for bad faith damages.',
-    priority: 'critical',
+    witnesses: ['Ritika (ROE signer)', 'Michelle Sherman (HR)', 'Service Canada MSCA records (documented denial)'],
+    legalSignificance: '🚨 PARENTAL LEAVE - DOCUMENTED EMPLOYER NEGLIGENCE 🚨 Catastrophic ROE error during protected parental leave with DOCUMENTED CONSEQUENCES: (1) 95%+ error rate in hours and earnings, (2) EI claim INITIALLY DENIED - MSCA shows "Claim Not Established due to Insufficient hours worked" on Sept 11, (3) Employee forced to email Michelle Sherman to fix error during parental leave, (4) 8-day delay to correct (Sept 11-19) = employer chaos during critical period, (5) Claim approved after corrected ROE received. HARM: Denial, delay, stress, employee burden during protected leave. Pattern: Parental leave (Sept 4-Oct 9) → EI denied (Sept 11) → employee chases fix → corrected ROE (Sept 19) → write-up day of return (Oct 10) → terminated 12 days later (Oct 22). Shows employer administrative failures during protected leave - aggravating factor for bad faith.',
+    priority: 'nuclear',
     icon: '📋'
   },
 
@@ -1763,7 +1768,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['post-termination-misconduct', 'family'],
+    tags: ['family'],
     description: 'Sept 19, 2025: Employer issues CORRECTED Record of Employment (Serial M17280425), 8 DAYS after incorrect ROE (Sept 11). Corrections: First day worked now Dec 15, 2024 (still wrong - should be Jan 3, 2024 but closer), 1,452 insurable hours (was 59), $35,538.76 insurable earnings (was $1,979.52). Signed by different person (Tiffany Li vs Ritika). Comments: "All vacation time has been used and paid out". Shows employer finally got it mostly right after catastrophic error, but 8-day delay during critical EI application period. Employee still on parental leave when corrected ROE issued.',
     evidence: [
       'Corrected ROE Serial M17280425 (Sept 19)',
