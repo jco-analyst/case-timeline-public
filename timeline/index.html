@@ -390,7 +390,9 @@
     .tag-disability { background: #eab308; color: #1f2937; }
     .tag-wrongful-dismissal { background: #2563eb; }
     .tag-correspondence { background: #059669; }
-    .tag-bad-faith { background: #7c2d12; color: #ffffff; }
+    .tag-bad-faith-conduct { background: #7c2d12; color: #ffffff; }
+    .tag-just-cause-failure { background: #7c3aed; }
+    .tag-post-termination-misconduct { background: #0891b2; }
     .tag-lateness-employee { background: #6b7280; }
     .tag-lateness-boss { background: #4b5563; }
     .tag-lateness-coworker { background: #9ca3af; color: #1f2937; }
@@ -996,8 +998,8 @@
 
       <div class="controls">
         <button class="view-btn active" data-view="overview">Overview</button>
-        <button class="view-btn" data-view="family-status-discrimination">Family Status Discrimination</button>
-        <button class="view-btn" data-view="disability-discrimination">Disability Discrimination</button>
+        <button class="view-btn" data-view="family">Family Status</button>
+        <button class="view-btn" data-view="disability">Disability</button>
         <button class="view-btn" data-view="just-cause-failure">Just Cause Failure</button>
         <button class="view-btn" data-view="bad-faith-conduct">Bad Faith Conduct</button>
         <button class="view-btn" data-view="post-termination-misconduct">Post-Termination Misconduct</button>
@@ -1337,10 +1339,10 @@
         eventsPerViewport = 11; // Sept 7 becomes first event of page 2
       }
 
-      // Override for Family Status Discrimination view: break before July 20 turning point
+      // Override for Family Status view: break before July 20 turning point
       // Page 1: Baby Born through Bereavement Leave (9 events) - Jan 10 excluded
       // Page 2: July 20 smoking gun through termination (10 events)
-      if (currentView === 'family-status-discrimination') {
+      if (currentView === 'family') {
         eventsPerViewport = 9; // July 6 is last event of page 1, July 20 starts page 2
       }
 
@@ -1580,13 +1582,13 @@
           console.log('🔍 DEBUG: After human rights filter (with lateness filters):', events.length, 'events');
           console.log('🔍 DEBUG: Active lateness filters:', Array.from(activeLatenessFilters));
         }
-      } else if (currentView === 'family-status-discrimination') {
+      } else if (currentView === 'family') {
         if (activeLatenessFilters.size === 0) {
           // No lateness filters: show full family status view
           // Exclude Jan 10 interview (id 71) to widen timeline
           events = events.filter(e =>
             e.id !== 71 && (
-              (e.tags && e.tags.includes('family-status-discrimination')) ||
+              (e.tags && e.tags.includes('family')) ||
               familyStatusRangeEvents.includes(e.id)
             )
           );
@@ -1602,12 +1604,12 @@
             return false;
           });
         }
-        console.log('🔍 DEBUG: After family-status-discrimination filter:', events.length, 'events');
-      } else if (currentView === 'disability-discrimination') {
+        console.log('🔍 DEBUG: After family filter:', events.length, 'events');
+      } else if (currentView === 'disability') {
         if (activeLatenessFilters.size === 0) {
           // No lateness filters: show full disability view
           events = events.filter(e =>
-            (e.tags && e.tags.includes('disability-discrimination')) ||
+            (e.tags && e.tags.includes('disability')) ||
             disabilityRangeEvents.includes(e.id)
           );
         } else {
@@ -1622,7 +1624,7 @@
             return false;
           });
         }
-        console.log('🔍 DEBUG: After disability-discrimination filter:', events.length, 'events');
+        console.log('🔍 DEBUG: After disability filter:', events.length, 'events');
       } else if (currentView === 'just-cause-failure') {
         if (activeLatenessFilters.size === 0) {
           // No lateness filters: show full just cause view
@@ -1674,9 +1676,8 @@
           // Show/hide lateness subfilters for views with lateness evidence
           const latenessSubfilters = document.getElementById('lateness-subfilters');
           const viewsWithLatenessSubfilters = [
-            'family',                        // Human Rights (curated)
-            'family-status-discrimination',  // Employee lateness = family obligations
-            'disability-discrimination',     // Lateness from sleep apnea/ADHD
+            'family',                        // Family status + Human Rights (curated)
+            'disability',                    // Lateness from sleep apnea/ADHD
             'just-cause-failure'             // Differential treatment (boss vs employee)
           ];
           if (viewsWithLatenessSubfilters.includes(currentView)) {
@@ -2928,8 +2929,8 @@
       // Show mini-map and navigation for all specialized filter views
       const showNavigation = (
         currentView === 'overview' ||
-        currentView === 'family-status-discrimination' ||
-        currentView === 'disability-discrimination' ||
+        currentView === 'family' ||
+        currentView === 'disability' ||
         currentView === 'just-cause-failure' ||
         currentView === 'bad-faith-conduct' ||
         currentView === 'post-termination-misconduct' ||

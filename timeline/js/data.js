@@ -12,7 +12,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family'],
     description: 'During first interview for Electrical Technician position, employee told boss (John): "Family means everything to me, this is a way to provide for my family." This statement established from day one that family was employee\'s top priority and primary motivation for employment. Boss knew about family obligations before even hiring employee, yet later disciplined and terminated employee for those same family obligations.',
     evidence: [
       'Employee testimony about first interview conversation',
@@ -53,7 +53,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'disability-discrimination'],
+    tags: ['disability'],
     description: 'Pre-employment drug test showed amphetamine-based ADHD medication. Employee provided doctor\'s note explaining medication. Boss (John) acknowledged he has ADHD himself and told employee he "understood the struggles." NO accommodations offered from day one.\n\nEvidence:\n- Medical documentation: evidence/03-DISABILITY-DISCRIMINATION/ADHD-Medication-Note-Jan-2024.pdf (doctor\'s note explaining Vyvanse, ADHD diagnosis)',
     evidence: [
       'Drug test records (employer has)',
@@ -103,7 +103,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['disability-discrimination', 'fabricated-evidence', 'document-integrity'],
+    tags: ['disability'],
     description: 'February 21, 2025: Separate disciplinary consultation for timecards only (same day as Write-Up #1b). Per official document: "Individual continues to have issues on submitting timecards in a timely manner." Threatened with suspension or termination. ⚠️ DOCUMENT INTEGRITY ISSUE: Employee does NOT recall receiving this document in email during employment. Employee remembers 4 discipline emails total, but employer provided 6+ documents. This write-up may have been ADDED TO FILE AFTER TERMINATION.\n\nCRITICAL CONTEXT: Timecard system was fundamentally broken - boss responsible for unlocking timecards, boss\'s delays created the problem. Employee was disciplined for a system problem the boss caused. Boss himself was "notoriously bad" at timecards but received no discipline.',
     evidence: [
       'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21 17-10-37.pdf',
@@ -169,7 +169,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family'],
     description: 'Employee\'s daughter born October 9, 2024. Child born into family where employee already told employer (first interview) that "family means everything to me." This marks beginning of childcare-related lateness and absences. Child too young to be admitted to daycare (legal/policy barrier, not choice).',
     evidence: [
       'Birth certificate',
@@ -188,7 +188,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-07-20',
-    tags: ['critical', 'smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'smoking-gun', 'family'],
     description: 'Around the time baby was born (October 2024), boss (John) told employee: "Being late is okay. Just let me know in advance" and "Taking days off is okay. Just let me know in advance." This was VERBAL ONLY (no written policy). Accommodation lasted 9 MONTHS (Oct 2024 - July 20, 2025). Employee complied 100% - texted boss every single time before/during lateness (13+ documented notifications), never failed to notify, made up time when possible. Employer explicitly deemed childcare-related lateness "okay" with advance notice. ACCOMMODATION WORKED: No undue hardship for 9 months, no business disruption, employee provided consistent notice. Accommodation ended July 20, 2025 (turning point) when employee refused Sunday midnight work to care for baby. Boss withdrew accommodation as PUNISHMENT for asserting family boundary.',
     evidence: [
       'Employee testimony (boss\'s direct statement)',
@@ -214,7 +214,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'disability', 'disability-discrimination'],
+    tags: ['critical', 'disability'],
     description: 'Sleep study results: MODERATE sleep apnea diagnosed. Employee told boss and provided doctor\'s letter dated Feb 18, 2025. Boss (John) has sleep apnea himself - employee discussed condition with him. CPAP machine prescribed and purchased. NO accommodations offered (no flexible start time, no grace period, nothing). ALL 13 documented lateness incidents (April-October 2025) occurred AFTER employer knew about diagnosis.\n\nEvidence:\n- Medical documentation: evidence/03-DISABILITY-DISCRIMINATION/Sleep-Apnea-Diagnosis-CPAP-Feb-18-2025.pdf (sleep study, moderate sleep apnea diagnosis, CPAP prescribed)',
     evidence: [
       'Sleep study results',
@@ -270,7 +270,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee'],
     description: 'Employee texted boss about being late. "Couple of minutes late." Reason not specified but likely childcare-related given pattern (7-month-old baby at home). Employee ALWAYS proactively notified boss when running late. Made up time by working through lunch or staying late.',
     evidence: [
       'Text message to boss (employee has)',
@@ -321,7 +321,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee'],
     description: 'Employee texted boss about being late. "Couple of minutes late." GPS proves actually 3 min late. Texted exactly at start time (7:00 AM) showing last-minute wake difficulty - sleep apnea symptom.',
     evidence: ['Text message to boss', 'GPS location proof showing 3 min late'],
     evidenceImages: [
@@ -349,7 +349,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee'],
     description: 'Employee texted boss about being late. "Couple of minutes late." GPS shows actually 9 min late. Text sent 1 min before leaving home = proactive communication.',
     evidence: ['Text message to boss', 'GPS location proof showing 9 min late'],
     evidenceImages: [
@@ -401,7 +401,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'family-status-discrimination'],
+    tags: ['family'],
     description: 'Employee texted boss about taking extra 30 minutes at lunch to take child to medical appointment. Attempted to schedule during lunch to minimize work disruption. Time likely made up same day (employee\'s standard practice).',
     evidence: [
       'Text message to boss',
@@ -427,7 +427,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family'],
     description: 'Employee\'s daughter (Kinza) sick night before. Employee texted boss: "Hey John, Kinza wasn\'t feeling too well last night. Can I take the morning off? I\'ll try to make it back for lunch." Boss responded: "Yes you\'re good. Thanks for letting me know" (APPROVED). Daughter still sick, employee could not return for afternoon. Emergency childcare for sick child - cannot leave sick child unattended. CRITICAL: This absence later appeared on Write-Up #3 as part of the progressive discipline pattern. Employer APPROVED the accommodation in June, but then later used it as justification for discipline - proving the write-ups were pretextual.',
     evidence: [
       'Text message exchange (HAVE THIS - CRITICAL)',
@@ -455,7 +455,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'lateness-employee', 'family-status-discrimination', 'disability-discrimination'],
+    tags: ['disability', 'lateness-employee', 'family'],
     description: 'Employee missed alarm. Texted boss about heading to work. "Less than an hour late" - longest single lateness documented. Likely sleep deprivation from caring for 8-month-old baby (born October 2024). Connection to BOTH sleep apnea (disability) AND childcare sleep disruption (family status).\n\n📎 CROSS-REFERENCES:\n• Disability Discrimination: Sleep apnea symptom (difficulty waking to alarms) - employer knew about diagnosis Feb 18, zero accommodations\n• Family Status Discrimination: Sleep deprivation from infant care (9-month-old baby) combined with disability symptoms',
     evidence: [
       'Text message to boss',
@@ -488,7 +488,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'fabricated-evidence', 'document-integrity', 'disability-discrimination'],
+    tags: ['smoking-gun', 'just-cause-failure', 'disability'],
     description: 'June 18, 2025: Write-Up #2 issued combining multiple allegations. Per official document:\n\n1. June 11-12: Failed to submit timecards\n2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense" [sic]\n3. June 18: Late to work, "did not contact his supervisor to notify that he will be late"\n\n🚨 FABRICATED ALLEGATION: June 13 sick child day - Write-up claims employee "did not communicate his absence" BUT TEXT EVIDENCE PROVES BOSS APPROVED IT: Employee texted "Hey John Kinza wasn\'t feeling too well last night. Can I take the morning off?" Boss replied "Yes your good. Thanks for letting me know."\n\n🚨 INTERNAL CONTRADICTION: Same document says (1) "did not contact his supervisor to notify that he will be late" then (2) "Jonathan contact his supervisor at 737am that he missed his alarm." Document contradicts itself.\n\nTermination threat: "If we do not see an immediate improvement in these behaviors, further discipline up to and including termination will result."\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: June 13 absence was APPROVED - text evidence proves write-up contains false statement\n• Document Integrity: Internal contradiction proves document unreliability\n• Disability Discrimination: June 18 missed alarm = sleep apnea symptom (diagnosed Feb 18)',
     evidence: [
       'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-06-18 23-05-08.pdf',
@@ -532,7 +532,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['lateness-employee', 'family-status-discrimination'],
+    tags: ['lateness-employee', 'family'],
     description: 'Employee texted boss about traffic: "Might be a couple mins late." Boss liked message (thumbs up). GPS PROVES EMPLOYEE ARRIVED 10 MIN EARLY. Employee warned about potential lateness as precaution, then made it on time anyway. PROVES good faith over-communication pattern, NOT unreliability.\n\nEvidence:\n- Text message: evidence/02-FAMILY-STATUS-DISCRIMINATION/lateness-notifications/Jun-25-2025-Traffic.jpg (employee warned about traffic)\n- GPS proof: evidence/11-OFFICIAL-DOCUMENTS/GPS-Analysis.pdf (page showing Jun 25 arrival 10 min EARLY)',
     evidence: ['Text message to boss', 'GPS location proof showing 10 min EARLY arrival'],
     evidenceImages: [
@@ -562,7 +562,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'family-status-discrimination'],
+    tags: ['family'],
     description: 'Employee texted boss requesting time off for celebration of life (funeral/memorial service). Family obligation to attend memorial service for deceased person. Boss approved the request.',
     evidence: ['Text message to boss requesting bereavement leave'],
     evidenceImages: [],
@@ -629,7 +629,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family'],
     description: 'DAY 7 of overtime marathon. Sunday evening (~6 PM). Employee already worked late on SUNDAY (voluntary overtime). Employee texted: "Sorry John, I don\'t think I can make it back tonight. I hope you guys finished the primer by 6pm." (Had to go home - feed 9-month-old baby, care for wife, household duties). Boss responded: "Nope, come on back. We are still working. We will probably be here for another five hours." (Demanded employee return at 6 PM to work until 11 PM or midnight = 16+ hour day on day off, after 7 consecutive days). Employee at 8:52 PM: "Oh wow, still? Should I come in now?" Boss: "We are going to have a major talk tomorrow." JULY 21 MORNING MEETING - Boss held the threatened "major talk" meeting with employee. Boss told employee: "It doesn\'t matter what happens at [home], you need to come in to work." Boss explicitly told employee family obligations are irrelevant. Expected employee to prioritize work over caring for infant child and wife. This confrontation later led to Write-up #3 for lateness, directly connecting the family status discrimination to disciplinary action.\n\nEvidence:\n- Text message: evidence/01-CRITICAL-EVIDENCE/July-20-2025-Sunday-Overtime-Threat.jpg\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/July-20-2025-6min-Late.jpg (proves working Sunday morning, Day 7 of marathon)',
     evidence: [
       'Text messages - COMPLETE EXCHANGE (EMPLOYEE HAS SCREENSHOTS - CRITICAL)',
@@ -731,7 +731,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['family', 'lateness-employee'],
     description: 'Employee 24 minutes late (WORST LATENESS OF ALL 13 INCIDENTS). Context: DAY 18 (FINAL DAY) of working 18 CONSECUTIVE DAYS with ZERO days off. Physically exhausted after 140.5 hours over 2+ weeks of extended daily hours including weekends. GPS proves 24 min late - employee utterly exhausted from brutal schedule.\n\nEvidence:\n- Text message: evidence/02-FAMILY-STATUS-DISCRIMINATION/lateness-notifications/July-31-2025-Late.jpg ("gonna be about 15 mins late today" - polite, gave estimate)\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/July-31-2025-24min-Late.jpg (worst lateness of all 13 incidents)\n- Timecard: evidence/08-TIMECARDS-WORK-HOURS/Timecard-July-2025.png (shows 140.5 hours in 18 consecutive days)',
     evidence: [
       'Text message about lateness',
@@ -764,7 +764,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family'],
     description: 'Employee requested 5 weeks government parental leave. Reason stated to employer: "As my wife transitions back to full time work." This explicitly told employer that: (1) Wife returning to full-time work around August 2025, (2) Employee would need to take parental leave for childcare, (3) Employee would return to work in October with ONGOING childcare obligations (both parents working full-time), (4) Child too young for daycare (legal/policy barrier, not choice). EMPLOYER KNEW employee would return from leave facing same childcare challenges that led to accommodation period (Oct 2024-July 2025). Parental leave approved for Sept 4 - Oct 9, 2025 (5 weeks). CRITICAL: Employer cannot claim surprise about ongoing family obligations when employee explicitly stated reason for leave. Pattern: July 28 request → Sept 4-Oct 9 leave → Oct 10 return + Write-Up #4 SAME DAY (33-day delay retaliation) → Oct 20-21 accommodation denied → Oct 22 terminated (12 days after return from protected leave).',
     evidence: [
       'Parental leave request (method unknown - email/text/in-person not documented)',
@@ -788,7 +788,7 @@ const timelineEvents = [
     category: 'family',
     type: 'range',
     endDate: '2025-10-09',
-    tags: ['critical', 'family', 'family-status-discrimination'],
+    tags: ['critical', 'family'],
     description: 'Employee took 5 weeks government parental leave from Sept 4 - Oct 9, 2025. Reason stated to employer: "As my wife transitions back to full time work." This was PROTECTED LEAVE under Alberta Employment Standards Code and federal Employment Insurance parental benefits. Employee explicitly informed employer that: (1) Wife returning to full-time work, (2) Employee needed leave for childcare, (3) Both parents would be working full-time upon return (Oct 10), (4) Child too young for daycare. CRITICAL TIMELINE: Sept 4-Oct 9 protected leave → Oct 10 return + Write-Up #4 SAME DAY (33-day delay retaliation for Sept 3 timecard) → Oct 20-21 accommodation request denied → Oct 22 terminated (12 days after return). Textbook parental leave retaliation under Alberta Human Rights Act.',
     evidence: [
       'Parental leave approval (HR confirmation)',
@@ -853,7 +853,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'smoking-gun', 'family', 'family-status-discrimination', 'bad-faith-conduct', 'fabricated-evidence', 'document-integrity'],
+    tags: ['critical', 'smoking-gun', 'family', 'bad-faith-conduct'],
     description: 'August 5, 2025: Write-Up #3 issued. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee.\n\n🚨 FABRICATED ALLEGATIONS - 3 OF 5 ARE PROVABLY FALSE:\n\n| Write-Up Claims | GPS/Text Evidence | DISCREPANCY |\n|-----------------|-------------------|-------------|\n| June 25: Arrived 7:35am late | GPS: 7:20am (10 min EARLY) | FABRICATED |\n| July 10: Arrived 8:00am | GPS: 7:33am (only 3 min late) | FALSE - 27 min exaggeration |\n| July 28: Sent text about being late | NO text sent. GPS: 7:20am | FABRICATED |\n| July 31: Arrived 8:00am | GPS: 7:54am | Exaggerated by 6 min |\n| Aug 4: No remaining PTO/sick days | Boss said OK, no sick day policy | IRRELEVANT |\n\nSMOKING GUN STATEMENT at this meeting: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Michelle\'s additional belittling: Repeatedly asked "Do you care about work?" (after 140-hour July month!). July 10: Boss missed morning meeting entirely SAME DAY employee disciplined for 3 min lateness = DIFFERENTIAL TREATMENT.\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: GPS evidence PROVES 3 of 5 allegations are false\n• Family Status Discrimination: Head of HR explicitly rejects protected ground\n• Differential Treatment: July 10 boss absent, employee disciplined same day',
     evidence: [
       'Employee Disciplinary Consultation Form - JONATHAN_CO_08.05.2025.pdf',
@@ -877,7 +877,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'bad-faith-conduct', 'family-status-discrimination'],
+    tags: ['family', 'bad-faith-conduct'],
     description: 'Employee requested personal day via text: "Hey John, I\'m gonna take a personal day today. Not feeling too well." Boss responded: "You can\'t take any more personal days u need to get a doctors notes." EMPLOYER LIED: This was employee\'s FIRST personal day request ever. Employee had only taken bereavement leave (July 6) previously, never a personal day. Boss\'s false statement ("can\'t take any more") was factually incorrect and designed to intimidate. Employee stayed home Aug 4 (very sick), but felt pressured by boss\'s lie and doctor\'s note demand to return ASAP. Employee returned while still contagious, infected entire office (boss, Ramon, coworkers). Boss took 2 days off for same illness. Double standard: Boss denied employee 1 day (lying about personal day usage), then took 2 days himself for same illness employee gave him.\n\n📎 CROSS-REFERENCES:\n• Family Status Discrimination: Accommodation withdrawal pattern continues - denied personal day for family needs 2 weeks after July 20 \'family doesn\'t matter\' statement\n• Bad Faith Conduct: Boss lied - falsely claimed personal days used up when employee still had days available - untruthful conduct',
     evidence: [
       'Aug 4 text messages (employee has)',
@@ -930,7 +930,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'lateness-employee', 'disability-discrimination'],
+    tags: ['disability', 'lateness-employee'],
     description: 'Employee texted: "Woke up late this morning, will be a few minutes late." A few minutes late. Sleep deprivation likely due to newborn (now ~10 months old) AND sleep apnea (diagnosed Feb 18, employer knew). Combination of disability-related symptoms and family status obligations.',
     evidence: [
       'Text message to boss',
@@ -963,7 +963,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family'],
     description: 'Aug 28 - Employee texted boss requesting time off for sick infant daughter and wife: "Hey John, my daughter and wife are still pretty sick and need my help tomorrow. Is it okay if I take the day off? I\'ll be back on Friday." Context: Both infant daughter and wife sick. Baby required medical care. Legitimate family status obligation. Boss responded SAME DAY (Aug 28): "I\'m sorry they are sick, but you still need to come to work." Employee follow-up: "I understand the timing isn\'t ideal, but my baby needs medical care today, and I need to be there for her. I\'ll be back tomorrow and we\'ll catch up on anything urgent." Boss REFUSED accommodation - flat denial despite employee explaining baby needed medical care. No discussion of alternatives, no consideration of undue hardship. Forced employee to choose between job and sick infant. Employee stayed home Aug 29 to care for sick baby (prioritized child\'s health). Baby seen by doctor, doctor provided medical note. Sept 3 - Boss demanded doctor\'s note retroactively (5 days after). Pattern: Denied accommodation → Employee exercised family status rights → Boss built paper trail for retaliation.\n\nEvidence:\n- Text message: evidence/02-FAMILY-STATUS-DISCRIMINATION/text-messages/Aug-28-2025-Sick-Baby-Request.jpg\n- Medical documentation: evidence/02-FAMILY-STATUS-DISCRIMINATION/medical-documentation/Baby-Sept-2-2025-Viral-Cough.pdf (confirms child was sick Aug 28-29)',
     evidence: [
       'Text messages Aug 28 - request + denial (CRITICAL EVIDENCE)',
@@ -1002,7 +1002,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family-status-discrimination'],
+    tags: ['critical', 'family'],
     description: 'Sept 7, 2025 at 12:33 PM: Michelle Sherman (HR Director) emails employee during parental leave: "I am confirming that your last day worked was September 2, 2025, for 9 hours. I do not see a timecard for September 3, 2025. Please confirm this is accurate information. The deadline to receive this information is Monday September 8, 2025 - 12:00pm CST, or sooner." CRITICAL: Michelle claims "URGENT" with Sept 8 deadline. Employee on parental leave starting Sept 4. Employer KNEW about missing Sept 3 timecard on Sept 7. Then WAITED 33 DAYS (from Sept 7 to Oct 10) to issue Write-Up #4 - and issued it on employee\'s FIRST DAY BACK from protected parental leave. If truly urgent (Sept 8 deadline), why wait 33 days to discipline? Answer: Waiting to punish employee for taking parental leave.',
     evidence: [
       'Email from Michelle Sherman Sept 7, 2025',
@@ -1030,7 +1030,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'lateness-employee', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family', 'lateness-employee'],
     description: 'Returned to work from 5-week parental leave. Same day: Helping parents and grandparents get to airport during Thanksgiving weekend. Original plan: Take full day off. Flights delayed, wife able to drive them instead. Employee texted boss: flights delayed, wife driving them, employee on way to work. "Couple of minutes late." Family caregiving obligation - elderly parents/grandparents during holiday travel. Modified work schedule to accommodate family needs.',
     evidence: [
       'Text message to boss about flights/delay',
@@ -1155,7 +1155,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family'],
     description: 'Boss announced (approximately Oct 20): All employees MUST work 12-hour shifts, Oct 20 through Oct 31 (12 consecutive days), mandatory Saturdays and Sundays, two upcoming projects. Very short notice (same day or day before). Normal schedule: 8-hour shifts, Monday-Friday. New requirement: 12-hour shifts + weekends. Extended hours interfere with childcare for newborn. No accommodation offered. Employee requested accommodation (verbal conversation): Take Thursday Oct 23 (half day) and Friday Oct 24 (full day) off. In exchange: Work Saturday, Sunday, remainder of week. Continue 12-hour shifts for rest of period. Reason: Help friend with home project (personal obligation previously scheduled). Total hours same or more. Willing to work weekends. Willing to work 12-hour shifts. Just needed 1.5 days flexibility. Boss REFUSED: "You are REQUIRED to work Saturday and Sunday. It\'s IN YOUR CONTRACT. You WILL HAVE TO come in to work. NO IFS ANDS OR BUTS." Employee stated couldn\'t work those specific days, explained prior commitment, offered alternative (work other weekends/extended hours). Boss: Flat refusal, no discussion of alternatives, claimed contractual obligation, coercive language ("no ifs ands or buts").',
     evidence: [
       'Verbal conversation (no text/email - WEAKNESS)',
@@ -1176,7 +1176,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'lateness-employee', 'disability-discrimination', 'just-cause-failure'],
+    tags: ['smoking-gun', 'lateness-employee', 'disability', 'just-cause-failure'],
     description: 'Oct 21 night: Employee\'s phone battery died during sleep. Phone turned on briefly during night (light visible). Wife told employee to turn it off. Employee assumed phone had enough battery. Phone died completely. Alarm did not go off. 8:00 AM: Employee woke up late (no alarm). Immediately texted boss: "Sorry, my phone died during the middle of the night, on my way now." Employee has this text saved (CRITICAL). Arrived 8:59 AM (expected 7:30 AM). Lateness: 1 hour 29 minutes (~1.5 hours). One-time technical failure (phone battery died). Not habitual. Employee notified immediately upon realizing. No pattern of phone-died incidents. NOT childcare-related (unlike previous lateness). SAME DAY AT LUNCH: TERMINATED.\n\nEvidence:\n- Text message: evidence/06-TERMINATION-INCIDENT/Oct-22-2025-Termination-Text.jpg (8:00 AM "my phone died during the middle of the night, on my way now")\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-22-2025-1.5hr-Late.jpg (left 8:24 AM, arrived 8:59 AM)\n\nWitnesses: Sam (wife - witnessed phone screen briefly turn on night before, employee turned off screen at her request, phone found dead in morning)\nAvailable: Sam - Yes (spouse, willing to testify)\nCorroboration: Wife can testify: (1) Phone screen briefly turned on during night (light disturbed sleep), (2) Wife asked employee to turn off screen, (3) Employee complied, (4) Phone died completely overnight (unforeseeable), (5) No alarm went off. Proves lateness was one-time technical failure, NOT willful misconduct or pattern behavior. Different from childcare-related lateness pattern.',
     evidence: [
       'Text message at 8:00 AM (HAVE THIS - CRITICAL)',
@@ -1820,7 +1820,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs', 'fabricated-evidence'],
+    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs'],
     description: 'February 21, 2025: FIRST WRITTEN DISCIPLINARY ACTION (combined allegations). Per official document: (1) Phone/earbuds during Feb 20 safety training - "observed by two managers to be paying attention to his personal mobile phone", (2) Timecard issues (ongoing), (3) "Aggression towards Samantha Caines, HSE Manager (Jan. 9, 2025)" - THIS WAS THE CONFINED SPACE PPE INCIDENT where employee raised legitimate safety concerns and was sent home. Protected OHS activity recharacterized as "aggression". ACTION: 30-day probation starting March 13, 2025 (upon return from vacation) - "immediate termination" if issues recur. Document claims "verbal warnings every week" for timecards - EXAGGERATION per employee. Employee signed "No Comment" under duress.\n\nSMOKING GUN: Jan 9, 2025 confined space incident was PROTECTED OHS ACTIVITY - employee raised PPE concerns about tank work, was sent home, boss threatened "I would have fired you." Employer later IMPLEMENTED confined space procedures (proving employee was right), but used this incident as basis for discipline. This is TEXTBOOK OHS RETALIATION.\n\nWitnesses: Boss John Gonzales, Samantha Caines (HSE Manager), Two managers who observed phone use\nCorroboration: Confined space procedures implemented AFTER Jan 9 incident proves employee\'s concerns were valid.\n\n📎 CROSS-REFERENCES:\n• OHS Retaliation: Jan 9 confined space incident recharacterized as "aggression"\n• Just Cause Failure: First written discipline - if invalid (OHS retaliation), entire chain collapses\n• Document claims "verbal warnings every week" - EXAGGERATION',
     evidence: [
       'S3S_Disciplinary_Consultation_Form_Jonathan_Co__2025-02-21 23-46-05.pdf',
@@ -1843,7 +1843,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family-status-discrimination'],
+    tags: ['smoking-gun', 'family'],
     description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 4 - Oct 9). Official document language: "This serves as your FINAL OPPORTUNITY to comply with this requirement." SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 4 → "Urgent" email Sept 7 → Silence during entire leave → "FINAL OPPORTUNITY" write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.\n\nEvidence:\n- Text messages: evidence/02-FAMILY-STATUS-DISCRIMINATION/lateness-notifications/ (Oct 10 morning lateness notification, 8+ hours advance notice)\n- GPS proof: evidence/02-FAMILY-STATUS-DISCRIMINATION/gps-location-proof/Oct-10-2025-8min-Late.jpg\n- Michelle urgent email: evidence/01-CRITICAL-EVIDENCE/Sept-07-2025-Michelle-Urgent-Email.png (Sept 7 "deadline Monday Sept 8" - proves 33-day delay)',
     evidence: [
       'Employee Disciplinary Consultation Form - JONATHAN_CO_10.10.2025.pdf',
@@ -1868,7 +1868,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'disability-discrimination'],
+    tags: ['smoking-gun', 'disability'],
     description: 'Monday October 20, 2025 at 7:37 AM: Employee texts boss: "Can I get TC unlock pls". DEVASTATING CATCH-22 SYSTEM: (1) Timecard system auto-locks after 3 days late, (2) Once locked, employee CANNOT submit ANY future timecards, (3) Only boss can unlock, (4) Boss controls employee\'s ability to comply with timecard requirements, (5) Each day locked = MORE accumulated "failures" to submit timecards, (6) Oct 20: Employee proactively requests unlock to PREVENT further violations, (7) Boss controls unlock timing, (8) Oct 22 (2 DAYS LATER): Terminated for "continued failure to submit timecards". SMOKING GUN: Boss WEAPONIZED the unlock system. Created "continued failure" pattern by controlling access to remedy, then cited pattern HE CREATED as just cause for termination. Employee requested remedy (unlock) to comply → Boss delayed remedy → Boss cited inability to comply (which boss caused) as just cause. This is TEXTBOOK MANIPULATION and proves just cause is PRETEXTUAL.',
     evidence: [
       'Oct 20 text: "Can I get TC unlock pls"',
@@ -1955,7 +1955,7 @@ const timelineEvents = [
     category: 'disability',
     type: 'range',
     endDate: '2025-08-25',
-    tags: ['disability', 'disability-discrimination'],
+    tags: ['disability'],
     description: 'July 4 - August 25, 2025: Boss sent FOUR documented timecard reminders to THE TEAM over 52 days (July 4, July 28, Aug 11, Aug 25). THREE reminders sent on SUNDAYS (employee\'s rest days). Context: Jessica and other new hires had joined the team - boss was sending reminders to ensure entire team submitted timecards, not targeting employee personally. This pattern proves: (1) Boss FULFILLED his promise to remind employee (from Write-Up #2), (2) System difficulty was ONGOING and SYSTEMIC affecting multiple team members (required 4 reminders in under 2 months), (3) Problem was NOT employee refusing to comply - employee needed reminders because broken system + ADHD executive function difficulty, as did other team members. CRITICAL: Boss has same ADHD condition ("I understand the struggles"), boss was written up for timecards himself when he started, boss "notoriously bad" at timecards, boss "hates them to this day," boss became manager partly "so he would never have to do time cards ever again." CONTRADICTION: If boss needed accommodation for timecards (promoted to avoid them) but employee FIRED for timecard issues, that\'s DISABILITY DISCRIMINATION. Employee has ADHD (disclosed Jan 2024), zero accommodations offered for 21 months, then terminated citing timecard failures that boss himself struggled with.',
     evidence: [
       'July 4, 2025: Boss timecard reminder (text message photo)',
