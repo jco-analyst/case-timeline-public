@@ -276,7 +276,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee'],
+    tags: ['family', 'disability', 'lateness-employee'],
     description: 'Employee texted boss about being late. "Couple of minutes late." Reason not specified but likely childcare-related given pattern (7-month-old baby at home). Employee ALWAYS proactively notified boss when running late. Made up time by working through lunch or staying late.',
     evidence: [
       'Text message to boss (employee has)',
@@ -327,7 +327,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee'],
+    tags: ['family', 'disability', 'lateness-employee'],
     description: 'Employee texted boss about being late. "Couple of minutes late." GPS proves actually 3 min late. Texted exactly at start time (7:00 AM) showing last-minute wake difficulty - sleep apnea symptom.',
     evidence: ['Text message to boss', 'GPS location proof showing 3 min late'],
     evidenceImages: [
@@ -355,7 +355,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee'],
+    tags: ['family', 'disability', 'lateness-employee'],
     description: 'Employee texted boss about being late. "Couple of minutes late." GPS shows actually 9 min late. Text sent 1 min before leaving home = proactive communication.',
     evidence: ['Text message to boss', 'GPS location proof showing 9 min late'],
     evidenceImages: [
@@ -461,8 +461,8 @@ const timelineEvents = [
     category: 'disability',
     type: 'point',
     endDate: null,
-    tags: ['disability', 'lateness-employee', 'family'],
-    description: 'Employee missed alarm. Texted boss about heading to work. "Less than an hour late" - longest single lateness documented. Likely sleep deprivation from caring for 8-month-old baby (born October 2024). Connection to BOTH sleep apnea (disability) AND childcare sleep disruption (family status).\n\n📎 CROSS-REFERENCES:\n• Disability Discrimination: Sleep apnea symptom (difficulty waking to alarms) - employer knew about diagnosis Feb 18, zero accommodations\n• Family Status Discrimination: Sleep deprivation from infant care (9-month-old baby) combined with disability symptoms',
+    tags: ['disability', 'lateness-employee'],
+    description: 'Employee missed alarm due to sleep apnea symptoms. Texted boss about heading to work. "Less than an hour late" - longest single lateness documented. Sleep apnea (diagnosed Feb 18, 2025) causes difficulty waking to alarms - employer knew about diagnosis but provided zero accommodations.\n\n📎 CROSS-REFERENCES:\n• Disability Discrimination: Sleep apnea symptom (difficulty waking to alarms) - employer knew about diagnosis Feb 18, zero accommodations\n• Family Status Discrimination: Sleep deprivation from infant care (9-month-old baby) combined with disability symptoms',
     evidence: [
       'Text message to boss',
       'GPS location proof',
@@ -742,7 +742,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['family', 'lateness-employee'],
+    tags: ['family', 'disability', 'lateness-employee'],
     description: 'Employee 24 minutes late (WORST LATENESS OF ALL 13 INCIDENTS). Context: DAY 18 (FINAL DAY) of working 18 CONSECUTIVE DAYS with ZERO days off. Physically exhausted after 140.5 hours over 2+ weeks of extended daily hours including weekends. GPS proves 24 min late - employee utterly exhausted from brutal schedule.',
     evidence: [
       'Text message about lateness',
