@@ -1010,6 +1010,11 @@ const timelineEvents = [
         caption: 'Doctor\'s note for Kinza\'s viral cough - medical evidence of sick child requiring care'
       },
       {
+        type: 'doc',
+        file: 'images/evidence/medical-records/Baby-Sept-2-2025-Viral-Cough.pdf',
+        caption: 'Medical record: Baby diagnosed with viral cough Sept 2, 2025. Proves baby was legitimately sick requiring care when employee requested Aug 28-29 off.'
+      },
+      {
         type: 'text',
         file: 'images/evidence/smoking-guns/Sept-03-2025-Retroactive-Sick-Note-Demand.jpg',
         caption: 'SMOKING GUN #2: Boss demands doctor\'s note 5 days after Aug 28-29 sick baby absence. Text: "Where is ur doctors note". Retroactive demand = building paper trail for retaliation.'
