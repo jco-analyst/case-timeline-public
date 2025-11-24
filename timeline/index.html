@@ -1552,24 +1552,17 @@
         }
         console.log('🔍 DEBUG: After family filter:', events.length, 'events');
       } else if (currentView === 'disability') {
-        if (activeLatenessFilters.size === 0) {
-          // No lateness filters: show full disability view
-          events = events.filter(e =>
-            (e.tags && e.tags.includes('disability')) ||
-            disabilityRangeEvents.includes(e.id)
-          );
-        } else {
-          // Lateness filters active: show ONLY matching lateness events
-          events = events.filter(e => {
-            if (activeLatenessFilters.has('employee')) {
-              if ((e.tags && e.tags.includes('lateness-employee')) || latenessEmployeeRangeEvents.includes(e.id)) return true;
-            }
-            if (activeLatenessFilters.has('boss-coworker')) {
-              if ((e.tags && (e.tags.includes('lateness-boss') || e.tags.includes('lateness-coworker'))) || latenessBossRangeEvents.includes(e.id)) return true;
-            }
-            return false;
-          });
-        }
+        // Disability view: show disability events + ALL lateness (employee + boss/coworker as comparators)
+        // Boss has same disabilities (ADHD + sleep apnea) - his lateness without discipline proves differential treatment
+        events = events.filter(e =>
+          (e.tags && e.tags.includes('disability')) ||
+          (e.tags && e.tags.includes('lateness-employee')) ||
+          (e.tags && e.tags.includes('lateness-boss')) ||
+          (e.tags && e.tags.includes('lateness-coworker')) ||
+          disabilityRangeEvents.includes(e.id) ||
+          latenessEmployeeRangeEvents.includes(e.id) ||
+          latenessBossRangeEvents.includes(e.id)
+        );
         console.log('🔍 DEBUG: After disability filter:', events.length, 'events');
       } else if (currentView === 'just-cause-failure') {
         if (activeLatenessFilters.size === 0) {
@@ -1622,9 +1615,9 @@
           // Show/hide lateness subfilters for views with lateness evidence
           const latenessSubfilters = document.getElementById('lateness-subfilters');
           const viewsWithLatenessSubfilters = [
-            'family',                        // Family status + Human Rights (curated)
-            'disability',                    // Lateness from sleep apnea/ADHD
+            'family',                        // Family status - lateness excluded by default, sub-filter to show
             'just-cause-failure'             // Differential treatment (boss vs employee)
+            // Note: 'disability' removed - now shows ALL lateness by default (employee + boss as comparators)
           ];
           if (viewsWithLatenessSubfilters.includes(currentView)) {
             latenessSubfilters.classList.add('visible');
