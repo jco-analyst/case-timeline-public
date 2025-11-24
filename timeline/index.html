@@ -1346,6 +1346,12 @@
         eventsPerViewport = 9; // July 6 is last event of page 1, July 20 starts page 2
       }
 
+      // Override for Disability view: reduce page 1 to prevent overlap
+      // Push 2 events from page 1 to page 2 for better card spacing
+      if (currentView === 'disability') {
+        eventsPerViewport = 8; // Fewer events on page 1 to prevent overlap
+      }
+
       // Reset to first page
       currentViewportIndex = 0;
 
