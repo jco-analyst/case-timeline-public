@@ -190,7 +190,7 @@ const timelineEvents = [
   {
     id: 76,
     timestamp: '2024-10-15',
-    text: '9-MONTH ACCOMMODATION: "Being Late is Okay"',
+    text: '⭐ 9-MONTH ACCOMMODATION: "Being Late is Okay"',
     category: 'family',
     type: 'range',
     endDate: '2025-07-20',
@@ -490,7 +490,7 @@ const timelineEvents = [
   {
     id: 79,
     timestamp: '2025-06-18',
-    text: 'Write-Up #2: FABRICATED ALLEGATIONS + Internal Contradiction',
+    text: '⭐ Write-Up #2: FABRICATED ALLEGATIONS + Internal Contradiction',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1154,7 +1154,7 @@ const timelineEvents = [
   {
     id: 37,
     timestamp: '2025-10-20',
-    text: 'SMOKING GUN: Timecard Unlock Manipulation - Catch-22',
+    text: '⭐ Timecard Unlock Manipulation - Catch-22',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1203,7 +1203,7 @@ const timelineEvents = [
   {
     id: 34,
     timestamp: '2025-10-22',
-    text: 'Final Lateness - Phone Died (Technical Failure)',
+    text: '⭐ Final Lateness - Phone Died (Technical Failure)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1237,7 +1237,7 @@ const timelineEvents = [
   {
     id: 45,
     timestamp: '2025-10-22',
-    text: 'SMOKING GUN: RJ Late SAME DAY as Employee Termination',
+    text: '⭐ RJ Late SAME DAY as Employee Termination',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1638,7 +1638,7 @@ const timelineEvents = [
   {
     id: 53,
     timestamp: '2025-11-04',
-    text: 'Michelle Sherman: ROE Request - Federal Violation',
+    text: '⭐ Michelle Sherman: ROE Request - Federal Violation',
     category: 'correspondence-michelle',
     type: 'point',
     endDate: null,
@@ -1709,7 +1709,7 @@ const timelineEvents = [
   {
     id: 59,
     timestamp: '2025-10-17?',
-    text: 'SMOKING GUN: Jessica Sick Note Differential Treatment',
+    text: '⭐ Jessica Sick Note Differential Treatment',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1852,7 +1852,7 @@ const timelineEvents = [
   {
     id: 64,
     timestamp: '2025-02-21',
-    text: 'Write-Up #1b: Phone/Earbuds + "Aggression" + 30-Day Probation (5:46 PM - 6.5hrs after #1a) - OHS RETALIATION',
+    text: '⭐ Write-Up #1b: Phone/Earbuds + "Aggression" + 30-Day Probation (5:46 PM - 6.5hrs after #1a) - OHS RETALIATION',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1939,7 +1939,7 @@ const timelineEvents = [
   {
     id: 67,
     timestamp: '2025-05-16',
-    text: 'DIFFERENTIAL TREATMENT: Boss Lateness Pattern (6 Instances)',
+    text: '⭐ DIFFERENTIAL TREATMENT: Boss Lateness Pattern (6 Instances)',
     category: 'termination',
     type: 'range',
     endDate: '2025-08-09',
