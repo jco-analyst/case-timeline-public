@@ -864,7 +864,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'smoking-gun', 'family', 'bad-faith-conduct'],
+    tags: ['critical', 'smoking-gun', 'family', 'disability', 'bad-faith-conduct'],
     description: 'August 5, 2025: Write-Up #3 issued. Attendees: Boss (John) + Michelle Sherman (Head of HR) + Employee.\n\n🚨 FABRICATED ALLEGATIONS - 3 OF 5 ARE PROVABLY FALSE:\n\n| Write-Up Claims | GPS/Text Evidence | DISCREPANCY |\n|-----------------|-------------------|-------------|\n| June 25: Arrived 7:35am late | GPS: 7:20am (10 min EARLY) | FABRICATED |\n| July 10: Arrived 8:00am | GPS: 7:33am (only 3 min late) | FALSE - 27 min exaggeration |\n| July 28: Sent text about being late | NO text sent. GPS: 7:20am | FABRICATED |\n| July 31: Arrived 8:00am | GPS: 7:54am | Exaggerated by 6 min |\n| Aug 4: No remaining PTO/sick days | Boss said OK, no sick day policy | IRRELEVANT |\n\nSMOKING GUN STATEMENT at this meeting: Michelle Sherman said "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Michelle\'s additional belittling: Repeatedly asked "Do you care about work?" (after 140-hour July month!). July 10: Boss missed morning meeting entirely SAME DAY employee disciplined for 3 min lateness = DIFFERENTIAL TREATMENT.\n\n📎 CROSS-REFERENCES:\n• Fabricated Evidence: GPS evidence PROVES 3 of 5 allegations are false\n• Family Status Discrimination: Head of HR explicitly rejects protected ground\n• Differential Treatment: July 10 boss absent, employee disciplined same day',
     evidence: [
       'GPS evidence: July-28-Not-late.jpeg (proves NOT late)',
@@ -1884,7 +1884,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family'],
+    tags: ['smoking-gun', 'family', 'disability'],
     description: 'Friday October 10, 2025: Employee receives Write-Up #4 for SEPT 3 TIMECARD on FIRST DAY back from 5-week parental leave (Sept 4 - Oct 9). Official document language: "This serves as your FINAL OPPORTUNITY to comply with this requirement." SMOKING GUN TIMING: Sept 7 Michelle Sherman email marked "URGENT" with "Monday September 8" deadline → Employer waited 33 DAYS (Sept 7 to Oct 10) → Issued write-up on FIRST DAY of return from protected parental leave. PROVES: (1) Not actually urgent (33-day delay), (2) Employer deliberately saved discipline for day of return (maximum intimidation), (3) Pattern: Parental leave Sept 4 → "Urgent" email Sept 7 → Silence during entire leave → "FINAL OPPORTUNITY" write-up Oct 10 first day back → Termination Oct 22 (12 days later). Employee by this point had "learned helplessness" - stopped reading write-ups, just signed to keep job.',
     evidence: [
       'Sept 7 Michelle Sherman "urgent" email',
