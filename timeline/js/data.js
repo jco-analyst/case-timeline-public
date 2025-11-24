@@ -1704,6 +1704,62 @@ const timelineEvents = [
     icon: '📋'
   },
 
+  {
+    id: 82,
+    timestamp: '2025-11-21',
+    text: 'Michelle Sherman: Disciplinary Documents Provided',
+    category: 'correspondence-michelle',
+    type: 'point',
+    endDate: null,
+    tags: ['post-termination-misconduct'],
+    description: 'Nov 21, 2025: Michelle Sherman (HR Director) emails copies of all Disciplinary and Training Consultations. Email sent to employee with Carol Burke (lawyer) copied. 8 attachments containing all write-ups from employment.',
+    evidence: [
+      'Email from Michelle Sherman Nov 21, 2025',
+      'Write-Up #1a - Timecards (Feb 21, 2025)',
+      'Write-Up #1b - Phone/Aggression (Feb 21, 2025)',
+      'Write-Up #2 - Fabricated Allegations (Jun 18, 2025)',
+      'Write-Up #3 - Michelle Statement (Aug 5, 2025)',
+      'Write-Up #4 - Final Opportunity (Oct 10, 2025)',
+      'Training consultation documents'
+    ],
+    evidenceImages: [
+      {
+        type: 'email',
+        file: 'images/evidence/documents/Nov-21-2025-Michelle-Sherman-Copies-Disciplinary.png',
+        caption: 'Nov 21, 2025: Michelle Sherman email providing copies of all disciplinary and training consultations. 8 attachments.'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-1a-Timecards-2025-02-21.pdf',
+        caption: 'Write-Up #1a (Feb 21, 2025): Timecard issues'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-1b-Phone-Aggression-2025-02-21.pdf',
+        caption: 'Write-Up #1b (Feb 21, 2025): Phone/Earbuds + "Aggression" - OHS retaliation for confined space incident'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-2-Fabricated-2025-06-18.pdf',
+        caption: 'Write-Up #2 (Jun 18, 2025): Fabricated allegations - June 13 sick child absence was APPROVED by boss'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-3-Michelle-Statement-2025-08-05.pdf',
+        caption: 'Write-Up #3 (Aug 5, 2025): 3 of 5 allegations PROVABLY FALSE per GPS. Michelle Sherman smoking gun statement.'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-4-Final-Opportunity-2025-10-10.pdf',
+        caption: 'Write-Up #4 (Oct 10, 2025): "FINAL OPPORTUNITY" - Issued FIRST DAY back from parental leave. 33-day delay from Sept 7 "urgent" email.'
+      }
+    ],
+    witnesses: ['Michelle Sherman (HR Director)'],
+    legalSignificance: 'Complete record of progressive discipline. Each write-up contains issues: #1b = OHS retaliation, #2 = fabricated allegation (boss approved June 13), #3 = 3/5 false allegations + discriminatory statement, #4 = parental leave retaliation timing.',
+    priority: 'medium',
+    icon: '📧'
+  },
+
   // ADDITIONAL EVIDENCE - Differential Treatment, Parental Leave Retaliation, OHS
 
   {
