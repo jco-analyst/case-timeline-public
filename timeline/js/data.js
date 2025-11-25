@@ -459,7 +459,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'just-cause-failure', 'disability'],
-    description: 'Write-Up #2 issued with multiple allegations:\n\n1. June 11-12: Failed to submit timecards\n2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense" [sic]\n3. June 18: Late to work, "did not contact his supervisor"\n\nThe June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The document also contains internal contradiction regarding June 18 contact.',
+    description: 'Write-Up #2 issued with multiple allegations:\n\n1. June 11-12: Failed to submit timecards\n2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense" \n3. June 18: Late to work, "did not contact his supervisor"\n\nThe June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The document also contains internal contradiction regarding June 18 contact.',
     evidence: [
       'June 13 text message showing Manager approval',
       'GPS evidence',
@@ -544,7 +544,7 @@ const timelineEvents = [
   {
     id: 40,
     timestamp: '2025-07-10',
-    text: 'Manager Absence During Overtime Period',
+    text: 'Manager Absence During Overtime Period (Instance 3)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -800,7 +800,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['critical', 'smoking-gun', 'family', 'disability', 'bad-faith-conduct'],
-    description: 'Write-Up #3 issued. GPS data contradicts 3 of 5 allegations:\n\n| Write-Up Claim | GPS Evidence | Discrepancy |\n|----------------|--------------|-------------|\n| June 25: "7:35am late" | 7:20am (10 min EARLY) | CONTRADICTED |\n| July 10: "8:00am" | 7:33am (3 min late) | 27-min exaggeration |\n| July 28: "sent text about being late" | No text. GPS: 7:20am | CONTRADICTED |\n| July 31: "8:00am" | 7:54am | 6-min exaggeration |\n\nDuring meeting, HR Director Sherman stated: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman also asked "Do you care about work?" multiple times(following 140-hour month).',
+    description: 'Write-Up #3 issued. GPS data contradicts 3 of 5 allegations. During meeting, HR Director Sherman stated: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman also asked "Do you care about work?" multiple times and asked for me to explain(following 140-hour month).',
     evidence: [
       'GPS evidence contradicting specific dates',
       'July timecard showing 140.5 hours',
@@ -810,7 +810,7 @@ const timelineEvents = [
       {
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-3-Michelle-Statement-2025-08-05.pdf',
-        caption: 'Write-Up #3.'
+        caption: 'Disciplinary Document #3 (Aug 5, 2025). Contains factual errors contradicted by GPS evidence. HR Director Sherman\'s statement: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late."'
       },
       {
         type: 'gps',
