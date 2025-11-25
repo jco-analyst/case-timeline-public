@@ -45,7 +45,7 @@ const timelineEvents = [
   {
     id: 2,
     timestamp: '2024-01-05',
-    text: 'Disclosure of Disability (ADHD)',
+    text: '⭐ Disclosure of Disability (ADHD)',
     category: 'disability',
     type: 'point',
     endDate: null,
@@ -117,7 +117,7 @@ const timelineEvents = [
   {
     id: 78,
     timestamp: '2025-01-08',
-    text: 'Manager Admission: Prior Wage Practices',
+    text: '⭐ Manager Admission: Prior Wage Practices',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -177,7 +177,7 @@ const timelineEvents = [
   {
     id: 76,
     timestamp: '2024-10-15',
-    text: 'Verbal Modification of Employment Terms',
+    text: '⭐ Verbal Modification of Employment Terms',
     category: 'family',
     type: 'range',
     endDate: '2025-07-20',
@@ -199,7 +199,7 @@ const timelineEvents = [
   {
     id: 9,
     timestamp: '2025-02-18',
-    text: 'Disclosure of Sleep Apnea Diagnosis',
+    text: '⭐ Disclosure of Sleep Apnea Diagnosis',
     category: 'disability',
     type: 'point',
     endDate: null,
@@ -454,7 +454,7 @@ const timelineEvents = [
   {
     id: 79,
     timestamp: '2025-06-18',
-    text: 'Disciplinary Record: Write-Up #2 (Documentary Discrepancies)',
+    text: '⭐ Disciplinary Record: Write-Up #2 (Documentary Discrepancies)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -590,7 +590,7 @@ const timelineEvents = [
   {
     id: 22,
     timestamp: '2025-07-20',
-    text: 'Management Statement: Rejection of Family Status',
+    text: '⭐ Management Statement: Rejection of Family Status',
     category: 'family',
     type: 'point',
     endDate: null,
@@ -763,7 +763,7 @@ const timelineEvents = [
   {
     id: 26,
     timestamp: '2025-07-20?',
-    text: 'Failure to Report PSI: Chemical Exposure',
+    text: '⭐ Failure to Report PSI: Chemical Exposure',
     category: 'ohs',
     type: 'point',
     endDate: null,
@@ -795,7 +795,7 @@ const timelineEvents = [
   {
     id: 73,
     timestamp: '2025-08-05',
-    text: 'Disciplinary Record: Write-Up #3 (GPS Contradictions)',
+    text: '⭐ Disciplinary Record: Write-Up #3 (GPS Contradictions)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -908,7 +908,7 @@ const timelineEvents = [
   {
     id: 28,
     timestamp: '2025-08-28',
-    text: 'Denial of Family Responsibility Leave',
+    text: '⭐ Denial of Family Responsibility Leave',
     category: 'family',
     type: 'point',
     endDate: null,
@@ -976,7 +976,7 @@ const timelineEvents = [
   {
     id: 30,
     timestamp: '2025-10-10',
-    text: 'Return to Work / Write-Up #4',
+    text: '⭐ Return to Work / Write-Up #4',
     category: 'family',
     type: 'point',
     endDate: null,
@@ -1063,7 +1063,7 @@ const timelineEvents = [
   {
     id: 37,
     timestamp: '2025-10-20',
-    text: 'Systemic Barrier: Timecard Lockout',
+    text: '⭐ Systemic Barrier: Timecard Lockout',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1089,7 +1089,7 @@ const timelineEvents = [
   {
     id: 33,
     timestamp: '2025-10-20',
-    text: 'Constructive Dismissal / Unreasonable Overtime Demand',
+    text: '⭐ Constructive Dismissal / Unreasonable Overtime Demand',
     category: 'family',
     type: 'point',
     endDate: null,
@@ -1108,7 +1108,7 @@ const timelineEvents = [
   {
     id: 34,
     timestamp: '2025-10-22',
-    text: 'Final Lateness Event: Technical Failure',
+    text: '⭐ Final Lateness Event: Technical Failure',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1140,7 +1140,7 @@ const timelineEvents = [
   {
     id: 45,
     timestamp: '2025-10-22',
-    text: 'Differential Treatment: Coworker Lateness (Same Day)',
+    text: '⭐ Differential Treatment: Coworker Lateness (Same Day)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1163,7 +1163,7 @@ const timelineEvents = [
   {
     id: 35,
     timestamp: '2025-10-22',
-    text: 'Termination Event',
+    text: '⭐ Termination Event',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1193,7 +1193,7 @@ const timelineEvents = [
   {
     id: 79,
     timestamp: '2025-10-22',
-    text: 'Evidence Spoliation: Revocation of Access',
+    text: '⭐ Evidence Spoliation: Revocation of Access',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1291,7 +1291,7 @@ const timelineEvents = [
   {
     id: 47,
     timestamp: '2025-10-27',
-    text: 'Administrative Error: Incorrect Payment Destination',
+    text: '⭐ Administrative Error: Incorrect Payment Destination',
     category: 'correspondence-danielle',
     type: 'point',
     endDate: null,
@@ -1403,7 +1403,7 @@ const timelineEvents = [
   {
     id: 50,
     timestamp: '2025-10-30',
-    text: 'Production of Incorrect Documents',
+    text: '⭐ Production of Incorrect Documents',
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
@@ -1468,7 +1468,7 @@ const timelineEvents = [
   {
     id: 52,
     timestamp: '2025-11-04',
-    text: 'Production of "Corrected" Documents ("Dear Rollins" Error)',
+    text: '⭐ Production of "Corrected" Documents ("Dear Rollins" Error)',
     category: 'correspondence-carol',
     type: 'point',
     endDate: null,
@@ -1504,7 +1504,7 @@ const timelineEvents = [
   {
     id: 53,
     timestamp: '2025-11-04',
-    text: 'ROE Non-Compliance: Late Issuance',
+    text: '⭐ ROE Non-Compliance: Late Issuance',
     category: 'correspondence-michelle',
     type: 'point',
     endDate: null,
@@ -1539,7 +1539,7 @@ const timelineEvents = [
   {
     id: 60,
     timestamp: '2025-11-05',
-    text: 'ROE Issuance: 14 Day Delay',
+    text: '⭐ ROE Issuance: 14 Day Delay',
     category: 'correspondence-michelle',
     type: 'point',
     endDate: null,
@@ -1620,7 +1620,7 @@ const timelineEvents = [
   {
     id: 59,
     timestamp: '2025-10-17?',
-    text: 'Differential Treatment: Sick Leave Verification (Jessica)',
+    text: '⭐ Differential Treatment: Sick Leave Verification (Jessica)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1644,7 +1644,7 @@ const timelineEvents = [
   {
     id: 81,
     timestamp: '2025-09-11',
-    text: 'Administrative Error: ROE Data (Parental Leave)',
+    text: '⭐ Administrative Error: ROE Data (Parental Leave)',
     category: 'family',
     type: 'point',
     endDate: null,
@@ -1748,7 +1748,7 @@ const timelineEvents = [
   {
     id: 64,
     timestamp: '2025-02-21',
-    text: 'Disciplinary Record: Conflation of Events (Write-Up #1b)',
+    text: '⭐ Disciplinary Record: Conflation of Events (Write-Up #1b)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1773,7 +1773,7 @@ const timelineEvents = [
   {
     id: 65,
     timestamp: '2025-10-10',
-    text: 'Disciplinary Record: Write-Up #4 (Parental Leave Retaliation)',
+    text: '⭐ Disciplinary Record: Write-Up #4 (Parental Leave Retaliation)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1799,7 +1799,7 @@ const timelineEvents = [
   {
     id: 66,
     timestamp: '2025-10-20',
-    text: 'Systemic Barrier: Unlock Request',
+    text: '⭐ Systemic Barrier: Unlock Request',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1824,7 +1824,7 @@ const timelineEvents = [
   {
     id: 67,
     timestamp: '2025-05-16',
-    text: 'Differential Treatment: Managerial Lateness Pattern (6 Instances)',
+    text: '⭐ Differential Treatment: Managerial Lateness Pattern (6 Instances)',
     category: 'termination',
     type: 'range',
     endDate: '2025-08-09',
