@@ -1776,7 +1776,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs'],
-    description: 'Disciplinary record conflates two distinct events: (1) January 9 Safety Advocacy meeting (PPE request), and (2) February 20 alleged earbud infraction. The presence of HSE Manager Caines alongside Manager Gonzales confirms linkage to the prior safety dispute. "Aggression" cited = the Jan 9 PPE advocacy.',
+    description: 'Write-Up conflates two distinct events 43 days apart:<br><br><strong>Jan 9:</strong> Employee raised PPE concerns during safety meeting. Manager removed Employee from meeting, threatened: "I would have fired you if you were talking to me like that." Protected activity under Alberta OHS Act s.35.<br><br><strong>Feb 20:</strong> Alleged earbud infraction (pretext).<br><br><strong>Feb 21:</strong> Disciplinary record characterizes Jan 9 protected OHS advocacy as "aggressive behavior," combines with Feb 20 minor infraction to manufacture "pattern."<br><br><strong>Smoking gun:</strong> HSE Manager Caines present at discipline meeting for <em>earbuds</em>. His presence proves linkage to Jan 9 safety dispute = OHS retaliation.<br><br>Employer later implemented confined space procedures Employee requested, vindicating Jan 9 concerns.',
     evidence: [
       'Document conflating two events',
       'Confined space procedures (post-dated, validating concerns)',
@@ -1789,7 +1789,7 @@ const timelineEvents = [
       }
     ],
     witnesses: ['Manager Gonzales', 'HSE Manager Caines'],
-    legalSignificance: 'Failure to Investigate / Improper Motive. By characterizing a protected safety refusal (Jan 9) as "aggression" and combining it with a minor infraction (earbuds), the Employer manufactured a pattern of misconduct. The presence of the Safety Manager at a disciplinary meeting for earbuds suggests the true motive was OHS reprisal.',
+    legalSignificance: 'OHS Retaliation / Pretextual Discipline. Employer conflated protected OHS advocacy (Jan 9) with unrelated minor infraction (Feb 20) to manufacture "pattern." HSE Manager presence at earbuds discipline = direct evidence of retaliation motive. Subsequent vindication (employer implemented requested procedures) proves Jan 9 concerns legitimate. Conflation strategy destroys progressive discipline foundation = just cause failure.',
     priority: 'nuclear',
     icon: '📝',
   },
