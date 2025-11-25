@@ -459,11 +459,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'just-cause-failure', 'disability'],
-    description: ['Write-Up #2 issued with multiple allegations:',
-      '1. June 11-12: Failed to submit timecards',
-      '2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense"',
-      '3. June 18: Late to work, "did not contact his supervisor"',
-      'The June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The document also contains internal contradiction regarding June 18 contact.'],
+    description: 'Write-Up #2 issued with multiple allegations:\n\n1. June 11-12: Failed to submit timecards\n\n2. June 13: "Jonathan did not show up for work later that day and did communicate his abscense" [sic]\n\n3. June 18: Late to work, "did not contact his supervisor"\n\nThe June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The document also contains internal contradiction regarding June 18 contact.',
     evidence: [
       'June 13 text message showing Manager approval',
       'GPS evidence',
