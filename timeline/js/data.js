@@ -799,7 +799,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'smoking-gun', 'family', 'disability', 'bad-faith-conduct'],
+    tags: ['critical', 'smoking-gun', 'family', 'disability', 'bad-faith-conduct', 'just-cause-failure'],
     description: 'Write-Up #3 alleging lateness on 5 dates plus administrative issues. GPS data contradicts 4 of 5 lateness allegations:<br><br><strong>June 25:</strong> Alleged 7:35 AM arrival. GPS: LEFT home 6:48 AM, ARRIVED 10 minutes EARLY.<br><br><strong>July 10:</strong> Alleged 8:00 AM arrival. GPS: 7:33 AM (3 minutes late, NOT 30 minutes). CRITICAL: Manager Gonzales ABSENT from morning meeting same day (differential treatment).<br><br><strong>July 28:</strong> Alleged sent late text. GPS: LEFT home 6:45 AM, ARRIVED 7:20 AM (10 MINUTES EARLY for 7:30 start).<br><br><strong>July 31:</strong> Alleged 8:00 AM arrival. GPS: 7:54 AM (6 minutes before start, NOT 8:00 AM).<br><br><strong>July 25:</strong> Timecard submission (administrative issue, not lateness).<br><br><strong>August 4:</strong> Personal day request (separate incident).<br><br>During disciplinary meeting, HR Director Sherman made discriminatory statement: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman repeatedly asked "Do you care about work?" despite Employee having worked 140.5 hours in July. Employee signed under institutional duress.',
     evidence: [
       'Write-Up #3 document (Aug 5, 2025)',
@@ -1800,7 +1800,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'disability'],
+    tags: ['smoking-gun', 'family', 'disability', 'just-cause-failure'],
     description: 'Employer issued "FINAL OPPORTUNITY" warning on Employee\'s first day back from parental leave. Issue cited (Sept 3 timecard) was known 33 days prior (Sept 7 "urgent" email with Sept 8 deadline). Employer waited until return from protected leave to discipline.',
     evidence: [
       'Sept 7 HR email ("Urgent")',
