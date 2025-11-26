@@ -132,7 +132,7 @@ const timelineEvents = [
   {
     id: 4,
     timestamp: '2025-02-21',
-    text: 'Disciplinary Record: Timecards (11:10 AM)',
+    text: 'Disciplinary Record (1A): Timecards (11:10 AM)',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -495,7 +495,7 @@ const timelineEvents = [
   {
     id: 79,
     timestamp: '2025-06-18',
-    text: '⭐ Disciplinary Record: Write-Up #2 (Documentary Discrepancies)',
+    text: '📋 Disciplinary Record (2): Documentary Discrepancies',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -836,7 +836,7 @@ const timelineEvents = [
   {
     id: 73,
     timestamp: '2025-08-05',
-    text: '⭐ Disciplinary Record: Write-Up #3 (GPS Contradictions)',
+    text: '📋 Disciplinary Record (3): GPS Contradictions',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1040,23 +1040,17 @@ const timelineEvents = [
   {
     id: 30,
     timestamp: '2025-10-10',
-    text: '⭐ Return to Work / Write-Up #4',
+    text: 'Return to Work from Parental Leave',
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'lateness-employee'],
-    description: 'Employee returned from parental leave. Two events this date: (1) Morning 8-minute delay due to assisting elderly family members (Thanksgiving travel); text sent at 4:54 AM (8+ hours notice). (2) Same day: Employer issued Write-Up #4 ("FINAL OPPORTUNITY") regarding Sept 3 timecard (33-day delay from "urgent" Sept 7 deadline).',
+    tags: ['family', 'lateness-employee'],
+    description: 'Employee returned from parental leave (first day back). Morning 8-minute delay due to assisting elderly family members with Thanksgiving travel logistics. Employee sent text notification at 4:54 AM (8+ hours advance notice).',
     evidence: [
       'Text message (4:54 AM)',
-      'GPS data',
-      'Write-Up #4'
+      'GPS data'
     ],
     evidenceImages: [
-      {
-        type: 'text',
-        file: 'images/evidence/smoking-guns/Oct-10-2025-Write-Up-Day-Of-Return.jpg',
-        caption: 'Oct 10: 8-min lateness (family caregiving) + Write-Up #4 same day.'
-      },
       {
         type: 'doc',
         file: 'images/evidence/gps-proofs/Oct-10-2025-8min-Late.jpg',
@@ -1064,9 +1058,9 @@ const timelineEvents = [
       }
     ],
     witnesses: ['Manager Gonzales'],
-    legalSignificance: 'Reprisal for Protected Leave. Issuing "Final Opportunity" warning on the very first day back from leave, for an issue Employer knew about for 33 days, indicates predetermined intent to terminate. Timeline: Sept 7 "urgent" → Oct 10 return + discipline same day → Oct 22 terminated (12 days).',
+    legalSignificance: 'Context for Oct 10 events. Employee provided advance notice of family caregiving delay on first day back from protected parental leave.',
     latenessPersonKey: 'employee',
-    priority: 'nuclear',
+    priority: 'medium',
   },
   {
     id: 31,
@@ -1812,7 +1806,7 @@ const timelineEvents = [
   {
     id: 64,
     timestamp: '2025-02-21',
-    text: '⭐ Disciplinary Record: Conflation of Events (Write-Up #1b)',
+    text: '📋 Disciplinary Record (1B): Conflation of Events ',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1840,7 +1834,7 @@ const timelineEvents = [
   {
     id: 65,
     timestamp: '2025-10-10',
-    text: '⭐ Disciplinary Record: Write-Up #4 (Parental Leave Retaliation)',
+    text: '📋 Disciplinary Record (4): Parental Leave Retaliation',
     category: 'termination',
     type: 'point',
     endDate: null,
@@ -1861,7 +1855,7 @@ const timelineEvents = [
     witnesses: ['Michelle Sherman', 'Manager Gonzales'],
     legalSignificance: 'Reprisal Timing. 33-day delay in issuing "urgent" discipline, timed exactly to return from protected leave, indicates strategic discipline rather than corrective action.',
     priority: 'nuclear',
-    icon: '📝',
+    icon: '📋',
   },
   {
     id: 66,

@@ -1510,8 +1510,7 @@
           26,  // Headphones incident (leads to Write-Up #1)
           64,  // Write-Up #1 Document (OHS Retaliation)
           27,  // Write-Up #3 events
-          30,  // Oct 10 - Return from Leave + Family Lateness (SG #4)
-          65,  // Write-Up #4 Document
+          65,  // Write-Up #4 - Disciplinary Record on Return from Leave (SG #4)
           33,  // Oct 20 - Accommodation Request Denied
           34,  // Oct 21 - Employee Backs Down
           66,  // Timecard Unlock Catch-22 (SG #7)
@@ -2607,6 +2606,9 @@
             ? event.description.substring(0, 120) + '...'
             : event.description;
 
+          // Strip <br> tags but keep <strong> for bold text in preview
+          const previewDesc = desc.replace(/<br\s*\/?>/gi, ' ');
+
           // Create card at temporary position first
           const card = cardsContainer.append('div')
             .attr('class', `event-card category-${event.category}`)
@@ -2663,7 +2665,7 @@
           // Description
           card.append('div')
             .attr('class', 'card-description')
-            .html(desc);
+            .html(previewDesc);
 
 
           // Measure actual card height
