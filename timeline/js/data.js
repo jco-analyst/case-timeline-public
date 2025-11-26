@@ -1776,20 +1776,27 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'ohs'],
-    description: 'Write-Up conflates two distinct events 43 days apart:<br><br><strong>Jan 9:</strong> Employee raised PPE concerns during safety meeting. Manager removed Employee from meeting, threatened: "I would have fired you if you were talking to me like that." Protected activity under Alberta OHS Act s.35.<br><br><strong>Feb 20:</strong> Alleged earbud infraction (pretext).<br><br><strong>Feb 21:</strong> Disciplinary record characterizes Jan 9 protected OHS advocacy as "aggressive behavior," combines with Feb 20 minor infraction to manufacture "pattern."<br><br><strong>Smoking gun:</strong> HSE Manager Caines present at discipline meeting for <em>earbuds</em>. His presence proves linkage to Jan 9 safety dispute = OHS retaliation.<br><br>Employer later implemented confined space procedures Employee requested, vindicating Jan 9 concerns.',
+    description: 'Write-Up conflates TWO protected OHS activities 43 days apart. Employer mixed up events in write-up, showing failure to investigate:<br><br><strong>Jan 9 (PPE Meeting):</strong> Employee raised full-face mask concerns for confined space work (debris, chemicals in eyes) during safety training. HSE Manager Samantha Caines refused, citing MSDS. Manager John sent Employee home. Attendees: John, Samantha Caines, Ramon, RJ.<br><br><strong>Feb 20 (Hydraulic Meeting):</strong> Employee debated VP Steven Granberg about leaking hydraulic fittings, recommended Loctite based on hours of personal research. VP disagreed. Employee may have used phone to access Loctite technical documentation. Attendees: John, VP Steven Granberg, Ramon, RJ.<br><br><strong>Feb 21 Write-Up EXPLICITLY states:</strong> "Jonathan has shown aggression towards Samantha Caines, the HSE Manager (Jan. 9, 2025)" — ADMITTING discipline is for Jan 9 PPE advocacy.<br><br><strong>Smoking gun:</strong> Write-up names HSE Manager and Jan 9 date, directly linking discipline to protected safety speech. Employer also issued separate timecard write-up same day (6.5 hours earlier) = two write-ups, zero opportunity to improve.',
     evidence: [
-      'Document conflating two events',
-      'Confined space procedures (post-dated, validating concerns)',
+      'Write-Up document explicitly naming "aggression toward Samantha Caines (Jan 9)"',
+      'Same-day timecard write-up (6.5 hours earlier)',
+      'Confined space procedures (post-dated, vindicating Jan 9 concerns)',
+      'Loctite technical documentation Employee researched'
     ],
     evidenceImages: [
       {
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-1b-Phone-Aggression-2025-02-21.pdf',
-        caption: 'Write-Up 1b: Failure to Investigate. Conflates Jan 9 OHS advocacy ("aggression") with Feb 20 conduct.'
+        caption: 'Write-Up #1b: Explicitly states "aggression towards Samantha Caines, HSE Manager (Jan. 9, 2025)" - admitting retaliation for PPE advocacy.'
+      },
+      {
+        type: 'doc',
+        file: 'images/evidence/documents/Write-Up-Timecards-2025-02-21.pdf',
+        caption: 'Same-day timecard write-up (6.5 hours earlier). Two write-ups same day = failed progressive discipline.'
       }
     ],
-    witnesses: ['Manager Gonzales', 'HSE Manager Caines'],
-    legalSignificance: 'OHS Retaliation / Pretextual Discipline. Employer conflated protected OHS advocacy (Jan 9) with unrelated minor infraction (Feb 20) to manufacture "pattern." HSE Manager presence at earbuds discipline = direct evidence of retaliation motive. Subsequent vindication (employer implemented requested procedures) proves Jan 9 concerns legitimate. Conflation strategy destroys progressive discipline foundation = just cause failure.',
+    witnesses: ['Manager John Gonzales', 'HSE Manager Samantha Caines', 'VP Steven Granberg', 'Ramon', 'RJ'],
+    legalSignificance: 'OHS Retaliation / Pretextual Discipline. Write-up EXPLICITLY admits discipline for "aggression toward HSE Manager (Jan 9)" = protected PPE advocacy under Alberta OHS Act s.18. Employer conflated two protected activities (Jan 9 PPE + Feb 20 hydraulic debate) and mixed up events, showing failure to investigate. Two write-ups same day violates progressive discipline (no opportunity to improve). Both events = protected OHS activity. Employer later implemented confined space procedures Employee requested Jan 9, vindicating concerns.',
     priority: 'nuclear',
     icon: '📝',
   },
