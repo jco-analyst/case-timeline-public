@@ -841,14 +841,15 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['critical', 'smoking-gun', 'family', 'disability', 'bad-faith-conduct', 'just-cause-failure'],
-    description: 'Write-Up #3 alleging lateness on 5 dates plus administrative issues. GPS data contradicts 4 of 5 lateness allegations:<br><br><strong>June 25:</strong> Alleged 7:35 AM arrival. GPS: LEFT home 6:48 AM, ARRIVED 10 minutes EARLY.<br><br><strong>July 10:</strong> Alleged 8:00 AM arrival. GPS: 7:33 AM (3 minutes late, NOT 30 minutes). CRITICAL: Manager Gonzales ABSENT from morning meeting same day (differential treatment).<br><br><strong>July 28:</strong> Alleged sent late text. GPS: LEFT home 6:45 AM, ARRIVED 7:20 AM (10 MINUTES EARLY for 7:30 start).<br><br><strong>July 31:</strong> Alleged 8:00 AM arrival. GPS: 7:54 AM (6 minutes before start, NOT 8:00 AM).<br><br><strong>July 25:</strong> Timecard submission (administrative issue, not lateness).<br><br><strong>August 4:</strong> Personal day request (separate incident).<br><br>During disciplinary meeting, HR Director Sherman made discriminatory statement: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman repeatedly asked "Do you care about work?" despite Employee having worked 140.5 hours in July. Employee signed under institutional duress.',
+    description: 'Write-Up #3 alleging lateness on 5 dates plus administrative issues. GPS data contradicts 4 of 5 lateness allegations:<br><br><strong>June 25:</strong> Alleged 7:35 AM arrival. GPS: LEFT home 6:48 AM, ARRIVED 10 minutes EARLY.<br><br><strong>July 10:</strong> Alleged 8:00 AM arrival. GPS: 7:33 AM (3 minutes late, NOT 30 minutes). CRITICAL: Manager Gonzales ABSENT from morning meeting same day (differential treatment).<br><br><strong>July 28:</strong> Alleged sent late text. GPS: LEFT home 6:45 AM, ARRIVED 7:20 AM (10 MINUTES EARLY for 7:30 start).<br><br><strong>July 31:</strong> Alleged 8:00 AM arrival. GPS: 7:54 AM (6 minutes before start, NOT 8:00 AM).<br><br><strong>July 25:</strong> Timecard submission (administrative issue, not lateness).<br><br><strong>August 4:</strong> Personal day request (separate incident).<br><br>During disciplinary meeting, HR Director Sherman made discriminatory statement: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman repeatedly asked "Do you care about work?" despite Employee having worked 140.5 hours in July. Employee signed under institutional duress.<br><br><strong>False Contract Claim:</strong> HR Director stated phone availability was contractually required ("It\'s in your contract"). <strong>Verified false</strong> — employment contract contains no such requirement.<br><br><strong>Employee Response:</strong> Employee defended work commitment (140.5 hours July 2025) and requested timecard system accommodation. HR Director refused: "That\'s just the way the system is."',
     evidence: [
       'Write-Up #3 document (Aug 5, 2025)',
       'GPS data contradicting 4 of 5 dates',
       'July timecard: 140.5 hours',
       'Manager absence evidence (July 10)',
       'Employee testimony: Sherman discriminatory statement',
-      'Text notifications showing compliance'
+      'Text notifications showing compliance',
+      'Employment contract (Carol Burke, Nov 4, 2025) — no phone availability clause'
     ],
     evidenceImages: [
       {
@@ -888,7 +889,7 @@ const timelineEvents = [
       }
     ],
     witnesses: ['Manager Gonzales', 'HR Director Michelle Sherman', 'Employee'],
-    legalSignificance: 'Documentary Fabrication / Institutional Discrimination. GPS contradicts 4 of 5 allegations (June 25, July 10, July 28, July 31), demonstrating systematic falsification of attendance records. HR Director Sherman statement ("Having children should not be a reason...") is explicit rejection of protected ground by institutional authority. July 10 differential treatment (Manager absent, Employee disciplined for 3 min) undermines Just Cause. Sherman questioning "Do you care about work?" after 140.5-hour month demonstrates discriminatory animus. Document signed under institutional coercion.',
+    legalSignificance: 'Documentary Fabrication / Institutional Discrimination. GPS contradicts 4 of 5 allegations (June 25, July 10, July 28, July 31), demonstrating systematic falsification of attendance records. HR Director Sherman statement ("Having children should not be a reason...") is explicit rejection of protected ground by institutional authority. July 10 differential treatment (Manager absent, Employee disciplined for 3 min) undermines Just Cause. Sherman questioning "Do you care about work?" after 140.5-hour month demonstrates discriminatory animus. Document signed under institutional coercion. HR Director made materially false statement about contract contents during disciplinary meeting.',
     priority: 'nuclear',
     icon: '📝',
   },
