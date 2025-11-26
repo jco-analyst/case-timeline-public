@@ -88,6 +88,46 @@ const timelineEvents = [
     priority: 'critical',
     icon: '🔧',
   },
+  // February 2025 - Events Leading to First Written Discipline
+  {
+    id: 83,
+    timestamp: '2025-02-17',
+    text: 'FLRA Training: Phone Use Incident (Minor)',
+    category: 'ohs',
+    type: 'point',
+    endDate: null,
+    tags: ['ohs', 'just-cause-failure'],
+    description: 'Safety meeting regarding group-wide blanket FLRA (Field Level Risk Assessment) implementation. Attendees: Manager Gonzales, HSE Manager Caines, Ramon, RJ, Employee.<br><br>Manager and HSE Manager discussed FLRA implementation for 30+ minutes without including workers. Employee scrolled on phone (researching Loctite/fittings for upcoming work) and had earbuds on from outside (not listening to anything).<br><br>This MINOR incident was later cited in Feb 21 Write-Up #1b as "phone use during safety training" and conflated with protected OHS activities. Employee was conducting work research, not "watching social media or videos" as claimed.',
+    evidence: [
+      'Feb 21 Write-Up #1b (cites "phone use during safety training")',
+      'Employee testimony re: work research'
+    ],
+    evidenceImages: [],
+    witnesses: ['Manager John Gonzales', 'HSE Manager Samantha Caines', 'Ramon', 'RJ'],
+    legalSignificance: 'Pretextual Discipline Foundation. Minor incident combined with two PROTECTED OHS activities (Jan 9, Feb 20) to manufacture "pattern of misconduct." Write-up falsely claims Employee was "watching social media or videos." See Write-Up #1b (Event ID 64).',
+    priority: 'medium',
+    icon: '📱',
+  },
+  {
+    id: 84,
+    timestamp: '2025-02-20',
+    text: '⭐ OHS Safety Input: Hydraulic Fittings Dispute with VP',
+    category: 'ohs',
+    type: 'point',
+    endDate: null,
+    tags: ['critical', 'ohs', 'just-cause-failure', 'smoking-gun'],
+    description: 'Meeting regarding ongoing hydraulic line failures (persistent leaks). Attendees: Manager Gonzales, VP Steven Granberg, Ramon, RJ, Employee.<br><br>Employee had conducted hours of personal research on hydraulic fittings. Explained that compression fittings deform when tightened and become permanently damaged. Recommended Loctite (proper sealant) instead of tape method.<br><br>VP Granberg disagreed and dismissed Employee\'s research. Employee debated VP with technical findings. VP and Manager became upset.<br><br><strong>This triggered the Feb 21 write-up</strong>, but employer could not cite "disagreeing with VP" as grounds. Instead, employer mislabeled this as "Feb 20 safety training" in Write-Up #1b and conflated it with Jan 9 PPE advocacy and FLRA phone use.',
+    evidence: [
+      'Feb 21 Write-Up #1b (mislabels as "Feb 20 safety training")',
+      'Employee research (Loctite specifications)',
+      'Coworker testimony (Ramon, RJ)'
+    ],
+    evidenceImages: [],
+    witnesses: ['Manager John Gonzales', 'VP Steven Granberg', 'Ramon', 'RJ'],
+    legalSignificance: 'OHS Reprisal / Pretextual Discipline Trigger. PROTECTED activity (providing safety-related technical input). Employer retaliated but disguised the reason. Write-Up #1b mislabels this meeting and conflates observations from multiple events. Factual errors prove document was crafted to obscure real motive. See Write-Up #1b (Event ID 64).',
+    priority: 'nuclear',
+    icon: '🔧',
+  },
   // February 2025 - First Written Discipline
   {
     id: 4,
@@ -96,8 +136,8 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['disability'],
-    description: 'Documentation dated Feb 21, 2025, citing issues with timely submission of timecards. The Employee contests receiving this specific document via email during employment, raising concerns regarding the integrity of the personnel file. The timecard system required Manager Gonzales to unlock access; his delays contributed to compliance issues.',
+    tags: ['disability', 'just-cause-failure'],
+    description: 'Documentation dated Feb 21, 2025, citing issues with timely submission of timecards. The Employee contests receiving this specific document via email during employment, raising concerns regarding the integrity of the personnel file. The timecard system required Manager Gonzales to unlock access; his delays contributed to compliance issues.<br><br><strong>Note:</strong> This write-up was issued 6.5 hours BEFORE Write-Up #1b on same day = two write-ups same day with no opportunity to improve. Progressive discipline failure.',
     evidence: [
       'Testimony regarding system access barriers',
       'Manager admission regarding personal timecard difficulties',
@@ -138,21 +178,22 @@ const timelineEvents = [
   {
     id: 5,
     timestamp: '2025-01-09',
-    text: 'Adverse Action Following Safety Advocacy',
+    text: '⭐ OHS Safety Advocacy: PPE Request for Confined Space',
     category: 'ohs',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'ohs', 'wrongful-dismissal', 'bad-faith-conduct'],
-    description: 'During a safety meeting, the Employee raised concerns regarding PPE sufficiency (flying debris) and requested full face masks. HSE Manager Caines disputed the necessity based on MSDS data. The Employee maintained that physical debris presented a hazard regardless of chemical toxicity. Manager Gonzales removed the Employee from the meeting (sent home) and stated in a one-one meeting the next morning: "I would have fired you if you were talking to me like that." No formal discipline issued at time; incident later cited as "aggression" in Feb 21 disciplinary record.',
+    tags: ['critical', 'ohs', 'just-cause-failure', 'smoking-gun', 'bad-faith-conduct'],
+    description: 'During a safety meeting regarding confined space work (sanding, cleaning, perch washing), the Employee raised concerns about debris and chemicals getting into workers\' eyes and requested full face masks. Attendees: Manager Gonzales, HSE Manager Samantha Caines, Ramon, RJ, Employee.<br><br>HSE Manager Caines disputed the necessity based on MSDS data. Employee maintained that physical debris presented a hazard regardless of chemical specifications. Employee did NOT have phone out or earbuds during this meeting.<br><br><strong>Immediate Retaliation:</strong> Manager Gonzales removed Employee from meeting (sent home). Next morning, Manager stated: "I would have fired you if you were talking to me like that."<br><br><strong>Subsequent Vindication:</strong> Employer later implemented confined space procedures and procured full-face masks Employee requested, confirming concerns were legitimate.<br><br><strong>Smoking Gun:</strong> This protected safety advocacy was later cited as "aggression towards Samantha Caines, the HSE Manager" in Feb 21 Write-Up #1b. See Event ID 64.',
     evidence: [
-      'Feb 21 Disciplinary Document',
+      'Feb 21 Write-Up #1b (cites this as "aggression")',
       'Subsequent implementation of Confined Space Program',
+      'Full-face mask procurement (vindicates concerns)',
       'Coworker testimony (Ramon, RJ)'
-      
     ],
-    witnesses: ['Ramon', 'RJ', 'HSE Manager Caines', 'Manager Gonzales'],
-    legalSignificance: 'OHS Reprisal (Section 35). The Employer took adverse action (sending employee home) in response to good-faith safety advocacy. This incident was later recharacterized as "aggression" in the Feb 21 disciplinary record, conflated with the Feb 20 earbud allegation. See Write-Up #1b.',
-    priority: 'critical',
+    evidenceImages: [],
+    witnesses: ['Manager John Gonzales', 'HSE Manager Samantha Caines', 'Ramon', 'RJ'],
+    legalSignificance: 'OHS Reprisal (Alberta OHS Act Section 18/35). Employee engaged in PROTECTED activity (raising safety concerns). Employer took immediate adverse action (sent home, verbal threat). 43 days later, this protected activity was cited as "aggression" in Write-Up #1b = explicit admission of OHS retaliation. Subsequent vindication (employer implemented requested procedures) proves concerns were legitimate, not "aggressive." Destroys foundation of progressive discipline.',
+    priority: 'nuclear',
     icon: '⚠️',
   },
   // October 2024 - Baby Born & Family Obligations Begin
