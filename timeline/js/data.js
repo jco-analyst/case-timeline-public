@@ -104,7 +104,7 @@ const timelineEvents = [
     ],
     evidenceImages: [],
     witnesses: ['Manager John Gonzales', 'HSE Manager Samantha Caines', 'Ramon', 'RJ'],
-    legalSignificance: 'Pretextual Discipline Foundation. Minor incident combined with two PROTECTED OHS activities (Jan 9, Feb 20) to manufacture "pattern of misconduct." Write-up falsely claims Employee was "watching social media or videos." See Write-Up #1b (Event ID 64).',
+    legalSignificance: 'Pretextual Discipline Foundation. Minor incident combined with two PROTECTED OHS activities (Jan 9, Feb 20) to manufacture "pattern of misconduct." Write-up falsely claims Employee was "watching social media or videos." See Write-Up #1B.',
     priority: 'medium',
     icon: '📱',
   },
@@ -116,15 +116,15 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['critical', 'ohs', 'just-cause-failure', 'smoking-gun'],
-    description: 'Meeting regarding ongoing hydraulic line failures (persistent leaks). Attendees: Manager Gonzales, VP Steven Granberg, Ramon, RJ, Employee.<br><br>Employee had conducted hours of personal research on hydraulic fittings. Explained that compression fittings deform when tightened and become permanently damaged. Recommended purchasing the appropriate fittings and using Loctite (proper sealant) instead of tape method.<br><br>VP Granberg disagreed with Loctite and dismissed Employee\'s research. Employee debated VP with technical findings. VP and Manager became upset.<br><br><strong>This triggered the Feb 21 write-up</strong>, but employer could not cite "disagreeing with VP" as grounds. Instead, employer mislabeled this as "Feb 20 safety training" in Write-Up #1b and conflated it with Jan 9 PPE advocacy and FLRA phone use.',
+    description: 'Meeting regarding ongoing hydraulic line failures (persistent leaks). Attendees: Manager Gonzales, VP Steven Granberg, Ramon, RJ, Employee.<br><br>Employee had conducted hours of personal research on hydraulic fittings. Explained that compression fittings deform when tightened and become permanently damaged. Recommended purchasing the appropriate fittings and using Loctite (proper sealant) instead of tape method.<br><br>VP Granberg disagreed with Loctite and dismissed Employee\'s research. Employee debated VP with technical findings. VP and Manager became upset.<br><br><strong>This triggered the Feb 21 write-up</strong>, but employer could not cite "disagreeing with VP" as grounds. Instead, employer mislabeled this as "Feb 20 safety training" in Write-Up #1B and conflated it with Jan 9 PPE advocacy and FLRA phone use.',
     evidence: [
-      'Feb 21 Write-Up #1b (mislabels as "Feb 20 safety training")',
+      'Feb 21 Write-Up #1B (mislabels as "Feb 20 safety training")',
       'Employee research (Loctite specifications)',
       'Coworker testimony (Ramon, RJ)'
     ],
     evidenceImages: [],
     witnesses: ['Manager John Gonzales', 'VP Steven Granberg', 'Ramon', 'RJ'],
-    legalSignificance: 'OHS Reprisal / Pretextual Discipline Trigger. PROTECTED activity (providing safety-related technical input). Employer retaliated but disguised the reason. Write-Up #1b mislabels this meeting and conflates observations from multiple events. Factual errors prove document was crafted to obscure real motive. See Write-Up #1b.',
+    legalSignificance: 'OHS Reprisal / Pretextual Discipline Trigger. PROTECTED activity (providing safety-related technical input). Employer retaliated but disguised the reason. Write-Up #1B mislabels this meeting and conflates observations from multiple events. Factual errors prove document was crafted to obscure real motive. See Write-Up #1B.',
     priority: 'nuclear',
     icon: '🔧',
   },
@@ -137,7 +137,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['disability', 'just-cause-failure'],
-    description: 'Documentation dated Feb 21, 2025, citing issues with timely submission of timecards. The Employee contests receiving this specific document via email during employment, raising concerns regarding the integrity of the personnel file. The timecard system required Manager Gonzales to unlock access; his delays contributed to compliance issues.<br><br><strong>Note:</strong> This write-up was issued 6.5 hours BEFORE Write-Up #1b on same day = two write-ups same day with no opportunity to improve. Progressive discipline failure.',
+    description: 'Documentation dated Feb 21, 2025, citing issues with timely submission of timecards. The Employee contests receiving this specific document via email during employment, raising concerns regarding the integrity of the personnel file. The timecard system required Manager Gonzales to unlock access; his delays contributed to compliance issues.<br><br><strong>Note:</strong> This write-up was issued 6.5 hours BEFORE Write-Up #1B on same day = two write-ups same day with no opportunity to improve. Progressive discipline failure.',
     evidence: [
       'Testimony regarding system access barriers',
       'Manager admission regarding personal timecard difficulties',
@@ -147,7 +147,7 @@ const timelineEvents = [
       {
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-1a-Timecards-2025-02-21.pdf',
-        caption: 'Disciplinary Document 1a. Employee contests receipt during employment. Did not see in email'
+        caption: 'Disciplinary Document 1A. Employee contests receipt during employment. Did not see in email'
       }
     ],
     witnesses: ['Manager Gonzales', 'HR'],
@@ -183,16 +183,16 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['critical', 'ohs', 'just-cause-failure', 'smoking-gun', 'bad-faith-conduct'],
-    description: 'During a safety meeting regarding confined space work (sanding, cleaning, perch washing), the Employee raised concerns about debris and chemicals getting into workers\' eyes and requested full face masks. Attendees: Manager Gonzales, HSE Manager Samantha Caines, Ramon, RJ, Employee.<br><br>HSE Manager Caines disputed the necessity based on MSDS data. Employee maintained that physical debris presented a hazard regardless of chemical specifications. Employee did NOT have phone out or earbuds during this meeting.<br><br><strong>Immediate Retaliation:</strong> Manager Gonzales removed Employee from meeting (sent home). Next morning, Manager stated: "I would have fired you if you were talking to me like that."<br><br><strong>Subsequent Vindication:</strong> Employer later implemented confined space procedures and procured full-face masks Employee requested, confirming concerns were legitimate.<br><br><strong>Smoking Gun:</strong> This protected safety advocacy was later cited as "aggression towards Samantha Caines, the HSE Manager" in Feb 21 Write-Up #1b.',
+    description: 'During a safety meeting regarding confined space work (sanding, cleaning, perch washing), the Employee raised concerns about debris and chemicals getting into workers\' eyes and requested full face masks. Attendees: Manager Gonzales, HSE Manager Samantha Caines, Ramon, RJ, Employee.<br><br>HSE Manager Caines disputed the necessity based on MSDS data. Employee maintained that physical debris presented a hazard regardless of chemical specifications. Employee did NOT have phone out or earbuds during this meeting.<br><br><strong>Immediate Retaliation:</strong> Manager Gonzales removed Employee from meeting (sent home). Next morning, Manager stated: "I would have fired you if you were talking to me like that."<br><br><strong>Subsequent Vindication:</strong> Employer later implemented confined space procedures and procured full-face masks Employee requested, confirming concerns were legitimate.<br><br><strong>Smoking Gun:</strong> This protected safety advocacy was later cited as "aggression towards Samantha Caines, the HSE Manager" in Feb 21 Write-Up #1B.',
     evidence: [
-      'Feb 21 Write-Up #1b (cites this as "aggression")',
+      'Feb 21 Write-Up #1B (cites this as "aggression")',
       'Subsequent implementation of Confined Space Program',
       'Full-face mask procurement (vindicates concerns)',
       'Coworker testimony (Ramon, RJ)'
     ],
     evidenceImages: [],
     witnesses: ['Manager John Gonzales', 'HSE Manager Samantha Caines', 'Ramon', 'RJ'],
-    legalSignificance: 'OHS Reprisal (Alberta OHS Act Section 18/35). Employee engaged in PROTECTED activity (raising safety concerns). Employer took immediate adverse action (sent home, verbal threat). 43 days later, this protected activity was cited as "aggression" in Write-Up #1b = explicit admission of OHS retaliation. Subsequent vindication (employer implemented requested procedures) proves concerns were legitimate, not "aggressive." Destroys foundation of progressive discipline.',
+    legalSignificance: 'OHS Reprisal (Alberta OHS Act Section 18/35). Employee engaged in PROTECTED activity (raising safety concerns). Employer took immediate adverse action (sent home, verbal threat). 43 days later, this protected activity was cited as "aggression" in Write-Up #1B = explicit admission of OHS retaliation. Subsequent vindication (employer implemented requested procedures) proves concerns were legitimate, not "aggressive." Destroys foundation of progressive discipline.',
     priority: 'nuclear',
     icon: '⚠️',
   },
@@ -901,7 +901,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['family', 'bad-faith-conduct'],
-    description: 'Employee requested a personal day due to illness. Manager Gonzales denied, falsely stating "You can\'t take any more personal days u need to get a doctors notes" despite this being the Employee\'s first personal day request. Employee had only taken bereavement leave (July 6) previously. Employee forced to return while contagious; illness spread to coworkers. Manager Gonzales subsequently took 2 days off for same illness. Ramon and RJ took 1-2 days off for same illness.',
+    description: 'Employee requested a personal day due to illness. Manager Gonzales denied, falsely stating "You can\'t take any more personal days u need to get a doctors notes" despite this being the Employee\'s first personal day request. Employee had only taken bereavement leave (July 6) previously. Employee stayed home that day but return to work the next day while contagious; illness spread to coworkers. Manager Gonzales subsequently took 2 days off for same illness. Ramon and RJ took 1-2 days off for same illness.',
     evidence: [
       'Text messages (Aug 4)',
       'Absence records (proving no prior usage)',
@@ -1647,12 +1647,12 @@ const timelineEvents = [
       {
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-1a-Timecards-2025-02-21.pdf',
-        caption: 'Write-Up 1a: Timecards.'
+        caption: 'Write-Up 1A: Timecards.'
       },
       {
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-1b-Phone-Aggression-2025-02-21.pdf',
-        caption: 'Write-Up 1b: Failure to Investigate. Conflates Jan 9 Safety Advocacy with Feb 20 earbud allegation.'
+        caption: 'Write-Up 1B: Failure to Investigate. Conflates Jan 9 Safety Advocacy with Feb 20 earbud allegation.'
       },
       {
         type: 'doc',
@@ -1671,7 +1671,7 @@ const timelineEvents = [
       }
     ],
     witnesses: ['Michelle Sherman'],
-    legalSignificance: 'Complete Record. Each write-up contains issues: #1b = OHS retaliation (conflation), #2 = fabrication (June 13), #3 = GPS contradictions + discriminatory statement, #4 = parental leave retaliation timing.',
+    legalSignificance: 'Complete Record. Each write-up contains issues: #1B = OHS retaliation (conflation), #2 = fabrication (June 13), #3 = GPS contradictions + discriminatory statement, #4 = parental leave retaliation timing.',
     priority: 'medium',
     icon: '📧'
   },
@@ -1824,7 +1824,7 @@ const timelineEvents = [
       {
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-1b-Phone-Aggression-2025-02-21.pdf',
-        caption: 'Write-Up #1b. Conflates 3 events: Jan 9 PPE ("aggression"), FLRA phone use (minor), Feb 20 hydraulic debate (mislabeled). Explicitly cites protected OHS activity as basis for discipline.'
+        caption: 'Write-Up #1B. Conflates 3 events: Jan 9 PPE ("aggression"), FLRA phone use (minor), Feb 20 hydraulic debate (mislabeled). Explicitly cites protected OHS activity as basis for discipline.'
       }
     ],
     witnesses: ['Manager John Gonzales', 'HSE Manager Samantha Caines', 'VP Steven Granberg', 'Ramon', 'RJ'],
