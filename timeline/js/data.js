@@ -68,6 +68,30 @@ const timelineEvents = [
     priority: 'high',
     icon: '🧠',
   },
+  // February 2024 - Position Change Without Written Amendment
+  {
+    id: 85,
+    timestamp: '2024-02-15',
+    text: '📋 Position Change: Contract Never Amended',
+    category: 'bad-faith-conduct',
+    type: 'point',
+    endDate: null,
+    tags: ['critical', 'contract-validity', 'changed-substratum', 'wrongful-dismissal', 'bad-faith-conduct'],
+    description: 'Employee verbally transitioned from contracted "Solids Control Field Technician" position to "Electrical Shop Technician 1" role. Supervisor Q initiated the change. No new employment contract executed. No wage adjustment provided. Position change never formalized in writing.<br><br><strong>Fundamental Duty Changes:</strong><br><br><strong>Solids Control Field Technician (Contracted):</strong> Equipment operation at remote project sites, mobile deployment across extended geographic areas, project-based assignments (weeks to years duration), irregular schedules, outdoor solids control field operations.<br><br><strong>Electrical Shop Technician 1 (Actual):</strong> Equipment repair and maintenance in fixed shop location, technical modifications and testing, deployment preparation, painting and refurbishment, indoor technical work, regular shop schedule.<br><br><strong>Documentary Evidence of Position Change:</strong> Pay stubs from February 2024 through October 2025 (~1.5 years, 75% of total employment) consistently identify position as "Electrical Shop Technician 1," directly contradicting employment contract designation of "Solids Control Field Technician."<br><br><strong>No Written Amendment:</strong> Employer failed to execute amended employment contract despite fundamental change in:<br>• Work location (field sites → fixed shop)<br>• Skill requirements (equipment operation → technical repair/electrical work)<br>• Job classification (laborer → skilled tradesperson)<br>• Work environment (outdoor mobile → indoor stationary)<br><br>This undocumented position change continued for 18 months until termination, representing 75% of employment duration.',
+    evidence: [
+      'Employment contract (Jan 2, 2024) - designates "Solids Control Field Technician"',
+      'Pay stubs (Feb 2024 - Oct 2025) - consistently show "Electrical Shop Technician 1"',
+      'Employee testimony - verbal agreement with Supervisor Q',
+      'Witness testimony - coworkers confirm shop-based technical duties',
+      'No written contract amendment (employer never formalized change)',
+      'S3S internal system - lists "Electrical Technician" designation'
+    ],
+    evidenceImages: [],
+    witnesses: ['Supervisor Q (initiated position change)', 'Ramon', 'RJ', 'Coworkers (shop environment witnesses)'],
+    legalSignificance: 'Changed Substratum Doctrine / Contract Invalidity. When employee\'s duties change so fundamentally that the employment contract\'s foundation has disappeared, the original contract (including termination clauses) may be void (Celestini v. Shoplogix Inc., 2023 ONCA 131). Solids control field operations → electrical technical repair represents fundamental occupational change (laborer → skilled tradesperson). Pay stubs documenting "Electrical Shop Technician 1" for 1.5 years = employer\'s own records contradict and undermine contract validity. No written amendment despite 18-month sustained position change = implied new employment relationship at common law. If original contract void: (1) "ESC minimums" termination clause unenforceable, (2) entitled to common law reasonable notice (3-4 months vs. 2 weeks), (3) damages increase $13,750. Combined with "Dear Rollins:" identification error (Event 1), contract has zero credibility - employer cannot rely on any contractual limitations.',
+    priority: 'critical',
+    icon: '📋',
+  },
   // Summer 2024 - Hydraulic Troubleshooting Victory
   {
     id: 3,
