@@ -523,7 +523,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'disability', 'bad-faith-conduct'],
+    tags: ['smoking-gun', 'just-cause-failure', 'disability', 'bad-faith-conduct', 'family'],
     description: 'Write-Up #2 issued with multiple allegations:<br><br><strong>June 11-12:</strong> Failed to submit timecards<br><br><strong>June 13:</strong> "Jonathan did not show up for work later that day and did communicate his abscense" [sic], "Manager John Gonzales tried to contact Jonathan via phone at 1 pm and did not get a response"<br><br><strong>June 18:</strong> Late to work, "did not contact his supervisor," allegedly "caused a shortage in man power...for a job that was departing this morning"<br><br>The June 13 allegations are directly contradicted by: (1) text evidence showing Manager approved the absence ("Yes your good"), (2) call log showing no calls from manager at 1 PM. The June 18 urgency claim is contradicted by Manager stating truck "can wait. He wasn\'t supposed to load out until 10." Internal contradiction regarding June 18 contact.',
     evidence: [
       'June 13 text message showing Manager approval',
@@ -1279,7 +1279,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct'],
+    tags: ['smoking-gun', 'just-cause-failure', 'bad-faith-conduct', 'family'],
     description: 'Summary dismissal at lunchtime. Present: Manager Gonzales (in person), Michelle Sherman (remote). Duration: Under 2 minutes. No advance warning. Employee handed termination letter immediately upon sitting. Manager: "You know what this is." Letter alleged "Just Cause" with no severance. Employee reported a state of shock and inability to respond. Exit was supervised. Employee inadvertently left termination letter at workplace.',
     evidence: [
       'Termination letter',

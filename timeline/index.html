@@ -1369,7 +1369,13 @@
 
       // Get single-day events for current viewport page
       const startIdx = currentViewportIndex * eventsPerViewport;
-      const endIdx = Math.min(startIdx + eventsPerViewport, sortedSingleDay.length);
+      let endIdx = Math.min(startIdx + eventsPerViewport, sortedSingleDay.length);
+
+      // FAMILY STATUS SPECIAL CASE: Force only 2 pages (page 2 shows ALL remaining events)
+      if (currentView === 'family' && currentViewportIndex === 1) {
+        endIdx = sortedSingleDay.length; // Show all remaining events on page 2
+      }
+
       const viewportSingleDayEvents = sortedSingleDay.slice(startIdx, endIdx);
 
       if (viewportSingleDayEvents.length === 0) return;
@@ -1421,7 +1427,13 @@
 
     // Move viewport right (later dates / next page)
     function moveViewportRight() {
-      const totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
+      let totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
+
+      // FAMILY STATUS SPECIAL CASE: Force only 2 pages
+      if (currentView === 'family' && singleDayEvents.length > eventsPerViewport) {
+        totalPages = 2; // Always exactly 2 pages for family status
+      }
+
       if (currentViewportIndex >= totalPages - 1) return;
 
       currentViewportIndex++;
@@ -1443,7 +1455,12 @@
       }
 
       // Calculate total pages based on SINGLE-DAY events only
-      const totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
+      let totalPages = Math.ceil(singleDayEvents.length / eventsPerViewport);
+
+      // FAMILY STATUS SPECIAL CASE: Force only 2 pages
+      if (currentView === 'family' && singleDayEvents.length > eventsPerViewport) {
+        totalPages = 2; // Always exactly 2 pages for family status
+      }
 
       // Disable left if on first page
       if (currentViewportIndex <= 0) {
