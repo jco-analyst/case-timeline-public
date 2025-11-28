@@ -156,7 +156,7 @@ const timelineEvents = [
   {
     id: 4,
     timestamp: '2025-02-21',
-    text: 'Disciplinary Record (1A): Timecards (11:10 AM)',
+    text: '📋 Disciplinary Record (1A): Timecards (11:10 AM)',
     category: 'termination',
     type: 'point',
     endDate: null,
