@@ -1728,6 +1728,33 @@ const timelineEvents = [
     priority: 'medium',
     icon: '📧'
   },
+  {
+    id: 86,
+    timestamp: '2025-11-27',
+    text: '⭐ PIPA Clarification: Forensic Document Verification Request',
+    category: 'correspondence-michelle',
+    type: 'point',
+    endDate: null,
+    tags: ['smoking-gun', 'post-termination-misconduct', 'bad-faith-conduct'],
+    description: 'Employee sent comprehensive PIPA clarification to Michelle Sherman and Carol Burke, requesting forensic authentication of disputed records following discovery of "Dear Rollins" contract error and discrepancies in disciplinary documentation. Request includes: (1) Native file formats (.DOCX, .MSG, .EML) with complete metadata to verify creation/modification timestamps, (2) Version history logs from cloud storage systems, (3) System audit logs from timekeeping/portal systems, (4) Complete SafetyCulture/OHS records export, (5) Internal communications regarding family status accommodation, safety advocacy, and termination deliberations, (6) Comparative enforcement data (anonymized attendance logs), (7) Formal spoliation notice requiring preservation of all electronic evidence including email accounts, surveillance footage, and system logs. Statutory deadline: December 6, 2025.',
+    evidence: [
+      'Email to Michelle Sherman and Carol Burke (Nov 27)',
+      'PIPA statutory requirements (Section 24)',
+      '"Dear Rollins" contract error (discovered Nov 4)',
+      'Partial disclosure review (Nov 21)'
+    ],
+    evidenceImages: [
+      {
+        type: 'email',
+        file: 'images/evidence/correspondence/Nov-27-2025-PIPA-Clarification.pdf',
+        caption: 'Forensic PIPA clarification requesting native file formats, metadata verification, and spoliation notice.'
+      }
+    ],
+    witnesses: ['Michelle Sherman', 'Carol Burke'],
+    legalSignificance: 'Escalation of PIPA Rights / Spoliation Notice. Following suspicious document disclosure (contract error, disciplinary discrepancies), Employee exercised statutory right to verify document authenticity through forensic metadata analysis. Request places Employer on formal notice of litigation and duty to preserve evidence. Failure to provide native files or deletion of metadata constitutes spoliation. Request demonstrates Employee\'s sophistication in evidence preservation and challenges Employer\'s document integrity.',
+    priority: 'nuclear',
+    icon: '🔬'
+  },
   // ADDITIONAL EVIDENCE
   {
     id: 59,
