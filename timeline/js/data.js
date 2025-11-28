@@ -1892,7 +1892,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family', 'disability', 'just-cause-failure'],
+    tags: ['smoking-gun', 'family', 'disability', 'just-cause-failure', 'bad-faith-conduct'],
     description: 'Employer issued "FINAL OPPORTUNITY" warning on Employee\'s first day back from parental leave. Issue cited (Sept 3 timecard) was known 33 days prior (Sept 7 "urgent" email with Sept 8 deadline). Employer waited until return from protected leave to discipline.',
     evidence: [
       'Sept 7 HR email ("Urgent")',
