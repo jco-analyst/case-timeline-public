@@ -547,6 +547,11 @@ const timelineEvents = [
         caption: 'June 18 Lateness Notification: Employee texted at 7:37 AM ("miss my alarm clock"). Contradicts Write-Up #2 claim of "did not contact his supervisor."'
       },
       {
+        type: 'gps',
+        file: 'images/evidence/gps-proofs/Jun-18-2025-3min-Late.jpg',
+        caption: 'June 18 GPS: 3 minutes late. De minimis delay, notification provided, truck could wait until 10 AM.'
+      },
+      {
         type: 'text',
         file: 'images/evidence/work-context/June-18-2025-Truck-Can-Wait.jpg',
         caption: 'June 18 Truck Conversation (8:05 AM): Manager states truck "can wait. He wasn\'t supposed to load out until 10." Contradicts Write-Up #2 claim that lateness "caused a shortage in man power...for a job that was departing this morning."'
