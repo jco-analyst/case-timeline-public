@@ -524,7 +524,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'just-cause-failure', 'disability'],
-    description: 'Write-Up #2 issued with multiple allegations:<br><br><strong>June 11-12:</strong> Failed to submit timecards<br><br><strong>June 13:</strong> "Jonathan did not show up for work later that day and did communicate his abscense" [sic]<br><br><strong>June 18:</strong> Late to work, "did not contact his supervisor," allegedly "caused a shortage in man power...for a job that was departing this morning"<br><br>The June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The June 18 urgency claim is contradicted by Manager stating truck "can wait. He wasn\'t supposed to load out until 10." Internal contradiction regarding June 18 contact.',
+    description: 'Write-Up #2 issued with multiple allegations:<br><br><strong>June 11-12:</strong> Failed to submit timecards<br><br><strong>June 13:</strong> "Jonathan did not show up for work later that day and did communicate his abscense" [sic], "Manager John Gonzales tried to contact Jonathan via phone at 1 pm and did not get a response"<br><br><strong>June 18:</strong> Late to work, "did not contact his supervisor," allegedly "caused a shortage in man power...for a job that was departing this morning"<br><br>The June 13 allegations are directly contradicted by: (1) text evidence showing Manager approved the absence ("Yes your good"), (2) call log showing no calls from manager at 1 PM. The June 18 urgency claim is contradicted by Manager stating truck "can wait. He wasn\'t supposed to load out until 10." Internal contradiction regarding June 18 contact.',
     evidence: [
       'June 13 text message showing Manager approval',
       'GPS evidence',
@@ -542,6 +542,11 @@ const timelineEvents = [
         caption: 'June 13 Approved Absence: Manager Gonzales: "Yes your good. Thanks for letting me know." Contradicts Write-Up #2 claim that absence was "not communicated."'
       },
       {
+        type: 'doc',
+        file: 'images/evidence/critical/June-13-Calls.jpeg',
+        caption: 'June 13 Call Log: No calls from Manager at 1 PM. Contradicts Write-Up #2 claim that "Manager John Gonzales tried to contact Jonathan via phone at 1 pm and did not get a response."'
+      },
+      {
         type: 'text',
         file: 'images/evidence/lateness-notifications/Jun-18-2025-Late.jpg',
         caption: 'June 18 Lateness Notification: Employee texted at 7:37 AM ("miss my alarm clock"). Contradicts Write-Up #2 claim of "did not contact his supervisor."'
@@ -549,16 +554,16 @@ const timelineEvents = [
       {
         type: 'gps',
         file: 'images/evidence/gps-proofs/Jun-18-2025-3min-Late.jpg',
-        caption: 'June 18 GPS: 3 minutes late. De minimis delay, notification provided, truck could wait until 10 AM.'
+        caption: 'June 18 GPS.'
       },
       {
         type: 'text',
         file: 'images/evidence/work-context/June-18-2025-Truck-Can-Wait.jpg',
-        caption: 'June 18 Truck Conversation (8:05 AM): Manager states truck "can wait. He wasn\'t supposed to load out until 10." Contradicts Write-Up #2 claim that lateness "caused a shortage in man power...for a job that was departing this morning."'
+        caption: 'June 18 Truck Conversation (8:05 AM): Manager states truck "can wait. He wasn\'t supposed to load out until 10." Contradicts claim that lateness "caused a shortage in man power...for a job that was departing this morning."'
       }
     ],
     witnesses: ['Manager Gonzales', 'Employee'],
-    legalSignificance: 'Documentary Fabrication / Bad Faith. The Employer falsified the record regarding the June 13 absence (approved → documented as "not communicated"). Fabricated urgency claim regarding June 18 (truck "can wait...until 10" vs. "departing this morning"). Internal contradiction (both "did not contact" and "Jonathan contact his supervisor at 737am"). This undermines the credibility of the entire disciplinary trail.',
+    legalSignificance: 'Documentary Fabrication / Bad Faith. FOUR separate fabrications in one document: (1) June 13 absence approved → falsely documented as "not communicated," (2) June 13 phantom call - Manager claims he called at 1 PM, call log proves no call made, (3) June 18 contact made → falsely documented as "did not contact," (4) June 18 fabricated urgency - truck could wait until 10 AM → falsely documented as "departing this morning." Internal contradictions throughout. This systematic falsification destroys the credibility of the entire disciplinary trail.',
     priority: 'nuclear',
     icon: '📝',
   },
