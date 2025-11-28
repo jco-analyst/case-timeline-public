@@ -539,17 +539,17 @@ const timelineEvents = [
       {
         type: 'text',
         file: 'images/evidence/lateness-notifications/June-13-2025-Sick-Child-APPROVED.jpg',
-        caption: 'June 13 Approved Absence: Manager Gonzales: "Yes your good. Thanks for letting me know." Contradicts Write-Up #2 claim that absence was "not communicated."'
+        caption: 'June 13 Approved Absence. Contradicts claim that absence was "not communicated."'
       },
       {
         type: 'doc',
         file: 'images/evidence/critical/June-13-Calls.jpeg',
-        caption: 'June 13 Call Log: No calls from Manager at 1 PM. Contradicts Write-Up #2 claim that "Manager John Gonzales tried to contact Jonathan via phone at 1 pm and did not get a response."'
+        caption: 'June 13 Call Log. Contradicts claim that "Manager John Gonzales tried to contact Jonathan via phone at 1 pm and did not get a response."'
       },
       {
         type: 'text',
         file: 'images/evidence/lateness-notifications/Jun-18-2025-Late.jpg',
-        caption: 'June 18 Lateness Notification: Employee texted at 7:37 AM ("miss my alarm clock"). Contradicts Write-Up #2 claim of "did not contact his supervisor."'
+        caption: 'June 18 Lateness Notification. Contradicts claim of "did not contact his supervisor."'
       },
       {
         type: 'gps',
@@ -563,7 +563,7 @@ const timelineEvents = [
       }
     ],
     witnesses: ['Manager Gonzales', 'Employee'],
-    legalSignificance: 'Documentary Fabrication / Bad Faith. FOUR separate fabrications in one document: (1) June 13 absence approved → falsely documented as "not communicated," (2) June 13 phantom call - Manager claims he called at 1 PM, call log proves no call made, (3) June 18 contact made → falsely documented as "did not contact," (4) June 18 fabricated urgency - truck could wait until 10 AM → falsely documented as "departing this morning." Internal contradictions throughout. This systematic falsification destroys the credibility of the entire disciplinary trail.',
+    legalSignificance: 'Documentary Fabrication / Bad Faith. FOUR separate fabrications in one document: (1) June 13 absence approved → falsely documented as "not communicated," (2) June 13 phantom call - Manager claims he called at 1 PM, call log proves no call made, (3) June 18 contact made → falsely documented as "did not contact," (4) June 18 fabricated urgency - truck could wait until 10 AM → falsely documented as "departing this morning." Internal contradictions throughout.',
     priority: 'nuclear',
     icon: '📝',
   },
