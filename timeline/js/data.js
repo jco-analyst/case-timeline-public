@@ -224,7 +224,7 @@ const timelineEvents = [
   {
     id: 6,
     timestamp: '2024-10-09',
-    text: 'Change in Family Status',
+    text: 'Daughter was born',
     category: 'family',
     type: 'point',
     endDate: null,
@@ -524,7 +524,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['smoking-gun', 'just-cause-failure', 'disability'],
-    description: 'Write-Up #2 issued with multiple allegations:<br><br><strong>June 11-12:</strong> Failed to submit timecards<br><br><strong>June 13:</strong> "Jonathan did not show up for work later that day and did communicate his abscense" [sic]<br><br><strong>June 18:</strong> Late to work, "did not contact his supervisor"<br><br>The June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The document also contains internal contradiction regarding June 18 contact.',
+    description: 'Write-Up #2 issued with multiple allegations:<br><br><strong>June 11-12:</strong> Failed to submit timecards<br><br><strong>June 13:</strong> "Jonathan did not show up for work later that day and did communicate his abscense" [sic]<br><br><strong>June 18:</strong> Late to work, "did not contact his supervisor," allegedly "caused a shortage in man power...for a job that was departing this morning"<br><br>The June 13 allegation is directly contradicted by text evidence showing Manager Gonzales approved the absence ("Yes your good"). The June 18 urgency claim is contradicted by Manager stating truck "can wait. He wasn\'t supposed to load out until 10." Internal contradiction regarding June 18 contact.',
     evidence: [
       'June 13 text message showing Manager approval',
       'GPS evidence',
@@ -544,11 +544,16 @@ const timelineEvents = [
       {
         type: 'text',
         file: 'images/evidence/lateness-notifications/Jun-18-2025-Late.jpg',
-        caption: 'June 18 Lateness Notification: Employee texted at 7:39 AM ("miss my alarm clock"). Contradicts Write-Up #2 claim of "did not contact his supervisor."'
+        caption: 'June 18 Lateness Notification: Employee texted at 7:37 AM ("miss my alarm clock"). Contradicts Write-Up #2 claim of "did not contact his supervisor."'
+      },
+      {
+        type: 'text',
+        file: 'images/evidence/work-context/June-18-2025-Truck-Can-Wait.jpg',
+        caption: 'June 18 Truck Conversation (8:05 AM): Manager states truck "can wait. He wasn\'t supposed to load out until 10." Contradicts Write-Up #2 claim that lateness "caused a shortage in man power...for a job that was departing this morning."'
       }
     ],
     witnesses: ['Manager Gonzales', 'Employee'],
-    legalSignificance: 'Documentary Fabrication / Bad Faith. The Employer falsified the record regarding the June 13 absence (approved → documented as "not communicated"). Internal contradiction (both "did not contact" and "Jonathan contact his supervisor at 737am"). This undermines the credibility of the entire disciplinary trail.',
+    legalSignificance: 'Documentary Fabrication / Bad Faith. The Employer falsified the record regarding the June 13 absence (approved → documented as "not communicated"). Fabricated urgency claim regarding June 18 (truck "can wait...until 10" vs. "departing this morning"). Internal contradiction (both "did not contact" and "Jonathan contact his supervisor at 737am"). This undermines the credibility of the entire disciplinary trail.',
     priority: 'nuclear',
     icon: '📝',
   },
