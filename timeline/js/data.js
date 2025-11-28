@@ -1072,7 +1072,7 @@ const timelineEvents = [
     category: 'termination',
     type: 'point',
     endDate: null,
-    tags: ['critical', 'family'],
+    tags: ['critical', 'family', 'bad-faith-conduct'],
     description: 'Michelle Sherman (HR) emailed Employee during parental leave, setting Sept 8 deadline for Sept 3 timecard information, characterizing it as urgent. I responded back with the required information before the deadline. Despite stated urgency, Employer took no action until 33 days later (Oct 10), upon Employee\'s first day back.',
     evidence: [
       'Email from Michelle Sherman (Sept 7)',
@@ -1760,7 +1760,7 @@ const timelineEvents = [
     category: 'family',
     type: 'point',
     endDate: null,
-    tags: ['smoking-gun', 'family'],
+    tags: ['smoking-gun', 'family', 'bad-faith-conduct'],
     description: 'Employer issued an ROE during parental leave containing significant data errors (incorrect start date, 95% error in insurable hours). These errors resulted in the initial denial of EI benefits. Employee had to email HR Director to correct. Corrected ROE issued Sept 19 (8-day delay).',
     evidence: [
       'Incorrect ROE (Sept 11)',
