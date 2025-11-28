@@ -1318,6 +1318,15 @@
       singleDayEvents = events.filter(e => !e.parsedEndDate || e.parsedEndDate.getTime() === e.parsedDate.getTime());
       multiDayEvents = events.filter(e => e.parsedEndDate && e.parsedEndDate.getTime() !== e.parsedDate.getTime());
 
+      // OHS SPECIAL CASE: Include event ID 3 (Hydraulic Dispute) in pagination
+      if (currentView === 'ohs') {
+        const event3 = multiDayEvents.find(e => e.id === 3);
+        if (event3) {
+          singleDayEvents.push(event3);
+          multiDayEvents = multiDayEvents.filter(e => e.id !== 3);
+        }
+      }
+
       console.log('🔍 DEBUG: Separated events - Single-day:', singleDayEvents.length, 'Multi-day:', multiDayEvents.length);
 
       // Calculate full timeline range (dates already parsed in init())
