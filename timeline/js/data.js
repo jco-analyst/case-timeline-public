@@ -1801,7 +1801,7 @@ const timelineEvents = [
         caption: 'Incorrect ROE: 59 hours (should be 1,452). Caused EI denial.'
       },
       {
-        type: 'screenshot',
+        type: 'photo',
         file: 'images/evidence/documents/Sept-09-2025-MSCA-Claim-Denied.png',
         caption: 'Service Canada denial: "Insufficient hours worked" based on incorrect data.'
       }
