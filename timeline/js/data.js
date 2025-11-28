@@ -535,6 +535,16 @@ const timelineEvents = [
         type: 'doc',
         file: 'images/evidence/documents/Write-Up-2-Fabricated-2025-06-18.pdf',
         caption: 'Write-Up #2. Contains factual errors: June 13 absence was approved per text evidence.'
+      },
+      {
+        type: 'text',
+        file: 'images/evidence/lateness-notifications/June-13-2025-Sick-Child-APPROVED.jpg',
+        caption: 'June 13 Approved Absence: Manager Gonzales: "Yes your good. Thanks for letting me know." Contradicts Write-Up #2 claim that absence was "not communicated."'
+      },
+      {
+        type: 'text',
+        file: 'images/evidence/lateness-notifications/Jun-18-2025-Late.jpg',
+        caption: 'June 18 Lateness Notification: Employee texted at 7:39 AM ("miss my alarm clock"). Contradicts Write-Up #2 claim of "did not contact his supervisor."'
       }
     ],
     witnesses: ['Manager Gonzales', 'Employee'],
