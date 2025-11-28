@@ -865,7 +865,7 @@ const timelineEvents = [
     type: 'point',
     endDate: null,
     tags: ['critical', 'smoking-gun', 'family', 'disability', 'bad-faith-conduct', 'just-cause-failure'],
-    description: 'Write-Up #3 alleging lateness on 5 dates plus administrative issues. GPS data contradicts 4 of 5 lateness allegations:<br><br><strong>June 25:</strong> Alleged 7:35 AM. GPS: 7:20 AM.<br><br><strong>July 10:</strong> Alleged 8:00 AM. GPS: 7:33 AM. CRITICAL: Manager Gonzales ABSENT from morning meeting same day (differential treatment).<br><br><strong>July 28:</strong> Alleged sent late text but it was Manager Gonzales the one who sent ABSENT TEXT. GPS: 7:20 AM.<br><br><strong>July 31:</strong> Alleged 8:00 AM. GPS: 7:54 AM. Modified hours due to end of 18 day sprint.<br><br><strong>July 25:</strong> Timecard submission (administrative issue, not lateness).<br><br><strong>August 4:</strong> Personal day request (separate incident).<br><br>During disciplinary meeting, HR Director Sherman made discriminatory statement: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman repeatedly asked "Do you care about work?" despite Employee having worked 140.5 hours in 2 weeks in July. Employee signed under institutional duress.<br><br><strong>False Contract Claim:</strong> HR Director stated phone availability was contractually required ("It\'s in your contract"). <strong>Verified false</strong> — employment contract contains no such requirement.<br><br><strong>Employee Response:</strong> Employee defended work commitment (140.5 hours July 2025) and requested timecard system accommodation. HR Director refused: "That\'s just the way the system is."',
+    description: 'Write-Up #3 alleging lateness on 5 dates plus administrative issues. GPS data contradicts 4 of 5 lateness allegations:<br><br><strong>June 25:</strong> Alleged 7:35 AM. GPS: 7:20 AM.<br><br><strong>July 10:</strong> Alleged 8:00 AM. GPS: 7:33 AM. CRITICAL: Manager Gonzales ABSENT from morning meeting same day (differential treatment).<br><br><strong>July 28:</strong> Alleged late. GPS: 7:20 AM. No late text sent<br><br><strong>July 31:</strong> Alleged 8:00 AM. GPS: 7:54 AM. Modified hours due to end of 18 day sprint.<br><br><strong>July 25:</strong> Timecard submission.<br><br><strong>August 4:</strong> Personal day request (separate incident).<br><br>During disciplinary meeting, HR Director Sherman made discriminatory statement: "Everyone has had children and no one else is late. Having children should not be a reason why you\'re late." Sherman repeatedly asked "Do you care about work?" despite Employee having worked 140.5 hours in 2 weeks in July. Employee signed under institutional duress.<br><br><strong>False Contract Claim:</strong> HR Director stated phone availability was contractually required ("It\'s in your contract"). <strong>Verified false</strong> — employment contract contains no such requirement.<br><br><strong>Employee Response:</strong> Employee defended work commitment (140.5 hours July 2025) and requested timecard system accommodation. HR Director refused: "That\'s just the way the system is."',
     evidence: [
       'Write-Up #3 document (Aug 5, 2025)',
       'GPS data contradicting 4 of 5 dates',
@@ -905,6 +905,11 @@ const timelineEvents = [
         type: 'text',
         file: 'images/evidence/lateness-notifications/July-31-2025-Late.jpg',
         caption: 'July 31 Text Notification: "Gonna be about 15 mins late" (Day 18 of 18-day sprint).'
+      },
+      {
+        type: 'text',
+        file: 'images/evidence/work-context/Aug-04-2025-Personal-Day-Request.jpg',
+        caption: 'Aug 4 Personal Day Request: Manager falsely denied ("You can\'t take any more personal days") despite being employee\'s first request.'
       },
       {
         type: 'text',
