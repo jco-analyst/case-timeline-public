@@ -1341,18 +1341,11 @@
       // Calculate optimal events per viewport based on SINGLE-DAY events only
       eventsPerViewport = calculateEventsPerViewport(singleDayEvents.length);
 
-      // Override for Human Rights view: force page break before Sept 7 (event #12)
-      // Page 1: Foundation + Accommodation Withdrawal (Jan - Aug)
-      // Page 2: Parental Leave Retaliation + Termination (Sept 7 onwards)
-      if (currentView === 'family' && activeLatenessFilters.size === 0) {
-        eventsPerViewport = 11; // Sept 7 becomes first event of page 2
-      }
-
-      // Override for Family Status view: break before Aug 4 accommodation denial
-      // Page 1: Baby Born through Bereavement Leave (7 events) - Jan 10 excluded
-      // Page 2: Aug 4 denial through termination (12 events)
+      // Override for Family Status view: 2-page layout
+      // Page 1: First 7 events (through July 6)
+      // Page 2: ALL remaining events (Aug 4 through termination)
       if (currentView === 'family') {
-        eventsPerViewport = 7; // July 6 is last event of page 1, Aug 4 starts page 2
+        eventsPerViewport = 7; // First 7 events on page 1, rest on page 2
       }
 
       // Override for Disability view: reduce page 1 to prevent overlap
