@@ -1354,6 +1354,11 @@
         eventsPerViewport = 8; // Fewer events on page 1 to prevent overlap
       }
 
+      // Override for Just Cause Failure view: include Aug 5 and Aug 9 on page 1
+      if (currentView === 'just-cause-failure') {
+        eventsPerViewport = 14; // Ensure Aug 5 and Aug 9 appear on first page
+      }
+
       // Reset to first page
       currentViewportIndex = 0;
 
