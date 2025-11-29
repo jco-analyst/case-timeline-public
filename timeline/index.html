@@ -859,9 +859,9 @@
     .diagram-modal {
       position: fixed;
       top: 50%;
-      right: calc(50% - 440px);
-      transform: translate(100%, -52%) scale(0.95);
-      width: 420px;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      width: 750px;
       max-height: 95vh;
       background: var(--bg-card);
       border-radius: 12px;
@@ -874,7 +874,7 @@
 
     .diagram-modal.open {
       opacity: 1;
-      transform: translate(100%, -52%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
       pointer-events: all;
     }
 
@@ -3457,10 +3457,10 @@
       const canvas = document.getElementById('diagram-canvas');
       const ctx = canvas.getContext('2d');
 
-      // Set canvas size (smaller for minimalistic design)
+      // Set canvas size for four-quadrant layout
       const modalWidth = document.querySelector('.diagram-modal').offsetWidth;
-      const width = Math.min(modalWidth - 50, 370);
-      const height = 580;
+      const width = modalWidth - 50;
+      const height = 520;
       canvas.width = width;
       canvas.height = height;
 
@@ -3535,11 +3535,12 @@
         ctx.fill();
       }
 
-      const boxWidth = width - 40;
-      const boxHeight = 75;
+      // Four-quadrant layout
+      const gap = 30;
+      const boxWidth = (width - gap) / 2 - 30;
+      const boxHeight = 85;
       const centerX = width / 2;
-      const startY = 15;
-      let currentY = startY;
+      const centerY = height / 2 - 80;
 
       const neutralBg1 = isDark ? '#2d3748' : '#ffffff';
       const neutralBg2 = isDark ? '#1a202c' : '#f7fafc';
@@ -3548,54 +3549,54 @@
       const problemBg1 = isDark ? '#742a2a' : '#fff5f5';
       const problemBg2 = isDark ? '#9b2c2c' : '#fed7d7';
 
-      // Step 1: Work ends, must remember
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+      // Top-left: Work Ends
+      const topLeftX = centerX - gap/2 - boxWidth;
+      const topLeftY = centerY - gap/2 - boxHeight;
+      drawBox(topLeftX, topLeftY, boxWidth, boxHeight,
         '⏰', 'Work Ends', 'Must remember to submit later', neutralBg1, neutralBg2, 'rgba(102, 126, 234, 0.3)');
-      currentY += boxHeight + 15;
-      drawArrow(centerX, currentY - 12, centerX, currentY + 3, '#667eea');
-      currentY += 10;
 
-      // Step 2: System locks
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+      // Top-right: System Locks
+      const topRightX = centerX + gap/2;
+      const topRightY = centerY - gap/2 - boxHeight;
+      drawBox(topRightX, topRightY, boxWidth, boxHeight,
         '🔒', 'Forgets → Lockout (3 days)', 'System blocks all submissions', warningBg1, warningBg2, '#ed8936');
-      currentY += boxHeight + 15;
-      drawArrow(centerX, currentY - 12, centerX, currentY + 3, '#ed8936');
-      currentY += 10;
 
-      // Step 3: Boss delays
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+      // Bottom-left: Boss Delays
+      const bottomLeftX = centerX - gap/2 - boxWidth;
+      const bottomLeftY = centerY + gap/2;
+      drawBox(bottomLeftX, bottomLeftY, boxWidth, boxHeight,
         '⏱️', 'Boss Takes Days to Unlock', 'Employee misses payroll', warningBg1, warningBg2, '#ed8936');
-      currentY += boxHeight + 15;
-      drawArrow(centerX, currentY - 12, centerX, currentY + 3, '#f56565');
-      currentY += 10;
 
-      // Step 4: Disciplined
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+      // Bottom-right: Employee Disciplined
+      const bottomRightX = centerX + gap/2;
+      const bottomRightY = centerY + gap/2;
+      drawBox(bottomRightX, bottomRightY, boxWidth, boxHeight,
         '📋', 'Employee Disciplined', 'Blamed for system failure', problemBg1, problemBg2, '#f56565');
-      currentY += boxHeight + 20;
 
-      // Loop arrow
-      ctx.strokeStyle = '#f56565';
-      ctx.lineWidth = 2;
-      ctx.setLineDash([5, 3]);
-      ctx.beginPath();
-      ctx.moveTo(centerX, currentY - 15);
-      ctx.lineTo(centerX + boxWidth/2 + 15, currentY - 15);
-      ctx.lineTo(centerX + boxWidth/2 + 15, startY + 35);
-      ctx.lineTo(centerX + boxWidth/2, startY + 35);
-      ctx.stroke();
-      ctx.setLineDash([]);
+      // Arrows connecting the boxes
+      // Top-left to top-right
+      drawArrow(topLeftX + boxWidth, topLeftY + boxHeight/2, topRightX - 5, topRightY + boxHeight/2, '#667eea');
 
-      // Loop text
-      ctx.font = 'bold 10px Roboto, sans-serif';
+      // Top-right to bottom-right
+      drawArrow(topRightX + boxWidth/2, topRightY + boxHeight, topRightX + boxWidth/2, bottomRightY - 5, '#ed8936');
+
+      // Bottom-right to bottom-left
+      drawArrow(bottomRightX - 5, bottomRightY + boxHeight/2, bottomLeftX + boxWidth, bottomLeftY + boxHeight/2, '#f56565');
+
+      // Bottom-left to top-left (completing the cycle)
+      drawArrow(bottomLeftX + boxWidth/2, bottomLeftY - 5, topLeftX + boxWidth/2, topLeftY + boxHeight, '#ed8936');
+
+      // "REPEATS" text in the center
+      ctx.font = 'bold 12px Roboto, sans-serif';
       ctx.fillStyle = '#f56565';
-      ctx.textAlign = 'right';
-      ctx.fillText('REPEATS', centerX + boxWidth/2 + 12, currentY - 20);
+      ctx.textAlign = 'center';
+      ctx.fillText('REPEATS', centerX, centerY + 10);
 
-      // Irony box
-      currentY += 15;
+      // Irony box at bottom
+      const ironyY = bottomLeftY + boxHeight + 25;
+      const ironyWidth = width - 30;
       const ironyHeight = 95;
-      const ironyGrad = createGradient(centerX - boxWidth/2, currentY, boxWidth, ironyHeight,
+      const ironyGrad = createGradient(15, ironyY, ironyWidth, ironyHeight,
         isDark ? 'rgba(102, 126, 234, 0.15)' : 'rgba(102, 126, 234, 0.08)',
         isDark ? 'rgba(118, 75, 162, 0.15)' : 'rgba(118, 75, 162, 0.08)');
 
@@ -3605,7 +3606,7 @@
       ctx.strokeStyle = 'rgba(102, 126, 234, 0.4)';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.roundRect(centerX - boxWidth/2, currentY, boxWidth, ironyHeight, 10);
+      ctx.roundRect(15, ironyY, ironyWidth, ironyHeight, 10);
       ctx.fill();
       ctx.stroke();
       ctx.shadowColor = 'transparent';
@@ -3617,7 +3618,7 @@
       titleGrad.addColorStop(1, '#764ba2');
       ctx.fillStyle = titleGrad;
       ctx.textAlign = 'center';
-      ctx.fillText('THE IRONY', centerX, currentY + 22);
+      ctx.fillText('THE IRONY', centerX, ironyY + 22);
 
       ctx.font = '10px Roboto, sans-serif';
       ctx.fillStyle = textColor;
@@ -3629,7 +3630,7 @@
         '• Then disciplined Employee'
       ];
       points.forEach((point, i) => {
-        ctx.fillText(point, centerX - boxWidth/2 + 15, currentY + 42 + (i * 14));
+        ctx.fillText(point, 30, ironyY + 42 + (i * 14));
       });
     }
 
