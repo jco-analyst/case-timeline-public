@@ -847,20 +847,21 @@
 
     /* Adjust side panel when diagram is open */
     .side-panel.with-diagram {
-      left: calc(50% - 440px);
-      transform: translate(-100%, -52%) scale(0.95);
+      right: calc(50% + 10px);
+      left: auto;
+      transform: translate(0, -52%) scale(0.95);
     }
 
     .side-panel.with-diagram.open {
-      transform: translate(-100%, -52%) scale(1);
+      transform: translate(0, -52%) scale(1);
     }
 
     /* Timecard System Diagram Modal */
     .diagram-modal {
       position: fixed;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.95);
+      left: calc(50% + 10px);
+      transform: translate(0, -50%) scale(0.95);
       width: 750px;
       max-height: 95vh;
       background: var(--bg-card);
@@ -874,7 +875,7 @@
 
     .diagram-modal.open {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translate(0, -50%) scale(1);
       pointer-events: all;
     }
 
@@ -3553,13 +3554,13 @@
       const topLeftX = centerX - gap/2 - boxWidth;
       const topLeftY = centerY - gap/2 - boxHeight;
       drawBox(topLeftX, topLeftY, boxWidth, boxHeight,
-        '⏰', 'Work Ends', 'Must remember to submit later', neutralBg1, neutralBg2, 'rgba(102, 126, 234, 0.3)');
+        '⏰', 'Work Ends', 'Must remember to submit after work hours', neutralBg1, neutralBg2, 'rgba(102, 126, 234, 0.3)');
 
       // Top-right: System Locks
       const topRightX = centerX + gap/2;
       const topRightY = centerY - gap/2 - boxHeight;
       drawBox(topRightX, topRightY, boxWidth, boxHeight,
-        '🔒', 'Forgets → Lockout (3 days)', 'System blocks all submissions', warningBg1, warningBg2, '#ed8936');
+        '🔒', 'Forgets → Lockout (3 days)', 'System blocks all further submissions', warningBg1, warningBg2, '#ed8936');
 
       // Bottom-left: Boss Delays
       const bottomLeftX = centerX - gap/2 - boxWidth;
@@ -3624,9 +3625,9 @@
       ctx.fillStyle = textColor;
       ctx.textAlign = 'left';
       const points = [
-        '• Boss "notoriously bad" at timecards',
-        '• Boss was written up himself',
-        '• Boss took job to avoid timecards',
+        '• Manager John was written up himself when he was a field hand',
+        '• Manager John "notoriously bad" at timecards',
+        '• Manager John took job to avoid timecards',
         '• Then disciplined Employee'
       ];
       points.forEach((point, i) => {
