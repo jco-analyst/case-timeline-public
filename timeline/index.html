@@ -3614,25 +3614,26 @@
       ctx.shadowColor = 'transparent';
       ctx.shadowBlur = 0;
 
-      ctx.font = 'bold 13px Roboto, sans-serif';
+      ctx.font = 'bold 12px Roboto, sans-serif';
       const titleGrad = ctx.createLinearGradient(0, 0, width, 0);
       titleGrad.addColorStop(0, '#667eea');
       titleGrad.addColorStop(1, '#764ba2');
       ctx.fillStyle = titleGrad;
       ctx.textAlign = 'center';
-      ctx.fillText('THE IRONY', centerX, ironyY + 22);
+      ctx.fillText('WHAT THE EMPLOYER ADMITTED', centerX, ironyY + 20);
 
-      ctx.font = '10px Roboto, sans-serif';
+      ctx.font = '9px Roboto, sans-serif';
       ctx.fillStyle = textColor;
       ctx.textAlign = 'left';
       const points = [
-        '• Manager John was written up himself when he was a field hand',
-        '• Manager John "notoriously bad" at timecards',
-        '• Manager John took job to avoid timecards',
-        '• Then disciplined Employee'
+        '• Feb 21 write-up: "waiting for approval to unlock timecards"',
+        '  → Employer admitted manager delays were part of problem',
+        '• Zero training provided on timecard system',
+        '• Manager unlock delays: days, not hours - had to physically remind him',
+        '• Manager John admitted: written up himself, "notoriously bad" at timecards'
       ];
       points.forEach((point, i) => {
-        ctx.fillText(point, 30, ironyY + 42 + (i * 14));
+        ctx.fillText(point, 25, ironyY + 38 + (i * 12));
       });
     }
 
