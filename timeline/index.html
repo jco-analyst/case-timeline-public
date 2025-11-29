@@ -845,46 +845,56 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
+    /* Adjust side panel when diagram is open */
+    .side-panel.with-diagram {
+      left: calc(50% - 440px);
+      transform: translate(-100%, -52%) scale(0.95);
+    }
+
+    .side-panel.with-diagram.open {
+      transform: translate(-100%, -52%) scale(1);
+    }
+
     /* Timecard System Diagram Modal */
     .diagram-modal {
       position: fixed;
-      top: 0;
-      right: 0;
-      width: 50%;
-      max-width: 700px;
-      height: 100vh;
+      top: 50%;
+      right: calc(50% - 440px);
+      transform: translate(100%, -52%) scale(0.95);
+      width: 420px;
+      max-height: 95vh;
       background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
       z-index: 2100;
-      transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
 
     .diagram-modal.open {
-      transform: translateX(0);
+      opacity: 1;
+      transform: translate(100%, -52%) scale(1);
+      pointer-events: all;
     }
 
     .diagram-container {
-      flex: 1;
-      padding: 30px 25px;
+      padding: 25px;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
+      max-height: 95vh;
     }
 
     .diagram-close {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
+      top: 15px;
+      right: 15px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border: none;
       color: white;
-      font-size: 24px;
+      font-size: 18px;
       font-weight: 300;
       cursor: pointer;
       display: flex;
@@ -901,15 +911,14 @@
     }
 
     .diagram-header {
-      margin-bottom: 25px;
-      padding-top: 20px;
+      margin-bottom: 20px;
     }
 
     .diagram-title {
-      font-size: 26px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 8px;
+      margin-bottom: 5px;
       line-height: 1.3;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       -webkit-background-clip: text;
@@ -918,10 +927,9 @@
     }
 
     .diagram-subtitle {
-      font-size: 14px;
+      font-size: 11px;
       color: var(--text-secondary);
       font-style: italic;
-      letter-spacing: 0.3px;
     }
 
     #diagram-canvas {
@@ -3174,7 +3182,10 @@
 
       // Special case: Show timecard diagram for event ID 4 (Disciplinary Record 1A)
       if (event.id === 4) {
+        panel.classList.add('with-diagram');
         showDiagramModal();
+      } else {
+        panel.classList.remove('with-diagram');
       }
 
       // Set header
@@ -3446,10 +3457,10 @@
       const canvas = document.getElementById('diagram-canvas');
       const ctx = canvas.getContext('2d');
 
-      // Set canvas size (responsive to modal width)
+      // Set canvas size (smaller for minimalistic design)
       const modalWidth = document.querySelector('.diagram-modal').offsetWidth;
-      const width = Math.min(modalWidth - 60, 640);
-      const height = 1100;
+      const width = Math.min(modalWidth - 50, 370);
+      const height = 580;
       canvas.width = width;
       canvas.height = height;
 
@@ -3470,203 +3481,155 @@
         return grad;
       }
 
-      // Helper: Draw modern box with shadow
-      function drawBox(x, y, w, h, text, subtext = '', bgColor1, bgColor2, borderGrad = null) {
-        // Shadow
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
-        ctx.shadowBlur = 8;
-        ctx.shadowOffsetY = 4;
+      // Helper: Draw modern box
+      function drawBox(x, y, w, h, icon, text, subtext, bgColor1, bgColor2, borderColor) {
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.08)';
+        ctx.shadowBlur = 6;
+        ctx.shadowOffsetY = 3;
 
-        // Box with gradient
         ctx.fillStyle = createGradient(x, y, w, h, bgColor1, bgColor2);
-        ctx.strokeStyle = borderGrad || 'rgba(102, 126, 234, 0.3)';
+        ctx.strokeStyle = borderColor;
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.roundRect(x, y, w, h, 12);
+        ctx.roundRect(x, y, w, h, 10);
         ctx.fill();
         ctx.stroke();
 
         ctx.shadowColor = 'transparent';
         ctx.shadowBlur = 0;
 
-        // Main text
-        ctx.font = 'bold 14px Roboto, sans-serif';
-        ctx.fillStyle = textColor;
+        // Icon
+        ctx.font = '24px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText(text, x + w/2, y + (subtext ? 28 : 35));
+        ctx.fillText(icon, x + w/2, y + 30);
+
+        // Main text
+        ctx.font = 'bold 13px Roboto, sans-serif';
+        ctx.fillStyle = textColor;
+        ctx.fillText(text, x + w/2, y + 50);
 
         // Subtext
         if (subtext) {
-          ctx.font = '11px Roboto, sans-serif';
+          ctx.font = '10px Roboto, sans-serif';
           ctx.fillStyle = isDark ? '#a0aec0' : '#718096';
-          ctx.fillText(subtext, x + w/2, y + 45);
+          ctx.fillText(subtext, x + w/2, y + 65);
         }
       }
 
-      // Helper: Draw modern arrow
-      function drawArrow(x1, y1, x2, y2, colorStart, colorEnd) {
-        const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-        grad.addColorStop(0, colorStart);
-        grad.addColorStop(1, colorEnd);
-
-        ctx.strokeStyle = grad;
+      // Helper: Draw arrow
+      function drawArrow(x1, y1, x2, y2, color) {
+        ctx.strokeStyle = color;
         ctx.lineWidth = 2.5;
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.stroke();
 
-        // Arrowhead
         const angle = Math.atan2(y2 - y1, x2 - x1);
-        ctx.fillStyle = colorEnd;
+        ctx.fillStyle = color;
         ctx.beginPath();
         ctx.moveTo(x2, y2);
-        ctx.lineTo(x2 - 10 * Math.cos(angle - Math.PI/6), y2 - 10 * Math.sin(angle - Math.PI/6));
-        ctx.lineTo(x2 - 10 * Math.cos(angle + Math.PI/6), y2 - 10 * Math.sin(angle + Math.PI/6));
+        ctx.lineTo(x2 - 8 * Math.cos(angle - Math.PI/6), y2 - 8 * Math.sin(angle - Math.PI/6));
+        ctx.lineTo(x2 - 8 * Math.cos(angle + Math.PI/6), y2 - 8 * Math.sin(angle + Math.PI/6));
         ctx.closePath();
         ctx.fill();
       }
 
-      const boxWidth = Math.min(width - 40, 560);
-      const boxHeight = 60;
+      const boxWidth = width - 40;
+      const boxHeight = 75;
       const centerX = width / 2;
-      const startY = 20;
+      const startY = 15;
       let currentY = startY;
 
       const neutralBg1 = isDark ? '#2d3748' : '#ffffff';
       const neutralBg2 = isDark ? '#1a202c' : '#f7fafc';
-      const problemBg1 = isDark ? '#742a2a' : '#fff5f5';
-      const problemBg2 = isDark ? '#9b2c2c' : '#fed7d7';
       const warningBg1 = isDark ? '#7c2d12' : '#fffbeb';
       const warningBg2 = isDark ? '#9a3412' : '#fef3c7';
+      const problemBg1 = isDark ? '#742a2a' : '#fff5f5';
+      const problemBg2 = isDark ? '#9b2c2c' : '#fed7d7';
 
-      const arrowNormal = isDark ? '#667eea' : '#667eea';
-      const arrowWarning = '#f56565';
-
-      // Step 1
+      // Step 1: Work ends, must remember
       drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '👷 Employee Works Shift', '7:30 AM - 4:30 PM', neutralBg1, neutralBg2);
+        '⏰', 'Work Ends', 'Must remember to submit later', neutralBg1, neutralBg2, 'rgba(102, 126, 234, 0.3)');
+      currentY += boxHeight + 15;
+      drawArrow(centerX, currentY - 12, centerX, currentY + 3, '#667eea');
+      currentY += 10;
+
+      // Step 2: System locks
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        '🔒', 'Forgets → Lockout (3 days)', 'System blocks all submissions', warningBg1, warningBg2, '#ed8936');
+      currentY += boxHeight + 15;
+      drawArrow(centerX, currentY - 12, centerX, currentY + 3, '#ed8936');
+      currentY += 10;
+
+      // Step 3: Boss delays
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        '⏱️', 'Boss Takes Days to Unlock', 'Employee misses payroll', warningBg1, warningBg2, '#ed8936');
+      currentY += boxHeight + 15;
+      drawArrow(centerX, currentY - 12, centerX, currentY + 3, '#f56565');
+      currentY += 10;
+
+      // Step 4: Disciplined
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        '📋', 'Employee Disciplined', 'Blamed for system failure', problemBg1, problemBg2, '#f56565');
       currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowNormal, arrowNormal);
-      currentY += 14;
-
-      // Step 2
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '❌ Cannot Submit During Work', 'Must wait until AFTER shift ends', problemBg1, problemBg2, '#f56565');
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowNormal, arrowNormal);
-      currentY += 14;
-
-      // Step 3
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '💰 Goes Home - Unpaid Time', 'Must remember on own time', neutralBg1, neutralBg2);
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowNormal, arrowNormal);
-      currentY += 14;
-
-      // Step 4
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '❓ Forgets?', '', neutralBg1, neutralBg2);
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowNormal, arrowWarning);
-      currentY += 14;
-
-      // Step 5
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '🔒 Automatic Lockout: 3 Days', 'System locks timecard', warningBg1, warningBg2, '#ed8936');
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowWarning, arrowWarning);
-      currentY += 14;
-
-      // Step 6
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '⚠️ Cascading Failure', 'ONE locked card blocks ALL future submissions', problemBg1, problemBg2, '#f56565');
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowWarning, arrowWarning);
-      currentY += 14;
-
-      // Step 7
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '📧 Request Unlock From Boss', 'Only Boss can unlock', neutralBg1, neutralBg2);
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowNormal, arrowWarning);
-      currentY += 14;
-
-      // Step 8
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '⏱️ Boss Delays: Days, Not Hours', 'Boss forgets, takes days to unlock', warningBg1, warningBg2, '#ed8936');
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowWarning, arrowWarning);
-      currentY += 14;
-
-      // Step 9
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '💸 Misses Payroll Deadline', 'Boss\'s delay pushes past cutoff', problemBg1, problemBg2, '#f56565');
-      currentY += boxHeight + 20;
-      drawArrow(centerX, currentY - 16, centerX, currentY + 4, arrowWarning, arrowWarning);
-      currentY += 14;
-
-      // Step 10
-      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
-        '📋 Employee Gets Disciplined', 'Blamed for Boss\'s delays', problemBg1, problemBg2, '#f56565');
-      currentY += boxHeight + 30;
 
       // Loop arrow
-      ctx.strokeStyle = arrowWarning;
+      ctx.strokeStyle = '#f56565';
       ctx.lineWidth = 2;
-      ctx.setLineDash([6, 4]);
+      ctx.setLineDash([5, 3]);
       ctx.beginPath();
-      ctx.moveTo(centerX, currentY - 16);
-      ctx.lineTo(centerX + boxWidth/2 + 20, currentY - 16);
-      ctx.lineTo(centerX + boxWidth/2 + 20, startY + 30);
-      ctx.lineTo(centerX + boxWidth/2, startY + 30);
+      ctx.moveTo(centerX, currentY - 15);
+      ctx.lineTo(centerX + boxWidth/2 + 15, currentY - 15);
+      ctx.lineTo(centerX + boxWidth/2 + 15, startY + 35);
+      ctx.lineTo(centerX + boxWidth/2, startY + 35);
       ctx.stroke();
       ctx.setLineDash([]);
 
       // Loop text
-      ctx.font = 'bold 12px Roboto, sans-serif';
-      ctx.fillStyle = arrowWarning;
-      ctx.textAlign = 'center';
-      ctx.fillText('LOOP REPEATS', centerX + boxWidth/2 + 20, currentY);
+      ctx.font = 'bold 10px Roboto, sans-serif';
+      ctx.fillStyle = '#f56565';
+      ctx.textAlign = 'right';
+      ctx.fillText('REPEATS', centerX + boxWidth/2 + 12, currentY - 20);
 
       // Irony box
-      currentY += 35;
-      const ironyHeight = 110;
+      currentY += 15;
+      const ironyHeight = 95;
       const ironyGrad = createGradient(centerX - boxWidth/2, currentY, boxWidth, ironyHeight,
         isDark ? 'rgba(102, 126, 234, 0.15)' : 'rgba(102, 126, 234, 0.08)',
         isDark ? 'rgba(118, 75, 162, 0.15)' : 'rgba(118, 75, 162, 0.08)');
 
-      ctx.shadowColor = 'rgba(102, 126, 234, 0.2)';
-      ctx.shadowBlur = 12;
+      ctx.shadowColor = 'rgba(102, 126, 234, 0.15)';
+      ctx.shadowBlur = 8;
       ctx.fillStyle = ironyGrad;
-      ctx.strokeStyle = 'rgba(102, 126, 234, 0.5)';
+      ctx.strokeStyle = 'rgba(102, 126, 234, 0.4)';
       ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.roundRect(centerX - boxWidth/2, currentY, boxWidth, ironyHeight, 12);
+      ctx.roundRect(centerX - boxWidth/2, currentY, boxWidth, ironyHeight, 10);
       ctx.fill();
       ctx.stroke();
       ctx.shadowColor = 'transparent';
       ctx.shadowBlur = 0;
 
-      ctx.font = 'bold 15px Roboto, sans-serif';
+      ctx.font = 'bold 13px Roboto, sans-serif';
       const titleGrad = ctx.createLinearGradient(0, 0, width, 0);
       titleGrad.addColorStop(0, '#667eea');
       titleGrad.addColorStop(1, '#764ba2');
       ctx.fillStyle = titleGrad;
       ctx.textAlign = 'center';
-      ctx.fillText('THE IRONY', centerX, currentY + 25);
+      ctx.fillText('THE IRONY', centerX, currentY + 22);
 
-      ctx.font = '12px Roboto, sans-serif';
+      ctx.font = '10px Roboto, sans-serif';
       ctx.fillStyle = textColor;
       ctx.textAlign = 'left';
       const points = [
         '• Boss "notoriously bad" at timecards',
         '• Boss was written up himself',
-        '• Boss took manager job to avoid timecards',
-        '• Boss then disciplined Employee for same issue'
+        '• Boss took job to avoid timecards',
+        '• Then disciplined Employee'
       ];
       points.forEach((point, i) => {
-        ctx.fillText(point, centerX - boxWidth/2 + 20, currentY + 50 + (i * 18));
+        ctx.fillText(point, centerX - boxWidth/2 + 15, currentY + 42 + (i * 14));
       });
     }
 
