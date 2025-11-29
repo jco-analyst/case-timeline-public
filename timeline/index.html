@@ -3562,24 +3562,24 @@
       drawBox(topRightX, topRightY, boxWidth, boxHeight,
         '🔒', 'Forgets → Lockout (3 days)', 'System blocks all further submissions', warningBg1, warningBg2, '#ed8936');
 
-      // Bottom-left: Boss Delays
+      // Bottom-left: Employee Disciplined
       const bottomLeftX = centerX - gap/2 - boxWidth;
       const bottomLeftY = centerY + gap/2;
       drawBox(bottomLeftX, bottomLeftY, boxWidth, boxHeight,
-        '⏱️', 'Boss Takes Days to Unlock', 'Employee misses payroll', warningBg1, warningBg2, '#ed8936');
+        '📋', 'Employee Disciplined', 'Blamed for system failure', problemBg1, problemBg2, '#f56565');
 
-      // Bottom-right: Employee Disciplined
+      // Bottom-right: Boss Delays
       const bottomRightX = centerX + gap/2;
       const bottomRightY = centerY + gap/2;
       drawBox(bottomRightX, bottomRightY, boxWidth, boxHeight,
-        '📋', 'Employee Disciplined', 'Blamed for system failure', problemBg1, problemBg2, '#f56565');
+        '⏱️', 'Boss Takes Days to Unlock', 'Employee misses payroll', warningBg1, warningBg2, '#ed8936');
 
       // Arrows connecting the boxes
       // Top-left to top-right
       drawArrow(topLeftX + boxWidth, topLeftY + boxHeight/2, topRightX - 5, topRightY + boxHeight/2, '#667eea');
 
       // Top-right to bottom-right
-      drawArrow(topRightX + boxWidth/2, topRightY + boxHeight, topRightX + boxWidth/2, bottomRightY - 5, '#ed8936');
+      drawArrow(topRightX + boxWidth/2, topRightY + boxHeight, bottomRightX + boxWidth/2, bottomRightY - 5, '#ed8936');
 
       // Bottom-right to bottom-left
       drawArrow(bottomRightX - 5, bottomRightY + boxHeight/2, bottomLeftX + boxWidth, bottomLeftY + boxHeight/2, '#f56565');
