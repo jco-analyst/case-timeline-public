@@ -845,6 +845,83 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
 
+    /* Timecard System Diagram Modal */
+    .diagram-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .diagram-modal.open {
+      display: flex;
+    }
+
+    .diagram-container {
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow: auto;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .diagram-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      z-index: 10;
+    }
+
+    .diagram-close:hover {
+      transform: scale(1.1);
+      background: #e74c3c;
+      color: white;
+      border-color: #e74c3c;
+    }
+
+    .diagram-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .diagram-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    #diagram-canvas {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
     /* Navigation Arrows */
     .nav-arrow {
       position: fixed;
@@ -971,6 +1048,16 @@
     <button class="timecard-close" id="timecard-close" aria-label="Close timecards">×</button>
     <div class="timecard-content" id="timecard-content">
       <!-- Timecard images will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Timecard System Diagram Modal -->
+  <div class="diagram-modal" id="diagram-modal">
+    <div class="diagram-container">
+      <button class="diagram-close" id="diagram-close" aria-label="Close diagram">×</button>
+      <h2 class="diagram-title">How The Timecard System Actually Works</h2>
+      <p class="diagram-subtitle">(And Why It Was Designed to Fail)</p>
+      <canvas id="diagram-canvas"></canvas>
     </div>
   </div>
 
@@ -1105,6 +1192,9 @@
       applyTheme(newTheme);
       updateThemeIcon(newTheme);
       localStorage.setItem('theme', newTheme);
+
+      // Notify diagram modal to redraw if open
+      window.dispatchEvent(new Event('themeChanged'));
     }
 
     function applyTheme(theme) {
@@ -1288,6 +1378,7 @@
       setupLatenessButtons();
       setupNavigationButtons();
       setupTimecardViewer();
+      setupDiagramModal();
 
       // Initialize with filtered events
       console.log('🔍 DEBUG: Current view:', currentView);
@@ -3070,6 +3161,11 @@
       const panel = document.getElementById('side-panel');
       const overlay = document.getElementById('panel-overlay');
 
+      // Special case: Show timecard diagram for event ID 4 (Disciplinary Record 1A)
+      if (event.id === 4) {
+        showDiagramModal();
+      }
+
       // Set header
       document.getElementById('panel-title').textContent = event.text;
 
@@ -3330,6 +3426,245 @@
       timecardModal.addEventListener('click', (e) => {
         if (e.target === timecardModal) {
           timecardModal.classList.remove('open');
+        }
+      });
+    }
+
+    // Setup and draw timecard system diagram
+    function drawTimecardDiagram() {
+      const canvas = document.getElementById('diagram-canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Set canvas size (responsive)
+      const width = Math.min(840, window.innerWidth - 100);
+      const height = 1100;
+      canvas.width = width;
+      canvas.height = height;
+
+      // Check if dark mode
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const textColor = isDark ? '#e0e0e0' : '#333';
+      const bgColor = isDark ? '#3a3a3a' : '#ffffff';
+      const boxColor = isDark ? '#2b2b2b' : '#f8f9fa';
+      const borderColor = isDark ? '#555' : '#ddd';
+      const arrowColor = isDark ? '#999' : '#666';
+      const warningColor = '#e74c3c';
+      const lockColor = '#e67e22';
+
+      // Clear canvas
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, width, height);
+
+      // Helper: Draw rounded box
+      function drawBox(x, y, w, h, text, subtext = '', color = boxColor, icon = '') {
+        ctx.fillStyle = color;
+        ctx.strokeStyle = borderColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(x, y, w, h, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        // Icon
+        if (icon) {
+          ctx.font = 'bold 20px Arial';
+          ctx.fillStyle = textColor;
+          ctx.textAlign = 'left';
+          ctx.fillText(icon, x + 12, y + 30);
+        }
+
+        // Main text
+        ctx.font = 'bold 15px Roboto, Arial';
+        ctx.fillStyle = textColor;
+        ctx.textAlign = 'center';
+        const lines = text.split('\n');
+        lines.forEach((line, i) => {
+          ctx.fillText(line, x + w/2, y + (icon ? 40 : 30) + (i * 20));
+        });
+
+        // Subtext
+        if (subtext) {
+          ctx.font = '12px Roboto, Arial';
+          ctx.fillStyle = isDark ? '#b0b0b0' : '#666';
+          ctx.fillText(subtext, x + w/2, y + (icon ? 40 : 30) + (lines.length * 20) + 8);
+        }
+      }
+
+      // Helper: Draw arrow
+      function drawArrow(x1, y1, x2, y2, color = arrowColor) {
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineWidth = 3;
+
+        // Line
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+
+        // Arrowhead
+        const angle = Math.atan2(y2 - y1, x2 - x1);
+        const headlen = 12;
+        ctx.beginPath();
+        ctx.moveTo(x2, y2);
+        ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI/6), y2 - headlen * Math.sin(angle - Math.PI/6));
+        ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI/6), y2 - headlen * Math.sin(angle + Math.PI/6));
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      const boxWidth = 600;
+      const boxHeight = 70;
+      const centerX = width / 2;
+      const startY = 30;
+      let currentY = startY;
+
+      // Step 1: Work shift
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'EMPLOYEE WORKS SHIFT', '7:30 AM - 4:30 PM', boxColor, '👷');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, arrowColor);
+      currentY += 15;
+
+      // Step 2: Cannot submit during work
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'CANNOT SUBMIT DURING WORK ❌', 'Must wait until AFTER shift ends', '#ffe5e5');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, arrowColor);
+      currentY += 15;
+
+      // Step 3: Goes home - unpaid time
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'GOES HOME - UNPAID TIME 💰', 'Must remember on own time', boxColor);
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, arrowColor);
+      currentY += 15;
+
+      // Step 4: Forgets?
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'FORGETS?', '', boxColor, '❓');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, arrowColor);
+      currentY += 15;
+
+      // Step 5: Automatic lockout
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'AUTOMATIC LOCKOUT: 3 DAYS 🔒', 'System locks timecard', '#fff3cd', '⚠️');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, lockColor);
+      currentY += 15;
+
+      // Step 6: Cascading failure
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'CASCADING FAILURE', 'ONE locked card blocks ALL future submissions', '#ffe5e5');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, lockColor);
+      currentY += 15;
+
+      // Step 7: Request unlock from boss
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'REQUEST UNLOCK FROM BOSS 📧', 'Only Boss can unlock', boxColor);
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, arrowColor);
+      currentY += 15;
+
+      // Step 8: Boss delays
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'BOSS DELAYS: DAYS, NOT HOURS ⏱️', 'Boss forgets, takes days to unlock', '#fff3cd', '⏳');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, warningColor);
+      currentY += 15;
+
+      // Step 9: Misses payroll deadline
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'MISSES PAYROLL DEADLINE 💸', 'Boss\'s delay pushes past cutoff', '#ffe5e5');
+      currentY += boxHeight + 30;
+      drawArrow(centerX, currentY - 25, centerX, currentY + 5, warningColor);
+      currentY += 15;
+
+      // Step 10: Employee gets disciplined
+      drawBox(centerX - boxWidth/2, currentY, boxWidth, boxHeight,
+        'EMPLOYEE GETS DISCIPLINED 📋', 'Blamed for Boss\'s delays', '#ffe5e5');
+      currentY += boxHeight + 30;
+
+      // Draw loop arrow back to top
+      ctx.strokeStyle = warningColor;
+      ctx.lineWidth = 3;
+      ctx.setLineDash([8, 4]);
+      ctx.beginPath();
+      ctx.moveTo(centerX, currentY - 10);
+      ctx.lineTo(centerX + 320, currentY - 10);
+      ctx.lineTo(centerX + 320, startY + boxHeight/2);
+      ctx.lineTo(centerX + boxWidth/2 + 10, startY + boxHeight/2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // "LOOP REPEATS" text
+      ctx.font = 'bold 14px Roboto, Arial';
+      ctx.fillStyle = warningColor;
+      ctx.textAlign = 'center';
+      ctx.fillText('[LOOP REPEATS]', centerX + 240, currentY + 10);
+
+      // Bottom irony box
+      currentY += 50;
+      const ironyBoxHeight = 120;
+      ctx.fillStyle = isDark ? '#2d2d2d' : '#f0f7ff';
+      ctx.strokeStyle = '#3498db';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.roundRect(centerX - boxWidth/2, currentY, boxWidth, ironyBoxHeight, 8);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.font = 'bold 16px Roboto, Arial';
+      ctx.fillStyle = '#3498db';
+      ctx.textAlign = 'center';
+      ctx.fillText('THE IRONY:', centerX, currentY + 30);
+
+      ctx.font = '13px Roboto, Arial';
+      ctx.fillStyle = textColor;
+      ctx.textAlign = 'left';
+      const ironyPoints = [
+        '• Boss "notoriously bad" at timecards',
+        '• Boss was written up himself',
+        '• Boss took manager job "so he would never have to do',
+        '  time cards ever again"',
+        '• Boss then disciplined Employee for same issue'
+      ];
+      ironyPoints.forEach((point, i) => {
+        ctx.fillText(point, centerX - boxWidth/2 + 20, currentY + 55 + (i * 16));
+      });
+    }
+
+    function showDiagramModal() {
+      const modal = document.getElementById('diagram-modal');
+      modal.classList.add('open');
+      drawTimecardDiagram();
+    }
+
+    function hideDiagramModal() {
+      const modal = document.getElementById('diagram-modal');
+      modal.classList.remove('open');
+    }
+
+    function setupDiagramModal() {
+      const diagramClose = document.getElementById('diagram-close');
+      const diagramModal = document.getElementById('diagram-modal');
+
+      // Close button
+      diagramClose.addEventListener('click', hideDiagramModal);
+
+      // Close on outside click
+      diagramModal.addEventListener('click', (e) => {
+        if (e.target === diagramModal) {
+          hideDiagramModal();
+        }
+      });
+
+      // Redraw on theme change
+      window.addEventListener('themeChanged', () => {
+        if (diagramModal.classList.contains('open')) {
+          drawTimecardDiagram();
         }
       });
     }
